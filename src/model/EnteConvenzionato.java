@@ -40,8 +40,8 @@ public class EnteConvenzionato implements UserInterface
 		super();
 		this.email = email;
 		this.name = name;
-		this.surname=null;
-		this.sex =' ';
+		this.surname=surname;
+		this.sex = sex;
 		this.password = password;
 		this.userType = userType;
 		this.dataDiNascita = dataDiNascita;
