@@ -19,7 +19,7 @@ public class EnteConvenzionato implements UserInterface
 	private String rappresentante;
 	private String referente;
 	private String telefono;
-	private short dipendenti;
+	private int dipendenti;
 	private String dotRiferimento;
 	private String tipoTirocinio;
 	private String descrizioneAttivita;
@@ -34,7 +34,7 @@ public class EnteConvenzionato implements UserInterface
 								char sex, String password, int userType, 
 								String dataDiNascita,String partitaIva, String sede, 
 								String rappresentante, String referente, String telefono, 
-								short dipendenti, String dotRiferimento, String tipoTirocinio,
+								int dipendenti, String dotRiferimento, String tipoTirocinio,
 								String descrizioneAttivita )
 	{
 		super();
@@ -273,7 +273,7 @@ public class EnteConvenzionato implements UserInterface
 	 * Restituisce il Numero di Dipendenti dell'Ente Convenzionato
 	 * @return dipendenti
 	 */
-	public short getDipendenti() 
+	public int getDipendenti() 
 	{
 		return dipendenti;
 	}
@@ -282,7 +282,7 @@ public class EnteConvenzionato implements UserInterface
 	 * Imposta il Numero di Dipendenti per l'Ente Convenzionato
 	 * @param dipendenti
 	 */
-	public void setDipendenti(short dipendenti)
+	public void setDipendenti(int dipendenti)
 	{
 		this.dipendenti = dipendenti;
 	}

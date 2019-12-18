@@ -163,7 +163,7 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
 				null, ' ', "123456",
 				3,dataDiNascita,partitaIva,
 				sede, rappresentante, referente,
-				telefono, Short.parseShort(dipendenti), dotRiferimento, "TE",
+				telefono, Integer.parseInt(dipendenti), dotRiferimento, "TE",
 				descrizioneAttivita);
 		/**
 		 * Inserimento nel DB
