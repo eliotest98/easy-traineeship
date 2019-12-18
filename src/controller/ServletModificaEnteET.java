@@ -16,16 +16,19 @@ import model.EnteConvenzionato;
  * Servlet implementation class ServletRegistazioneEnteET
  */
 @WebServlet("/ServletRegistazioneEnteET")
-public class ServletModificaEnteET extends HttpServlet {
+public class ServletModificaEnteET extends HttpServlet 
+{
 	private static final long serialVersionUID = 1L;
 	
 	EnteConvenzionatoDAO enteConDao = new EnteConvenzionatoDAO();
 	String mess= null;
       
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
 		/**
 		 * Controllo autenticazione tramite parametro in sessione (1 = Segreteria)
 		 */
@@ -39,7 +42,7 @@ public class ServletModificaEnteET extends HttpServlet {
 		String name = request.getParameter("name");
         if (name.length() == 0)
         {
-        	throw new IllegalArgumentException("Il campo Nome Ente è vuoto");
+        	throw new IllegalArgumentException("Il campo Nome Ente ï¿½ vuoto");
         }
         else if (name.length() > 64)
         {
@@ -53,7 +56,7 @@ public class ServletModificaEnteET extends HttpServlet {
       	String rappresentante = request.getParameter("rappresentante");
         if (rappresentante.length() == 0)
         {
-        	throw new IllegalArgumentException("Il campo Nome Rappresentante è vuoto");
+        	throw new IllegalArgumentException("Il campo Nome Rappresentante ï¿½ vuoto");
         }
         else if (rappresentante.length() > 64)
         {
@@ -79,7 +82,7 @@ public class ServletModificaEnteET extends HttpServlet {
         String dotRiferimento = request.getParameter("dotRiferimento");
         if (dotRiferimento.length() == 0)
         {
-        	throw new IllegalArgumentException("Il campo Professore di Riferimento è vuoto");
+        	throw new IllegalArgumentException("Il campo Professore di Riferimento ï¿½ vuoto");
         }
         else if (dotRiferimento.length() > 64)
         {
@@ -109,7 +112,7 @@ public class ServletModificaEnteET extends HttpServlet {
         String sede = request.getParameter("sede");
         if (sede.length() == 0)
         {
-        	throw new IllegalArgumentException("Il campo sede è vuoto");
+        	throw new IllegalArgumentException("Il campo sede ï¿½ vuoto");
         }
         else if (sede.length() > 64)
         {
@@ -123,7 +126,7 @@ public class ServletModificaEnteET extends HttpServlet {
         String referente = request.getParameter("referente");
         if (referente.length() == 0)
         {
-        	throw new IllegalArgumentException("Il campo Referente Tirocini è vuoto");
+        	throw new IllegalArgumentException("Il campo Referente Tirocini ï¿½ vuoto");
         }
         else if (referente.length() > 64)
         {
@@ -144,11 +147,11 @@ public class ServletModificaEnteET extends HttpServlet {
         String descrizioneAttivita = request.getParameter("descrizioneAttivita");
         if (descrizioneAttivita.length() == 0)
         {
-        	throw new IllegalArgumentException("Il campo Descrizione delle Attività è vuoto");
+        	throw new IllegalArgumentException("Il campo Descrizione delle Attivitï¿½ ï¿½ vuoto");
         }
         else if (descrizioneAttivita.length() > 256)
         {
-        	throw new IllegalArgumentException("Il campo Descrizione delle Attività supera la lunghezza consentita");
+        	throw new IllegalArgumentException("Il campo Descrizione delle Attivitï¿½ supera la lunghezza consentita");
         }
         //Controllo Partita IVA
         String partitaIva = request.getParameter("partitaIva");
@@ -173,10 +176,10 @@ public class ServletModificaEnteET extends HttpServlet {
 		{
 			if (!enteConDao.modificaEnte(enteCon)) 
 			{
-				throw new IllegalArgumentException("La registrazione non è stata effettuata");
+				throw new IllegalArgumentException("La registrazione non ï¿½ stata effettuata");
 			}else 
 			{ 
-				request.setAttribute("La modifica è avvenuta con successo", mess);
+				request.setAttribute("La modifica ï¿½ avvenuta con successo", mess);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("ModificaEnteET.jsp"); //Controlla jsp
 				dispatcher.forward(request, response);
 			}
