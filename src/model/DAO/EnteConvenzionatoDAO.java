@@ -87,7 +87,9 @@ public class EnteConvenzionatoDAO {
 													+ "VALUES (?, ?, 3)");
 			psUser.setString(1, enteConvenzionato.getEmail());
 			psUser.setString(2, enteConvenzionato.getName());
-
+			
+			if((psEnteConvenzionato.executeUpdate()==1)&&(psUser.executeUpdate()==1))	
+				return true;
 			
 		} 
 		catch (SQLException e) 
@@ -147,6 +149,8 @@ public class EnteConvenzionatoDAO {
 				psUser.setString(1, enteConvenzionato.getName());
 				psUser.setString(2, enteConvenzionato.getEmail());
 
+				if((psEnteConvenzionato.executeUpdate()==1)&&(psUser.executeUpdate()==1))	
+					return true;
 			}
 		} 
 		catch (SQLException e) 
@@ -181,6 +185,8 @@ public class EnteConvenzionatoDAO {
 			psUser= con.prepareStatement("UPDATE USER"
 										+ "SET PASSWORD ="+password+""
 										+ "WHERE EMAIL = "+email+";");
+			if(psUser.executeUpdate()==1)	
+				return true;
 		} 
 		catch (SQLException e) 
 		{
