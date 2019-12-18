@@ -6,3 +6,4 @@ src/controller/DbConnection.java
 /*.springBeans
 /bin/
 /build/
+/*.checkstyle
