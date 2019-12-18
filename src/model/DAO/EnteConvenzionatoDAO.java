@@ -21,7 +21,7 @@ public class EnteConvenzionatoDAO {
 			con= new DbConnection().getInstance().getConn();
 			
 			ps= con.prepareStatement("SELECT * "
-									+ "FROM ENTECONVENZIONATO, USER"
+									+ "FROM ENTECONVENZIONATO, USER "
 									+ "WHERE ENTECONVENZIONATO.EMAIL=USER.EMAIL");
 			ResultSet res = ps.executeQuery();
 			
