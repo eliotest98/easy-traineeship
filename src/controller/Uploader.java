@@ -3,18 +3,15 @@ package controller;
 import java.io.*;
 import java.sql.Timestamp;
 import java.util.*;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.SystemAttribute;
-
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-
 import org.json.simple.JSONObject;
 
 
@@ -33,6 +30,7 @@ public class Uploader extends HttpServlet {
 
   /**
    * constructor.
+   * 
    * @see HttpServlet#HttpServlet()
    */
   public Uploader() {
@@ -42,6 +40,7 @@ public class Uploader extends HttpServlet {
 
   /**
    * method doGet.
+   * 
    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
    */
   public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -51,6 +50,7 @@ public class Uploader extends HttpServlet {
 
   /**
    * method doPost.
+   * 
    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
    */
   @SuppressWarnings({"unchecked", "unused", "rawtypes"})
@@ -62,8 +62,8 @@ public class Uploader extends HttpServlet {
 
 
 
-    filePath = new SystemAttribute().getValueByKey("request-upload-path")
-        + "\\" + request.getSession().getAttribute("idRequest") + "\\";
+    filePath = new SystemAttribute().getValueByKey("request-upload-path") + "\\"
+        + request.getSession().getAttribute("idRequest") + "\\";
     File file = new File(filePath);
     if (!file.exists()) {
       if (!file.mkdir()) {

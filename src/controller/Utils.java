@@ -12,7 +12,8 @@ import javax.servlet.http.HttpSession;
 import model.SystemAttribute;
 
 public class Utils {
-  public Utils() {}
+  public Utils() {
+  }
 
   /**
    * Exposes the function to encrypt the password.
@@ -40,6 +41,7 @@ public class Utils {
 
   /**
    * method getRequestState.
+   * 
    * @param idRequest id request
    * @return idState
    */
@@ -67,6 +69,7 @@ public class Utils {
 
   /**
    * method getLastUserRequestPartiallyCompleted.
+   * 
    * @param s session.
    * @return idRequest
    */
