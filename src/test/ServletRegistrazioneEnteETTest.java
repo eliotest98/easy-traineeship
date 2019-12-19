@@ -44,7 +44,7 @@ class ServletRegistrazioneEnteETTest {
 		when(requestMock.getParameter("name")).thenReturn("");
 		ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-		assertEquals("Il campo Nome Ente ï¿½ vuoto",e.getMessage());
+		assertEquals("Il campo 'Nome Ente' &egrave vuoto",e.getMessage());
 	}
 	
 	//Test case TC_GA_7.02: Campo Nome troppo lungo
@@ -53,7 +53,7 @@ class ServletRegistrazioneEnteETTest {
 		when(requestMock.getParameter("name")).thenReturn("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-		assertEquals("Il campo Nome Ente supera la lunghezza consentita",e.getMessage());
+		assertEquals("Il campo 'Nome Ente' supera la lunghezza consentita",e.getMessage());
 	}
 	
 	//Test case TC_GA_7.03: Campo Nome non rispetta il formato
@@ -62,7 +62,7 @@ class ServletRegistrazioneEnteETTest {
 		when(requestMock.getParameter("name")).thenReturn("GreenTech@");
 		ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-		assertEquals("Il campo Nome Ente non rispetta il formato",e.getMessage());
+		assertEquals("Il campo 'Nome Ente' non rispetta il formato",e.getMessage());
 	}
 		
 	//Test case TC_GA_7.04: Campo Rappresentante vuoto
@@ -72,7 +72,7 @@ class ServletRegistrazioneEnteETTest {
 		when(requestMock.getParameter("rappresentante")).thenReturn("");
 		ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-		assertEquals("Il campo Nome Rappresentante ï¿½ vuoto",e.getMessage());
+		assertEquals("Il campo 'Nome Rappresentante' &egrave vuoto",e.getMessage());
 	}
 		
 	//Test case TC_GA_7.05: Campo Rappresentante troppo lungo
@@ -82,7 +82,7 @@ class ServletRegistrazioneEnteETTest {
 		when(requestMock.getParameter("rappresentante")).thenReturn("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-		assertEquals("Il campo Nome Rappresentante supera la lunghezza consentita",e.getMessage());
+		assertEquals("Il campo 'Nome Rappresentante' supera la lunghezza consentita",e.getMessage());
 	}
 		
 	//Test case TC_GA_7.06: Campo Rappresentante non rispetta il formato
@@ -92,7 +92,7 @@ class ServletRegistrazioneEnteETTest {
 		when(requestMock.getParameter("rappresentante")).thenReturn("Fabio Napolitano@");
 		ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-		assertEquals("Il campo Nome Rappresentante non rispetta il formato",e.getMessage());
+		assertEquals("Il campo 'Nome Rappresentante' non rispetta il formato",e.getMessage());
 	}
 	
 	//Test case TC_GA_7.07: Campo Campo Data di Nascita non rispetta il formato
@@ -103,7 +103,7 @@ class ServletRegistrazioneEnteETTest {
 			when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/19798");
 			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-			assertEquals("Il campo Data di Nascita non rispetta il formato",e.getMessage());
+			assertEquals("Il campo 'Data di Nascita' non rispetta il formato",e.getMessage());
 		}
 			
 		//Test case TC_GA_7.08: Campo Numero Di Dipedenti troppo lungo
@@ -115,7 +115,7 @@ class ServletRegistrazioneEnteETTest {
 			when(requestMock.getParameter("dipendenti")).thenReturn("100°");
 			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-			assertEquals("Il campo Numero di Dipendenti non rispetta il formato",e.getMessage());
+			assertEquals("Il campo 'Numero di Dipendenti' non rispetta il formato",e.getMessage());
 		}
 			
 		//Test case TC_GA_7.09: Campo Professore di Riferimento vuoto
@@ -128,7 +128,7 @@ class ServletRegistrazioneEnteETTest {
 			when(requestMock.getParameter("dotRiferimento")).thenReturn("");
 			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-			assertEquals("Il campo Professore di Riferimento ï¿½ vuoto",e.getMessage());
+			assertEquals("Il campo 'Professore di Riferimento' &egrave vuoto",e.getMessage());
 		}
 		
 		//Test case TC_GA_7.10: Campo Professore di Riferimento troppo lungo
@@ -141,7 +141,7 @@ class ServletRegistrazioneEnteETTest {
 			when(requestMock.getParameter("dotRiferimento")).thenReturn("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-			assertEquals("Il campo Professore di Riferimento supera la lunghezza consentita",e.getMessage());
+			assertEquals("Il campo 'Professore di Riferimento' supera la lunghezza consentita",e.getMessage());
 		}
 		//Test case TC_GA_7.11: Campo Professore di Riferimento non rispetta il formato
 		@Test
@@ -153,7 +153,7 @@ class ServletRegistrazioneEnteETTest {
 			when(requestMock.getParameter("dotRiferimento")).thenReturn("Gravino Carm43ne");
 			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-			assertEquals("Il campo Professore di Riferimento non rispetta il formato",e.getMessage());
+			assertEquals("Il campo 'Professore di Riferimento' non rispetta il formato",e.getMessage());
 		}
 		
 		//Test case TC_GA_7.12: Campo E-mail vuoto
@@ -167,7 +167,7 @@ class ServletRegistrazioneEnteETTest {
 				when(requestMock.getParameter("email")).thenReturn("");
 				ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
 				IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-				assertEquals("Il campo 'E-mail' è vuoto",e.getMessage());
+				assertEquals("Il campo 'E-mail' &egrave vuoto",e.getMessage());
 			}
 				
 		//Test case TC_GA_7.13: Campo E-mail troppo lungo
@@ -210,7 +210,7 @@ class ServletRegistrazioneEnteETTest {
 				when(requestMock.getParameter("sede")).thenReturn("");
 				ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
 				IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-				assertEquals("Il campo sede ï¿½ vuoto",e.getMessage());
+				assertEquals("Il campo 'Sede' &egrave vuoto",e.getMessage());
 			}
 						
 		//Test case TC_GA_7.16: Campo Sede troppo lungo
@@ -225,7 +225,7 @@ class ServletRegistrazioneEnteETTest {
 			when(requestMock.getParameter("sede")).thenReturn("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-			assertEquals("Il campo sede supera la lunghezza consentita",e.getMessage());
+			assertEquals("Il campo 'Sede' supera la lunghezza consentita",e.getMessage());
 		}
 		
 		//Test case TC_GA_7.17: Campo Sede non rispetta il formato
@@ -241,7 +241,7 @@ class ServletRegistrazioneEnteETTest {
 			
 			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-			assertEquals("Il campo sede non rispetta il formato",e.getMessage());
+			assertEquals("Il campo 'Sede' non rispetta il formato",e.getMessage());
 		}
 		
 		//Test case TC_GA_7.18: Campo Referente Tirocini vuoto
@@ -257,7 +257,7 @@ class ServletRegistrazioneEnteETTest {
 				when(requestMock.getParameter("referente")).thenReturn("");
 				ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
 				IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-				assertEquals("Il campo Referente Tirocini ï¿½ vuoto",e.getMessage());
+				assertEquals("Il campo 'Referente Tirocini' &egrave vuoto",e.getMessage());
 			}
 				
 		//Test case TC_GA_7.19: Campo Referente Tirocini troppo lungo
@@ -273,7 +273,7 @@ class ServletRegistrazioneEnteETTest {
 			when(requestMock.getParameter("referente")).thenReturn("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-			assertEquals("Il campo Referente Tirocini supera la lunghezza consentita",e.getMessage());
+			assertEquals("Il campo 'Referente Tirocini' supera la lunghezza consentita",e.getMessage());
 		}
 		
 		//Test case TC_GA_7.20: Campo Referente Tirocini non rispetta il formato
@@ -289,7 +289,7 @@ class ServletRegistrazioneEnteETTest {
 			when(requestMock.getParameter("referente")).thenReturn("Pasqualina Montuori432");
 			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-			assertEquals("Il campo Referente Tirocini non rispetta il formato",e.getMessage());
+			assertEquals("Il campo 'Referente Tirocini' non rispetta il formato",e.getMessage());
 		}
 		
 		//Test case TC_GA_7.21: Campo Telefono non rispetta il formato
@@ -306,7 +306,7 @@ class ServletRegistrazioneEnteETTest {
 			when(requestMock.getParameter("telefono")).thenReturn("012345678910");
 			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-			assertEquals("Il campo Numero di Telefono non rispetta il formato",e.getMessage());
+			assertEquals("Il campo 'Numero di Telefono' non rispetta il formato",e.getMessage());
 		}
 				
 		//Test case TC_GA_7.22: Campo Descrizione Attività vuoto
@@ -324,7 +324,7 @@ class ServletRegistrazioneEnteETTest {
 			when(requestMock.getParameter("descrizioneAttivita")).thenReturn("");
 			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-			assertEquals("Il campo Descrizione delle Attivitï¿½ ï¿½ vuoto",e.getMessage());
+			assertEquals("Il campo 'Descrizione delle Attivit&agrave' &egrave vuoto",e.getMessage());
 		}
 		
 		//Test case TC_GA_7.23: Campo Descrizione Attività troppo lungo
@@ -342,7 +342,7 @@ class ServletRegistrazioneEnteETTest {
 			when(requestMock.getParameter("descrizioneAttivita")).thenReturn("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-			assertEquals("Il campo Descrizione delle Attivitï¿½ supera la lunghezza consentita",e.getMessage());
+			assertEquals("Il campo 'Descrizione delle Attivit&agrave' supera la lunghezza consentita",e.getMessage());
 		}
 		
 		//Test case TC_GA_7.24: Campo Partita IVA non rispetta il formato
@@ -363,7 +363,7 @@ class ServletRegistrazioneEnteETTest {
 			when(requestMock.getParameter("partitaIva")).thenReturn("01234");
 			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-			assertEquals("Il campo Partita IVA non rispetta il formato",e.getMessage());
+			assertEquals("Il campo 'Partita IVA' non rispetta il formato",e.getMessage());
 		}
 		
 		//Test case TC_GA_7.25: Registrazione Ente effettuata correttamente
