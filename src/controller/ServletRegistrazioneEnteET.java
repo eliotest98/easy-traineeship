@@ -35,7 +35,6 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
       return;
     }
     // Controllo nome ente
-    System.out.println("Entro");
     String name = request.getParameter("name");
     if (name.length() == 0) {
       throw new IllegalArgumentException("Il campo Nome Ente ï¿½ vuoto");
@@ -71,7 +70,7 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
     } else if (dotRiferimento.length() > 64) {
       throw new IllegalArgumentException(
           "Il campo Professore di Riferimento supera la lunghezza consentita");
-    } else if (dotRiferimento.matches("^[ a-zA-Z]+$")) {
+    } else if (!dotRiferimento.matches("^[ a-zA-Z]+$")) {
       throw new IllegalArgumentException(
           "Il campo Professore di Riferimento non rispetta il formato");
     }
@@ -84,9 +83,15 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
       prefix = email.substring(0, email.indexOf("@"));
       postfix = email.substring(email.indexOf("@"), email.length());
     }
-    if (email.length() == 0 || !postfix.matches("@[A-z0-9\\.\\_\\-]+\\.[A-z]{2,6}")
-        || prefix.length() < 3) {
-      throw new IllegalArgumentException("Il campo e-mail non rispetta il formato");
+    
+    if (email.length() == 0) {
+    	throw new IllegalArgumentException("Il campo 'E-mail' è vuoto");
+    }
+    if (email.length() > 64) {
+    	throw new IllegalArgumentException("Il campo 'E-mail' supera la lunghezza consentita");
+    }
+    else if ((!postfix.matches("@[A-z0-9\\.\\_\\-]+\\.[A-z]{2,6}")) || (prefix.length() < 3)) {
+      throw new IllegalArgumentException("Il campo 'E-mail' non rispetta il formato");
     }
     // Controllo Sede
     String sede = request.getParameter("sede");
@@ -102,8 +107,7 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
     if (referente.length() == 0) {
       throw new IllegalArgumentException("Il campo Referente Tirocini ï¿½ vuoto");
     } else if (referente.length() > 64) {
-      throw new IllegalArgumentException(
-          "Il campo Referente Tirocini supera la lunghezza consentita");
+      throw new IllegalArgumentException("Il campo Referente Tirocini supera la lunghezza consentita");
     } else if (!referente.matches("^[ a-zA-Z]+$")) {
       throw new IllegalArgumentException("Il campo Referente Tirocini non rispetta il formato");
     }
@@ -123,28 +127,25 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
     }
     // Controllo Partita IVA
     String partitaIva = request.getParameter("partitaIva");
-    if (partitaIva.matches("^\\d{11}")) {
+    if (!partitaIva.matches("^\\d{11}")) {
       throw new IllegalArgumentException("Il campo Partita IVA non rispetta il formato");
     }
 
     /**
      * Istanziazione dell'oggetto EnteConvezionato.
      */
-    EnteConvenzionato enteCon = new EnteConvenzionato(email, name, null, ' ', "123456", 3,
+    EnteConvenzionato enteCon = new EnteConvenzionato(email, name, "NA", 'N', "123456", 3,
         dataDiNascita, partitaIva, sede, rappresentante, referente, telefono,
         Integer.parseInt(dipendenti), dotRiferimento, "TE", descrizioneAttivita);
     /**
      * Inserimento nel DB.
      */
     try {
-      if (!enteConDao.inserisciEnte(enteCon)) {
-        throw new IllegalArgumentException("La registrazione non ï¿½ stata effettuata");
-      } else {
-        request.setAttribute("La registrazione ï¿½ avvenuta con successo", mess);
-        // Controlla jsp
-        RequestDispatcher dispatcher = request.getRequestDispatcher("risultato.jsp"); 
-        dispatcher.forward(request, response);
-      }
+    	enteConDao.inserisciEnte(enteCon);
+    	 request.setAttribute("La registrazione ï¿½ avvenuta con successo", mess);
+         // Controlla jsp
+         RequestDispatcher dispatcher = request.getRequestDispatcher("risultato.jsp"); 
+         dispatcher.forward(request, response);
     } catch (Exception e) {
       e.printStackTrace();
     }
