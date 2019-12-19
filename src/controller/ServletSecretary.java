@@ -63,8 +63,8 @@ public class ServletSecretary extends HttpServlet {
     String sql = "";
 
     if (conn != null) {
-      Integer requestWorkingSecretary = Integer
-          .parseInt(new SystemAttribute().getValueByKey("request-working-secretary"));
+      Integer requestWorkingSecretary =
+          Integer.parseInt(new SystemAttribute().getValueByKey("request-working-secretary"));
 
       if (flag == 1) { // Preleva tutte le richieste
         try {
@@ -76,8 +76,7 @@ public class ServletSecretary extends HttpServlet {
               + "     INNER JOIN ente e ON r.fk_certifier = e.id_ente "
               + "     INNER JOIN state s ON r.fk_state = s.id_state "
               + "     INNER JOIN user u ON r.fk_user = u.email " + "WHERE s.id_state IN("
-              + requestWorkingSecretary
-              + ")";
+              + requestWorkingSecretary + ")";
           ResultSet r = stmtSelect.executeQuery(sql);
           if (r.wasNull()) {
             error = "Errore nell'esecuzione della Query";
@@ -97,12 +96,11 @@ public class ServletSecretary extends HttpServlet {
 
                 content += "<tr class='" + classe + "' role='row'>";
                 content += "    <td class='text-center'>" + r.getString("id_request") + "</td>";
-                //for attached 
-                content += "    <td class='text-center'>";                
+                // for attached
+                content += "    <td class='text-center'>";
                 int idRequest = r.getInt("id_request");
                 stmtSelectTwo = conn.createStatement();
-                sql = "SELECT a.filename AS filename "
-                    + "FROM attached a "
+                sql = "SELECT a.filename AS filename " + "FROM attached a "
                     + "WHERE a.fk_request = " + idRequest + ";";
                 ResultSet r2 = stmtSelectTwo.executeQuery(sql);
                 if (r2.wasNull()) {
@@ -115,17 +113,21 @@ public class ServletSecretary extends HttpServlet {
                     r2.beforeFirst();
                     while (r2.next()) {
                       if (i == countAttached) {
-                        content += "<a href='" + request.getContextPath() + "/Downloader?filename=" + r2.getString("filename") + "&idRequest=" + idRequest + "'>" + r2.getString("filename") + "</a>";
+                        content += "<a href='" + request.getContextPath() + "/Downloader?filename="
+                            + r2.getString("filename") + "&idRequest=" + idRequest + "'>"
+                            + r2.getString("filename") + "</a>";
                       } else {
-                        content += "<a href='" + request.getContextPath() + "/Downloader?filename=" + r2.getString("filename") + "&idRequest=" + idRequest + "'>" + r2.getString("filename") + "</a>" + " - ";
-                      }                        
+                        content += "<a href='" + request.getContextPath() + "/Downloader?filename="
+                            + r2.getString("filename") + "&idRequest=" + idRequest + "'>"
+                            + r2.getString("filename") + "</a>" + " - ";
+                      }
                       i++;
-                    }                      
+                    }
                   }
                 }
                 content += "    </td>";
                 content += "    <td class='text-center'>" + r.getString("serial") + "</td>";
-                
+
                 content += "<td class='text-center'>" + r.getString("name");
                 content +=
                     "  <button class=\"btn btn-primary btn-action changeName\" data-iduser=\""
@@ -135,24 +137,21 @@ public class ServletSecretary extends HttpServlet {
                 content += "<td class='text-center'>" + r.getString("surname");
                 content +=
                     "  <button class=\"btn btn-primary btn-action changeSurname\" data-iduser=\""
-                        + r.getString("user_email") + "\" data-surname=\""
-                        + r.getString("surname")
+                        + r.getString("user_email") + "\" data-surname=\"" + r.getString("surname")
                         + "\" title=\"Modifica Cognome\"><i class=\"fa fa-edit\"></i></button>";
                 content += "</td>";
-                
+
                 content +=
                     "    <td class='text-center'>" + r.getString("certificate_serial") + "</td>";
-                content += "<td>" 
-                    + "<input type=\"text\" class=\"form-control cfuToValidate\" "
+                content += "<td>" + "<input type=\"text\" class=\"form-control cfuToValidate\" "
                     + "value=\"" + r.getString("validated_cfu") + "\" "
-                    + "placeholder=\"Inserire i CFU gi&agrave; convalidati\""
-                    + " data-idRequest=\"" + r.getInt("id_request") + "\">";
+                    + "placeholder=\"Inserire i CFU gi&agrave; convalidati\"" + " data-idRequest=\""
+                    + r.getInt("id_request") + "\">";
 
                 content += "<button class=\"btn btn-primary btn-action saveCfu"
-                    + "\" title=\"Inserisci i CFU Convalidati\" data-idRequest=\"" 
-                    + r.getString("id_request")
-                    + "\"><i class=\"fa fa-edit\"></i></button>";
-                
+                    + "\" title=\"Inserisci i CFU Convalidati\" data-idRequest=\""
+                    + r.getString("id_request") + "\"><i class=\"fa fa-edit\"></i></button>";
+
                 content += "</td>";
 
                 content += "<td class='text-center'>";
@@ -160,30 +159,26 @@ public class ServletSecretary extends HttpServlet {
                     + "\" title=\"Inoltra all'admin\" data-idRequest=\"" + r.getString("id_request")
                     + "\" style='background-color: #149414; border-color: #149414;' "
                     + "><i class=\"fa fa-check\"></i></button>";
-                
+
                 content += "</td>";
-              }              
+              }
             } else {
-              content += "<tr>"
-              		+ "<td class=\"text-center\"" + "></td>"
-            		+ "<td class=\"text-center\"" + "></td>"
-            		+ "<td class=\"text-center\"" + "></td>"
-            		+ "<td class=\"text-center\"" + "></td>"
-              		+ "<td class=\"text-center\"" + "> Nessuna Richiesta Presente</td>"
-              		+ "<td class=\"text-center\"" + "></td>"
-            		+ "<td class=\"text-center\"" + "></td>"
-              		+ "<td class=\"text-center\"" + "></td>"
-              		+ "</tr>";
+              content += "<tr>" + "<td class=\"text-center\"" + "></td>"
+                  + "<td class=\"text-center\"" + "></td>" + "<td class=\"text-center\"" + "></td>"
+                  + "<td class=\"text-center\"" + "></td>" + "<td class=\"text-center\""
+                  + "> Nessuna Richiesta Presente</td>" + "<td class=\"text-center\"" + "></td>"
+                  + "<td class=\"text-center\"" + "></td>" + "<td class=\"text-center\"" + "></td>"
+                  + "</tr>";
             }
           }
         } catch (Exception e) {
           error += e.getMessage();
         }
 
-      } else if (flag == 2) { //Set cfu        
+      } else if (flag == 2) { // Set cfu
         Integer idRequest = Integer.parseInt(request.getParameter("idRequest"));
         Integer cfu = Integer.parseInt(request.getParameter("cfu"));
-        
+
         try {
           sql = " UPDATE request SET validated_cfu = ? WHERE id_request = ?; ";
           stmt = conn.prepareStatement(sql);
@@ -207,12 +202,12 @@ public class ServletSecretary extends HttpServlet {
         } catch (Exception e) {
           error += e.getMessage();
           result = 0;
-        }        
-      } else if (flag == 3) { //Inoltra all'admin        
+        }
+      } else if (flag == 3) { // Inoltra all'admin
         Integer idRequest = Integer.parseInt(request.getParameter("idRequest"));
-        Integer requestWorkingAdminState = Integer
-            .parseInt(new SystemAttribute().getValueByKey("request-working-admin"));
-        
+        Integer requestWorkingAdminState =
+            Integer.parseInt(new SystemAttribute().getValueByKey("request-working-admin"));
+
         try {
           sql = " UPDATE request SET fk_state = ? WHERE id_request = ?; ";
           stmt = conn.prepareStatement(sql);
@@ -236,8 +231,8 @@ public class ServletSecretary extends HttpServlet {
         } catch (Exception e) {
           error += e.getMessage();
           result = 0;
-        }        
-      }    
+        }
+      }
 
     } else {
       result = 0;

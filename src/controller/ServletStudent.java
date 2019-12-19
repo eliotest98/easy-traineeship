@@ -30,7 +30,7 @@ import org.json.simple.JSONObject;
 @WebServlet("/ServletStudent")
 public class ServletStudent extends HttpServlet {
   private static final long serialVersionUID = 1L;
- 
+
 
   /**
    * Constructor.
@@ -46,9 +46,9 @@ public class ServletStudent extends HttpServlet {
    * 
    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
    */
-  
- 
-  
+
+
+
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     doPost(request, response);
@@ -87,31 +87,30 @@ public class ServletStudent extends HttpServlet {
           throw new IllegalArgumentException("Formato non corretto");
         }
         String email = request.getParameter("email");
-        /*l'email � valida se la sua lunghezza � diversa da 0, 
-         * se non � presente nel DB e se rispetta il formato
-         * se finisce con @studenti.unisa.it
-        */
+        /*
+         * l'email � valida se la sua lunghezza � diversa da 0, se non � presente nel DB e se
+         * rispetta il formato se finisce con @studenti.unisa.it
+         */
         String prefix = "";
         if (email.length() > 0) {
           prefix = email.substring(0, email.indexOf("@"));
         }
-        if (email.length() == 0 
-            || !email.endsWith("@studenti.unisa.it") 
-            || prefix.length() < 3 || prefix.indexOf(".") == -1) {
+        if (email.length() == 0 || !email.endsWith("@studenti.unisa.it") || prefix.length() < 3
+            || prefix.indexOf(".") == -1) {
           throw new IllegalArgumentException("Formato non corretto");
         }
-        
+
         char sex = request.getParameter("sex").charAt(0);
         if (sex != 'M' && sex != 'F') {
           throw new IllegalArgumentException("Valore non corretto");
         }
 
-        //controlla la password prima di criptarla
+        // controlla la password prima di criptarla
         String pass = request.getParameter("password");
         if (pass.length() < 8) {
           throw new IllegalArgumentException("Formato non corretto");
         }
-        //qu� la password viene criptata per essere poi salvata nel db
+        // qu� la password viene criptata per essere poi salvata nel db
         String password = new Utils().generatePwd(pass);
         int userType = 0;
         UserInterface user = null;
@@ -159,16 +158,16 @@ public class ServletStudent extends HttpServlet {
           error += e.getMessage();
         }
       } else if (flag == 2) { // registrazione primo form in DB
-        
+
         String year = request.getParameter("year");
         if (year.length() == 0) {
           throw new IllegalArgumentException("Valore non corretto");
         }
-        /*da decidere se tenere o togliere
-        String graduation = request.getParameter("graduation");
-        */
+        /*
+         * da decidere se tenere o togliere String graduation = request.getParameter("graduation");
+         */
         int serial = Integer.parseInt(request.getParameter("serial"));
-        int length = (int)(Math.log10(serial)+1);						//calcola la lunghezza della matricola
+        int length = (int) (Math.log10(serial) + 1); // calcola la lunghezza della matricola
         if (length >= 10 || length < 9) {
           throw new IllegalArgumentException("Valore non corretto");
         }
@@ -196,12 +195,12 @@ public class ServletStudent extends HttpServlet {
         if (requestedCfu > 12) {
           throw new IllegalArgumentException("Valore non corretto");
         }
-        
-        
+
+
         UserInterface user = (UserInterface) request.getSession().getAttribute("user");
         int validatedCfu = 0;
         String idUser = user.getEmail();
-        
+
         int idState =
             Integer.parseInt(new SystemAttribute().getValueByKey("request-partially-completed"));
         try {
@@ -264,8 +263,7 @@ public class ServletStudent extends HttpServlet {
         }
       } else if (flag == 3) { // inserimento allegati in DB
         String[] filenames = request.getParameterValues("filenames[]");
-        if (filenames.length != 2 
-            || !filenames[0].endsWith(".pdf") 
+        if (filenames.length != 2 || !filenames[0].endsWith(".pdf")
             || !filenames[1].endsWith(".pdf")) {
           throw new IllegalArgumentException("Valore non corretto");
         }
@@ -318,17 +316,15 @@ public class ServletStudent extends HttpServlet {
         }
 
       } else if (flag == 4) { // Preleva tutte le richieste dello studente
-        UserInterface currUser = (UserInterface) request.getSession().getAttribute("user"); 
+        UserInterface currUser = (UserInterface) request.getSession().getAttribute("user");
         if (currUser != null) {
           String email = currUser.getEmail();
-          
+
           try {
             stmtSelect = conn.createStatement();
-            sql = "SELECT r.id_request, r.serial, s.description AS state "
-                + "FROM request r "
+            sql = "SELECT r.id_request, r.serial, s.description AS state " + "FROM request r "
                 + "     INNER JOIN state s ON r.fk_state = s.id_state "
-                + "     INNER JOIN user u ON r.fk_user = u.email " + "WHERE u.email = '"
-                + email
+                + "     INNER JOIN user u ON r.fk_user = u.email " + "WHERE u.email = '" + email
                 + "';";
             ResultSet r = stmtSelect.executeQuery(sql);
             if (r.wasNull()) {
@@ -351,11 +347,10 @@ public class ServletStudent extends HttpServlet {
                   content += "    <td class='text-center'>" + idRequest + "</td>";
                   content += "    <td class='text-center'>" + r.getString("serial") + "</td>";
                   content += "    <td class='text-center'>";
-                  
-                  
+
+
                   stmtSelectTwo = conn.createStatement();
-                  sql = "SELECT a.filename AS filename "
-                      + "FROM attached a "
+                  sql = "SELECT a.filename AS filename " + "FROM attached a "
                       + "WHERE a.fk_request = " + idRequest + ";";
                   ResultSet r2 = stmtSelectTwo.executeQuery(sql);
                   if (r2.wasNull()) {
@@ -368,36 +363,38 @@ public class ServletStudent extends HttpServlet {
                       r2.beforeFirst();
                       while (r2.next()) {
                         if (i == countAttached) {
-                          content += "<a href='" + request.getContextPath() + "/Downloader?filename=" + r2.getString("filename") + "&idRequest=" + idRequest + "'>" + r2.getString("filename") + "</a>";
+                          content += "<a href='" + request.getContextPath()
+                              + "/Downloader?filename=" + r2.getString("filename") + "&idRequest="
+                              + idRequest + "'>" + r2.getString("filename") + "</a>";
                         } else {
-                          content += "<a href='" + request.getContextPath() + "/Downloader?filename=" + r2.getString("filename") + "&idRequest=" + idRequest + "'>" + r2.getString("filename") + "</a>" + " - ";
-                        }                        
+                          content += "<a href='" + request.getContextPath()
+                              + "/Downloader?filename=" + r2.getString("filename") + "&idRequest="
+                              + idRequest + "'>" + r2.getString("filename") + "</a>" + " - ";
+                        }
                         i++;
-                      }                      
+                      }
                     }
                   }
-                  
+
                   content += "    </td>";
                   content += "    <td class='text-center'>" + r.getString("state") + "</td>";
                   content += "</tr>";
-                }              
+                }
               } else {
-                content += "<tr>"
-                		+ "<td class=\"text-center\"" + "></td>"
-                		+ "<td class=\"text-center\"" + "></td>"
-                		+ "<td class=\"text-center\"" + ">Nessuna Richiesta Presente</td>"
-                		+ "<td class=\"text-center\"" + "></td>"
-                		+ "</tr>";
+                content += "<tr>" + "<td class=\"text-center\"" + "></td>"
+                    + "<td class=\"text-center\"" + "></td>" + "<td class=\"text-center\""
+                    + ">Nessuna Richiesta Presente</td>" + "<td class=\"text-center\"" + "></td>"
+                    + "</tr>";
               }
             }
           } catch (Exception e) {
             result *= 0;
             error += e.getMessage();
-          }          
+          }
         } else {
           error += "Impossibile individuare l'utente.";
-        }         
-      }      
+        }
+      }
 
     } else {
       error += "Nessuna connessione al database.";

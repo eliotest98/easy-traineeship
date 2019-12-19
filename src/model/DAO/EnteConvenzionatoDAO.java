@@ -21,7 +21,7 @@ public class EnteConvenzionatoDAO {
 			con= new DbConnection().getInstance().getConn();
 			
 			ps= con.prepareStatement("SELECT * "
-									+ "FROM ENTECONVENZIONATO, USER"
+									+ "FROM ENTECONVENZIONATO, USER "
 									+ "WHERE ENTECONVENZIONATO.EMAIL=USER.EMAIL");
 			ResultSet res = ps.executeQuery();
 			
@@ -70,8 +70,16 @@ public class EnteConvenzionatoDAO {
 		{
 			con= new DbConnection().getInstance().getConn();
 			
+			psUser= con.prepareStatement("INSERT INTO USER(EMAIL, NAME, SURNAME, SEX, PASSWORD, USER_TYPE) "
+					+ "VALUES (?, ?, ?, ?, ?, 3)");
+			psUser.setString(1, enteConvenzionato.getEmail());
+			psUser.setString(2, enteConvenzionato.getName());
+			psUser.setString(3, enteConvenzionato.getSurname());
+			psUser.setString(4, " ");
+			psUser.setString(5, enteConvenzionato.getPassword());
+			
 			psEnteConvenzionato= con.prepareStatement("INSERT INTO ENTECONVENZIONATO(PARTITAIVA, SEDE, RAPPRESENTANTE,"
-														+ " TELEFONO, DIPENDENTI, DOTRIFERIMENTO"
+														+ " TELEFONO, DIPENDENTI, DOTRIFERIMENTO,"
 														+ "DESCRIZIONEATTIVITA, EMAIL) "
 														+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 			psEnteConvenzionato.setString(1, enteConvenzionato.getPartitaIva());
@@ -83,12 +91,9 @@ public class EnteConvenzionatoDAO {
 			psEnteConvenzionato.setString(7, enteConvenzionato.getDescrizioneAttivita());
 			psEnteConvenzionato.setString(8, enteConvenzionato.getEmail());	
 			
-			psUser= con.prepareStatement("INSERT INTO USER(EMAIL, NAME, USER_TYPE) "
-													+ "VALUES (?, ?, 3)");
-			psUser.setString(1, enteConvenzionato.getEmail());
-			psUser.setString(2, enteConvenzionato.getName());
 			
-			if((psEnteConvenzionato.executeUpdate()==1)&&(psUser.executeUpdate()==1))	
+			
+			if((psUser.executeUpdate()==1)&&(psEnteConvenzionato.executeUpdate()==1))	
 				return true;
 			
 		} 
@@ -127,10 +132,19 @@ public class EnteConvenzionatoDAO {
 			
 			if(update==false)	
 			{
-			
-				psEnteConvenzionato= con.prepareStatement("UPDATE ENTECONVENZIONATO"
+				psUser= con.prepareStatement("UPDATE USER "
+						+ ("SET EMAIL=?, NAME=?, SURNAME=?, SEX=?, PASSWORD=? ")
+						+ ("WHERE email = ?;"));
+				psUser.setString(1, enteConvenzionato.getEmail());
+				psUser.setString(2, enteConvenzionato.getName());
+				psUser.setString(3, enteConvenzionato.getSurname());
+				psUser.setString(4, " ");
+				psUser.setString(5, enteConvenzionato.getPassword());
+				psUser.setString(6, enteConvenzionato.getEmail());
+				
+				psEnteConvenzionato= con.prepareStatement("UPDATE ENTECONVENZIONATO "
 														+ "SET SEDE = ?, RAPPRESENTANTE = ?, TELEFONO = ?,"
-															+ "DIPENDENTI = ?, DOTRIFERIMENTO = ?"
+															+ "DIPENDENTI = ?, DOTRIFERIMENTO = ?, "
 															+ "DESCRIZIONEATTIVITA = ?, EMAIL = ? "
 															+ "WHERE PARTITAIVA=?;");
 				
@@ -143,31 +157,28 @@ public class EnteConvenzionatoDAO {
 				psEnteConvenzionato.setString(7, enteConvenzionato.getEmail());	
 				psEnteConvenzionato.setString(8, enteConvenzionato.getPartitaIva());
 				
-				psUser= con.prepareStatement("UPDATE USER"
-											+ "SET NAME = ?"
-											+ "WHERE EMAIL = ?;");
-				psUser.setString(1, enteConvenzionato.getName());
-				psUser.setString(2, enteConvenzionato.getEmail());
+				
 
-				if((psEnteConvenzionato.executeUpdate()==1)&&(psUser.executeUpdate()==1))	
+				if(((psUser.executeUpdate()==1)&&psEnteConvenzionato.executeUpdate()==1))
+					try 
+				{
+					psEnteConvenzionato.close();
+					psUser.close();
+				} 
+				catch (SQLException e)
+				{
+					e.printStackTrace();
+				}
 					return true;
+			}
+			else
+			{
+				return false;
 			}
 		} 
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
-		}
-		finally
-		{
-			try 
-			{
-				psEnteConvenzionato.close();
-				psUser.close();
-			} 
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
 		}
 		return false;	
 	}
@@ -182,9 +193,9 @@ public class EnteConvenzionatoDAO {
 		{
 			con= new DbConnection().getInstance().getConn();
 			
-			psUser= con.prepareStatement("UPDATE USER"
-										+ "SET PASSWORD ="+password+""
-										+ "WHERE EMAIL = "+email+";");
+			psUser= con.prepareStatement("UPDATE USER "
+										+ "SET PASSWORD ="+password 
+										+ " WHERE EMAIL = '"+email+"';");
 			if(psUser.executeUpdate()==1)	
 				return true;
 		} 
