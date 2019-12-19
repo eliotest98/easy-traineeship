@@ -75,14 +75,18 @@
       menu += "<li><a href=\"" + request.getContextPath() + "/index.jsp\">Benvenuto</a></li>";
     } else if (pageName.equals("index.jsp")) { //se ci troviamo in index.jsp
       menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
-          + "/index.jsp\">Benvenuto</a></li> <li class=\"current\"><a href=\"" + request.getContextPath()
+          + "/index.jsp\">Benvenuto</a></li> <li ><a href=\"" + request.getContextPath()
           + "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
     } else { //se ci troviamo in logout.jsp
       if (pageName.equals("logout.jsp") && ck.isAllowed()) {
         menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
             + "/logout.jsp\">Disconnetti</a></li>";
         menu += "<li><a href=\"" + request.getContextPath() + "/login.jsp\">Accedi</a></li>";
-      }
+      }else if (pageName.equals("VisualizzaEnteET.jsp")) { //se ci troviamo in index.jsp
+      menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
+          + "/VisualizzaEnteET.jsp\">Lista Enti</a></li> <li ><a href=\"" + request.getContextPath()
+          + "/index.jsp\">Benvenuto</a></li> ";
+    }
     }
   }
 
