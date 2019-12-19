@@ -31,7 +31,9 @@
       menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
           + "/viewRequest.jsp\">Richieste</a></li>";
       menu +=
-          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+          "<li><a href=\"" + request.getContextPath() + "/VisualizzaEnteET.jsp\">Lista Ente</a></li>";
+      menu +=
+              "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
     }
   } else if (pageFolder.equals("_areaStudent")) { //se stiamo in una pagina dell'area studente
 	 logoRedirect = request.getContextPath()+"/_areaStudent/viewRequest.jsp";
@@ -82,10 +84,9 @@
         menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
             + "/logout.jsp\">Disconnetti</a></li>";
         menu += "<li><a href=\"" + request.getContextPath() + "/login.jsp\">Accedi</a></li>";
-      }else if (pageName.equals("VisualizzaEnteET.jsp")) { //se ci troviamo in index.jsp
+      }else if (pageName.equals("VisualizzaEnteET.jsp")) { //se ci troviamo in visualizzaEnteET.jsp
       menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
-          + "/VisualizzaEnteET.jsp\">Lista Enti</a></li> <li ><a href=\"" + request.getContextPath()
-          + "/index.jsp\">Benvenuto</a></li> ";
+          + "/VisualizzaEnteET.jsp\">Lista Enti</a></li> <li ><a href=javascript:history.go(-1);>Indietro</a></li> ";
     }
     }
   }
