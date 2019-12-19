@@ -43,16 +43,6 @@ public class ServletListaEnteET extends HttpServlet
 			request.setAttribute("listaEnti", listaEnti);
 		}
 		
-		/*
-	    JSONObject res = new JSONObject();
-
-	    res.put("lista", listaEnti);
-
-	    PrintWriter out = response.getWriter();
-	    out.println(res);
-	    response.setContentType("json");
-	    */
-		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("VisualizzaEnteET.jsp");
 		dispatcher.forward(request, response);
 		

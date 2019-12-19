@@ -29,8 +29,7 @@ $(document)
 
 												$
 														.ajax({
-															url : absolutePath
-																	+ "/ServletStudent",
+															url : "/easy-traineeship/ServletStudent",
 															type : "POST",
 															dataType : 'JSON',
 															async : false,
