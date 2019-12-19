@@ -20,11 +20,11 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
   EnteConvenzionatoDAO enteConDao = new EnteConvenzionatoDAO();
   String mess = null;
 
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+  public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
   }
 
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+  public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     /**
      * Controllo autenticazione tramite parametro in sessione (1 = Segreteria).
@@ -35,6 +35,7 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
       return;
     }
     // Controllo nome ente
+    System.out.println("Entro");
     String name = request.getParameter("name");
     if (name.length() == 0) {
       throw new IllegalArgumentException("Il campo Nome Ente � vuoto");
