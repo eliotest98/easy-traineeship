@@ -13,7 +13,7 @@ import model.EnteConvenzionato;
 /**
  * Servlet implementation class ServletRegistazioneEnteET.
  */
-@WebServlet("/ServletRegistazioneEnteET")
+@WebServlet("/ServletModificaEnteET")
 public class ServletModificaEnteET extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
