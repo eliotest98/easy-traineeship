@@ -7,9 +7,11 @@
 	
 
 	CheckSession ck = new CheckSession(pageFolder, pageName, request.getSession());
+	String Segreteria=" ";
+	Segreteria = (String) session.getAttribute("Segreteria");
 	
-
-
+	//System.out.println("Segreteria: "+ Segreteria);
+	
 	ArrayList<EnteConvenzionato> listaEnti=new ArrayList<EnteConvenzionato>();
 	listaEnti=(ArrayList<EnteConvenzionato>)request.getAttribute("listaEnti");
 	
@@ -58,6 +60,14 @@
 												<th class="text-center" align="center">Referente</th>
 												<th class="text-center" align="center">E-Mail</th>
 												<th class="text-center" align="center">Telefono</th>
+												<%
+												if(Segreteria!=null)
+												{
+													%>
+													<th class="text-center" align="center">Azioni</th>
+													<%
+												}
+												%>
 												
 											</tr>
 										</thead>
@@ -74,6 +84,14 @@
 													<td class='text-center'><%=listaEnti.get(i).getReferente()%></td>
 													<td class='text-center'><%=listaEnti.get(i).getEmail()%></td>
 													<td class='text-center'><%=listaEnti.get(i).getTelefono()%></td>
+													<%
+													if(Segreteria!=null)
+													{
+														%>
+														<td class="text-center" align="center">Pulsante</td>
+														<%
+													}
+													%>
 												</tr>
 											<%
 											} %>

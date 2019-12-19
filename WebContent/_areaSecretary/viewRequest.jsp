@@ -8,6 +8,9 @@
 	if(!ck.isAllowed()){
 	  response.sendRedirect(request.getContextPath()+ck.getUrlRedirect());  
 	}
+	
+	HttpSession sessione = request.getSession();
+	sessione.setAttribute("Segreteria", "Segreteria");
 %>
 
 <!DOCTYPE html>
