@@ -37,7 +37,7 @@
                                     <p class="text-center">Compila tutti i campi per
                                         registrare un nuovo ente.</p>
                                 </div>
-                                <form id="signUp" action="/ServletRegistazioneEnteET" method="post">
+                                <form id="signUp" action="../ServletRegistrazioneEnteET" method="post">
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="name">Nome Ente</label>
                                         <input type="text" class="form-control" id="name" name="name"
@@ -75,7 +75,7 @@
                                     </div>
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="dataDiNascita">Data di Nascita del Rappresentante</label>
-                                        <input type="date" class="form-control"
+                                        <input type="text" class="form-control"
                                                placeholder="Data di Nascita" name="dataDiNascita" id="dataDiNascita" required>
                                     </div>
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -95,7 +95,7 @@
                                     </div>
                                     <div
                                             class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <button type="submit" class="btn btn-primary btn-submit">Registra Ente</button>
+                                        <input type="submit" class="btn btn-primary btn-submit" value="Registra Ente"></input>
                                     </div>
                                     <div class="clearfix"></div>
                                 </form>

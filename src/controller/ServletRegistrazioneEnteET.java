@@ -13,7 +13,7 @@ import model.EnteConvenzionato;
 /**
  * Servlet implementation class ServletRegistazioneEnteET.
  */
-@WebServlet("/ServletRegistazioneEnteET")
+@WebServlet("/ServletRegistrazioneEnteET")
 public class ServletRegistrazioneEnteET extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -29,8 +29,8 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
     /**
      * Controllo autenticazione tramite parametro in sessione (1 = Segreteria).
      */
-    String user = (String) request.getSession().getAttribute("user");
-    if ((user == null) || (!user.equals("1"))) {
+    String userET = (String) request.getSession().getAttribute("userET");
+    if ((userET == null) || (!userET.equals("1"))) {
       response.sendRedirect("login.jsp");
       return;
     }
@@ -140,7 +140,7 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
     	enteConDao.inserisciEnte(enteCon);
     	 request.setAttribute("La registrazione &egrave avvenuta con successo", mess);
          // Controlla jsp
-         RequestDispatcher dispatcher = request.getRequestDispatcher("risultato.jsp"); 
+         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp"); 
          dispatcher.forward(request, response);
     } catch (Exception e) {
       e.printStackTrace();

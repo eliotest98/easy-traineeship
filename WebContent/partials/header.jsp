@@ -32,6 +32,7 @@
           + "/viewRequest.jsp\">Richieste</a></li>";
       menu +=
           "<li><a href=\"" + request.getContextPath() + "/VisualizzaEnteET.jsp\">Lista Ente</a></li>";
+      menu += "<li><a href=\"" + request.getContextPath() + "/_areaSecretary/RegistrazioneEnteET.jsp\">Registra Ente</a></li> ";
       menu +=
               "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
     }
@@ -47,6 +48,7 @@
           + "/uploadAttached.jsp\">Carica Allegato</a></li>";
       menu += "<li><a href=\"" + request.getContextPath()
           + "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
+
       menu +=
           "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
     }
@@ -80,7 +82,8 @@
     } else if (pageName.equals("index.jsp")) { //se ci troviamo in index.jsp
       menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
           + "/index.jsp\">Benvenuto</a></li> <li ><a href=\"" + request.getContextPath()
-          + "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
+          + "/VisualizzaEnteET.jsp\">Lista Enti</a></li> <li ><a href=\"" + request.getContextPath()
+          + "/registrazioneEnteET.jsp\">Registra Ente</a></li> ";
     } else { //se ci troviamo in logout.jsp
       if (pageName.equals("logout.jsp") && ck.isAllowed()) {
         menu += "<li class=\"current\"><a href=\"" + request.getContextPath()

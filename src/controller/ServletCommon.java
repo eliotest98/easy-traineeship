@@ -79,6 +79,7 @@ public class ServletCommon extends HttpServlet {
           } else {
             int count = r.last() ? r.getRow() : 0;
             if (count == 1) {
+            	String userET=null;
               UserInterface user = null;
               String name = r.getString("name");
               String surname = r.getString("surname");
@@ -88,19 +89,23 @@ public class ServletCommon extends HttpServlet {
               if (userType == 0) { // Profilo Student
                 redirect = request.getContextPath() + "/_areaStudent/viewRequest.jsp";
                 user = new Student(email, name, surname, sex, password, userType);
+                userET="0";
               } else if (userType == 1) { // Profilo Secretary
                 redirect = request.getContextPath() + "/_areaSecretary/viewRequest.jsp";
                 user = new Secretary(email, name, surname, sex, password, userType);
+                userET="1";
               } else if (userType == 2) { // Profilo Admin
                 redirect = request.getContextPath() + "/_areaAdmin/viewRequest.jsp";
                 user = new Admin(email, name, surname, sex, password, userType);
+                userET="2";
               }
               else {
                 throw new NumberFormatException("utente non valido");
               }
 
               request.getSession().setAttribute("user", user);
-
+              request.getSession().setAttribute("userET", userET);
+              
               result = 1;
             } else {
               error = "Username o Password errati.";

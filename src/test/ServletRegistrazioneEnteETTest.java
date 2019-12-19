@@ -35,7 +35,7 @@ class ServletRegistrazioneEnteETTest {
 	@BeforeEach
 	public void setUp() {
 		when(requestMock.getSession()).thenReturn(sessionMock);
-		when(sessionMock.getAttribute("user")).thenReturn("1");
+		when(sessionMock.getAttribute("userET")).thenReturn("1");
 	}
 	
 	//Test case TC_GA_7.01: Campo Nome vuoto
@@ -385,6 +385,14 @@ class ServletRegistrazioneEnteETTest {
 			when(requestMock.getRequestDispatcher("risultato.jsp")).thenReturn(dispatcherMock);
 			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
 			test.doPost(requestMock, responseMock);
+			
+			try {
+				Statement stmtSelect = conn.createStatement();
+		    	stmtSelect.executeUpdate("DELETE FROM User WHERE EMAIL='greentech@gmail.com';");
+			}
+			catch (Exception e){
+				e.printStackTrace();
+			}
 		}
 		
 }
