@@ -22,7 +22,7 @@ public class ServletSceltaEnteET extends HttpServlet {
 <<<<<<< HEAD:src/controller/ServletInvioRichiestaEnteET.java
    *#HttpServlet().
    */
-  public ServletInvioRichiestaEnteET() {
+  public ServletSceltaEnteET() {
     super();
   }
 

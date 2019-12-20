@@ -16,8 +16,8 @@
 <body onLoad="">
 <div class="page-wrapper" id="InvioRichiestaET">
 
-    <!-- Preloader -->
-    <!-- <div class="preloader"></div>  -->
+    <!-- Preloader 
+    <div class="preloader"></div>-->
 
 
     <jsp:include page="/partials/header.jsp">
@@ -152,6 +152,9 @@
     </div>
     <jsp:include page="/partials/footer.jsp" />
 </div>
-  
+
+<!--End pagewrapper
+<jsp:include page="/partials/includes.jsp" />-->
+
 </body>
 </html>

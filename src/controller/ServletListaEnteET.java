@@ -33,7 +33,7 @@ public class ServletListaEnteET extends HttpServlet
 	   */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		
+
 		EnteConvenzionatoDAO ente= new EnteConvenzionatoDAO();  
 		//Array list di Enti convenzionati
 		ArrayList<EnteConvenzionato> listaEnti=new ArrayList<EnteConvenzionato>();
