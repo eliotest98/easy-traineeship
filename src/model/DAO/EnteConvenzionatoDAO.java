@@ -45,11 +45,12 @@ public class EnteConvenzionatoDAO {
 				purchase.setPartitaIva(res.getString("PARTITAIVA"));
 				purchase.setSede(res.getString("SEDE"));
 				purchase.setRappresentante(res.getString("RAPPRESENTANTE"));
+				purchase.setReferente(res.getString("REFERENTE"));
 				purchase.setTelefono(res.getString("TELEFONO"));
 				purchase.setDipendenti(res.getShort("DIPENDENTI"));
 				purchase.setDotRiferimento(res.getString("DOTRIFERIMENTO"));
 				purchase.setDescrizioneAttivita(res.getString("DESCRIZIONEATTIVITA"));
-				
+				purchase.setDataDiNascita(res.getString("DATANASCITA"));
 				listaEnti.add(purchase);//listaEnti
 			}
 		} 
@@ -100,17 +101,20 @@ public class EnteConvenzionatoDAO {
 			
 			//Insert per l'inserimento in 'EnteConvenzionato' dei dati parziali di 'EnteConvenzionato'
 			psEnteConvenzionato= con.prepareStatement("INSERT INTO ENTECONVENZIONATO(PARTITAIVA, SEDE, RAPPRESENTANTE,"
-														+ " TELEFONO, DIPENDENTI, DOTRIFERIMENTO,"
-														+ "DESCRIZIONEATTIVITA, EMAIL) "
-														+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+														+ " TELEFONO, DIPENDENTI, DOTRIFERIMENTO, REFERENTE,"
+														+ "DATANASCITA, DESCRIZIONEATTIVITA, EMAIL) "
+														+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			psEnteConvenzionato.setString(1, enteConvenzionato.getPartitaIva());
 			psEnteConvenzionato.setString(2, enteConvenzionato.getSede());
 			psEnteConvenzionato.setString(3, enteConvenzionato.getRappresentante());
 			psEnteConvenzionato.setString(4, enteConvenzionato.getTelefono());	
 			psEnteConvenzionato.setInt(5, enteConvenzionato.getDipendenti());
 			psEnteConvenzionato.setString(6, enteConvenzionato.getDotRiferimento());
-			psEnteConvenzionato.setString(7, enteConvenzionato.getDescrizioneAttivita());
-			psEnteConvenzionato.setString(8, enteConvenzionato.getEmail());	
+			psEnteConvenzionato.setString(7, enteConvenzionato.getReferente());
+			psEnteConvenzionato.setString(8, enteConvenzionato.getDataDiNascita());
+			psEnteConvenzionato.setString(9, enteConvenzionato.getDescrizioneAttivita());
+			psEnteConvenzionato.setString(10, enteConvenzionato.getEmail());
+			
 			
 			//Se l'inserimento va a buon fine restituisce true
 			if((psUser.executeUpdate()==1)&&(psEnteConvenzionato.executeUpdate()==1))
@@ -177,6 +181,7 @@ public class EnteConvenzionatoDAO {
 				psEnteConvenzionato= con.prepareStatement("UPDATE ENTECONVENZIONATO "
 														+ "SET SEDE = ?, RAPPRESENTANTE = ?, TELEFONO = ?,"
 															+ "DIPENDENTI = ?, DOTRIFERIMENTO = ?, "
+															+ "REFERENTE = ?, DATANASCITA = ?, "
 															+ "DESCRIZIONEATTIVITA = ?, EMAIL = ? "
 															+ "WHERE PARTITAIVA=?;");
 				
@@ -185,9 +190,11 @@ public class EnteConvenzionatoDAO {
 				psEnteConvenzionato.setString(3, enteConvenzionato.getTelefono());	
 				psEnteConvenzionato.setInt(4, enteConvenzionato.getDipendenti());
 				psEnteConvenzionato.setString(5, enteConvenzionato.getDotRiferimento());
-				psEnteConvenzionato.setString(6, enteConvenzionato.getDescrizioneAttivita());
-				psEnteConvenzionato.setString(7, enteConvenzionato.getEmail());	
-				psEnteConvenzionato.setString(8, enteConvenzionato.getPartitaIva());
+				psEnteConvenzionato.setString(6, enteConvenzionato.getReferente());
+				psEnteConvenzionato.setString(7, enteConvenzionato.getDataDiNascita());
+				psEnteConvenzionato.setString(8, enteConvenzionato.getDescrizioneAttivita());
+				psEnteConvenzionato.setString(9, enteConvenzionato.getEmail());
+				psEnteConvenzionato.setString(10, enteConvenzionato.getPartitaIva());
 				//Se la modifica va a buon fine restituisce true
 				if(((psUser.executeUpdate()==1)&&psEnteConvenzionato.executeUpdate()==1))
 				{

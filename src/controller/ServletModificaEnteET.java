@@ -29,8 +29,8 @@ public class ServletModificaEnteET extends HttpServlet {
     /**
      * Controllo autenticazione tramite parametro in sessione (1 = Segreteria).
      */
-    String user = (String) request.getSession().getAttribute("user");
-    if ((user == null) || (!user.equals("1"))) {
+    String userET = (String) request.getSession().getAttribute("userET");
+    if ((userET == null) || (!userET.equals("1"))) {
       response.sendRedirect("login.jsp");
       return;
     }
@@ -48,8 +48,7 @@ public class ServletModificaEnteET extends HttpServlet {
     if (rappresentante.length() == 0) {
       throw new IllegalArgumentException("Il campo Nome Rappresentante e' vuoto");
     } else if (rappresentante.length() > 64) {
-      throw new IllegalArgumentException(
-          "Il campo Nome Rappresentante supera la lunghezza consentita");
+      throw new IllegalArgumentException("Il campo Nome Rappresentante supera la lunghezza consentita");
     } else if (!rappresentante.matches("^[ a-zA-Z]+$")) {
       throw new IllegalArgumentException("Il campo Nome Rappresentante non rispetta il formato");
     }
@@ -70,7 +69,7 @@ public class ServletModificaEnteET extends HttpServlet {
     } else if (dotRiferimento.length() > 64) {
       throw new IllegalArgumentException(
           "Il campo Professore di Riferimento supera la lunghezza consentita");
-    } else if (dotRiferimento.matches("^[ a-zA-Z]+$")) {
+    } else if (!dotRiferimento.matches("^[ a-zA-Z]+$")) {
       throw new IllegalArgumentException(
           "Il campo Professore di Riferimento non rispetta il formato");
     }
@@ -122,14 +121,14 @@ public class ServletModificaEnteET extends HttpServlet {
     }
     // Controllo Partita IVA
     String partitaIva = request.getParameter("partitaIva");
-    if (partitaIva.matches("^\\d{11}")) {
+    if (!partitaIva.matches("^\\d{11}")) {
       throw new IllegalArgumentException("Il campo Partita IVA non rispetta il formato");
     }
 
     /**
      * Istanziazione dell'oggetto EnteConvezionato.
      */
-    EnteConvenzionato enteCon = new EnteConvenzionato(email, name, null, ' ', "123456", 3,
+    EnteConvenzionato enteCon = new EnteConvenzionato(email, name, "NA", 'N', "123456", 3,
         dataDiNascita, partitaIva, sede, rappresentante, referente, telefono,
         Integer.parseInt(dipendenti), dotRiferimento, "TE", descrizioneAttivita);
     /**
@@ -141,7 +140,7 @@ public class ServletModificaEnteET extends HttpServlet {
       } else {
         request.setAttribute("La modifica e' avvenuta con successo", mess);
         //Controlla jsp
-        RequestDispatcher dispatcher = request.getRequestDispatcher("ModificaEnteET.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
       }
     } catch (Exception e) {
