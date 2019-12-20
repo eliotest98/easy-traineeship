@@ -140,7 +140,7 @@ public class ServletModificaEnteET extends HttpServlet {
       } else {
         request.setAttribute("La modifica e' avvenuta con successo", mess);
         //Controlla jsp
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("VisualizzaEnteET.jsp");
         dispatcher.forward(request, response);
       }
     } catch (Exception e) {
