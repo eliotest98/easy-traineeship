@@ -20,8 +20,6 @@
         dispatcher.forward(request, response);
     }
 
-	
-	
 %>
 
 <!DOCTYPE html>
