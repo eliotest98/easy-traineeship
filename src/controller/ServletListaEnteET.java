@@ -34,8 +34,7 @@ public class ServletListaEnteET extends HttpServlet
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		
-		EnteConvenzionatoDAO ente= new EnteConvenzionatoDAO();
-		  
+		EnteConvenzionatoDAO ente= new EnteConvenzionatoDAO();  
 		ArrayList<EnteConvenzionato> listaEnti=new ArrayList<EnteConvenzionato>();
 		listaEnti=ente.allEnte();
 		if(listaEnti!=null)
