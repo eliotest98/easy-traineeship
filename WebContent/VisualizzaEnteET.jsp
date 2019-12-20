@@ -4,13 +4,12 @@
 <%
 	String pageName = "VisualizzaEnteET.jsp";
 	String pageFolder = "";
-	
 
 	CheckSession ck = new CheckSession(pageFolder, pageName, request.getSession());
+	//Prelevo dalla sessione la Segreteria
 	String Segreteria=" ";
 	Segreteria = (String) session.getAttribute("Segreteria");
 	
-	//System.out.println("Segreteria: "+ Segreteria);
 	
 	ArrayList<EnteConvenzionato> listaEnti=new ArrayList<EnteConvenzionato>();
 	listaEnti=(ArrayList<EnteConvenzionato>)request.getAttribute("listaEnti");
@@ -45,6 +44,7 @@
 						<div class="content">
 							<div class="news-block-seven">
 								<%
+								//Se la listaEnti non è null mostro la tabella
 								if(listaEnti!=null)
 								{
 								%>
@@ -61,6 +61,7 @@
 												<th class="text-center" align="center">E-Mail</th>
 												<th class="text-center" align="center">Telefono</th>
 												<%
+												//Se è in sessione la segreteria mostro le azioni
 												if(Segreteria!=null)
 												{
 													%>
@@ -73,6 +74,7 @@
 										</thead>
 										<tbody  >
 											<%
+											//Scorro tutta la listaEnti
 											for( int i = 0; i < listaEnti.size(); i++)
 											{ %>
 												<tr role='row' >
@@ -85,6 +87,7 @@
 													<td class='text-center'><%=listaEnti.get(i).getEmail()%></td>
 													<td class='text-center'><%=listaEnti.get(i).getTelefono()%></td>
 													<%
+													//Se è in sessione la segreteria mostro le azioni
 													if(Segreteria!=null)
 													{
 														%>
@@ -101,14 +104,7 @@
 											} %>
 										</tbody>
 									</table>
-								<%}
-								if(listaEnti==null)
-								{
-									%>
-									<center><h2>Lista Ente Vuota</h2></center>
-									<%
-								}
-								%>
+								<%}%>
 							</div>
 						</div>
 					</div>
@@ -121,7 +117,8 @@
 
 	<jsp:include page="/partials/includes.jsp" />
 	
-	<script>
+		<script>
+			//script 'DataTable' di Bootstrap' per la gestione della 'Tabella'
 			jQuery(document).ready(function($){
 				$('#TabellaEnteTable').DataTable( {
 			        "order": [[ 0, "desc" ]],
