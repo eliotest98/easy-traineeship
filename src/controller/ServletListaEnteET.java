@@ -34,12 +34,15 @@ public class ServletListaEnteET extends HttpServlet
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		
-		EnteConvenzionatoDAO ente= new EnteConvenzionatoDAO();
-		  
+		EnteConvenzionatoDAO ente= new EnteConvenzionatoDAO();  
+		//Array list di Enti convenzionati
 		ArrayList<EnteConvenzionato> listaEnti=new ArrayList<EnteConvenzionato>();
+		//Ricerco tutti gli 'EntiConvenzionati' e li inserisco nella listaEnti
 		listaEnti=ente.allEnte();
+		//Controllo se la Lista non è vuota
 		if(listaEnti!=null)
 		{
+			//Assegno alla richiesta la 'listaEnti'
 			request.setAttribute("listaEnti", listaEnti);
 		}
 		
@@ -54,10 +57,7 @@ public class ServletListaEnteET extends HttpServlet
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		
-		//doGet(request, response);
-		
-		
-		  
+		doGet(request, response);
+  
 	}
 }

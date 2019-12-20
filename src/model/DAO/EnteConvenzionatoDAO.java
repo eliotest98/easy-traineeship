@@ -11,22 +11,34 @@ import controller.DbConnection;
 import model.EnteConvenzionato;
 
 public class EnteConvenzionatoDAO {
+	
+	/*
+	 * Metodo che interroga il DB e restituisce tutti gli 'EntiConvenzionati' 
+	 * persenti all' interono
+	 * 
+	 * @return listaEnti
+	 * */
 	public synchronized ArrayList allEnte()
 	{
-		Connection con = null;
-		PreparedStatement ps = null;
+		
+		Connection con = null; //variabile per la connesione del DB
+		PreparedStatement ps = null;// Creazione oggetto Statement
+		//ArrayLista di tipo EnteConvenzionato
 		ArrayList<EnteConvenzionato> listaEnti = new ArrayList<EnteConvenzionato>();
 		try 
 		{
+			//Connessione con il DB
 			con= new DbConnection().getInstance().getConn();
-			
+			//Query Sql per prelevare gli 'EntiConvenzionati'
 			ps= con.prepareStatement("SELECT * "
 									+ "FROM ENTECONVENZIONATO, USER "
 									+ "WHERE ENTECONVENZIONATO.EMAIL=USER.EMAIL");
 			ResultSet res = ps.executeQuery();
-			
+			//Ciclo che inserisce all' interno della lista gli 'EntiConvenzionati'
+			//restituiti dalla query
 			while(res.next())
 			{
+				
 				EnteConvenzionato purchase= new EnteConvenzionato();
 				purchase.setEmail(res.getString("EMAIL"));
 				purchase.setName(res.getString("NAME"));
@@ -38,7 +50,7 @@ public class EnteConvenzionatoDAO {
 				purchase.setDotRiferimento(res.getString("DOTRIFERIMENTO"));
 				purchase.setDescrizioneAttivita(res.getString("DESCRIZIONEATTIVITA"));
 				
-				listaEnti.add(purchase);
+				listaEnti.add(purchase);//listaEnti
 			}
 		} 
 		catch (SQLException e) 
@@ -49,7 +61,7 @@ public class EnteConvenzionatoDAO {
 		{
 			try 
 			{
-				ps.close();
+				ps.close();// Chiusura oggetto Statement 
 			} 
 			catch (SQLException e) 
 			{
@@ -59,17 +71,25 @@ public class EnteConvenzionatoDAO {
 		return listaEnti;	
 	}
 	
+	/*
+	 * Metodo che interagisce con il DB e inserisce in esso l' 'EnteConvenzionato' 
+	 * passato come parametro
+	 * 
+	 * @param enteConvenzionato
+	 * @return boolean
+	 * */
 	public synchronized boolean inserisciEnte(EnteConvenzionato enteConvenzionato)
 	{
 		
-		Connection con = null;
-		PreparedStatement psEnteConvenzionato = null;
-		PreparedStatement psUser = null;
-
+		Connection con = null; //variabile per la connessione al DB
+		PreparedStatement psEnteConvenzionato = null;// Creazione oggetto Statement per l'EnteConvenzioanto
+		PreparedStatement psUser = null;// Creazione oggetto Statement per l' User
 		try 
 		{
+			//Connessione con il DB
 			con= new DbConnection().getInstance().getConn();
 			
+			//Insert per l'inserimento in 'User' dei dati parziali di 'EnteConvenzionato'
 			psUser= con.prepareStatement("INSERT INTO USER(EMAIL, NAME, SURNAME, SEX, PASSWORD, USER_TYPE) "
 					+ "VALUES (?, ?, ?, ?, ?, 3)");
 			psUser.setString(1, enteConvenzionato.getEmail());
@@ -78,6 +98,7 @@ public class EnteConvenzionatoDAO {
 			psUser.setString(4, " ");
 			psUser.setString(5, enteConvenzionato.getPassword());
 			
+			//Insert per l'inserimento in 'EnteConvenzionato' dei dati parziali di 'EnteConvenzionato'
 			psEnteConvenzionato= con.prepareStatement("INSERT INTO ENTECONVENZIONATO(PARTITAIVA, SEDE, RAPPRESENTANTE,"
 														+ " TELEFONO, DIPENDENTI, DOTRIFERIMENTO,"
 														+ "DESCRIZIONEATTIVITA, EMAIL) "
@@ -91,10 +112,12 @@ public class EnteConvenzionatoDAO {
 			psEnteConvenzionato.setString(7, enteConvenzionato.getDescrizioneAttivita());
 			psEnteConvenzionato.setString(8, enteConvenzionato.getEmail());	
 			
-			
-			
-			if((psUser.executeUpdate()==1)&&(psEnteConvenzionato.executeUpdate()==1))	
+			//Se l'inserimento va a buon fine restituisce true
+			if((psUser.executeUpdate()==1)&&(psEnteConvenzionato.executeUpdate()==1))
+			{
+				con.commit();
 				return true;
+			}
 			
 		} 
 		catch (SQLException e) 
@@ -105,33 +128,42 @@ public class EnteConvenzionatoDAO {
 		{
 			try 
 			{
-				psEnteConvenzionato.close();
-				psUser.close();
+				psEnteConvenzionato.close();// Chiusura oggetto Statement dell' 'EnteConvenzionato'
+				psUser.close();// Chiusura oggetto Statement dell' 'User'
 			} 
 			catch (SQLException e)
 			{
 				e.printStackTrace();
 			}
 		}
+		//Ritorna false se l'insert non è andato a buon fine 
 		return false;	
 	}
 	
+	/*
+	 * Metodo che interagisce con il DB e modifica l' 'EnteConvenzionato' 
+	 * di riferimento
+	 * 
+	 * @param enteConvenzionato
+	 * @return boolean
+	 * */
 	public synchronized boolean modificaEnte(EnteConvenzionato enteConvenzionato)
 	{
 		
-		Connection con = null;
-		PreparedStatement psEnteConvenzionato = null;
-		PreparedStatement psUser = null;
-		
-		
+		Connection con = null;//variabile per la connessione al DB
+		PreparedStatement psEnteConvenzionato = null;// Creazione oggetto Statement per l'EnteConvenzioanto
+		PreparedStatement psUser = null;// Creazione oggetto Statement per l' User
 		try 
 		{
+			//Connessione con il DB
 			con= new DbConnection().getInstance().getConn();
-			
+			//inserimento di un EnteConvenzionato
 			boolean update = inserisciEnte(enteConvenzionato);
-			
+			//se l'operazione di inserimento non è andata a buon fine
+			//faccio la modifica perchè l' 'EnteConvenzionato' esiste
 			if(update==false)	
 			{
+				//Update per la modifica in 'User' dei dati parziali di 'EnteConvenzionato'
 				psUser= con.prepareStatement("UPDATE USER "
 						+ ("SET EMAIL=?, NAME=?, SURNAME=?, SEX=?, PASSWORD=? ")
 						+ ("WHERE email = ?;"));
@@ -141,7 +173,7 @@ public class EnteConvenzionatoDAO {
 				psUser.setString(4, " ");
 				psUser.setString(5, enteConvenzionato.getPassword());
 				psUser.setString(6, enteConvenzionato.getEmail());
-				
+				//Update per la Modifica in 'EnteConvenzionato' dei dati parziali di 'EnteConvenzionato'
 				psEnteConvenzionato= con.prepareStatement("UPDATE ENTECONVENZIONATO "
 														+ "SET SEDE = ?, RAPPRESENTANTE = ?, TELEFONO = ?,"
 															+ "DIPENDENTI = ?, DOTRIFERIMENTO = ?, "
@@ -156,20 +188,22 @@ public class EnteConvenzionatoDAO {
 				psEnteConvenzionato.setString(6, enteConvenzionato.getDescrizioneAttivita());
 				psEnteConvenzionato.setString(7, enteConvenzionato.getEmail());	
 				psEnteConvenzionato.setString(8, enteConvenzionato.getPartitaIva());
-				
-				
-
+				//Se la modifica va a buon fine restituisce true
 				if(((psUser.executeUpdate()==1)&&psEnteConvenzionato.executeUpdate()==1))
-					try 
 				{
-					psEnteConvenzionato.close();
-					psUser.close();
+					con.commit();
+					return true;
+				}
+				
+				try 
+				{
+					psEnteConvenzionato.close();// Chiusura oggetto Statement dell' 'EnteConvenzionato'
+					psUser.close();// Chiusura oggetto Statement dell' 'User'
 				} 
 				catch (SQLException e)
 				{
 					e.printStackTrace();
 				}
-					return true;
 			}
 			else
 			{
@@ -180,24 +214,37 @@ public class EnteConvenzionatoDAO {
 		{
 			e.printStackTrace();
 		}
+		//Ritorna false se l'insert non è andato a buon fine 
 		return false;	
 	}
 	
+	/*
+	 * Metodo che interagisce con il DB e modifica la 'password' dell' 'EnteConvenzionato' 
+	 * di riferimento
+	 * 
+	 * @param email
+	 * @param password
+	 * @return boolean
+	 * */
 	public synchronized boolean updatePassword(String email, String password)
 	{
 		
-		Connection con = null;
-		PreparedStatement psUser = null;
-			
+		Connection con = null;//variabile per la connessione al DB
+		PreparedStatement psUser = null;// Creazione oggetto Statement per l' User
 		try 
 		{
+			//Connessione con il DB
 			con= new DbConnection().getInstance().getConn();
-			
+			//Update per la modifica della 'Password' in 'User' dell' 'EnteConvenzionato'
 			psUser= con.prepareStatement("UPDATE USER "
 										+ "SET PASSWORD ="+password 
 										+ " WHERE EMAIL = '"+email+"';");
-			if(psUser.executeUpdate()==1)	
+			//Se la modifica va a buon fine restituisce true
+			if(psUser.executeUpdate()==1)
+			{
+				con.commit();
 				return true;
+			}
 		} 
 		catch (SQLException e) 
 		{
@@ -207,13 +254,14 @@ public class EnteConvenzionatoDAO {
 		{
 			try 
 			{
-				psUser.close();
+				psUser.close();// Chiusura oggetto Statement dell' 'User'
 			} 
 			catch (SQLException e)
 			{
 				e.printStackTrace();
 			}
 		}
+		//Ritorna false se la modifica non è andata a buon fine 
 		return false;	
 	}
 }

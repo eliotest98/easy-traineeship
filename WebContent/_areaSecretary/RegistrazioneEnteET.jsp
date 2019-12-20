@@ -33,7 +33,7 @@
                         <div class="news-block-seven">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 signUp-container">
                                 <div class="panel">
-                                    <h2 class="text-center">Registrazione Ente Covenzionato</h2>
+                                    <h2 class="text-center">Registrazione Ente Convenzionato</h2>
                                     <p class="text-center">Compila tutti i campi per
                                         registrare un nuovo ente.</p>
                                 </div>
