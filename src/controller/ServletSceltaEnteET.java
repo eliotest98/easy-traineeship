@@ -44,8 +44,8 @@ public class ServletSceltaEnteET extends HttpServlet {
     /**
      * Controllo autenticazione tramite parametro in sessione (0 = Studente).
      */
-    String user = (String) request.getSession().getAttribute("user");
-    if ((user == null) || (!user.equals("0"))) {
+    String userET = (String) request.getSession().getAttribute("userET");
+    if ((userET == null) || (!userET.equals("0"))) {
       response.sendRedirect("login.jsp");
       return;
     }
