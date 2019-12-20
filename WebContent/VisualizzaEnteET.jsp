@@ -94,7 +94,7 @@
 														
 														<td class="text-center" align="center">
 															<a href='_areaSecretary/ModificaEnteET.jsp?ente=<%=i%>' class="btn btn-primary btn-action modificaEnte" title="Modifica Ente" data-idrequest="35"><i class="fa fa-edit"></i></a>
-															<button disabled class="btn btn-primary btn-action eliminaEnte refuse " data-type="2" data-idrequest="35" title="Elimina Ente" onclick="window.location.href='EliminaEnteET.jsp'"><i class="fa fa-times"></i></button>
+															<a href='_areaSecretary/ElimnaEnteET.jsp?ente=<%=i%>' disabled class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Elimina Ente" ><i class="fa fa-times"></i></a>
 														</td>
 														<%
 													}
