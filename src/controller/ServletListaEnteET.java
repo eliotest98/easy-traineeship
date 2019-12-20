@@ -40,8 +40,6 @@ public class ServletListaEnteET extends HttpServlet
 		//Ricerco tutti gli 'EntiConvenzionati' e li inserisco nella listaEnti
 		listaEnti=ente.allEnte();
 		//Controllo se la Lista non � vuota
-
-		System.out.println("Lista enti :" + listaEnti);
 		
 		if(listaEnti!=null)
 		{
@@ -49,19 +47,21 @@ public class ServletListaEnteET extends HttpServlet
 			request.setAttribute("listaEnti", listaEnti);
 		}
 		
+		String pag = null;
 		
+		System.out.println("PARAMETRO" + request.getParameter("richiestaEnte"));
 		
-		String resp = request.getParameter("richiestaEnte");
-		
-		if(resp.equalsIgnoreCase("ok")) 
+		if(request.getParameter("richiestaEnte")!=null) 
 		{
-			RequestDispatcher dispatcher = request.getRequestDispatcher("_areaStudent/InviaRichiestaEnteET.jsp");
-			dispatcher.forward(request, response);
-		}else 
+			pag = "_areaStudent/InviaRichiestaEnteET.jsp";
+		}
+		else
 		{
-		    RequestDispatcher dispatcher = request.getRequestDispatcher("VisualizzaEnteET.jsp");
-		    dispatcher.forward(request, response);			
+		  pag = "VisualizzaEnteET.jsp";
 		}	
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher(pag);
+        dispatcher.forward(request, response);
 	}
 	  
 	/**
