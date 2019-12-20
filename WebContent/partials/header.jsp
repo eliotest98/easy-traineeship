@@ -48,6 +48,8 @@
           + "/uploadAttached.jsp\">Carica Allegato</a></li>";
       menu += "<li><a href=\"" + request.getContextPath()
           + "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
+      menu += "<li><a href=\"" + request.getContextPath()  + "/"
+          + "ServletListaEnteET?richiestaEnte=ok\">Richiesta Ente</a></li> ";
       menu +=
           "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
     }
