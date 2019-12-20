@@ -18,7 +18,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import controller.DbConnection;
-import controller.ServletRegistrazioneEnteET;
+import controller.ServletModificaEnteET;
 
 class ServletModificaEnteETTest {
 
@@ -28,7 +28,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 	HttpServletRequest requestMock = mock(HttpServletRequest.class);
 	HttpServletResponse responseMock = mock(HttpServletResponse.class);
 	HttpSession sessionMock = mock(HttpSession.class);
-	ServletRegistrazioneEnteET servletSecretaryMock = mock(ServletRegistrazioneEnteET.class);
+	ServletModificaEnteET servletSecretaryMock = mock(ServletModificaEnteET.class);
 	RequestDispatcher dispatcherMock = mock(RequestDispatcher.class);
 	
 	
@@ -42,7 +42,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 	@Test
 	void testCampoNomeVuoto() {
 		when(requestMock.getParameter("name")).thenReturn("");
-		ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
+		ServletModificaEnteET test = new ServletModificaEnteET();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 		assertEquals("Il campo 'Nome Ente' &egrave vuoto",e.getMessage());
 	}
@@ -51,7 +51,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 	@Test
 	void testCampoNomeTroppoLungo() {
 		when(requestMock.getParameter("name")).thenReturn("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-		ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
+		ServletModificaEnteET test = new ServletModificaEnteET();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 		assertEquals("Il campo 'Nome Ente' supera la lunghezza consentita",e.getMessage());
 	}
@@ -60,7 +60,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 	@Test
 	void testCampoNomeFormatoErrato() {
 		when(requestMock.getParameter("name")).thenReturn("GreenTech@");
-		ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
+		ServletModificaEnteET test = new ServletModificaEnteET();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 		assertEquals("Il campo 'Nome Ente' non rispetta il formato",e.getMessage());
 	}
@@ -70,7 +70,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 	void testCampoRappresentanteVuoto() {
 		when(requestMock.getParameter("name")).thenReturn("GreenTech");
 		when(requestMock.getParameter("rappresentante")).thenReturn("");
-		ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
+		ServletModificaEnteET test = new ServletModificaEnteET();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 		assertEquals("Il campo 'Nome Rappresentante' &egrave vuoto",e.getMessage());
 	}
@@ -80,7 +80,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 	void testCampoRappresentanteTroppoLungo() {
 		when(requestMock.getParameter("name")).thenReturn("GreenTech");
 		when(requestMock.getParameter("rappresentante")).thenReturn("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-		ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
+		ServletModificaEnteET test = new ServletModificaEnteET();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 		assertEquals("Il campo 'Nome Rappresentante' supera la lunghezza consentita",e.getMessage());
 	}
@@ -90,7 +90,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 	void testCampoRappresentanteFormatoErrato() {
 		when(requestMock.getParameter("name")).thenReturn("GreenTech");
 		when(requestMock.getParameter("rappresentante")).thenReturn("Fabio Napolitano@");
-		ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
+		ServletModificaEnteET test = new ServletModificaEnteET();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 		assertEquals("Il campo 'Nome Rappresentante' non rispetta il formato",e.getMessage());
 	}
@@ -101,7 +101,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 			when(requestMock.getParameter("name")).thenReturn("GreenTech");
 			when(requestMock.getParameter("rappresentante")).thenReturn("Fabio Napolitano");
 			when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/19798");
-			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
+			ServletModificaEnteET test = new ServletModificaEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 			assertEquals("Il campo 'Data di Nascita' non rispetta il formato",e.getMessage());
 		}
@@ -113,7 +113,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 			when(requestMock.getParameter("rappresentante")).thenReturn("Fabio Napolitano");
 			when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/1979");
 			when(requestMock.getParameter("dipendenti")).thenReturn("100°");
-			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
+			ServletModificaEnteET test = new ServletModificaEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 			assertEquals("Il campo 'Numero di Dipendenti' non rispetta il formato",e.getMessage());
 		}
@@ -126,7 +126,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 			when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/1979");
 			when(requestMock.getParameter("dipendenti")).thenReturn("100");
 			when(requestMock.getParameter("dotRiferimento")).thenReturn("");
-			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
+			ServletModificaEnteET test = new ServletModificaEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 			assertEquals("Il campo 'Professore di Riferimento' &egrave vuoto",e.getMessage());
 		}
@@ -139,7 +139,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 			when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/1979");
 			when(requestMock.getParameter("dipendenti")).thenReturn("100");
 			when(requestMock.getParameter("dotRiferimento")).thenReturn("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
+			ServletModificaEnteET test = new ServletModificaEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 			assertEquals("Il campo 'Professore di Riferimento' supera la lunghezza consentita",e.getMessage());
 		}
@@ -151,7 +151,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 			when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/1979");
 			when(requestMock.getParameter("dipendenti")).thenReturn("100");
 			when(requestMock.getParameter("dotRiferimento")).thenReturn("Gravino Carm43ne");
-			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
+			ServletModificaEnteET test = new ServletModificaEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 			assertEquals("Il campo 'Professore di Riferimento' non rispetta il formato",e.getMessage());
 		}
@@ -165,7 +165,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 				when(requestMock.getParameter("dipendenti")).thenReturn("100");
 				when(requestMock.getParameter("dotRiferimento")).thenReturn("Gravino Carmine");
 				when(requestMock.getParameter("email")).thenReturn("");
-				ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
+				ServletModificaEnteET test = new ServletModificaEnteET();
 				IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 				assertEquals("Il campo 'E-mail' &egrave vuoto",e.getMessage());
 			}
@@ -179,7 +179,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 			when(requestMock.getParameter("dipendenti")).thenReturn("100");
 			when(requestMock.getParameter("dotRiferimento")).thenReturn("Gravino Carmine");
 			when(requestMock.getParameter("email")).thenReturn("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
+			ServletModificaEnteET test = new ServletModificaEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 			assertEquals("Il campo 'E-mail' supera la lunghezza consentita",e.getMessage());
 		}
@@ -193,7 +193,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 			when(requestMock.getParameter("dipendenti")).thenReturn("100");
 			when(requestMock.getParameter("dotRiferimento")).thenReturn("Gravino Carmine");
 			when(requestMock.getParameter("email")).thenReturn("greentech@@gmail.com");
-			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
+			ServletModificaEnteET test = new ServletModificaEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 			assertEquals("Il campo 'E-mail' non rispetta il formato",e.getMessage());
 		}
@@ -208,7 +208,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 				when(requestMock.getParameter("dotRiferimento")).thenReturn("Gravino Carmine");
 				when(requestMock.getParameter("email")).thenReturn("greentech@gmail.com");
 				when(requestMock.getParameter("sede")).thenReturn("");
-				ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
+				ServletModificaEnteET test = new ServletModificaEnteET();
 				IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 				assertEquals("Il campo 'Sede' &egrave vuoto",e.getMessage());
 			}
@@ -223,7 +223,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 			when(requestMock.getParameter("dotRiferimento")).thenReturn("Gravino Carmine");
 			when(requestMock.getParameter("email")).thenReturn("greentech@gmail.com");
 			when(requestMock.getParameter("sede")).thenReturn("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
+			ServletModificaEnteET test = new ServletModificaEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 			assertEquals("Il campo 'Sede' supera la lunghezza consentita",e.getMessage());
 		}
@@ -239,7 +239,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 			when(requestMock.getParameter("email")).thenReturn("greentech@gmail.com");
 			when(requestMock.getParameter("sede")).thenReturn("Milano@");
 			
-			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
+			ServletModificaEnteET test = new ServletModificaEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 			assertEquals("Il campo 'Sede' non rispetta il formato",e.getMessage());
 		}
@@ -255,7 +255,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 				when(requestMock.getParameter("email")).thenReturn("greentech@gmail.com");
 				when(requestMock.getParameter("sede")).thenReturn("Milano");
 				when(requestMock.getParameter("referente")).thenReturn("");
-				ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
+				ServletModificaEnteET test = new ServletModificaEnteET();
 				IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 				assertEquals("Il campo 'Referente Tirocini' &egrave vuoto",e.getMessage());
 			}
@@ -271,7 +271,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 			when(requestMock.getParameter("email")).thenReturn("greentech@gmail.com");
 			when(requestMock.getParameter("sede")).thenReturn("Milano");
 			when(requestMock.getParameter("referente")).thenReturn("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
+			ServletModificaEnteET test = new ServletModificaEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 			assertEquals("Il campo 'Referente Tirocini' supera la lunghezza consentita",e.getMessage());
 		}
@@ -287,7 +287,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 			when(requestMock.getParameter("email")).thenReturn("greentech@gmail.com");
 			when(requestMock.getParameter("sede")).thenReturn("Milano");
 			when(requestMock.getParameter("referente")).thenReturn("Pasqualina Montuori432");
-			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
+			ServletModificaEnteET test = new ServletModificaEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 			assertEquals("Il campo 'Referente Tirocini' non rispetta il formato",e.getMessage());
 		}
@@ -304,7 +304,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 			when(requestMock.getParameter("sede")).thenReturn("Milano");
 			when(requestMock.getParameter("referente")).thenReturn("Pasqualina Montuori");
 			when(requestMock.getParameter("telefono")).thenReturn("012345678910");
-			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
+			ServletModificaEnteET test = new ServletModificaEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 			assertEquals("Il campo 'Numero di Telefono' non rispetta il formato",e.getMessage());
 		}
@@ -322,7 +322,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 			when(requestMock.getParameter("referente")).thenReturn("Pasqualina Montuori");
 			when(requestMock.getParameter("telefono")).thenReturn("0123456789");
 			when(requestMock.getParameter("descrizioneAttivita")).thenReturn("");
-			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
+			ServletModificaEnteET test = new ServletModificaEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 			assertEquals("Il campo 'Descrizione delle Attivit&agrave' &egrave vuoto",e.getMessage());
 		}
@@ -340,7 +340,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 			when(requestMock.getParameter("referente")).thenReturn("Pasqualina Montuori");
 			when(requestMock.getParameter("telefono")).thenReturn("0123456789");
 			when(requestMock.getParameter("descrizioneAttivita")).thenReturn("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
+			ServletModificaEnteET test = new ServletModificaEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 			assertEquals("Il campo 'Descrizione delle Attivit&agrave' supera la lunghezza consentita",e.getMessage());
 		}
@@ -361,14 +361,14 @@ Connection conn = new DbConnection().getInstance().getConn();
 					"sono gli strumenti che mettiamo a disposizione delle  aziende nostre clienti per aumentarne la " +  
 					"produttività e l’efficienza interna, e per migliorarne sensibilmente il rapporto con la propria clientela");
 			when(requestMock.getParameter("partitaIva")).thenReturn("01234");
-			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
+			ServletModificaEnteET test = new ServletModificaEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 			assertEquals("Il campo 'Partita IVA' non rispetta il formato",e.getMessage());
 		}
 		
 		//Test case TC_GA_8.25: Modifica Ente effettuata correttamente
 		@Test
-		void testRegistrazioneCorretta() throws ServletException, IOException {
+		void testModificaCorretta() throws ServletException, IOException {
 			when(requestMock.getParameter("name")).thenReturn("GreenTech");
 			when(requestMock.getParameter("rappresentante")).thenReturn("Fabio Napolitano");
 			when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/1979");
@@ -383,7 +383,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 					"produttività e l’efficienza interna, e per migliorarne sensibilmente il rapporto con la propria clientela");
 			when(requestMock.getParameter("partitaIva")).thenReturn("12312312312");
 			when(requestMock.getRequestDispatcher("ModificaEnteET.jsp")).thenReturn(dispatcherMock);
-			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
+			ServletModificaEnteET test = new ServletModificaEnteET();
 			test.doPost(requestMock, responseMock);
 			
 			try {
