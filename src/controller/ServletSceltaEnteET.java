@@ -19,6 +19,16 @@ public class ServletSceltaEnteET extends HttpServlet {
   String mess = null;
 
   /**
+<<<<<<< HEAD:src/controller/ServletInvioRichiestaEnteET.java
+   *#HttpServlet().
+   */
+  public ServletSceltaEnteET() {
+    super();
+  }
+
+  /**
+=======
+>>>>>>> master:src/controller/ServletSceltaEnteET.java
    *HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response).
    */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)

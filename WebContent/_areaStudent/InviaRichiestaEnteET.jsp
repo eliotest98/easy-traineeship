@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="ISO-8859-1" import="java.util.*,controller.CheckSession, controller.ServletListaEnteET, model.EnteConvenzionato"%>
+         pageEncoding="ISO-8859-1" import="java.util.*,controller.CheckSession,controller.ServletListaEnteET, model.EnteConvenzionato"%>
 
 <%
     String pageName = "inviaRichiestaEnteET.jsp";

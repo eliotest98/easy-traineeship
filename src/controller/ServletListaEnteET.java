@@ -34,34 +34,34 @@ public class ServletListaEnteET extends HttpServlet
 	   */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		PrintStream print = new PrintStream(System.out);
-        print.println("aaaaa");
 		EnteConvenzionatoDAO ente= new EnteConvenzionatoDAO();  
 		//Array list di Enti convenzionati
 		ArrayList<EnteConvenzionato> listaEnti=new ArrayList<EnteConvenzionato>();
 		//Ricerco tutti gli 'EntiConvenzionati' e li inserisco nella listaEnti
 		listaEnti=ente.allEnte();
 		//Controllo se la Lista non � vuota
-		System.out.println("servlet="+listaEnti);
+
+		System.out.println("Lista enti :" + listaEnti);
+		
 		if(listaEnti!=null)
 		{
 			//Assegno alla richiesta la 'listaEnti'
 			request.setAttribute("listaEnti", listaEnti);
 		}
-		String pagina= null;
-		if(request.getParameter("richiestaEnte") != null) 
+		
+		
+		
+		String resp = request.getParameter("richiestaEnte");
+		
+		if(resp.equalsIgnoreCase("ok")) 
 		{
-			pagina= "InviaRichiestaEnteET.jsp";
-//			RequestDispatcher dispatcher = request.getRequestDispatcher("InviaRichiestaEnteET.jsp");
-//			dispatcher.forward(request, response);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("_areaStudent/InviaRichiestaEnteET.jsp");
+			dispatcher.forward(request, response);
 		}else 
 		{
-			pagina = "VisualizzaEnteET.jsp";
-//			RequestDispatcher dispatcher = request.getRequestDispatcher("VisualizzaEnteET.jsp");
-//			dispatcher.forward(request, response);			
-		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher(pagina);
-		dispatcher.forward(request, response);
+		    RequestDispatcher dispatcher = request.getRequestDispatcher("VisualizzaEnteET.jsp");
+		    dispatcher.forward(request, response);			
+		}	
 	}
 	  
 	/**
