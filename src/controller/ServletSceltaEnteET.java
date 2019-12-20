@@ -12,19 +12,11 @@ import model.EnteConvenzionato;
 /**
  * Servlet implementation class ServletInvioRichiestaEnteET.
  */
-@WebServlet("/ServletInvioRichiestaEnteET")
-public class ServletInvioRichiestaEnteET extends HttpServlet {
+@WebServlet("/ServletSceltaEnteET")
+public class ServletSceltaEnteET extends HttpServlet {
   private static final long serialVersionUID = 1L;
   //private final TirocinioDAO tirocinioDAO = new TirocinioDAO();
   String mess = null;
-
-  /**
-   *#HttpServlet().
-   */
-  public ServletInvioRichiestaEnteET() {
-    super();
-    // TODO Auto-generated constructor stub
-  }
 
   /**
    *HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response).
