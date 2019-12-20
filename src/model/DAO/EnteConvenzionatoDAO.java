@@ -115,6 +115,7 @@ public class EnteConvenzionatoDAO {
 			//Se l'inserimento va a buon fine restituisce true
 			if((psUser.executeUpdate()==1)&&(psEnteConvenzionato.executeUpdate()==1))
 			{
+				con.commit();
 				return true;
 			}
 			
@@ -190,6 +191,7 @@ public class EnteConvenzionatoDAO {
 				//Se la modifica va a buon fine restituisce true
 				if(((psUser.executeUpdate()==1)&&psEnteConvenzionato.executeUpdate()==1))
 				{
+					con.commit();
 					return true;
 				}
 				
@@ -202,7 +204,6 @@ public class EnteConvenzionatoDAO {
 				{
 					e.printStackTrace();
 				}
-					return true;
 			}
 			else
 			{
@@ -241,6 +242,7 @@ public class EnteConvenzionatoDAO {
 			//Se la modifica va a buon fine restituisce true
 			if(psUser.executeUpdate()==1)
 			{
+				con.commit();
 				return true;
 			}
 		} 

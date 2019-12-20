@@ -138,12 +138,12 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
      */
     try {
     	enteConDao.inserisciEnte(enteCon);
-    	 request.setAttribute("La registrazione &egrave avvenuta con successo", mess);
-         // Controlla jsp
-         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp"); 
-         dispatcher.forward(request, response);
+    	request.setAttribute("La registrazione &egrave avvenuta con successo", mess);
+        // Controlla jsp
+        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp"); 
+        dispatcher.forward(request, response);
     } catch (Exception e) {
-      e.printStackTrace();
+    	e.printStackTrace();
     }
   }
 }
