@@ -2,7 +2,7 @@
          pageEncoding="ISO-8859-1" import="controller.CheckSession"%>
 
 <%
-    String pageName = "registrazioneEnte.jsp";
+    String pageName = "RegistrazioneEnteET.jsp";
     String pageFolder = "_areaSecretary";
 %>
 
