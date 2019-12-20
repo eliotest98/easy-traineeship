@@ -6,14 +6,23 @@ package model;
  */
 public class Tirocinio {
     private int codTirocinio;
-    private String dataInizioTirocinio;
+	private String dataInizioTirocinio;
     private short cfuPrevisti;
     private String competenze;
-    private String competenzeAcquisite;
     private String attivitaPreviste;
     private String svolgimentoTirocinio;
     private String statoTirocinio;
     private String progettoFormativo;
+	private String competenzeAcquisire;
+	private String descrizioneEnte;
+	private int matricola;
+	private String partitaIva;
+	
+	/** Costruttore vuoto. **/
+	public Tirocinio() 
+	{
+	}
+	
     /**
      * Contructor.
      *
@@ -21,22 +30,30 @@ public class Tirocinio {
      * @param dataInizioTirocinio is the start date of the Tirocinio.
      * @param cfuPrevisti are cfu assigned for the Tirocinio.
      * @param competenze are the skills of the Tirocinio.
-     * @param competenzeAcquisite are earned skills of the Tirocinio.
+     * @param competenzeAcquisire are earned skills of the Tirocinio.
      * @param attivitaPreviste are planned activities of the Tirocinio.
      * @param svolgimentoTirocinio is conduct of the Tirocinio.
      * @param statoTirocinio is the state of the Tirocinio.
      * @param progettoFormativo is the training project.
+     * @param competenzeAcquisire descrizione delle competenze da Acquisire
+     * @param descrizioneEnte descrizione del Tirocinio dello 'Studente' all 'EnteConvenzionato'
+     * @param matricola  dello 'Studente' associato
+     * @param partitaIva dell' 'EnteConvenzionato' associato
+     * 
      */
-    public Tirocinio(int codTirocinio, String dataInizioTirocinio, short cfuPrevisti, String competenze, String competenzeAcquisite, String attivitaPreviste, String svolgimentoTirocinio, String statoTirocinio, String progettoFormativo) {
+    public Tirocinio(int codTirocinio, String dataInizioTirocinio, short cfuPrevisti, String competenze, String competenzeAcquisire, String attivitaPreviste, String svolgimentoTirocinio, String statoTirocinio, String progettoFormativo, String descrizioneEnte, int matricola, String partitaIva) {
         this.codTirocinio = codTirocinio;
         this.dataInizioTirocinio = dataInizioTirocinio;
         this.cfuPrevisti = cfuPrevisti;
         this.competenze = competenze;
-        this.competenzeAcquisite = competenzeAcquisite;
+        this.competenzeAcquisire = competenzeAcquisire;
         this.attivitaPreviste = attivitaPreviste;
         this.svolgimentoTirocinio = svolgimentoTirocinio;
         this.statoTirocinio = statoTirocinio;
         this.progettoFormativo = progettoFormativo;
+        this.descrizioneEnte = descrizioneEnte;
+        this.matricola=matricola;
+        this.partitaIva=partitaIva;
     }
 
     public int getCodTirocinio() {
@@ -71,12 +88,12 @@ public class Tirocinio {
         this.competenze = competenze;
     }
 
-    public String getCompetenzeAcquisite() {
-        return competenzeAcquisite;
+    public String getCompetenzeAcquisire() {
+        return competenzeAcquisire;
     }
 
-    public void setCompetenzeAcquisite(String competenzeAcquisite) {
-        this.competenzeAcquisite = competenzeAcquisite;
+    public void setCompetenzeAcquisire(String competenzeAcquisire) {
+        this.competenzeAcquisire = competenzeAcquisire;
     }
 
     public String getAttivitaPreviste() {
@@ -110,4 +127,28 @@ public class Tirocinio {
     public void setProgettoFormativo(String progettoFormativo) {
         this.progettoFormativo = progettoFormativo;
     }
+    
+    public String getDescrizioneEnte() {
+		return descrizioneEnte;
+	}
+
+	public void setDescrizioneEnte(String descrizioneEnte) {
+		this.descrizioneEnte = descrizioneEnte;
+	}
+
+	public int getMatricola() {
+		return matricola;
+	}
+
+	public void setMatricola(int matricola) {
+		this.matricola = matricola;
+	}
+
+	public String getPartitaIva() {
+		return partitaIva;
+	}
+
+	public void setPartitaIva(String partitaIva) {
+		this.partitaIva = partitaIva;
+	}
 }
