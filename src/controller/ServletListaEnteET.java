@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
@@ -33,22 +34,34 @@ public class ServletListaEnteET extends HttpServlet
 	   */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		
+		PrintStream print = new PrintStream(System.out);
+        print.println("aaaaa");
 		EnteConvenzionatoDAO ente= new EnteConvenzionatoDAO();  
 		//Array list di Enti convenzionati
 		ArrayList<EnteConvenzionato> listaEnti=new ArrayList<EnteConvenzionato>();
 		//Ricerco tutti gli 'EntiConvenzionati' e li inserisco nella listaEnti
 		listaEnti=ente.allEnte();
-		//Controllo se la Lista non è vuota
+		//Controllo se la Lista non ï¿½ vuota
+		System.out.println("servlet="+listaEnti);
 		if(listaEnti!=null)
 		{
 			//Assegno alla richiesta la 'listaEnti'
 			request.setAttribute("listaEnti", listaEnti);
 		}
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("VisualizzaEnteET.jsp");
+		String pagina= null;
+		if(request.getParameter("richiestaEnte") != null) 
+		{
+			pagina= "InviaRichiestaEnteET.jsp";
+//			RequestDispatcher dispatcher = request.getRequestDispatcher("InviaRichiestaEnteET.jsp");
+//			dispatcher.forward(request, response);
+		}else 
+		{
+			pagina = "VisualizzaEnteET.jsp";
+//			RequestDispatcher dispatcher = request.getRequestDispatcher("VisualizzaEnteET.jsp");
+//			dispatcher.forward(request, response);			
+		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher(pagina);
 		dispatcher.forward(request, response);
-		
 	}
 	  
 	/**

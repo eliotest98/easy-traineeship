@@ -1,9 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="ISO-8859-1" import="controller.CheckSession"%>
+         pageEncoding="ISO-8859-1" import="java.util.*,controller.CheckSession, controller.ServletListaEnteET, model.EnteConvenzionato"%>
 
 <%
     String pageName = "inviaRichiestaEnteET.jsp";
     String pageFolder = "_areaStudent";
+    
+    ArrayList<EnteConvenzionato> listaEnti=new ArrayList<EnteConvenzionato>();
+	listaEnti=(ArrayList<EnteConvenzionato>)request.getAttribute("listaEnti");
+	
+	
 %>
 
 <!DOCTYPE html>
@@ -36,11 +41,28 @@
                                     <h2 class="text-center">Invio Richiesta di Tirocinio all'Ente Convenzionato</h2>
                                     <p class="text-center">Compila tutti i campi per inviare la richiesta.</p>
                                 </div>
-                                <form id="signUp" action="../ServletSceltaEnteET" method="post">
-                                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <label for="ente">Ente</label>
-                                        <input type="text" class="form-control" id="ente" name="ente"
-                                               placeholder="Ente" minlength="1" maxlength="64" required>
+                                <div>
+	                                <form id="signUp" action="../ServletSceltaEnteET" method="post">
+	                                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+	                                    <label for="ente">Ente</label>
+	                                        <select>
+	                              <% System.out.println("jsp="+listaEnti); %>
+	                                    	<%
+											//Se la listaEnti non è null mostro la tabella
+											
+											if(listaEnti!=null)
+											{
+												//Scorro tutta la listaEnti
+												for( int i = 0; i < listaEnti.size(); i++)
+												{ %>
+	  												<option value="<%=listaEnti.get(i).getName()%>"><%=listaEnti.get(i).getName()%></option>					
+												<%
+												} 
+											}
+												%>
+	                                        </select>
+	                                  	</div>
+	                                  </form>
                                     </div>       
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="nome">Nome</label>
