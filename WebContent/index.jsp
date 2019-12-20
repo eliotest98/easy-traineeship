@@ -18,7 +18,6 @@
 		<!-- Preloader -->
 		<!-- <div class="preloader"></div>  -->
 
-
 		<jsp:include page="/partials/header.jsp">
 			<jsp:param name="pageName" value="<%= pageName %>" />
 			<jsp:param name="pageFolder" value="<%= pageFolder %>" />
