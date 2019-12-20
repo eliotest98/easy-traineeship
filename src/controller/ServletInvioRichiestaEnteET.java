@@ -23,7 +23,6 @@ public class ServletInvioRichiestaEnteET extends HttpServlet {
    */
   public ServletInvioRichiestaEnteET() {
     super();
-    // TODO Auto-generated constructor stub
   }
 
   /**
