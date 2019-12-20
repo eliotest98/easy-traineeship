@@ -41,57 +41,57 @@
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="name">Nome Ente</label>
                                         <input type="text" class="form-control" id="name" name="name"
-                                               placeholder="Nome Ente" value="asd" minlength="1" maxlength="64" required>
+                                               placeholder="Nome Ente" minlength="1" maxlength="64" required>
                                     </div>
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="partitaIva">Partita IVA</label>
                                         <input type="tel" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control"
-                                               placeholder="Partita IVA" value="12312312312" name="partitaIva" id="partitaIva" required>
+                                               placeholder="Partita IVA" name="partitaIva" id="partitaIva" required>
                                     </div>           
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="email">Email</label>
                                         <input type="email" class="form-control" id="email" name="email"
-                                               placeholder="Email" value="ale@hotmail.it" minlength="1" maxlength="64" required>
+                                               placeholder="Email" minlength="1" maxlength="64" required>
                                     </div>
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="sede">Sede</label>
                                         <input type="text" class="form-control" id="sede" name="sede"
-                                               placeholder="Sede" value="asd" minlength="1" maxlength="64" required>
+                                               placeholder="Sede" minlength="1" maxlength="64" required>
                                     </div>
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="telefono">Numero di telefono</label>
                                         <input type="tel" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control"
-                                               placeholder="Numero di Telefono" value="1231231231" name="telefono" id="telefono" required>
+                                               placeholder="Numero di Telefono" name="telefono" id="telefono" required>
                                     </div>
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="dipendenti">Numero Dipendenti</label>
                                         <input type="text" class="form-control"
-                                               placeholder="Numero di Dipendenti" value="1" name="dipendenti" id="dipendenti" required>
+                                               placeholder="Numero di Dipendenti" name="dipendenti" id="dipendenti" required>
                                     </div>
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="rappresentante">Nome Rappresentante</label>
                                         <input type="text" class="form-control" id="rappresentante" name="rappresentante"
-                                               placeholder="Nome Rappresentante" value="asd" minlength="1" maxlength="64" required>
+                                               placeholder="Nome Rappresentante" minlength="1" maxlength="64" required>
                                     </div>
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="dataDiNascita">Data di Nascita del Rappresentante</label>
                                         <input type="text" class="form-control"
-                                               placeholder="Data di Nascita" value="12/12/1999" name="dataDiNascita" id="dataDiNascita" required>
+                                               placeholder="Data di Nascita" name="dataDiNascita" id="dataDiNascita" required>
                                     </div>
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="dotRiferimento">Professore di Riferimento</label>
                                         <input type="text" class="form-control" id="dotRiferimento" name="dotRiferimento"
-                                               placeholder="Professore di Riferimento" value="asd" minlength="1" maxlength="64" required>
+                                               placeholder="Professore di Riferimento" minlength="1" maxlength="64" required>
                                     </div>
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="referente">Referente Tirocini</label>
                                         <input type="text" class="form-control"
-                                               placeholder="Referente Tirocini" value="asd" minlength="1" maxlength="64" name="referente" id="referente" required>
+                                               placeholder="Referente Tirocini" minlength="1" maxlength="64" name="referente" id="referente" required>
                                     </div>
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="descrizioneAttivita">Descrizione Attività</label>
                                         <input type="text" class="form-control"
-                                               placeholder="Descrizione delle Attività" value="asd" minlength="1" maxlength="256" name="descrizioneAttivita" id="descrizioneAttivita" required>
+                                               placeholder="Descrizione delle Attività" minlength="1" maxlength="256" name="descrizioneAttivita" id="descrizioneAttivita" required>
                                     </div>
                                     <div
                                             class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
