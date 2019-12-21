@@ -171,7 +171,7 @@ public class TirocinioDAO {
 			psTirocinio.setString(5, tirocinio.getAttivitaPreviste());
 			psTirocinio.setString(6, tirocinio.getSvolgimentoTirocinio());
 			psTirocinio.setString(7, "inviataAllaSegreteria");
-			psTirocinio.setInt(8, tirocinio.getMatricola());
+			psTirocinio.setLong(8, tirocinio.getMatricola());
 			
 			
 			//Se l'inserimento va a buon fine restituisce true
@@ -329,7 +329,7 @@ public class TirocinioDAO {
 				psTirocinio.setString(7, tirocinio.getStatoTirocinio());
 				psTirocinio.setString(8, tirocinio.getProgettoFormativo());
 				psTirocinio.setString(9, tirocinio.getDescrizioneEnte());
-				psTirocinio.setInt(10, tirocinio.getMatricola());
+				psTirocinio.setLong(10, tirocinio.getMatricola());
 				psTirocinio.setString(11, tirocinio.getPartitaIva());
 				psTirocinio.setInt(12, tirocinio.getCodTirocinio());
 				
