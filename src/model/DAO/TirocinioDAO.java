@@ -200,14 +200,15 @@ public class TirocinioDAO {
 		//Ritorna false se l'insert non � andato a buon fine 
 		return false;	
 	}
+	
 	/**
-	 * Metodo che interagisce con il DB e modifica lo stato 'DESCRIZIONEENTE' del
-	 * 'Tirocinio' dello Studente passando la 'matricola' come parametro
-	 * @param matricola
-	 * @param descrizione
-	 * @return boolan
+	 * Metodo che interagisce con il DB e invia la richiesta all' 'EnteConvenzionato'
+	 * @param codTirocinio
+	 * @param partitaIva
+	 * @param descrizioneEnte
+	 * @return boolean
 	 */
-	public synchronized boolean aggiornaTirocinio(String matricola,String descrizione) {
+	public synchronized boolean richiestaEnte(String codTirocinio, int partitaIva, String descrizioneEnte) {
 
 		Connection con = null; // variabile per la connessione al DB
 		PreparedStatement psTirocinio = null;// Creazione oggetto Statement per il 'Tirocinio
@@ -216,9 +217,10 @@ public class TirocinioDAO {
 			con = new DbConnection().getInstance().getConn();
 			
 			
-			// Insert per l'inserimento in 'Tirocinio' dei dati parziali del 'Tirocinio'
-			psTirocinio = con.prepareStatement("UPDATE TIROCINIO " + "SET DESCRIZIONEENTE ='" + descrizione + "' "
-						+ "WHERE MATRICOLA =" + matricola + "; ");
+			// Update per la richiesta all' ente
+			psTirocinio = con.prepareStatement("UPDATE TIROCINIO " + "SET DESCRIZIONEENTE='" + descrizioneEnte + "', "
+						+ "PARTITAIVA ='" + partitaIva + "' "
+						+ "WHERE CODTIROCINIO =" + codTirocinio + "; ");
 						
 			// Se la modifica va a buon fine restituisce true
 			if (psTirocinio.executeUpdate() == 1) {
@@ -235,7 +237,7 @@ public class TirocinioDAO {
 				e.printStackTrace();
 			}
 		}
-		// Ritorna false se l'insert non � andato a buon fine
+		// Ritorna false se la richiesta all' ente non e' andata a buon fine
 		return false;
 	}
 	

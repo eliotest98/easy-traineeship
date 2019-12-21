@@ -84,7 +84,8 @@ public class ServletSceltaEnteET extends HttpServlet {
 		String matricola = (String) request.getSession().getAttribute("matricola");// da capire
 		// se la passiamo in sessione
 		try {
-			if (!tirocinioDAO.aggiornaTirocinio(matricola, descrizione) )
+			if (true /*(tirocinioDAO.aggiornaTirocinio(codTirocinio, partitaIva, descrizione)) // metodo per associare l ente e la descrizione
+						&& (tirocinioDAO.modificaStatoTirocinio(codTirocinio,"inviataAllEnte")*/)// metodo per settare lo stato
 			{
 				throw new IllegalArgumentException("L'invio della richiesta non e' stato effettuato");
 			} else {
