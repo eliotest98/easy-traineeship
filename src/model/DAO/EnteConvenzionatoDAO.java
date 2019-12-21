@@ -103,7 +103,7 @@ public class EnteConvenzionatoDAO {
 			psEnteConvenzionato= con.prepareStatement("INSERT INTO ENTECONVENZIONATO(PARTITAIVA, SEDE, RAPPRESENTANTE,"
 														+ " TELEFONO, DIPENDENTI, DOTRIFERIMENTO, REFERENTE,"
 														+ "DATANASCITA, DESCRIZIONEATTIVITA, EMAIL) "
-														+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+														+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 			psEnteConvenzionato.setString(1, enteConvenzionato.getPartitaIva());
 			psEnteConvenzionato.setString(2, enteConvenzionato.getSede());
 			psEnteConvenzionato.setString(3, enteConvenzionato.getRappresentante());
