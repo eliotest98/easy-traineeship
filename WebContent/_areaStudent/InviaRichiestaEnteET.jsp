@@ -47,7 +47,8 @@
 										<form id="signUp" action="../ServletSceltaEnteET"
 											method="post">
 											<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-												<label for="ente">Ente</label> <select>
+												<label for="ente">Ente</label>
+												<select>
 													<%
 														if (listaEnti != null) {
 															//Scorro tutta la listaEnti
@@ -59,6 +60,20 @@
 														}
 													%>
 												</select>
+												<label for="partitaIva">Partita IVA</label>
+												<select>
+													<%
+														if (listaEnti != null) {
+															//Scorro tutta la listaEnti
+															for (int i = 0; i < listaEnti.size(); i++) {
+													%>
+													<option value="<%=listaEnti.get(i).getPartitaIva()%>"><%=listaEnti.get(i).getName()%></option>
+													<%
+															}
+														}
+													%>
+												</select>
+											
 											</div>
 											<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 												<label for="nome">Nome</label> <input type="text"

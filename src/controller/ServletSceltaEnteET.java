@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -81,10 +83,12 @@ public class ServletSceltaEnteET extends HttpServlet {
 		} else if (descrizione.length() > 256) {
 			throw new IllegalArgumentException("Il campo Descrizione supera la lunghezza consentita");
 		}
-		String matricola = (String) request.getSession().getAttribute("matricola");// da capire
+		int matricola = (int) request.getSession().getAttribute("matricola");// da capire
 		// se la passiamo in sessione
+		String partitaIva = (String) request.getParameter("partitaIva");
+		ArrayList<Integer> codTirocinio = tirocinioDAO.allTirocinioTirocinante(matricola);  //creare un metodo che restituisca un solo codTirocinio
 		try {
-			if (true /*(tirocinioDAO.aggiornaTirocinio(codTirocinio, partitaIva, descrizione)) // metodo per associare l ente e la descrizione
+			if (true /*(tirocinioDAO.richiestaEnte(codTirocinio, partitaIva, descrizione)) // metodo per associare l ente e la descrizione
 						&& (tirocinioDAO.modificaStatoTirocinio(codTirocinio,"inviataAllEnte")*/)// metodo per settare lo stato
 			{
 				throw new IllegalArgumentException("L'invio della richiesta non e' stato effettuato");
