@@ -200,14 +200,15 @@ public class TirocinioDAO {
 		//Ritorna false se l'insert non ï¿½ andato a buon fine 
 		return false;	
 	}
+	
 	/**
-	 * Metodo che interagisce con il DB e modifica lo stato 'DESCRIZIONEENTE' del
-	 * 'Tirocinio' dello Studente passando la 'matricola' come parametro
-	 * @param matricola
-	 * @param descrizione
-	 * @return boolan
+	 * Metodo che interagisce con il DB e invia la richiesta all' 'EnteConvenzionato'
+	 * @param codTirocinio
+	 * @param partitaIva
+	 * @param descrizioneEnte
+	 * @return boolean
 	 */
-	public synchronized boolean aggiornaTirocinio(String matricola,String descrizione) {
+	public synchronized boolean richiestaEnte(String codTirocinio, int partitaIva, String descrizioneEnte) {
 
 		Connection con = null; // variabile per la connessione al DB
 		PreparedStatement psTirocinio = null;// Creazione oggetto Statement per il 'Tirocinio
@@ -216,9 +217,10 @@ public class TirocinioDAO {
 			con = new DbConnection().getInstance().getConn();
 			
 			
-			// Insert per l'inserimento in 'Tirocinio' dei dati parziali del 'Tirocinio'
-			psTirocinio = con.prepareStatement("UPDATE TIROCINIO " + "SET DESCRIZIONEENTE ='" + descrizione + "' "
-						+ "WHERE MATRICOLA =" + matricola + "; ");
+			// Update per la richiesta all' ente
+			psTirocinio = con.prepareStatement("UPDATE TIROCINIO " + "SET DESCRIZIONEENTE='" + descrizioneEnte + "', "
+						+ "PARTITAIVA ='" + partitaIva + "' "
+						+ "WHERE CODTIROCINIO =" + codTirocinio + "; ");
 						
 			// Se la modifica va a buon fine restituisce true
 			if (psTirocinio.executeUpdate() == 1) {
@@ -235,7 +237,7 @@ public class TirocinioDAO {
 				e.printStackTrace();
 			}
 		}
-		// Ritorna false se l'insert non ï¿½ andato a buon fine
+		// Ritorna false se la richiesta all' ente non e' andata a buon fine
 		return false;
 	}
 	
@@ -360,6 +362,88 @@ public class TirocinioDAO {
 		}
 		//Ritorna false se la modifica non ï¿½ andata a buon fine 
 		return false;	
+	}
+	
+	public synchronized boolean uploadProgettoFormativo(int codTirocinio, String progettoFormativo)
+	{
+		Connection con = null; //variabile per la connessione al DB
+		PreparedStatement psTirocinio = null;// Creazione oggetto Statement per il 'Tirocinio
+		try 
+		{
+			//Connessione con il DB
+			con= new DbConnection().getInstance().getConn();
+			//Inserimento in 'Tirocinio' del path del 'progetto formativo'
+			psTirocinio= con.prepareStatement("UPDATE TIROCINIO " 
+											+ "SET PROGETTOFORMATIVO ='"+progettoFormativo+"' " 
+											+ "WHERE CODTIROCINIO ="+codTirocinio+"; ");
+			//Se la modifica va a buon fine restituisce true
+			if(psTirocinio.executeUpdate()==1)
+			{
+				con.commit();
+				return true;
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try 
+			{
+				psTirocinio.close();// Chiusura oggetto Statement dell' 'Tirocinio'
+			} 
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		//Ritorna false se la modifica non è andata a buon fine 
+		return false;	
+	}
+
+
+	/*
+	 * Metodo che interagisce con il DB e restituisce il path del 
+	 * 'PROGETTOFORMATIVO' 
+	 * 
+	 * @param codTirocinio
+	 * @return progettoFormativo
+	 * */
+	public synchronized String downloadProgettoFormativo(int codTirocinio)
+	{
+		Connection con = null; //variabile per la connesione del DB
+		PreparedStatement ps = null;// Creazione oggetto Statement
+		String progettoFormativo=null;
+		try 
+		{
+			//Connessione con il DB
+			con= new DbConnection().getInstance().getConn();
+			//Query Sql per prelevare il path del progetto formativo
+			ps= con.prepareStatement("SELECT PROGETTOFORMATIVO "
+									+ "FROM TIROCINIO "
+									+ "WHERE CODTIROCINIO="+codTirocinio+";");
+			ResultSet res = ps.executeQuery();
+			//Ciclo che inserisce all' interno della lista i 'Tirocini'
+			//restituiti dalla query
+			progettoFormativo=res.getString("PROGETTOFORMATIVO");
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+			try 
+			{
+				ps.close();// Chiusura oggetto Statement 
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		return progettoFormativo;	
 	}
 }	
 	

@@ -34,16 +34,15 @@ public class TirocinanteDAO {
 
         try {
             conn = new DbConnection().getInstance().getConn();
-            String sql = "SELECT * FROM TIROCINANTE WHERE matricola = ?";
-            ps = conn.prepareStatement(sql);
-            ps.executeQuery(sql);
+            ps = conn.prepareStatement("SELECT * FROM TIROCINANTE WHERE matricola = ?");
+            ps.executeQuery();
             ResultSet rs = ps.getResultSet();
 
             if (rs.next()) {
                 tirocinante = new Tirocinante();
                 DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
                 tirocinante.setMatricola(rs.getInt("MATRICOLA"));
-                tirocinante.setDataNascita(df.format(rs.getDate("DATANASCITA")));
+                tirocinante.setDataNascita(rs.getDate("DATANASCITA"));
                 tirocinante.setLuogoNascita(rs.getString("LUOGONASCITA"));
                 tirocinante.setCittadinanza(rs.getString("CITTADINANZA"));
                 tirocinante.setResidenza(rs.getString("RESIDENZA"));
@@ -69,28 +68,28 @@ public class TirocinanteDAO {
      * Questa funzione permette di ricercare tutti i tirocinanti all'interno della base di dati.
      * @return List<Tirocinante> tirocinanti
      */
-    public List<Tirocinante> allTirocinante() {
+    public ArrayList<Tirocinante> allTirocinante() {
 
         Connection con = null;
         PreparedStatement ps = null;
-        List<Tirocinante> tirocinanti = null;
+        ArrayList<Tirocinante> tirocinanti = null;
 
         try {
             con = new DbConnection().getInstance().getConn();
-            ps = con.prepareStatement("SELECT * " + "FROM TIROCINANTE ");
+            ps = con.prepareStatement("SELECT * FROM TIROCINANTE;");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 tirocinanti = new ArrayList<Tirocinante>();
                 Tirocinante tirocinante = new Tirocinante();
-                DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+                //Date df = new SimpleDateFormat("MM/dd/yyyy");
                 tirocinante.setMatricola(rs.getInt("MATRICOLA"));
-                tirocinante.setDataNascita(df.format(rs.getDate("DATANASCITA")));
+                tirocinante.setDataNascita(rs.getDate("DATANASCITA"));
                 tirocinante.setLuogoNascita(rs.getString("LUOGONASCITA"));
                 tirocinante.setCittadinanza(rs.getString("CITTADINANZA"));
                 tirocinante.setResidenza(rs.getString("RESIDENZA"));
                 tirocinante.setCodiceFiscale(rs.getString("CODICEFISCALE"));
-                tirocinante.setTelefono(rs.getInt("TELEFONO"));
-                tirocinante.setEmail("EMAIL");
+                tirocinante.setTelefono(rs.getLong("TELEFONO"));
+                tirocinante.setEmail(rs.getString("EMAIL"));
                 tirocinanti.add(tirocinante);
             }
         } catch (SQLException e) {
@@ -134,7 +133,7 @@ public class TirocinanteDAO {
                     + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             psTirocinante.setLong(1, tirocinante.getMatricola());
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ITALIAN);
-            Date date = format.parse(tirocinante.getDataNascita());
+            Date date = tirocinante.getDataNascita();
             psTirocinante.setDate(2, (java.sql.Date) date);
             psTirocinante.setString(3, tirocinante.getLuogoNascita());
             psTirocinante.setString(4, tirocinante.getCittadinanza());
@@ -147,7 +146,7 @@ public class TirocinanteDAO {
             if ((psUser.executeUpdate() == 1) && (psTirocinante.executeUpdate() == 1))
                 return true;
 
-        } catch (SQLException | ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {

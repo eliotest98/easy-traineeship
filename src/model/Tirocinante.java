@@ -1,4 +1,7 @@
 package model;
+
+import java.util.Date;
+
 /**
  * Class.
  *
@@ -13,12 +16,13 @@ public class Tirocinante extends Student {
     private String residenza;
     private String codiceFiscale;
     private long telefono;
+    private String email;
     /**
      * Contructor.
      *
-     * @param matricola è la chiave primaria del Tirocinante.
-     * @param facolta è sempre informatica, ma è stato messo in caso di ampliamento del sistema.
-     * @param dataNascita è la data di nascita del Tirocinante.
+     * @param matricola ï¿½ la chiave primaria del Tirocinante.
+     * @param facolta ï¿½ sempre informatica, ma ï¿½ stato messo in caso di ampliamento del sistema.
+     * @param dataNascita ï¿½ la data di nascita del Tirocinante.
      * @param luogoNascita is the place of birth of the Tirocinante.
      * @param cittadinanza is the citizenship of the Tirocinante.
      * @param residenza is the residence of the Tirocinante.
@@ -34,9 +38,10 @@ public class Tirocinante extends Student {
         this.residenza = residenza;
         this.codiceFiscale = codiceFiscale;
         this.telefono = telefono;
+        this.email = email;
     }
 
-    public Tirocinante() {
+	public Tirocinante() {
     }
 
     public long getMatricola() {
@@ -47,11 +52,11 @@ public class Tirocinante extends Student {
         this.matricola = matricola;
     }
 
-    public String getDataNascita() {
+    public Date getDataNascita() {
         return dataNascita;
     }
 
-    public void setDataNascita(String dataNascita) {
+    public void setDataNascita(Date dataNascita) {
         this.dataNascita = dataNascita;
     }
 
