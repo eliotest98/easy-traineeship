@@ -1,53 +1,52 @@
 package test;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals; 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import model.Attached;
 
 import org.junit.jupiter.api.Test;
 
 class AttachedTest {
-  
-  @Test
-  void testAttachedCostructorEmpty() {
-    Attached at = new Attached();
-    assertNotNull(at);
-  }
 
-  // Test Metodi GET.
+	@Test
+	void testAttachedCostructorEmpty() {
+		Attached at = new Attached();
+		assertNotNull(at);
+	}
 
-  @Test
-  void testidAttached() {
-    Attached att = new Attached(02, "");
-    assertEquals(02, att.getIdAttached());
-  }
+	// Test Metodi GET.
 
-  @Test
-  void testFilename() {
-    Attached att = new Attached(02, "nome file");
-    assertEquals("nome file", att.getFilename());
-  }
+	@Test
+	void testidAttached() {
+		Attached att = new Attached(02, "");
+		assertEquals(02, att.getIdAttached());
+	}
 
-  // FINE TEST GET
+	@Test
+	void testFilename() {
+		Attached att = new Attached(02, "nome file");
+		assertEquals("nome file", att.getFilename());
+	}
 
-  // INIZIO TEST SET
+	// FINE TEST GET
 
-  @Test
-  void testSetIdAttached() {
-    Attached att = new Attached(02, "");
-    att.setIdAttached(03);
-    assertEquals(03, att.getIdAttached());
-  }
+	// INIZIO TEST SET
 
-  @Test
-  void testSetfilename() {
-    Attached att = new Attached(02, "nome file");
-    att.setFilename("Angelo");
-    assertEquals("Angelo", att.getFilename());
-  }
+	@Test
+	void testSetIdAttached() {
+		Attached att = new Attached(02, "");
+		att.setIdAttached(03);
+		assertEquals(03, att.getIdAttached());
+	}
 
-  // FINE TEST SET
+	@Test
+	void testSetfilename() {
+		Attached att = new Attached(02, "nome file");
+		att.setFilename("Angelo");
+		assertEquals("Angelo", att.getFilename());
+	}
 
+	// FINE TEST SET
 
 }
