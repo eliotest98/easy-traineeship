@@ -136,9 +136,9 @@ public class ServletModificaEnteET extends HttpServlet {
      */
     try {
       if (!enteConDao.modificaEnte(enteCon)) {
-        throw new IllegalArgumentException("La registrazione non e' stata effettuata");
+        throw new IllegalArgumentException("La registrazione non &egrave; stata effettuata");
       } else {
-        request.setAttribute("La modifica e' avvenuta con successo", mess);
+        request.setAttribute("La modifica &egrave; avvenuta con successo", mess);
         //Controlla jsp
         RequestDispatcher dispatcher = request.getRequestDispatcher("VisualizzaEnteET.jsp");
         dispatcher.forward(request, response);

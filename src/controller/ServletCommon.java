@@ -99,6 +99,9 @@ public class ServletCommon extends HttpServlet {
                 user = new Admin(email, name, surname, sex, password, userType);
                 userET="2";
               }
+              else if (userType == 3) { //Profilo Ente Convenzionato
+                userET="3"; //L'utenete in sessione è un Ente Convenzionato
+              }
               else {
                 throw new NumberFormatException("utente non valido");
               }

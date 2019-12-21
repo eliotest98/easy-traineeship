@@ -25,14 +25,25 @@ public class ServletRichiestaInizioTirocinio extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{ 
+	  /**
+	  * Controllo autenticazione tramite parametro in sessione (0 = Studente ET alias Tirocinante).
+      */
+	    String userET = (String) request.getSession().getAttribute("userET");
+	    if ((userET == null) || (!userET.equals("0"))) 
+	    {
+	      response.sendRedirect("login.jsp");
+	      return;
+	    }
+	    
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
 		doGet(request, response);
 	}
 
