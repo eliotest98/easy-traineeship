@@ -38,7 +38,12 @@ public class ServletListaEnteET extends HttpServlet
 		//Array list di Enti convenzionati
 		ArrayList<EnteConvenzionato> listaEnti=new ArrayList<EnteConvenzionato>();
 		//Ricerco tutti gli 'EntiConvenzionati' e li inserisco nella listaEnti
-		listaEnti=ente.allEnte();
+		try {
+			listaEnti=ente.allEnte();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		//Controllo se la Lista non � vuota
 		
 		if(listaEnti!=null)
