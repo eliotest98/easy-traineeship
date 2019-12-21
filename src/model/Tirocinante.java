@@ -1,4 +1,7 @@
 package model;
+
+import java.util.Date;
+
 /**
  * Class.
  *
@@ -6,12 +9,13 @@ package model;
  */
 public class Tirocinante extends Student {
     private int matricola;
-    private String dataNascita;
+    private Date dataNascita;
     private String luogoNascita;
     private String cittadinanza;
     private String residenza;
     private String codiceFiscale;
     private long telefono;
+    private String email;
     /**
      * Contructor.
      *
@@ -23,7 +27,7 @@ public class Tirocinante extends Student {
      * @param codiceFiscale is the tax code of the Tirocinante.
      * @param telefono is the number phone of the Tirocinante.
      */
-    public Tirocinante(int matricola, String dataNascita, String luogoNascita, String cittadinanza, String residenza, String codiceFiscale, long telefono) {
+    public Tirocinante(int matricola, Date dataNascita, String luogoNascita, String cittadinanza, String residenza, String codiceFiscale, long telefono, String email) {
         this.matricola = matricola;
         this.dataNascita = dataNascita;
         this.luogoNascita = luogoNascita;
@@ -31,9 +35,10 @@ public class Tirocinante extends Student {
         this.residenza = residenza;
         this.codiceFiscale = codiceFiscale;
         this.telefono = telefono;
+        this.email = email;
     }
 
-    public Tirocinante() {
+	public Tirocinante() {
     }
 
     public int getMatricola() {
@@ -44,11 +49,11 @@ public class Tirocinante extends Student {
         this.matricola = matricola;
     }
 
-    public String getDataNascita() {
+    public Date getDataNascita() {
         return dataNascita;
     }
 
-    public void setDataNascita(String dataNascita) {
+    public void setDataNascita(Date dataNascita) {
         this.dataNascita = dataNascita;
     }
 
@@ -91,4 +96,12 @@ public class Tirocinante extends Student {
     public void setTelefono(long telefono) {
         this.telefono = telefono;
     }
+    
+    public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }
