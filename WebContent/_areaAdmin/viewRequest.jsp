@@ -7,8 +7,8 @@
 	String pageName = "viewRequest.jsp";
 	String pageFolder = "_areaAdmin";
 	CheckSession ck = new CheckSession(pageFolder, pageName, request.getSession());
-	if (!ck.isAllowed()) {
-		response.sendRedirect(request.getContextPath() + ck.getUrlRedirect());
+	if(!ck.isAllowed()){
+	  response.sendRedirect(request.getContextPath()+ck.getUrlRedirect());  
 	}
 %>
 <!DOCTYPE html>
@@ -25,8 +25,8 @@
 
 
 		<jsp:include page="/partials/header.jsp">
-			<jsp:param name="pageName" value="<%=pageName%>" />
-			<jsp:param name="pageFolder" value="<%=pageFolder%>" />
+			<jsp:param name="pageName" value="<%= pageName %>" />
+			<jsp:param name="pageFolder" value="<%= pageFolder %>" />
 		</jsp:include>
 
 
@@ -36,8 +36,7 @@
 					<div class="content-side col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="content ">
 							<div class="news-block-seven">
-								<table id="adminTable"
-									class="display data-results table table-striped table-hover table-bordered">
+								<table id="adminTable" class="display data-results table table-striped table-hover table-bordered">
 									<thead>
 										<tr>
 											<th class="text-center">ID</th>
@@ -61,17 +60,13 @@
 
 									</tbody>
 								</table>
-
+								
 								<div align="center">
-									<button class="btn btn-primary btn-action generateExcel"
-										id="generateExcelAccepted"
-										title="Genera File Excel - Richieste Accettate">Richieste
-										Accettate</button>
-
-									<button class="btn btn-primary btn-action generateExcel"
-										id="generateExcelRefused"
-										title="Genera File Excel - Richieste Rifiutate">Richieste
-										Rifiutate</button>
+									<button class="btn btn-primary btn-action generateExcel" id="generateExcelAccepted"
+										title="Genera File Excel - Richieste Accettate">Richieste Accettate</button>
+									
+									<button class="btn btn-primary btn-action generateExcel" id="generateExcelRefused"
+										title="Genera File Excel - Richieste Rifiutate">Richieste Rifiutate</button>								
 								</div>
 							</div>
 						</div>
@@ -86,44 +81,39 @@
 
 	<jsp:include page="/partials/includes.jsp" />
 	<script>
-		jQuery(document)
-				.ready(
-						function($) {
-							$('#adminTable')
-									.DataTable(
-											{
-												"order" : [ [ 0, "desc" ] ],
-												"lengthMenu" : [ [ 10, -1 ],
-														[ 10, "Tutti" ] ],
-												"autoWidth" : false,
-												"bAutoWidth" : false,
-												"language" : {
-													"sEmptyTable" : "Nessuna richiesta Presente",
-													"sInfo" : "Vista da _START_ a _END_ di _TOTAL_ elementi",
-													"sInfoEmpty" : "Vista da 0 a 0 di 0 elementi",
-													"sInfoFiltered" : "(filtrati da _MAX_ elementi totali)",
-													"sInfoPostFix" : "",
-													"sInfoThousands" : ".",
-													"sLengthMenu" : "Visualizza _MENU_ elementi",
-													"sLoadingRecords" : "Caricamento...",
-													"sProcessing" : "Elaborazione...",
-													"sSearch" : "Cerca:",
-													"sZeroRecords" : "La ricerca non ha portato alcun risultato.",
-													"oPaginate" : {
-														"sFirst" : "Inizio",
-														"sPrevious" : '<i class="fa fa-caret-left"></i>',
-														"sNext" : '<i class="fa fa-caret-right"></i>',
-														"sLast" : "Fine"
-													},
-													"oAria" : {
-														"sSortAscending" : ": attiva per ordinare la colonna in ordine crescente",
-														"sSortDescending" : ": attiva per ordinare la colonna in ordine decrescente"
-													}
-												}
-											});
-						});
-	</script>
+			jQuery(document).ready(function($){
+				$('#adminTable').DataTable( {
+			        "order": [[ 0, "desc" ]],
+			        "lengthMenu": [[10, -1], [10, "Tutti"]],
+			        "autoWidth": false,
+			        "bAutoWidth": false,
+			        "language": {
+						    "sEmptyTable":     "Nessuna richiesta Presente",
+						    "sInfo":           "Vista da _START_ a _END_ di _TOTAL_ elementi",
+						    "sInfoEmpty":      "Vista da 0 a 0 di 0 elementi",
+						    "sInfoFiltered":   "(filtrati da _MAX_ elementi totali)",
+						    "sInfoPostFix":    "",
+						    "sInfoThousands":  ".",
+						    "sLengthMenu":     "Visualizza _MENU_ elementi",
+						    "sLoadingRecords": "Caricamento...",
+						    "sProcessing":     "Elaborazione...",
+						    "sSearch":         "Cerca:",
+						    "sZeroRecords":    "La ricerca non ha portato alcun risultato.",
+						    "oPaginate": {
+						        "sFirst":      "Inizio",
+						        "sPrevious":   '<i class="fa fa-caret-left"></i>',
+						        "sNext":       '<i class="fa fa-caret-right"></i>',
+						        "sLast":       "Fine"
+						    },
+						    "oAria": {
+						        "sSortAscending":  ": attiva per ordinare la colonna in ordine crescente",
+						        "sSortDescending": ": attiva per ordinare la colonna in ordine decrescente"
+						    }
+			        }        
+			    } );
+			});
+		</script>
 	<script
-		src="<%=request.getContextPath()%>/js/pages/scripts_viewRequestAdmin.js"></script>
+		src="<%= request.getContextPath() %>/js/pages/scripts_viewRequestAdmin.js"></script>
 </body>
 </html>
