@@ -2,6 +2,13 @@
          pageEncoding="ISO-8859-1" import="controller.CheckSession"%>
 
 <%
+	//Controllo autenticazione tramite parametro in sessione (1 = Segreteria).
+	String userET = (String) request.getSession().getAttribute("userET");
+	if ((userET == null) || (!userET.equals("1"))) {
+		response.sendRedirect("login.jsp");
+		return;
+	}
+	
     String pageName = "RegistrazioneEnteET.jsp";
     String pageFolder = "_areaSecretary";
 %>

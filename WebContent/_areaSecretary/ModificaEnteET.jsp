@@ -2,6 +2,13 @@
 	pageEncoding="ISO-8859-1" import="model.DAO.EnteConvenzionatoDAO,model.EnteConvenzionato, controller.CheckSession, java.util.*"%>
 	
 <%
+	 //Controllo autenticazione tramite parametro in sessione (1 = Segreteria).
+	String userET = (String) request.getSession().getAttribute("userET");
+	if ((userET == null) || (!userET.equals("1"))) {
+		response.sendRedirect("login.jsp");
+		return;
+	}
+	
 	//Autoriempimento form
 	int i = Integer.valueOf(request.getParameter("ente"));
 	System.out.println(i);
@@ -13,9 +20,9 @@
 	//CheckSession
 	String Segreteria = " ";
 	Segreteria = (String) session.getAttribute("Segreteria");
-	//System.out.println("Segreteria: " + Segreteria);
 	//Stringa della modifica avvenuta
 	String mess = (String) request.getAttribute("mess");
+	
 %>
 <!DOCTYPE html>
 <html>
