@@ -8,36 +8,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.DAO.TirocinioDAO;
+
 /**
  * Servlet implementation class ServletInvioRichiestaEnteET.
  */
 @WebServlet("/ServletSceltaEnteET")
 public class ServletSceltaEnteET extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	// private final TirocinioDAO tirocinioDAO = new TirocinioDAO();
+	private final TirocinioDAO tirocinioDAO = new TirocinioDAO();
 	String mess = null;
 
-	/**
-	 * <<<<<<< HEAD:src/controller/ServletInvioRichiestaEnteET.java #HttpServlet().
-	 */
 	public ServletSceltaEnteET() {
 		super();
 	}
 
-	/**
-	 * ======= >>>>>>> master:src/controller/ServletSceltaEnteET.java
-	 * HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response).
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	/**
-	 * HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response).
-	 */
-	@SuppressWarnings({ "unused", "unused" })
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		/**
 		 * Controllo autenticazione tramite parametro in sessione (0 = Studente).
@@ -93,7 +84,8 @@ public class ServletSceltaEnteET extends HttpServlet {
 		String matricola = (String) request.getSession().getAttribute("matricola");// da capire
 		// se la passiamo in sessione
 		try {
-			if (true/* !tirocinioDAO.aggiornaTirocinio(matricola, descrizione) */) // controllare il metodo
+			if (true /*(tirocinioDAO.aggiornaTirocinio(codTirocinio, partitaIva, descrizione)) // metodo per associare l ente e la descrizione
+						&& (tirocinioDAO.modificaStatoTirocinio(codTirocinio,"inviataAllEnte")*/)// metodo per settare lo stato
 			{
 				throw new IllegalArgumentException("L'invio della richiesta non e' stato effettuato");
 			} else {
@@ -106,3 +98,4 @@ public class ServletSceltaEnteET extends HttpServlet {
 		}
 	}
 }
+

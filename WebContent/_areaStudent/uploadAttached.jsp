@@ -5,29 +5,28 @@
 <%
 	String pageName = "uploadAttached.jsp";
 	String pageFolder = "_areaStudent";
-	CheckSession ck = new CheckSession(pageFolder, pageName, request.getSession());
+	CheckSession ck = new CheckSession(pageFolder, pageName, request.getSession());	
 	Integer idRequest = (Integer) request.getSession().getAttribute("idRequest");
-	if (idRequest == null) {
-		idRequest = new Utils().getLastUserRequestPartiallyCompleted(request.getSession());
-		request.getSession().setAttribute("idRequest", idRequest);
+	if(idRequest == null){
+	  idRequest = new Utils().getLastUserRequestPartiallyCompleted(request.getSession());
+	  request.getSession().setAttribute("idRequest", idRequest);
 	}
-	Integer requestNumberMaxUpload = Integer
-			.parseInt(new SystemAttribute().getValueByKey("request-number-max-upload"));
-	String requestAllowedExtensionUpload = new SystemAttribute()
-			.getValueByKey("request-allowed-extension-upload");
+	Integer requestNumberMaxUpload = Integer.parseInt(new SystemAttribute().getValueByKey("request-number-max-upload"));	
+	String requestAllowedExtensionUpload = new SystemAttribute().getValueByKey("request-allowed-extension-upload");
 	Integer requestState = new Utils().getRequestState(idRequest);
 	Integer shouldState = Integer.parseInt(new SystemAttribute().getValueByKey("request-partially-completed"));
-	if (!ck.isAllowed()) {
-		response.sendRedirect(request.getContextPath() + ck.getUrlRedirect());
-	} else if (idRequest == 0 || requestState != shouldState) {
-		response.sendRedirect(request.getContextPath() + "/_areaStudent/viewRequest.jsp");
-
+	if(!ck.isAllowed()) {
+	  response.sendRedirect(request.getContextPath()+ck.getUrlRedirect());  
 	}
-
-	String name = "";
+	else if( idRequest == 0 || requestState != shouldState){
+		response.sendRedirect(request.getContextPath()+"/_areaStudent/viewRequest.jsp");
+		
+	}
+	
+  	String name = "";
 	String surname = "";
 	String tipoLaurea = "Magistrale";
-	String year = "";
+	String year = "";	
 	String serial = "";
 	String ente = "";
 	String certificateSerial = "";
@@ -35,39 +34,38 @@
 	String requestedCfu = "";
 
 	Connection conn = new DbConnection().getInstance().getConn();
-	if (conn != null) {
+    if (conn != null) {
 
-		try {
-			Statement stmt = conn.createStatement();
-			String sql;
-			sql = "SELECT r.id_request, r.serial, u.name, u.surname, r.year, r.certificate_serial, "
-					+ "r.level, r.release_date, r.expiry_date, r.requested_cfu, "
-					+ "r.validated_cfu, e.name AS ente " + "FROM request r "
-					+ "     INNER JOIN ente e ON r.fk_certifier = e.id_ente "
-					+ "     INNER JOIN state s ON r.fk_state = s.id_state "
-					+ "     INNER JOIN user u ON r.fk_user = u.email ";
+      try {
+        Statement stmt = conn.createStatement();
+        String sql;
+        sql = "SELECT r.id_request, r.serial, u.name, u.surname, r.year, r.certificate_serial, "
+            + "r.level, r.release_date, r.expiry_date, r.requested_cfu, "
+            + "r.validated_cfu, e.name AS ente " + "FROM request r "
+            + "     INNER JOIN ente e ON r.fk_certifier = e.id_ente "
+            + "     INNER JOIN state s ON r.fk_state = s.id_state "
+            + "     INNER JOIN user u ON r.fk_user = u.email ";
 
-			ResultSet r = stmt.executeQuery(sql);
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
-			while (r.next()) {
-				name = r.getString("name");
-				surname = r.getString("surname");
-				if (r.getInt("requested_cfu") == 3) {
-					tipoLaurea = "Triennale";
-				}
-				year = sdf.format(r.getDate("year")) + " / "
-						+ (Integer.parseInt(sdf.format(r.getDate("year"))) + 1);
-				serial = r.getString("serial");
-				ente = r.getString("ente");
-				certificateSerial = r.getString("certificate_serial");
-				level = r.getString("level");
-				requestedCfu = r.getString("requested_cfu");
-			}
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-
-	}
+        ResultSet r = stmt.executeQuery(sql);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+        while (r.next()) {
+	    	name = r.getString("name");
+	    	surname = r.getString("surname");
+          	if(r.getInt("requested_cfu") == 3){
+	    	  tipoLaurea = "Triennale";	  
+	    	}
+          	year = sdf.format(r.getDate("year"))+ " / " + (Integer.parseInt(sdf.format(r.getDate("year")))+1);
+          	serial = r.getString("serial");
+          	ente = r.getString("ente");
+          	certificateSerial = r.getString("certificate_serial");
+          	level = r.getString("level");
+          	requestedCfu = r.getString("requested_cfu");
+        }
+      } catch (Exception e) {
+        System.out.println(e.getMessage());
+      }      
+      
+    } 	    	
 %>
 
 <!DOCTYPE html>
@@ -88,8 +86,8 @@
 
 
 		<jsp:include page="/partials/header.jsp">
-			<jsp:param name="pageName" value="<%=pageName%>" />
-			<jsp:param name="pageFolder" value="<%=pageFolder%>" />
+			<jsp:param name="pageName" value="<%= pageName %>" />
+			<jsp:param name="pageFolder" value="<%= pageFolder %>" />
 		</jsp:include>
 
 
@@ -106,32 +104,33 @@
 								</div>
 
 								<h2>
-									Richiesta N.<%=idRequest%>
-								</h2>
-								<h2>Trascina o premi sull'apposito riquadro per caricare un
-									file</h2>
-								<div action='<%=request.getContextPath() + "/Uploader"%>'
-									class='dropzoneUploader'></div>
+									Richiesta N.<%= idRequest %>
+									</h2>
+									<h2>
+										Trascina o premi sull'apposito riquadro per caricare un file
+										</h2>
+										<div action='<%= request.getContextPath() + "/Uploader" %>'
+											class='dropzoneUploader'></div>
 
-								<div class="form-group">
-									<button type="submit" class="btn btn-primary btn-submit"
-										id='aggiungiAllegati'>Concludi</button>
-								</div>
+										<div class="form-group">
+											<button type="submit" class="btn btn-primary btn-submit"
+												id='aggiungiAllegati'>Concludi</button>
+										</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 
-			<input type="hidden" id="name" value="<%=name%>" /> <input
-				type="hidden" id="surname" value="<%=surname%>" /> <input
-				type="hidden" id="tipoLaurea" value="<%=tipoLaurea%>" /> <input
-				type="hidden" id="year" value="<%=year%>" /> <input type="hidden"
-				id="serial" value="<%=serial%>" /> <input type="hidden" id="ente"
-				value="<%=ente%>" /> <input type="hidden" id="certificateSerial"
-				value="<%=certificateSerial%>" /> <input type="hidden" id="level"
-				value="<%=level%>" /> <input type="hidden" id="requestedCfu"
-				value="<%=requestedCfu%>" />
+			<input type="hidden" id="name" value="<%= name %>" /> <input
+				type="hidden" id="surname" value="<%= surname %>" /> <input
+				type="hidden" id="tipoLaurea" value="<%= tipoLaurea %>" /> <input
+				type="hidden" id="year" value="<%= year %>" /> <input type="hidden"
+				id="serial" value="<%= serial %>" /> <input type="hidden" id="ente"
+				value="<%= ente %>" /> <input type="hidden" id="certificateSerial"
+				value="<%= certificateSerial %>" /> <input type="hidden" id="level"
+				value="<%= level %>" /> <input type="hidden" id="requestedCfu"
+				value="<%= requestedCfu %>" />
 		</div>
 		<jsp:include page="/partials/footer.jsp" />
 	</div>
@@ -179,63 +178,38 @@
 	<script>
 			$( document ).ready(function() {	
 				$(".dropzoneUploader").dropzone({
-					  maxFiles: <%=requestNumberMaxUpload%>,
-					  acceptedFiles: "<%=requestAllowedExtensionUpload%>
-		",
-												accept : function(file, done) {
-													done();
-												},
-												init : function() {
-													this
-															.on(
-																	"maxfilesexceeded",
-																	function(
-																			file,
-																			errorMessage) {
-																		this
-																				.removeFile(file);
-																		showAlert(
-																				1,
-																				errorMessage);
-																	});
-
-													this
-															.on(
-																	"error",
-																	function(
-																			file,
-																			errorMessage) {
-																		this
-																				.removeFile(file);
-																		showAlert(
-																				1,
-																				errorMessage);
-																	});
-
-													this
-															.on(
-																	"success",
-																	function(
-																			file,
-																			response) {
-																		var msg = jQuery
-																				.parseJSON(response);
-																		if (!msg.result) {
-																			showAlert(
-																					1,
-																					msg.error);
-																		} else {
-																			file.previewElement
-																					.querySelector("[data-dz-name]").innerHTML = msg.content;
-																		}
-																	});
-												}
-											});
-						});
-	</script>
-	<script src="<%=request.getContextPath()%>/js/filesystem_dropzone.js"></script>
+					  maxFiles: <%= requestNumberMaxUpload %>,
+					  acceptedFiles: "<%= requestAllowedExtensionUpload %>",
+					  accept: function(file, done){
+					    done();
+					  },
+					  init: function() {		
+					      this.on("maxfilesexceeded", function(file, errorMessage){
+					    	  this.removeFile(file);
+					    	  showAlert(1, errorMessage);		    	  
+					      });
+	                      
+					      this.on("error", function(file, errorMessage) {
+					    	  this.removeFile(file);
+					    	  showAlert(1, errorMessage);
+	                      });
+	                    
+						  this.on("success", function(file, response) {
+							  var msg = jQuery.parseJSON(response);
+						  	  if(!msg.result){
+						  		showAlert(1, msg.error);
+						  	  }	            		    
+						  	  else{
+						  		file.previewElement.querySelector("[data-dz-name]").innerHTML = msg.content;
+						  	  }
+						  });
+					  }		  						
+				});					
+			});
+		</script>
+	<script src="<%= request.getContextPath() %>/js/filesystem_dropzone.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/js/pages/scripts_uploadAttached.js"></script>
+		src="<%= request.getContextPath() %>/js/pages/scripts_uploadAttached.js"></script>
 
 </body>
 </html>

@@ -49,59 +49,52 @@
 											<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 												<label for="ente">Ente</label> <select>
 													<%
-														System.out.println("jsp=" + listaEnti);
-													%>
-													<%
-														//Se la listaEnti non è null mostro la tabella
-
 														if (listaEnti != null) {
 															//Scorro tutta la listaEnti
 															for (int i = 0; i < listaEnti.size(); i++) {
 													%>
 													<option value="<%=listaEnti.get(i).getName()%>"><%=listaEnti.get(i).getName()%></option>
 													<%
-														}
+															}
 														}
 													%>
 												</select>
 											</div>
+											<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+												<label for="nome">Nome</label> <input type="text"
+													class="form-control" id="nome" name="nome" placeholder="Nome"
+													minlength="1" maxlength="50" required>
+											</div>
+											<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+												<label for="cognome">Cognome</label> <input type="text"
+													class="form-control" id="cognome" name="cognome"
+													placeholder="Cognome" minlength="1" maxlength="50" required>
+											</div>
+											<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+												<label for="facolta">Facolt&agrave;</label> <input type="text"
+													class="form-control" id="facolta" name="facolta"
+													placeholder="Facolt&agrave;" minlength="1" maxlength="50"
+													required>
+											</div>
+											<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+												<label for="descrizione">Descrizione</label> <input
+													type="text" class="form-control" placeholder="Descrizione"
+													minlength="1" maxlength="256" name="descrizione"
+													id="descrizione" required>
+											</div>
+											<div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+												<input type="submit" class="btn btn-primary btn-submit"
+													value="Invia Richiesta"></input>
+											</div>
+											<div class="clearfix"></div>
 										</form>
 									</div>
-									<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-										<label for="nome">Nome</label> <input type="text"
-											class="form-control" id="nome" name="nome" placeholder="Nome"
-											minlength="1" maxlength="50" required>
-									</div>
-									<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-										<label for="cognome">Cognome</label> <input type="text"
-											class="form-control" id="cognome" name="cognome"
-											placeholder="Cognome" minlength="1" maxlength="50" required>
-									</div>
-									<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-										<label for="facolta">Facolt&agrave;</label> <input type="text"
-											class="form-control" id="facolta" name="facolta"
-											placeholder="Facolt&agrave;" minlength="1" maxlength="50"
-											required>
-									</div>
-									<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-										<label for="descrizione">Descrizione</label> <input
-											type="text" class="form-control" placeholder="Descrizione"
-											minlength="1" maxlength="256" name="descrizione"
-											id="descrizione" required>
-									</div>
-									<div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<input type="submit" class="btn btn-primary btn-submit"
-											value="Invia Richiesta"></input>
-									</div>
-									<div class="clearfix"></div>
-									</form>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 		<jsp:include page="/partials/footer.jsp" />
 	</div>
 	<!--End pagewrapper-->

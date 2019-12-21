@@ -11,31 +11,36 @@ import controller.DbConnection;
 import model.Tirocinio;
 
 public class TirocinioDAO {
-
+	
 	/*
-	 * Metodo che interroga il DB e restituisce tutti i 'Tirocini' persenti all'
-	 * interno in base allo stato di 'STATOTIROCINIO' per Segreteria e Admin e
-	 * EnteConvenzionato
+	 * Metodo che interroga il DB e restituisce tutti i 'Tirocini'
+	 * persenti all' interno in base allo stato di 'STATOTIROCINIO'
+	 * per Segreteria e Admin e EnteConvenzionato
 	 * 
 	 * @return listaTirocini
-	 */
-	public synchronized ArrayList allTirocinioByStato(String statoTirocinio) {
-
-		Connection con = null; // variabile per la connesione del DB
+	 * */
+	public synchronized ArrayList allTirocinioByStato(String statoTirocinio)
+	{
+		
+		Connection con = null; //variabile per la connesione del DB
 		PreparedStatement ps = null;// Creazione oggetto Statement
-		// ArrayLista di tipo Tirocinio
+		//ArrayLista di tipo Tirocinio
 		ArrayList<Tirocinio> listaTirocini = new ArrayList<Tirocinio>();
-		try {
-			// Connessione con il DB
-			con = new DbConnection().getInstance().getConn();
-			// Query Sql per prelevare i Tirocini
-			ps = con.prepareStatement("SELECT * " + "FROM TIROCINIO " + "WHERE STATOTIROCINIO=" + statoTirocinio + ";");
+		try 
+		{
+			//Connessione con il DB
+			con= new DbConnection().getInstance().getConn();
+			//Query Sql per prelevare i Tirocini
+			ps= con.prepareStatement("SELECT * "
+									+ "FROM TIROCINIO "
+									+ "WHERE STATOTIROCINIO="+statoTirocinio+";");
 			ResultSet res = ps.executeQuery();
-			// Ciclo che inserisce all' interno della lista i 'Tirocini'
-			// restituiti dalla query
-			while (res.next()) {
-
-				Tirocinio purchase = new Tirocinio();
+			//Ciclo che inserisce all' interno della lista i 'Tirocini'
+			//restituiti dalla query
+			while(res.next())
+			{
+				
+				Tirocinio purchase= new Tirocinio();
 				purchase.setCodTirocinio(res.getInt("CODTIROCINIO"));
 				purchase.setDataInizioTirocinio(res.getString("DATAINIZIOTIROCINO"));
 				purchase.setCfuPrevisti(res.getShort("CFUPREVISTI"));
@@ -48,43 +53,55 @@ public class TirocinioDAO {
 				purchase.setDescrizioneEnte(res.getString("DESCRIZIONEENTE"));
 				purchase.setMatricola(res.getInt("MATRICOLA"));
 				purchase.setPartitaIva(res.getString("PARTITAIVA"));
-				listaTirocini.add(purchase);// listaTirocini
+				listaTirocini.add(purchase);//listaTirocini
 			}
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) 
+		{
 			e.printStackTrace();
-		} finally {
-			try {
-				ps.close();// Chiusura oggetto Statement
-			} catch (SQLException e) {
+		}
+		finally 
+		{
+			try 
+			{
+				ps.close();// Chiusura oggetto Statement 
+			} 
+			catch (SQLException e) 
+			{
 				e.printStackTrace();
 			}
 		}
-		return listaTirocini;
+		return listaTirocini;	
 	}
-
+	
 	/*
-	 * Metodo che interroga il DB e restituisce tutti i 'Tirocini' persenti all'
-	 * interno di un 'Tirocinante'
+	 * Metodo che interroga il DB e restituisce tutti i 'Tirocini'
+	 * persenti all' interno di un 'Tirocinante'
 	 * 
 	 * @return listaTirocini
-	 */
-	public synchronized ArrayList allTirocinioTirocinante(int matricola) {
-
-		Connection con = null; // variabile per la connesione del DB
+	 * */
+	public synchronized ArrayList allTirocinioTirocinante(int matricola)
+	{
+		
+		Connection con = null; //variabile per la connesione del DB
 		PreparedStatement ps = null;// Creazione oggetto Statement
-		// ArrayLista di tipo Tirocinio
+		//ArrayLista di tipo Tirocinio
 		ArrayList<Tirocinio> listaTirocini = new ArrayList<Tirocinio>();
-		try {
-			// Connessione con il DB
-			con = new DbConnection().getInstance().getConn();
-			// Query Sql per prelevare i Tirocini
-			ps = con.prepareStatement("SELECT * " + "FROM TIROCINIO " + "WHERE MATRICOLA=" + matricola + ";");
+		try 
+		{
+			//Connessione con il DB
+			con= new DbConnection().getInstance().getConn();
+			//Query Sql per prelevare i Tirocini
+			ps= con.prepareStatement("SELECT * "
+									+ "FROM TIROCINIO "
+									+ "WHERE MATRICOLA="+matricola+";");
 			ResultSet res = ps.executeQuery();
-			// Ciclo che inserisce all' interno della lista i 'Tirocini'
-			// restituiti dalla query
-			while (res.next()) {
-
-				Tirocinio purchase = new Tirocinio();
+			//Ciclo che inserisce all' interno della lista i 'Tirocini'
+			//restituiti dalla query
+			while(res.next())
+			{
+				
+				Tirocinio purchase= new Tirocinio();
 				purchase.setCodTirocinio(res.getInt("CODTIROCINIO"));
 				purchase.setDataInizioTirocinio(res.getString("DATAINIZIOTIROCINO"));
 				purchase.setCfuPrevisti(res.getShort("CFUPREVISTI"));
@@ -97,46 +114,56 @@ public class TirocinioDAO {
 				purchase.setDescrizioneEnte(res.getString("DESCRIZIONEENTE"));
 				purchase.setMatricola(res.getInt("MATRICOLA"));
 				purchase.setPartitaIva(res.getString("PARTITAIVA"));
-				listaTirocini.add(purchase);// listaTirocini
+				listaTirocini.add(purchase);//listaTirocini
 			}
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) 
+		{
 			e.printStackTrace();
-		} finally {
-			try {
-				ps.close();// Chiusura oggetto Statement
-			} catch (SQLException e) {
+		}
+		finally 
+		{
+			try 
+			{
+				ps.close();// Chiusura oggetto Statement 
+			} 
+			catch (SQLException e) 
+			{
 				e.printStackTrace();
 			}
 		}
-		return listaTirocini;
+		return listaTirocini;	
 	}
-
+	
 	/*
-	 * Metodo che interagisce con il DB e inserisce in esso il 'Tirocinio' passato
-	 * come parametro
+	 * Metodo che interagisce con il DB e inserisce in esso il 'Tirocinio'
+	 * passato come parametro
 	 * 
-	 * dati inseriti sono: DATAINIZIOTIROCINO, CFUPREVISTI, COMPETENZE,
-	 * COMPETENZEACQUISIRE, ATTIVITAPREVISTE, SVOLGIMENTOTIROCINIO, STATOTIROCINIO,
-	 * MATRICOLA;
+	 * dati inseriti sono:
+	 * DATAINIZIOTIROCINO, CFUPREVISTI, COMPETENZE, COMPETENZEACQUISIRE,
+	 * ATTIVITAPREVISTE, SVOLGIMENTOTIROCINIO, STATOTIROCINIO, MATRICOLA;
 	 * 
 	 * setta lo STATOTIROCINIO IN: inviataAllaSegreteria
 	 * 
 	 * @param tirocinio
-	 * 
 	 * @return boolean
-	 */
-	public synchronized boolean inserisciTirocinio(Tirocinio tirocinio) {
-
-		Connection con = null; // variabile per la connessione al DB
+	 * */
+	public synchronized boolean inserisciTirocinio(Tirocinio tirocinio)
+	{
+		
+		Connection con = null; //variabile per la connessione al DB
 		PreparedStatement psTirocinio = null;// Creazione oggetto Statement per il 'Tirocinio
-		try {
-			// Connessione con il DB
-			con = new DbConnection().getInstance().getConn();
-
-			// Insert per l'inserimento in 'Tirocinio' dei dati parziali del 'Tirocinio'
-			psTirocinio = con.prepareStatement("INSERT INTO TIROCINIO(DATAINIZIOTIROCINO, CFUPREVISTI,"
-					+ "COMPETENZE, COMPETENZEACQUISIRE," + "ATTIVITAPREVISTE, SVOLGIMENTOTIROCINIO,"
-					+ "STATOTIROCINIO, MATRICOLA) " + "VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
+		try 
+		{
+			//Connessione con il DB
+			con= new DbConnection().getInstance().getConn();
+			
+			//Insert per l'inserimento in 'Tirocinio' dei dati parziali del 'Tirocinio'
+			psTirocinio= con.prepareStatement("INSERT INTO TIROCINIO(DATAINIZIOTIROCINO, CFUPREVISTI,"
+																+ "COMPETENZE, COMPETENZEACQUISIRE,"
+																+ "ATTIVITAPREVISTE, SVOLGIMENTOTIROCINIO,"
+																+ "STATOTIROCINIO, MATRICOLA) "
+										+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
 			psTirocinio.setString(1, tirocinio.getDataInizioTirocinio());
 			psTirocinio.setInt(2, tirocinio.getCfuPrevisti());
 			psTirocinio.setString(3, tirocinio.getCompetenze());
@@ -145,54 +172,62 @@ public class TirocinioDAO {
 			psTirocinio.setString(6, tirocinio.getSvolgimentoTirocinio());
 			psTirocinio.setString(7, "inviataAllaSegreteria");
 			psTirocinio.setInt(8, tirocinio.getMatricola());
-
-			// Se l'inserimento va a buon fine restituisce true
-			if (psTirocinio.executeUpdate() == 1) {
+			
+			
+			//Se l'inserimento va a buon fine restituisce true
+			if(psTirocinio.executeUpdate()==1)
+			{
 				con.commit();
 				return true;
 			}
-
-		} catch (SQLException e) {
+			
+		} 
+		catch (SQLException e) 
+		{
 			e.printStackTrace();
-		} finally {
-			try {
+		}
+		finally
+		{
+			try 
+			{
 				psTirocinio.close();// Chiusura oggetto Statement dell' 'Tirocinio'
-			} catch (SQLException e) {
+			} 
+			catch (SQLException e)
+			{
 				e.printStackTrace();
 			}
 		}
-		// Ritorna false se l'insert non è andato a buon fine
-		return false;
+		//Ritorna false se l'insert non ï¿½ andato a buon fine 
+		return false;	
 	}
-
-	/*
-	 * Metodo che interagisce con il DB e modifica lo stato 'STATOTIROCNIO' del
-	 * 'Tirocinio' passato come parametro
-	 * 
+	
+	/**
+	 * Metodo che interagisce con il DB e invia la richiesta all' 'EnteConvenzionato'
 	 * @param codTirocinio
-	 * 
-	 * @param statoTirocinio
-	 * 
+	 * @param partitaIva
+	 * @param descrizioneEnte
 	 * @return boolean
 	 */
-	public synchronized boolean modificaStatoTirocinio(int codTirocinio, String statoTirocinio) {
+	public synchronized boolean richiestaEnte(String codTirocinio, int partitaIva, String descrizioneEnte) {
 
 		Connection con = null; // variabile per la connessione al DB
 		PreparedStatement psTirocinio = null;// Creazione oggetto Statement per il 'Tirocinio
 		try {
 			// Connessione con il DB
 			con = new DbConnection().getInstance().getConn();
-
-			// Insert per l'inserimento in 'Tirocinio' dei dati parziali del 'Tirocinio'
-			psTirocinio = con.prepareStatement("UPDATE TIROCINIO " + "SET STATOTIROCINIO ='" + statoTirocinio + "' "
-					+ "WHERE CODTIROCINIO =" + codTirocinio + "; ");
-
+			
+			
+			// Update per la richiesta all' ente
+			psTirocinio = con.prepareStatement("UPDATE TIROCINIO " + "SET DESCRIZIONEENTE='" + descrizioneEnte + "', "
+						+ "PARTITAIVA ='" + partitaIva + "' "
+						+ "WHERE CODTIROCINIO =" + codTirocinio + "; ");
+						
 			// Se la modifica va a buon fine restituisce true
 			if (psTirocinio.executeUpdate() == 1) {
 				con.commit();
 				return true;
 			}
-
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -202,35 +237,91 @@ public class TirocinioDAO {
 				e.printStackTrace();
 			}
 		}
-		// Ritorna false se la modifica non è andata a buon fine
+		// Ritorna false se la richiesta all' ente non e' andata a buon fine
 		return false;
 	}
-
+	
+	/*
+	 * Metodo che interagisce con il DB e modifica lo stato 'STATOTIROCNIO'
+	 *  del 'Tirocinio' passato come parametro
+	 * 
+	 * @param codTirocinio
+	 * @param statoTirocinio
+	 * @return boolean
+	 * */
+	public synchronized boolean modificaStatoTirocinio(int codTirocinio, String statoTirocinio)
+	{
+		
+		Connection con = null; //variabile per la connessione al DB
+		PreparedStatement psTirocinio = null;// Creazione oggetto Statement per il 'Tirocinio
+		try 
+		{
+			//Connessione con il DB
+			con= new DbConnection().getInstance().getConn();
+			
+			//Insert per l'inserimento in 'Tirocinio' dei dati parziali del 'Tirocinio'
+			psTirocinio= con.prepareStatement("UPDATE TIROCINIO " 
+											+ "SET STATOTIROCINIO ='"+statoTirocinio+"' " 
+											+ "WHERE CODTIROCINIO ="+codTirocinio+"; ");
+			
+			//Se la modifica va a buon fine restituisce true
+			if(psTirocinio.executeUpdate()==1)
+			{
+				con.commit();
+				return true;
+			}
+			
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try 
+			{
+				psTirocinio.close();// Chiusura oggetto Statement dell' 'Tirocinio'
+			} 
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		//Ritorna false se la modifica non ï¿½ andata a buon fine 
+		return false;	
+	}
+	
 	/*
 	 * Metodo che interagisce con il DB e modifica il Tirocinio
 	 * 
 	 * @param tirocinio
-	 * 
 	 * @return boolean
-	 */
-	public synchronized boolean modificaTirocinio(Tirocinio tirocinio) {
-
-		Connection con = null;// variabile per la connessione al DB
+	 * */
+	public synchronized boolean modificaTirocinio(Tirocinio tirocinio)
+	{
+		
+		Connection con = null;//variabile per la connessione al DB
 		PreparedStatement psTirocinio = null;// Creazione oggetto Statement per il 'Tirocinio'
-		try {
-			// Connessione con il DB
-			con = new DbConnection().getInstance().getConn();
-			// inserimento di un Tirocinio
+		try 
+		{
+			//Connessione con il DB
+			con= new DbConnection().getInstance().getConn();
+			//inserimento di un Tirocinio
 			boolean update = inserisciTirocinio(tirocinio);
-			// se l'operazione di inserimento non è andata a buon fine
-			// faccio la modifica perchè il 'Tirocinio' esiste
-			if (update == false) {
-				// Update di 'Tirocino'
-				psTirocinio = con.prepareStatement("UPDATE TIROCINIO " + "SET DATAINIZIOTIROCINO = ?, CFUPREVISTI = ?, "
-						+ "COMPETENZE=?, COMPETENZEACQUISIRE = ?, " + "ATTIVITAPREVISTE = ?, SVOLGIMENTOTIROCINIO = ?, "
-						+ "STATOTIROCINIO = ?, PROGETTOFORMATIVO = ?, " + "DESCRIZIONEENTE = ?, MATRICOLA = ? "
-						+ "PARTITAIVA = ? " + "WHERE CODTIROCINIO=?;");
-
+			//se l'operazione di inserimento non ï¿½ andata a buon fine
+			//faccio la modifica perchï¿½ il 'Tirocinio' esiste
+			if(update==false)	
+			{
+				//Update di 'Tirocino'
+				psTirocinio= con.prepareStatement("UPDATE TIROCINIO "
+												+ "SET DATAINIZIOTIROCINO = ?, CFUPREVISTI = ?, "
+													+ "COMPETENZE=?, COMPETENZEACQUISIRE = ?, "
+													+ "ATTIVITAPREVISTE = ?, SVOLGIMENTOTIROCINIO = ?, "
+													+ "STATOTIROCINIO = ?, PROGETTOFORMATIVO = ?, "
+													+ "DESCRIZIONEENTE = ?, MATRICOLA = ? "
+													+ "PARTITAIVA = ? "
+													+ "WHERE CODTIROCINIO=?;");
+				
 				psTirocinio.setString(1, tirocinio.getDataInizioTirocinio());
 				psTirocinio.setInt(2, tirocinio.getCfuPrevisti());
 				psTirocinio.setString(3, tirocinio.getCompetenze());
@@ -243,102 +334,116 @@ public class TirocinioDAO {
 				psTirocinio.setInt(10, tirocinio.getMatricola());
 				psTirocinio.setString(11, tirocinio.getPartitaIva());
 				psTirocinio.setInt(12, tirocinio.getCodTirocinio());
-
-				// Se la modifica va a buon fine restituisce true
-				if (psTirocinio.executeUpdate() == 1) {
+				
+				//Se la modifica va a buon fine restituisce true
+				if(psTirocinio.executeUpdate()==1)
+				{
 					con.commit();
 					return true;
 				}
-
-				try {
+				
+				try 
+				{
 					psTirocinio.close();// Chiusura oggetto Statement dell' 'Tirocinio'
-				} catch (SQLException e) {
+				} 
+				catch (SQLException e)
+				{
 					e.printStackTrace();
 				}
-			} else {
+			}
+			else
+			{
 				return false;
 			}
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) 
+		{
 			e.printStackTrace();
 		}
-		// Ritorna false se la modifica non è andata a buon fine
-		return false;
+		//Ritorna false se la modifica non ï¿½ andata a buon fine 
+		return false;	
 	}
-
-	/*
-	 * Metodo che interagisce con il DB e inserisce il path del 'PROGETTOFORMATIVO'
-	 * 
-	 * @param codTirocinio
-	 * 
-	 * @param progettoFormativo
-	 * 
-	 * @return boolean
-	 */
-	public synchronized boolean uploadProgettoFormativo(int codTirocinio, String progettoFormativo) {
-
-		Connection con = null; // variabile per la connessione al DB
+	
+	public synchronized boolean uploadProgettoFormativo(int codTirocinio, String progettoFormativo)
+	{
+		Connection con = null; //variabile per la connessione al DB
 		PreparedStatement psTirocinio = null;// Creazione oggetto Statement per il 'Tirocinio
-		try {
-			// Connessione con il DB
-			con = new DbConnection().getInstance().getConn();
-
-			// Inserimento in 'Tirocinio' del path del 'progetto formativo'
-			psTirocinio = con.prepareStatement("UPDATE TIROCINIO " + "SET PROGETTOFORMATIVO ='" + progettoFormativo
-					+ "' " + "WHERE CODTIROCINIO =" + codTirocinio + "; ");
-
-			// Se la modifica va a buon fine restituisce true
-			if (psTirocinio.executeUpdate() == 1) {
+		try 
+		{
+			//Connessione con il DB
+			con= new DbConnection().getInstance().getConn();
+			//Inserimento in 'Tirocinio' del path del 'progetto formativo'
+			psTirocinio= con.prepareStatement("UPDATE TIROCINIO " 
+											+ "SET PROGETTOFORMATIVO ='"+progettoFormativo+"' " 
+											+ "WHERE CODTIROCINIO ="+codTirocinio+"; ");
+			//Se la modifica va a buon fine restituisce true
+			if(psTirocinio.executeUpdate()==1)
+			{
 				con.commit();
 				return true;
 			}
-
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) 
+		{
 			e.printStackTrace();
-		} finally {
-			try {
+		}
+		finally
+		{
+			try 
+			{
 				psTirocinio.close();// Chiusura oggetto Statement dell' 'Tirocinio'
-			} catch (SQLException e) {
+			} 
+			catch (SQLException e)
+			{
 				e.printStackTrace();
 			}
 		}
-		// Ritorna false se la modifica non è andata a buon fine
-		return false;
+		//Ritorna false se la modifica non è andata a buon fine 
+		return false;	
 	}
+
 
 	/*
-	 * Metodo che interagisce con il DB e restituisce il path del
-	 * 'PROGETTOFORMATIVO'
+	 * Metodo che interagisce con il DB e restituisce il path del 
+	 * 'PROGETTOFORMATIVO' 
 	 * 
 	 * @param codTirocinio
-	 * 
 	 * @return progettoFormativo
-	 */
-	public synchronized String downloadProgettoFormativo(int codTirocinio) {
-
-		Connection con = null; // variabile per la connesione del DB
+	 * */
+	public synchronized String downloadProgettoFormativo(int codTirocinio)
+	{
+		Connection con = null; //variabile per la connesione del DB
 		PreparedStatement ps = null;// Creazione oggetto Statement
-		String progettoFormativo = null;
-		try {
-			// Connessione con il DB
-			con = new DbConnection().getInstance().getConn();
-			// Query Sql per prelevare il path del progetto formativo
-			ps = con.prepareStatement(
-					"SELECT PROGETTOFORMATIVO " + "FROM TIROCINIO " + "WHERE CODTIROCINIO=" + codTirocinio + ";");
+		String progettoFormativo=null;
+		try 
+		{
+			//Connessione con il DB
+			con= new DbConnection().getInstance().getConn();
+			//Query Sql per prelevare il path del progetto formativo
+			ps= con.prepareStatement("SELECT PROGETTOFORMATIVO "
+									+ "FROM TIROCINIO "
+									+ "WHERE CODTIROCINIO="+codTirocinio+";");
 			ResultSet res = ps.executeQuery();
-			// Ciclo che inserisce all' interno della lista i 'Tirocini'
-			// restituiti dalla query
-
-			progettoFormativo = res.getString("PROGETTOFORMATIVO");
-
-		} catch (SQLException e) {
+			//Ciclo che inserisce all' interno della lista i 'Tirocini'
+			//restituiti dalla query
+			progettoFormativo=res.getString("PROGETTOFORMATIVO");
+		} 
+		catch (SQLException e) 
+		{
 			e.printStackTrace();
-		} finally {
-			try {
-				ps.close();// Chiusura oggetto Statement
-			} catch (SQLException e) {
+		}
+		finally 
+		{
+			try 
+			{
+				ps.close();// Chiusura oggetto Statement 
+			} 
+			catch (SQLException e) 
+			{
 				e.printStackTrace();
 			}
 		}
-		return progettoFormativo;
+		return progettoFormativo;	
 	}
-}
+}	
+	
