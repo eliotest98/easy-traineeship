@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="ISO-8859-1" import="controller.CheckSession"%>
+         pageEncoding="ISO-8859-1" import="controller.CheckSession"%>
 
 <%
 	//Controllo autenticazione tramite parametro in sessione (1 = Segreteria).
@@ -16,14 +16,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/partials/head.jsp" />
+    <jsp:include page="/partials/head.jsp" />
 </head>
 
 <body onLoad="">
-	<div class="page-wrapper" id="registrazioneEnte">
+<div class="page-wrapper" id="registrazioneEnte">
 
-		<!-- Preloader -->
-		<!-- <div class="preloader"></div>  -->
+    <!-- Preloader -->
+    <!-- <div class="preloader"></div>  -->
 
 
 		<jsp:include page="/partials/header.jsp">

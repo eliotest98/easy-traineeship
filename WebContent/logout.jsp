@@ -4,7 +4,7 @@
 <%
 	String pageName = "logout.jsp";
 	String pageFolder = "";
-
+	
 	request.getSession().invalidate();
 %>
 
@@ -22,8 +22,8 @@
 
 
 		<jsp:include page="/partials/header.jsp">
-			<jsp:param name="pageName" value="<%=pageName%>" />
-			<jsp:param name="pageFolder" value="<%=pageFolder%>" />
+			<jsp:param name="pageName" value="<%= pageName %>" />
+			<jsp:param name="pageFolder" value="<%= pageFolder %>" />
 		</jsp:include>
 
 
