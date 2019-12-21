@@ -6,6 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Tirocinante;
+import model.Tirocinio;
 
 /**
  * Servlet implementation class ServletRichiestaInizioTirocinio
@@ -37,6 +39,39 @@ public class ServletRichiestaInizioTirocinio extends HttpServlet {
 	      return;
 	    }
 	    
+	    Tirocinante tirocinante = new Tirocinante();
+	    Tirocinio tirocinio = new Tirocinio();
+	    
+	    tirocinante.setName(request.getParameter("nomeTirocinante"));
+	    
+	    tirocinante.setSurname(request.getParameter("cognomeTirocinante"));
+	    
+	    tirocinante.setMatricola(Integer.parseInt(request.getParameter("matricolaTirocinante")));
+	    
+	    tirocinante.setFacolta(request.getParameter("facoltaTirocinante"));
+	    
+	    tirocinante.setLuogoNascita(request.getParameter("luogoDiNascita"));
+	    
+	    tirocinante.setCittadinanza(request.getParameter("cittadinanza"));
+	    
+	    tirocinante.setResidenza(request.getParameter("residenza"));
+	    
+	    tirocinante.setCodiceFiscale(request.getParameter("codiceFiscale"));
+	    
+	    tirocinante.setTelefono(Integer.parseInt(request.getParameter("telefono")));
+	    
+	    tirocinante.setEmail(request.getParameter("email"));
+	    tirocinio.setCfuPrevisti((short)Integer.parseInt(request.getParameter("cfu")));
+	    
+	    tirocinio.setCompetenze(request.getParameter("competenzePossedute"));
+	    
+	    tirocinio.setCompetenzeAcquisire(request.getParameter("competenzeDaAcquisire"));
+	    
+	    tirocinio.setSvolgimentoTirocinio(request.getParameter("modalitaTirocinio"));
+	    
+	    tirocinio.setAttivitaPreviste(request.getParameter("attivitaPreviste"));
+	    
+	    tirocinio.setMatricola(tirocinante.getMatricola());
 	}
 
 	/**
