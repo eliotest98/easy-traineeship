@@ -14,7 +14,7 @@ import model.EnteConvenzionato;
 
 class EnteConvenzionatoDAOTest {
 	
-	Connection conn = new DbConnection().getInstance().getConn();
+	Connection conn  = new DbConnection().getInstance().getConn();
 	EnteConvenzionatoDAO enteConDao = new EnteConvenzionatoDAO();
 	
 	//Test del metodo allEnte di EnteConvenzionatoDAO 
