@@ -49,8 +49,6 @@ public class ServletListaEnteET extends HttpServlet
 		
 		String pag = null;
 		
-		System.out.println("PARAMETRO" + request.getParameter("richiestaEnte"));
-		
 		if(request.getParameter("richiestaEnte")!=null) 
 		{
 			pag = "_areaStudent/InviaRichiestaEnteET.jsp";

@@ -38,7 +38,7 @@
                                     <p class="text-center">Compilare i campi per l'invio della richiesta di inizio Tirocinio.</p>
                                 </div>
                                 <!-- Form per l'invio della richiesta. -->
-                                <form id="signUp" action="/ServletRichiestaInizioTirocinioET" method="post">
+                                <form id="invioRichiestaTirocinio" action="/ServletRichiestaInizioTirocinioET" method="post">
                                 	<!-- Campo nome tirocinante, lunghezza fra 1 e 50, formato solo lettere. -->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="nomeTirocinante">Nome</label>
