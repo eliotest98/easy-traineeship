@@ -18,7 +18,7 @@ public class EnteConvenzionatoDAO {
 	 * 
 	 * @return listaEnti
 	 * */
-	public synchronized ArrayList allEnte()
+	public synchronized ArrayList allEnte() throws SQLException
 	{
 		
 		Connection con = null; //variabile per la connesione del DB
@@ -79,7 +79,7 @@ public class EnteConvenzionatoDAO {
 	 * @param enteConvenzionato
 	 * @return boolean
 	 * */
-	public synchronized boolean inserisciEnte(EnteConvenzionato enteConvenzionato)
+	public synchronized boolean inserisciEnte(EnteConvenzionato enteConvenzionato) throws SQLException
 	{
 		
 		Connection con = null; //variabile per la connessione al DB
@@ -151,7 +151,7 @@ public class EnteConvenzionatoDAO {
 	 * @param enteConvenzionato
 	 * @return boolean
 	 * */
-	public synchronized boolean modificaEnte(EnteConvenzionato enteConvenzionato)
+	public synchronized boolean modificaEnte(EnteConvenzionato enteConvenzionato) throws SQLException
 	{
 		
 		Connection con = null;//variabile per la connessione al DB
@@ -226,6 +226,39 @@ public class EnteConvenzionatoDAO {
 	}
 	
 	/*
+	 * Metodo che interagisce con il DB ed elimina l' 'EnteConvenzionato' di
+	 * riferimento
+	 * 
+	 * @param enteConvenzionato
+	 * 
+	 * @return boolean
+	 */
+	public synchronized boolean eliminaEnte(EnteConvenzionato enteConvenzionato) throws SQLException {
+
+		Connection con = null;
+		PreparedStatement psUser = null;
+		try {
+			con = new DbConnection().getInstance().getConn();
+			psUser = con.prepareStatement("DELETE FROM USER WHERE EMAIL='?';");
+			psUser.setString(1, enteConvenzionato.getEmail());
+			int result = psUser.executeUpdate();
+			con.commit();
+			if (result==0) {
+				return false;
+			}
+			try {
+				psUser.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;	
+
+	}
+	
+	/*
 	 * Metodo che interagisce con il DB e modifica la 'password' dell' 'EnteConvenzionato' 
 	 * di riferimento
 	 * 
@@ -233,7 +266,7 @@ public class EnteConvenzionatoDAO {
 	 * @param password
 	 * @return boolean
 	 * */
-	public synchronized boolean updatePassword(String email, String password)
+	public synchronized boolean updatePassword(String email, String password) throws SQLException
 	{
 		
 		Connection con = null;//variabile per la connessione al DB
