@@ -2,55 +2,59 @@ package model;
 
 public class Attached {
 
-  /**
-   * Variables.
-   */
-  private int idAttached;
-  private String filename;
-  
-  /**
-   * Empty Constructor.
-   */
-  public Attached() {}
+	/**
+	 * Variables.
+	 */
+	private int idAttached;
+	private String filename;
 
-  /**
-   * Constructor.
-   * @param idAttached represents a numeric identifier of the attached.
-   * @param filename is the name of the attached.
-   */
-  public Attached(int idAttached, String filename) {
-    this.idAttached = idAttached;
-    this.filename = filename;
-  }
+	/**
+	 * Empty Constructor.
+	 */
+	public Attached() {
+	}
 
-  /**
-   * Get the identifier of the Attached.
-   */
-  public int getIdAttached() {
-    return idAttached;
-  }
+	/**
+	 * Constructor.
+	 * 
+	 * @param idAttached represents a numeric identifier of the attached.
+	 * @param filename   is the name of the attached.
+	 */
+	public Attached(int idAttached, String filename) {
+		this.idAttached = idAttached;
+		this.filename = filename;
+	}
 
-  /**
-   * Set the identifier of the Attached.
-   * @param idAttached is numeric identifier.
-   */
-  public void setIdAttached(int idAttached) {
-    this.idAttached = idAttached;
-  }
+	/**
+	 * Get the identifier of the Attached.
+	 */
+	public int getIdAttached() {
+		return idAttached;
+	}
 
-  /**
-   * Get the name of the Attached.
-   */
-  public String getFilename() {
-    return filename;
-  }
+	/**
+	 * Set the identifier of the Attached.
+	 * 
+	 * @param idAttached is numeric identifier.
+	 */
+	public void setIdAttached(int idAttached) {
+		this.idAttached = idAttached;
+	}
 
-  /**
-   * Set the name of the Attached.
-   * @param filename is the name of the Attached.
-   */
-  public void setFilename(String filename) {
-    this.filename = filename;
-  }
+	/**
+	 * Get the name of the Attached.
+	 */
+	public String getFilename() {
+		return filename;
+	}
+
+	/**
+	 * Set the name of the Attached.
+	 * 
+	 * @param filename is the name of the Attached.
+	 */
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
 
 }
