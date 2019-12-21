@@ -182,7 +182,6 @@ public class ServletCommon extends HttpServlet {
       error = "Nessuna connessione al database.";
     }
 
-
     JSONObject res = new JSONObject();
     res.put("result", result);
     res.put("error", error);
