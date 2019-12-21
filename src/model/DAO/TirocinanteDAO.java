@@ -15,7 +15,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Tirocinante DAO
+ *
+ * La seguente classe si occupa di gestire i metodi CRUD dell'entità Tirocinante.
+ */
 public class TirocinanteDAO {
+    /**
+     * Questa funzione permette la ricerca del Tirocinante all'interno della base di dati attraverso
+     * il numero della matricola.
+     * @param matricola
+     * @return Tirocinante tirocinante
+     */
     public Tirocinante ricercaTirocinante(int matricola) {
         Tirocinante tirocinante = null;
         Connection conn = null;
@@ -54,6 +65,10 @@ public class TirocinanteDAO {
         return tirocinante;
     }
 
+    /**
+     * Questa funzione permette di ricercare tutti i tirocinanti all'interno della base di dati.
+     * @return List<Tirocinante> tirocinanti
+     */
     public List<Tirocinante> allTirocinante() {
 
         Connection con = null;
@@ -90,6 +105,11 @@ public class TirocinanteDAO {
         return tirocinanti;
     }
 
+    /**
+     * Questa funzione permette di inserire un nuovo tirocinante all'interno della base di dati.
+     * @param tirocinante
+     * @return boolean result
+     */
     public boolean inserisciTirocinante(Tirocinante tirocinante) {
 
         Connection con = null;
@@ -141,6 +161,12 @@ public class TirocinanteDAO {
 
     }
 
+    /**
+     * Questa funzione permette di aggiornare la password del tirocinante.
+     * @param email
+     * @param password
+     * @return boolean result
+     */
     public boolean updatePassword(String email, String password) {
         {
 
