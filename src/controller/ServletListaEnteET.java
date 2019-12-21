@@ -33,15 +33,14 @@ public class ServletListaEnteET extends HttpServlet {
 		// Ricerco tutti gli 'EntiConvenzionati' e li inserisco nella listaEnti
 		listaEnti = ente.allEnte();
 		// Controllo se la Lista non � vuota
-
 		if (listaEnti != null) {
 			// Assegno alla richiesta la 'listaEnti'
-			request.setAttribute("listaEnti", listaEnti);
+			request.getSession().setAttribute("listaEnti", listaEnti);
 		}
 
 		String pag = null;
 
-		System.out.println("PARAMETRO" + request.getParameter("richiestaEnte"));
+		//System.out.println("PARAMETRO" + request.getParameter("richiestaEnte"));
 
 		if (request.getParameter("richiestaEnte") != null) {
 			pag = "_areaStudent/InviaRichiestaEnteET.jsp";

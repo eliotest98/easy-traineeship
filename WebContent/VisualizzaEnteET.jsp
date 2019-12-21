@@ -6,13 +6,17 @@
 	String pageName = "VisualizzaEnteET.jsp";
 	String pageFolder = "";
 
-	CheckSession ck = new CheckSession(pageFolder, pageName, request.getSession());
-	//Prelevo dalla sessione la Segreteria
-	String Segreteria = " ";
-	Segreteria = (String) session.getAttribute("Segreteria");
+	/**
+	 * Controllo autenticazione tramite parametro in sessione (1 = Segreteria).
+	 */
+	String userET = (String) request.getSession().getAttribute("userET");
+	if ((userET == null) || (!userET.equals("1"))) {
+		response.sendRedirect("login.jsp");
+		return;
+	}
 
 	ArrayList<EnteConvenzionato> listaEnti = new ArrayList<EnteConvenzionato>();
-	listaEnti = (ArrayList<EnteConvenzionato>) request.getAttribute("listaEnti");
+	listaEnti = (ArrayList<EnteConvenzionato>) request.getSession().getAttribute("listaEnti");
 
 	if (listaEnti == null) {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("ServletListaEnteET");
@@ -58,7 +62,7 @@
 											<th class="text-center" align="center">Telefono</th>
 											<%
 												//Se è in sessione la segreteria mostro le azioni
-													if (Segreteria != null) {
+													if (userET == "1") {
 											%>
 											<th class="text-center" align="center">Azioni</th>
 											<%
@@ -83,7 +87,7 @@
 											<td class='text-center'><%=listaEnti.get(i).getTelefono()%></td>
 											<%
 												//Se è in sessione la segreteria mostro le azioni
-														if (Segreteria != null) {
+														if (userET == "1") {
 											%>
 
 											<td class="text-center" align="center"><a
