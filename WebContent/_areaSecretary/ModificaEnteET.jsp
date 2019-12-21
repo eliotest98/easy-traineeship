@@ -136,7 +136,148 @@
 	</div>
 	<!--End pagewrapper-->
 
+	<!--!!!!!!!!CAUSA ERRORI!!!!!!!!!!!-->
 	<jsp:include page="/partials/includes.jsp" />
 
+	<script>
+		/*Form Input Values*/
+		const form = document.forms["registrazioneEnte"]
+		const name = document.forms["registrazioneEnte"]["name"].value;
+		const partitaIva = document.forms["registrazioneEnte"]["partitaIva"].value;
+		const email = document.forms["registrazioneEnte"]["email"].value;
+		const sede = document.forms["registrazioneEnte"]["sede"].value;
+		const telefono = document.forms["registrazioneEnte"]["telefono"].value;
+		const dipendenti = document.forms["registrazioneEnte"]["dipendenti"].value;
+		const rappresentante = document.forms["registrazioneEnte"]["rappresentante"].value;
+		const dataDiNascita = document.forms["registrazioneEnte"]["dataDiNascita"].value;
+		const dotRiferimento = document.forms["registrazioneEnte"]["dotRiferimento"].value;
+		const referente = document.forms["registrazioneEnte"]["referente"].value;
+		const descrizioneAttivita = document.forms["registrazioneEnte"]["descrizioneAttivita"];
+		console.log("descrizioneAttivita")
+		/*REGEX Values*/
+		const alphaNumRGX = /^[a-z A-Z 0-9]$/
+		const alphRGX = /^[a-z A-Z]$/
+		const dateRGX = /^[1-9]{2}/ [1-9]{2}/[0-9]{4}$/
+		const enumRGX = /^[0-9]$/
+		const mailRGX = /^[A-z0-9\.\+_-] +@[A-z0-9\._-]+\.[A-z]{2,6}$/
+		const numRGX = /^[0-9]{10}$/
+		/*This function validate form inputs*/
+		function validate() {
+			/*LENGTH VALIDATION*/
+			if (name.length <= 0 || name.length > 64) // Check Length
+			{
+				toastr.error("Lunghezza non rispettata")
+				return false;
+			}
+			if (partitaIva.length <= 0 || partitaIva.length > 64) // Check Length
+			{
+				toastr.error("Lunghezza non rispettata")
+				return false;
+			}
+			if (email.length <= 0 || email.length > 64) // Check Length
+			{
+				toastr.error("Lunghezza non rispettata")
+				return false;
+			}
+			if (sede.length <= 0 || sede.length > 64) // Check Length
+			{
+				toastr.error("Lunghezza non rispettata")
+				return false;
+			}
+			if (telefono.length <= 0 || telefono.length > 64) // Check Length
+			{
+				toastr.error("Lunghezza non rispettata")
+				return false;
+			}
+			if (dipendenti.length <= 0 || dipendenti.length > 64) // Check Length
+			{
+				toastr.error("Lunghezza non rispettata")
+				return false;
+			}
+			if (rappresentante.length <= 0 || rappresentante.length > 64) // Check Length
+			{
+				toastr.error("Lunghezza non rispettata")
+				return false;
+			}
+			if (dataDiNascita.length <= 0 || dataDiNascita.length > 64) // Check Length
+			{
+				toastr.error("Lunghezza non rispettata")
+				return false;
+			}
+			if (dotRiferimento.length <= 0 || dotRiferimento.length > 64) // Check Length
+			{
+				toastr.error("Lunghezza non rispettata")
+				return false;
+			}
+			if (referente.length <= 0 || referente.length > 64) // Check Length
+			{
+				toastr.error("Lunghezza non rispettata")
+				return false;
+			}
+			if (descrizioneAttivita.length <= 0 || descrizioneAttivita.length > 64) // Check Length
+			{
+				toastr.error("Lunghezza non rispettata")
+				return false;
+			}
+			/*FORMAT VALIDATION*/
+			if (!alphRGX.test(name)) // Check Format
+			{
+				toastr.error("Formato non rispettato")
+				return false;
+			}
+			if (!numRGX.test(partitaIva)) // Check Format
+			{
+				toastr.error("Formato non rispettato")
+				return false;
+			}
+			if (!mailRGX.test(email)) // Check Format
+			{
+				toastr.error("Formato non rispettato")
+				return false;
+			}
+			if (!alphRGX.test(sede)) // Check Format
+			{
+				toastr.error("Formato non rispettato")
+				return false;
+			}
+			if (!numRGX.test(telefono)) // Check Format
+			{
+				toastr.error("Formato non rispettato")
+				return false;
+			}
+			if (!enumRGX.test(dipendenti)) // Check Format
+			{
+				toastr.error("Formato non rispettato")
+				return false;
+			}
+			if (!alphRGX.test(rappresentante)) // Check Format
+			{
+				toastr.error("Formato non rispettato")
+				return false;
+			}
+			if (!dateRGX.test(dataDiNascita)) // Check Format
+			{
+				toastr.error("Formato non rispettato")
+				return false;
+			}
+			if (!alphRGX.test(dotRiferimento)) // Check Format
+			{
+				toastr.error("Formato non rispettato")
+				return false;
+			}
+			if (!alphRGX.test(referente)) // Check Format
+			{
+				toastr.error("Formato non rispettato")
+				return false;
+			}
+			if (!alphaNumRGX.test(descrizioneAttivita)) // Check Format
+			{
+				toastr.error("Formato non rispettato")
+				return false;
+			}
+
+			return true
+		}
+	</script>
 </body>
 </html>
