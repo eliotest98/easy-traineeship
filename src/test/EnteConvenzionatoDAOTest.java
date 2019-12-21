@@ -26,7 +26,7 @@ class EnteConvenzionatoDAOTest {
 	    	Statement stmtSelect = conn.createStatement();
 	    	String sql1 = ("INSERT INTO User VALUES('azienda@email.it','Cap Gemini','NA','N','password','3');");
 	    	stmtSelect.executeUpdate(sql1);
-	    	String sql2 = ("INSERT INTO EnteConvenzionato VALUES('99999999999','Salerno','Giacomo','3490000141','100','Carmine','Molto interessante','azienda@email.it');");
+	    	String sql2 = ("INSERT INTO EnteConvenzionato VALUES('99999999999','Salerno','Giacomo','3490000141','100','Carmine','Francesco','12/10/1980','Molto interessante','azienda@email.it');");
 	    	stmtSelect.executeUpdate(sql2);
 	    }
 	    catch (Exception e) {
@@ -98,7 +98,7 @@ class EnteConvenzionatoDAOTest {
 	    	Statement stmtSelect = conn.createStatement();
 	    	String sql1 = ("INSERT INTO User VALUES('azienda@email.it','Cap Gemini','NA','N','password','3');");
 	    	stmtSelect.executeUpdate(sql1);
-	    	String sql2 = ("INSERT INTO EnteConvenzionato VALUES('99999999999','Salerno','Giacomo','3490000141','100','Carmine','Molto interessante','azienda@email.it');");
+	    	String sql2 = ("INSERT INTO EnteConvenzionato VALUES('99999999999','Salerno','Giacomo','3490000141','100','Carmine','Giuseppe','12/10/1975','Molto interessante','azienda@email.it');");
 	    	stmtSelect.executeUpdate(sql2);
 	    	conn.commit();
 	    }
@@ -133,7 +133,7 @@ class EnteConvenzionatoDAOTest {
 	    	Statement stmtSelect = conn.createStatement();
 	    	String sql1 = ("INSERT INTO User VALUES('azienda@email.it','Cap Gemini','NA','N','password','3');");
 	    	stmtSelect.executeUpdate(sql1);
-	    	String sql2 = ("INSERT INTO EnteConvenzionato VALUES('99999999999','Salerno','Giacomo','3490000141','100','Carmine','Molto interessante','azienda@email.it');");
+	    	String sql2 = ("INSERT INTO EnteConvenzionato VALUES('99999999999','Salerno','Giacomo','3490000141','100','Carmine','Giuseppe','12/10/1975','Molto interessante','azienda@email.it');");
 	    	stmtSelect.executeUpdate(sql2);
 	    	conn.commit();
 	    }
