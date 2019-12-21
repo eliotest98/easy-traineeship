@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="ISO-8859-1" import="controller.CheckSession"%>
+	pageEncoding="ISO-8859-1" import="controller.CheckSession"%>
 
 <%
 	//Controllo autenticazione tramite parametro in sessione (1 = Segreteria).
@@ -16,22 +16,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <jsp:include page="/partials/head.jsp" />
+<jsp:include page="/partials/head.jsp" />
 </head>
 
 <body onLoad="">
-<div class="page-wrapper" id="registrazioneEnte">
+	<div class="page-wrapper" id="registrazioneEnte">
 
-    <!-- Preloader -->
-    <!-- <div class="preloader"></div>  -->
-
-
-    <jsp:include page="/partials/header.jsp">
-        <jsp:param name="pageName" value="<%= pageName %>" />
-        <jsp:param name="pageFolder" value="<%= pageFolder %>" />
-    </jsp:include>
+		<!-- Preloader -->
+		<!-- <div class="preloader"></div>  -->
 
 
+		<jsp:include page="/partials/header.jsp">
+			<jsp:param name="pageName" value="<%=pageName%>" />
+			<jsp:param name="pageFolder" value="<%=pageFolder%>" />
+		</jsp:include>
+    
+    
     <div class="sidebar-page-container basePage signUpPage">
         <div class="auto-container">
             <div class="row clearfix">
@@ -96,9 +96,9 @@
                                                placeholder="Referente Tirocini" minlength="1" maxlength="64" name="referente" id="referente" required>
                                     </div>
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <label for="descrizioneAttivita">Descrizione Attivit‡</label>
+                                        <label for="descrizioneAttivita">Descrizione Attivit√†</label>
                                         <input type="text" class="form-control"
-                                               placeholder="Descrizione delle Attivit‡" minlength="1" maxlength="256" name="descrizioneAttivita" id="descrizioneAttivita" required>
+                                               placeholder="Descrizione delle Attivit√†" minlength="1" maxlength="256" name="descrizioneAttivita" id="descrizioneAttivita" required>
                                     </div>
                                     <div
                                             class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">

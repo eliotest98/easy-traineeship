@@ -6,8 +6,8 @@
 	String pageName = "firstForm.jsp";
 	String pageFolder = "_areaStudent";
 	CheckSession ck = new CheckSession(pageFolder, pageName, request.getSession());
-	if(!ck.isAllowed()){
-	  response.sendRedirect(request.getContextPath()+ck.getUrlRedirect());  
+	if (!ck.isAllowed()) {
+		response.sendRedirect(request.getContextPath() + ck.getUrlRedirect());
 	}
 %>
 
@@ -25,8 +25,8 @@
 
 
 		<jsp:include page="/partials/header.jsp">
-			<jsp:param name="pageName" value="<%= pageName %>" />
-			<jsp:param name="pageFolder" value="<%= pageFolder %>" />
+			<jsp:param name="pageName" value="<%=pageName%>" />
+			<jsp:param name="pageFolder" value="<%=pageFolder%>" />
 		</jsp:include>
 
 
@@ -51,15 +51,15 @@
 												immatricolazione:</label> <select class="form-control"
 												id="immatricolazione" required>
 												<%
-											    	Integer range = Integer.parseInt(new SystemAttribute().getValueByKey("request-matriculation-year-range"));
-											    	for(int i = (range*-1); i <= 0; i++){
-											    	  LocalDate year = LocalDate.now().plusYears(i);
-											    	  LocalDate nextYear = LocalDate.now().plusYears(i+1);
-											    	  %>
-												<option value="<%= year.getYear() %>"><%= year.getYear() %>/<%= nextYear.getYear() %></option>
+													Integer range = Integer.parseInt(new SystemAttribute().getValueByKey("request-matriculation-year-range"));
+													for (int i = (range * -1); i <= 0; i++) {
+														LocalDate year = LocalDate.now().plusYears(i);
+														LocalDate nextYear = LocalDate.now().plusYears(i + 1);
+												%>
+												<option value="<%=year.getYear()%>"><%=year.getYear()%>/<%=nextYear.getYear()%></option>
 												<%
-											    	}
-											    %>
+													}
+												%>
 											</select>
 										</div>
 
@@ -74,23 +74,23 @@
 											<label for="ente">Ente di rilascio:</label> <select
 												class="form-control" id="ente" required>
 												<%
-												    Connection conn = new DbConnection().getInstance().getConn();
-												    if (conn != null) {
-	
-												      try {
-												        Statement stmt = conn.createStatement();
-												        ResultSet r = stmt.executeQuery("SELECT id_ente, name FROM ente WHERE stato = 1");
-												        while (r.next()) {
-												    	  %>
-												<option value="<%= r.getInt("id_ente") %>"><%= r.getString("name") %></option>
-												<%												          
-												        }
-												      } catch (Exception e) {
-												        System.out.println(e.getMessage());
-												      }      
-												      
-												    } 											    													    
-											    %>
+													Connection conn = new DbConnection().getInstance().getConn();
+													if (conn != null) {
+
+														try {
+															Statement stmt = conn.createStatement();
+															ResultSet r = stmt.executeQuery("SELECT id_ente, name FROM ente WHERE stato = 1");
+															while (r.next()) {
+												%>
+												<option value="<%=r.getInt("id_ente")%>"><%=r.getString("name")%></option>
+												<%
+													}
+														} catch (Exception e) {
+															System.out.println(e.getMessage());
+														}
+
+													}
+												%>
 											</select>
 										</div>
 
@@ -153,7 +153,7 @@
 
 	<jsp:include page="/partials/includes.jsp" />
 	<script
-		src="<%= request.getContextPath() %>/js/pages/scripts_firstForm.js"></script>
+		src="<%=request.getContextPath()%>/js/pages/scripts_firstForm.js"></script>
 
 </body>
 </html>

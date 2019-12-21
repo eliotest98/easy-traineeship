@@ -20,8 +20,10 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
 	EnteConvenzionatoDAO enteConDao = new EnteConvenzionatoDAO();
 	String mess = null;
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	}
+  public void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+        doPost(request, response);
+  }
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/**

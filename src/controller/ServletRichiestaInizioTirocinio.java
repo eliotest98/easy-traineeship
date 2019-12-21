@@ -17,17 +17,18 @@ public class ServletRichiestaInizioTirocinio extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ServletRichiestaInizioTirocinio() {
-		super();
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{ 
+	  /**
+	  * Controllo autenticazione tramite parametro in sessione (0 = Studente ET alias Tirocinante).
+      */
+	    String userET = (String) request.getSession().getAttribute("userET");
+	    if ((userET == null) || (!userET.equals("0"))) 
+	    {
+	      response.sendRedirect("login.jsp");
+	      return;
+	    }
+	    
 	}
 
 	/**
