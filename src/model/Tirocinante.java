@@ -5,8 +5,7 @@ package model;
  * Questa classe va a rappresentare l'oggetto Tirocinante che nel seguente dominio applicativo raffigura il tirocinante che si presta al Tirocinio.
  */
 public class Tirocinante extends Student {
-    private long matricola;
-    private String facolta;
+    private int matricola;
     private String dataNascita;
     private String luogoNascita;
     private String cittadinanza;
@@ -16,18 +15,16 @@ public class Tirocinante extends Student {
     /**
      * Contructor.
      *
-     * @param matricola è la chiave primaria del Tirocinante.
-     * @param facolta è sempre informatica, ma è stato messo in caso di ampliamento del sistema.
-     * @param dataNascita è la data di nascita del Tirocinante.
+     * @param matricola is the id of Tirocinante
+     * @param dataNascita is the birth date of the Tirocinante.
      * @param luogoNascita is the place of birth of the Tirocinante.
      * @param cittadinanza is the citizenship of the Tirocinante.
      * @param residenza is the residence of the Tirocinante.
      * @param codiceFiscale is the tax code of the Tirocinante.
      * @param telefono is the number phone of the Tirocinante.
      */
-    public Tirocinante(long matricola, String facolta, String dataNascita, String luogoNascita, String cittadinanza, String residenza, String codiceFiscale, long telefono) {
+    public Tirocinante(int matricola, String dataNascita, String luogoNascita, String cittadinanza, String residenza, String codiceFiscale, long telefono) {
         this.matricola = matricola;
-        this.facolta = facolta;
         this.dataNascita = dataNascita;
         this.luogoNascita = luogoNascita;
         this.cittadinanza = cittadinanza;
@@ -39,11 +36,11 @@ public class Tirocinante extends Student {
     public Tirocinante() {
     }
 
-    public long getMatricola() {
+    public int getMatricola() {
         return matricola;
     }
 
-    public void setMatricola(long matricola) {
+    public void setMatricola(int matricola) {
         this.matricola = matricola;
     }
 
@@ -93,13 +90,5 @@ public class Tirocinante extends Student {
 
     public void setTelefono(long telefono) {
         this.telefono = telefono;
-    }
-
-    public String getFacolta() {
-      return facolta;
-    }
-
-    public void setFacolta(String facolta) {
-      this.facolta = facolta;
     }
 }

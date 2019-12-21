@@ -1,13 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="ISO-8859-1" import="controller.CheckSession,model.Tirocinante"%>
+         pageEncoding="ISO-8859-1" import="controller.CheckSession"%>
 
 <%
     String pageName = "InviaRichiestaET.jsp";
     String pageFolder = "_areaStudent";
-    
-    //Per prelevare l'utente (Tirocinanate) dalla sessione e precompilare i campi del form.
-    Tirocinante user = new Tirocinante();
-    //user = (Tirocinante) request.getSession().getAttribute("user");
 %>
 <!-- Pagina per l'invio della richiesta di inizio Tirocinio, dallo studente alla segreteria. -->
 
@@ -46,32 +42,32 @@
                                 	<!-- Campo nome tirocinante, lunghezza fra 1 e 50, formato solo lettere. -->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="nomeTirocinante">Nome</label>
-                                        <input type="text" class="form-control" id="nomeTirocinante" name="nomeTirocinante" value="<%=user.getName()%>"
-                                               placeholder="Mario" size="50" min="1" maxlength="50" required disabled>
+                                        <input type="text" class="form-control" id="nomeTirocinante" name="nomeTirocinante"
+                                               placeholder="Nome Tirocinante" size="50" minlength="1" maxlength="50" required>
                                     </div>
                                     <!-- Campo cognome tirocinante, lunghezza fra 1 e 50, formato solo lettere. -->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="cognomeTirocinante">Cognome</label>
-                                        <input type="text" class="form-control" id="cognomeTirocinante" name="cognomeTirocinante" value="<%=user.getSurname()%>"
-                                               placeholder="Rossi" size="50" min="1" maxlength="50" required disabled>
+                                        <input type="text" class="form-control" id="cognomeTirocinante" name="cognomeTirocinante"
+                                               placeholder="Cognome Tirocinante" size="50" minlength="1" maxlength="50" required>
                                     </div>
                                     <!-- Campo matricola tirocinante, lunghezza 10 cifre, formato solo numeri. -->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="matricolaTirocinante">Matricola</label>
-                                        <input type="tel" class="form-control" id="matricolaTirocinante" name="matricolaTirocinante" value="051210"
-                                               placeholder="0512105239" size="10" min="10" maxlength="10" required>
+                                        <input type="tel" class="form-control" id="matricolaTirocinante" name="matricolaTirocinante"
+                                               placeholder="Matricola Tirocinante" size="10" minlength="10" maxlength="10" required>
                                     </div>
                                     <!-- Campo facolta tirocinante, lunghezza fra 1 e 50, formato solo lettere. -->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="facoltaTirocinante">Facolt&agrave;</label>
-                                        <input type="text" class="form-control" id="facoltaTirocinante" name="facoltaTirocinante" value="Informatica"
-                                               placeholder="Informatica" size="50" min="1" maxlength="50" required disabled>
+                                        <input type="text" class="form-control" id="facoltaTirocinante" name="facoltaTirocinante"
+                                               placeholder="Facolt&agrave; Tirocinante" size="50" minlength="1" maxlength="50" required>
                                     </div>
                                      <!-- Campo data di nascita, lunghezza ==10, formato cifre + /. -->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="dataDiNascita">Data di Nascita</label>
                                         <input type="tel" class="form-control" name="dataDiNascita" id="dataDiNascita"
-                                               placeholder="24/10/1998" size="10" min="10" maxlength="10" required>
+                                               placeholder="Data di Nascita Tirocinante" size="10" minlength="10" maxlength="10" required>
                                     </div>
                                     <!-- Campo luogo di nascita, lunghezza fra 1 e 64, formato caratteri alfabetici-->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">

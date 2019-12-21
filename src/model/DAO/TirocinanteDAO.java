@@ -132,7 +132,7 @@ public class TirocinanteDAO {
                 "INSERT INTO TIROCINANTE(MATRICOLA, DATANASCITA, LUOGONASCITA,"
                     + " CITTADINANZA, RESIDENZA, CODICEFISCALE," + "TELEFONO, EMAIL) "
                     + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            psTirocinante.setLong(1, tirocinante.getMatricola());
+            psTirocinante.setInt(1, tirocinante.getMatricola());
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ITALIAN);
             Date date = format.parse(tirocinante.getDataNascita());
             psTirocinante.setDate(2, (java.sql.Date) date);
