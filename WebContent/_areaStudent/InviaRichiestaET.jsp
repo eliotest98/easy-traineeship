@@ -70,14 +70,14 @@
                                      <!-- Campo data di nascita, lunghezza ==10, formato cifre + /. -->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="dataDiNascita">Data di Nascita</label>
-                                        <input type="tel" class="form-control" name="dataDiNascita" id="dataDiNascita"
+                                        <input type="date" class="form-control" name="dataDiNascita" id="dataDiNascita"
                                                placeholder="24/10/1998" size="10" min="10" maxlength="10" required>
                                     </div>
                                     <!-- Campo luogo di nascita, lunghezza fra 1 e 64, formato caratteri alfabetici-->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="luogoDiNascita">Luogo di Nascita</label>
                                         <input type="text" class="form-control" name="luogoDiNascita" id="luogoDiNascita" 
-                                               placeholder="Luogo di Nascita Tirocinante" size="64" minlength="1" maxlength="64" required>
+                                               placeholder="Luogo di Nascita Tirocinante" size="64" min="1" maxlength="64" required>
                                     </div>
                                     <!-- Campo cittadinanza, lunghezza fra 1 e 64, formato caratteri alfabetici-->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">

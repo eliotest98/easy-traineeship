@@ -10,13 +10,12 @@ import java.util.Date;
 public class Tirocinante extends Student {
     private long matricola;
     private String facolta;
-    private String dataNascita;
+    private Date dataNascita;
     private String luogoNascita;
     private String cittadinanza;
     private String residenza;
     private String codiceFiscale;
     private long telefono;
-    private String email;
     /**
      * Contructor.
      *
@@ -29,7 +28,7 @@ public class Tirocinante extends Student {
      * @param codiceFiscale is the tax code of the Tirocinante.
      * @param telefono is the number phone of the Tirocinante.
      */
-    public Tirocinante(long matricola, String facolta, String dataNascita, String luogoNascita, String cittadinanza, String residenza, String codiceFiscale, long telefono) {
+    public Tirocinante(long matricola, String facolta, Date dataNascita, String luogoNascita, String cittadinanza, String residenza, String codiceFiscale, long telefono) {
         this.matricola = matricola;
         this.facolta = facolta;
         this.dataNascita = dataNascita;
@@ -38,7 +37,6 @@ public class Tirocinante extends Student {
         this.residenza = residenza;
         this.codiceFiscale = codiceFiscale;
         this.telefono = telefono;
-        this.email = email;
     }
 
 	public Tirocinante() {
