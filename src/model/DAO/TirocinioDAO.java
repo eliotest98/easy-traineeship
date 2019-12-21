@@ -323,5 +323,101 @@ public class TirocinioDAO {
 		//Ritorna false se la modifica non è andata a buon fine 
 		return false;	
 	}
+	
+	/*
+	 * Metodo che interagisce con il DB e inserisce il path del 
+	 * 'PROGETTOFORMATIVO' 
+	 * 
+	 * @param codTirocinio
+	 * @param progettoFormativo
+	 * @return boolean
+	 * */
+	public synchronized boolean uploadProgettoFormativo(int codTirocinio, String progettoFormativo)
+	{
+		
+		Connection con = null; //variabile per la connessione al DB
+		PreparedStatement psTirocinio = null;// Creazione oggetto Statement per il 'Tirocinio
+		try 
+		{
+			//Connessione con il DB
+			con= new DbConnection().getInstance().getConn();
+			
+			//Inserimento in 'Tirocinio' del path del 'progetto formativo'
+			psTirocinio= con.prepareStatement("UPDATE TIROCINIO " 
+											+ "SET PROGETTOFORMATIVO ='"+progettoFormativo+"' " 
+											+ "WHERE CODTIROCINIO ="+codTirocinio+"; ");
+			
+			//Se la modifica va a buon fine restituisce true
+			if(psTirocinio.executeUpdate()==1)
+			{
+				con.commit();
+				return true;
+			}
+			
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try 
+			{
+				psTirocinio.close();// Chiusura oggetto Statement dell' 'Tirocinio'
+			} 
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		//Ritorna false se la modifica non è andata a buon fine 
+		return false;	
+	}
+	
+	/*
+	 * Metodo che interagisce con il DB e restituisce il path del 
+	 * 'PROGETTOFORMATIVO' 
+	 * 
+	 * @param codTirocinio
+	 * @return progettoFormativo
+	 * */
+	public synchronized String downloadProgettoFormativo(int codTirocinio)
+	{
+		
+		Connection con = null; //variabile per la connesione del DB
+		PreparedStatement ps = null;// Creazione oggetto Statement
+		String progettoFormativo=null;
+		try 
+		{
+			//Connessione con il DB
+			con= new DbConnection().getInstance().getConn();
+			//Query Sql per prelevare il path del progetto formativo
+			ps= con.prepareStatement("SELECT PROGETTOFORMATIVO "
+									+ "FROM TIROCINIO "
+									+ "WHERE CODTIROCINIO="+codTirocinio+";");
+			ResultSet res = ps.executeQuery();
+			//Ciclo che inserisce all' interno della lista i 'Tirocini'
+			//restituiti dalla query
+			
+			progettoFormativo=res.getString("PROGETTOFORMATIVO");
+			
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+			try 
+			{
+				ps.close();// Chiusura oggetto Statement 
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		return progettoFormativo;	
+	}
 }	
 	
