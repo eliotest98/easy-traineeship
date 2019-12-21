@@ -12,60 +12,53 @@ import model.EnteConvenzionato;
 import model.DAO.EnteConvenzionatoDAO;
 
 @WebServlet("/ServletListaEnteET")
-public class ServletListaEnteET extends HttpServlet
-{
+public class ServletListaEnteET extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	public ServletListaEnteET()
-	{
+
+	public ServletListaEnteET() {
 		super();
 	}
-	
+
 	/**
-	   * Method doGet().
-	   * 
-	   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	   */
+	 * Method doGet().
+	 * 
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
 	@SuppressWarnings("unchecked")
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{
-		EnteConvenzionatoDAO ente= new EnteConvenzionatoDAO();  
-		//Array list di Enti convenzionati
-		ArrayList<EnteConvenzionato> listaEnti=new ArrayList<EnteConvenzionato>();
-		//Ricerco tutti gli 'EntiConvenzionati' e li inserisco nella listaEnti
-		listaEnti=ente.allEnte();
-		//Controllo se la Lista non � vuota
-		
-		if(listaEnti!=null)
-		{
-			//Assegno alla richiesta la 'listaEnti'
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		EnteConvenzionatoDAO ente = new EnteConvenzionatoDAO();
+		// Array list di Enti convenzionati
+		ArrayList<EnteConvenzionato> listaEnti = new ArrayList<EnteConvenzionato>();
+		// Ricerco tutti gli 'EntiConvenzionati' e li inserisco nella listaEnti
+		listaEnti = ente.allEnte();
+		// Controllo se la Lista non � vuota
+
+		if (listaEnti != null) {
+			// Assegno alla richiesta la 'listaEnti'
 			request.setAttribute("listaEnti", listaEnti);
 		}
-		
+
 		String pag = null;
-		
+
 		System.out.println("PARAMETRO" + request.getParameter("richiestaEnte"));
-		
-		if(request.getParameter("richiestaEnte")!=null) 
-		{
+
+		if (request.getParameter("richiestaEnte") != null) {
 			pag = "_areaStudent/InviaRichiestaEnteET.jsp";
+		} else {
+			pag = "VisualizzaEnteET.jsp";
 		}
-		else
-		{
-		  pag = "VisualizzaEnteET.jsp";
-		}	
-		
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher(pag);
-        dispatcher.forward(request, response);
+		dispatcher.forward(request, response);
 	}
-	  
+
 	/**
-	 * Method doPost(). * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 * response)
+	 * Method doPost(). * @see HttpServlet#doPost(HttpServletRequest request,
+	 * HttpServletResponse response)
 	 */
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
-  
+
 	}
 }

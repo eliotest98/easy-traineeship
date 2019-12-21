@@ -17,58 +17,57 @@ import model.SystemAttribute;
  */
 @WebServlet("/Downloader")
 public class Downloader extends HttpServlet {
-  private static final long serialVersionUID = 1L;
-  @SuppressWarnings("unused")
-  private File file;
+	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("unused")
+	private File file;
 
-  /**
-   * constructor.
-   * 
-   * @see HttpServlet#HttpServlet()
-   */
-  public Downloader() {
-    super();
-  }
+	/**
+	 * constructor.
+	 * 
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public Downloader() {
+		super();
+	}
 
-  /**
-   * method doGet.
-   * 
-   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-   */
-  public void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    OutputStream outputStream = null;
-    InputStream in = null;
+	/**
+	 * method doGet.
+	 * 
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		OutputStream outputStream = null;
+		InputStream in = null;
 
-    int idRequest = Integer.parseInt(request.getParameter("idRequest"));
-    String filename = request.getParameter("filename");
-    String basePath = 
-        new SystemAttribute().getValueByKey("request-upload-path") + "\\" + idRequest + "\\";
+		int idRequest = Integer.parseInt(request.getParameter("idRequest"));
+		String filename = request.getParameter("filename");
+		String basePath = new SystemAttribute().getValueByKey("request-upload-path") + "\\" + idRequest + "\\";
 
-    try {
-      in = new FileInputStream(basePath + filename);
-      byte[] buffer = new byte[1024];
-      int bytesRead = 0;
-      response.setHeader("Content-Disposition", "attachment;filename=\"" + filename + "\"");
-      outputStream = response.getOutputStream();
-      while (0 < (bytesRead = in.read(buffer))) {
-        outputStream.write(buffer, 0, bytesRead);
-      }
-    } finally {
-      if (null != in) {
-        in.close();
-      }
-    }
-  }
+		try {
+			in = new FileInputStream(basePath + filename);
+			byte[] buffer = new byte[1024];
+			int bytesRead = 0;
+			response.setHeader("Content-Disposition", "attachment;filename=\"" + filename + "\"");
+			outputStream = response.getOutputStream();
+			while (0 < (bytesRead = in.read(buffer))) {
+				outputStream.write(buffer, 0, bytesRead);
+			}
+		} finally {
+			if (null != in) {
+				in.close();
+			}
+		}
+	}
 
-  /**
-   * method doPost.
-   * 
-   * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-   */
-  public void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    doGet(request, response);
-  }
+	/**
+	 * method doPost.
+	 * 
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
 
 }
