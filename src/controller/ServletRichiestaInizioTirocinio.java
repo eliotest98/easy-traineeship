@@ -21,6 +21,7 @@ public class ServletRichiestaInizioTirocinio extends HttpServlet {
     {
         super();
     }
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -35,7 +36,9 @@ public class ServletRichiestaInizioTirocinio extends HttpServlet {
 	      response.sendRedirect("login.jsp");
 	      return;
 	    }
+	    
 	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

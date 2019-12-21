@@ -197,8 +197,46 @@ public class TirocinioDAO {
 				e.printStackTrace();
 			}
 		}
-		//Ritorna false se l'insert non è andato a buon fine 
+		//Ritorna false se l'insert non ï¿½ andato a buon fine 
 		return false;	
+	}
+	/**
+	 * Metodo che interagisce con il DB e modifica lo stato 'DESCRIZIONEENTE' del
+	 * 'Tirocinio' dello Studente passando la 'matricola' come parametro
+	 * @param matricola
+	 * @param descrizione
+	 * @return boolan
+	 */
+	public synchronized boolean aggiornaTirocinio(String matricola,String descrizione) {
+
+		Connection con = null; // variabile per la connessione al DB
+		PreparedStatement psTirocinio = null;// Creazione oggetto Statement per il 'Tirocinio
+		try {
+			// Connessione con il DB
+			con = new DbConnection().getInstance().getConn();
+			
+			
+			// Insert per l'inserimento in 'Tirocinio' dei dati parziali del 'Tirocinio'
+			psTirocinio = con.prepareStatement("UPDATE TIROCINIO " + "SET DESCRIZIONEENTE ='" + descrizione + "' "
+						+ "WHERE MATRICOLA =" + matricola + "; ");
+						
+			// Se la modifica va a buon fine restituisce true
+			if (psTirocinio.executeUpdate() == 1) {
+				con.commit();
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				psTirocinio.close();// Chiusura oggetto Statement dell' 'Tirocinio'
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		// Ritorna false se l'insert non ï¿½ andato a buon fine
+		return false;
 	}
 	
 	/*
@@ -247,7 +285,7 @@ public class TirocinioDAO {
 				e.printStackTrace();
 			}
 		}
-		//Ritorna false se la modifica non è andata a buon fine 
+		//Ritorna false se la modifica non ï¿½ andata a buon fine 
 		return false;	
 	}
 	
@@ -268,8 +306,8 @@ public class TirocinioDAO {
 			con= new DbConnection().getInstance().getConn();
 			//inserimento di un Tirocinio
 			boolean update = inserisciTirocinio(tirocinio);
-			//se l'operazione di inserimento non è andata a buon fine
-			//faccio la modifica perchè il 'Tirocinio' esiste
+			//se l'operazione di inserimento non ï¿½ andata a buon fine
+			//faccio la modifica perchï¿½ il 'Tirocinio' esiste
 			if(update==false)	
 			{
 				//Update di 'Tirocino'
@@ -320,7 +358,7 @@ public class TirocinioDAO {
 		{
 			e.printStackTrace();
 		}
-		//Ritorna false se la modifica non è andata a buon fine 
+		//Ritorna false se la modifica non ï¿½ andata a buon fine 
 		return false;	
 	}
 }	
