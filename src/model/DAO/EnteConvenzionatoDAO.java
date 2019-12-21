@@ -221,7 +221,7 @@ public class EnteConvenzionatoDAO {
 		{
 			e.printStackTrace();
 		}
-		//Ritorna false se l'insert non è andato a buon fine 
+		//Ritorna false se la modifica non è andata a buon fine 
 		return false;	
 	}
 	
