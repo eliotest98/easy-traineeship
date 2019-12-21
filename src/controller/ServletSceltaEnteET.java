@@ -7,7 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.EnteConvenzionato;
 
 /**
  * Servlet implementation class ServletInvioRichiestaEnteET.
@@ -39,7 +38,8 @@ public class ServletSceltaEnteET extends HttpServlet {
   /**
    *HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response).
    */
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+  @SuppressWarnings("unused")
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     /**
      * Controllo autenticazione tramite parametro in sessione (0 = Studente).

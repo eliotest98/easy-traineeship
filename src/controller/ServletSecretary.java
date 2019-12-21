@@ -8,12 +8,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import model.SystemAttribute;
 import org.json.simple.JSONObject;
 
@@ -47,13 +45,12 @@ public class ServletSecretary extends HttpServlet {
    * * Method doPost(). * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
    * response)
    */
-  public void doPost(HttpServletRequest request, HttpServletResponse response)
+  @SuppressWarnings("unchecked")
+public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     Integer result = 0; // indica se la query � riuscita
     String error = ""; // indica il mex di errore
     String content = ""; // indica il contenuto trovato dopo la query
-    String redirect = ""; // reindirizza di nuovo alla pagina in caso di errore
-
     PreparedStatement stmt = null;
     Statement stmtSelect = null;
     Statement stmtSelectTwo = null;
@@ -85,7 +82,6 @@ public class ServletSecretary extends HttpServlet {
             int count = r.last() ? r.getRow() : 0;
             if (count > 0) {
               r.beforeFirst();
-              SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
               String classe = "even";
               while (r.next()) {
                 if (classe.equals("odd")) {

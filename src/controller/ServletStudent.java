@@ -1,26 +1,19 @@
 package controller;
 
 import interfacce.UserInterface;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Request;
 import model.Student;
 import model.SystemAttribute;
-import org.eclipse.jdt.internal.compiler.env.IModule;
 import org.json.simple.JSONObject;
 
 
@@ -59,7 +52,7 @@ public class ServletStudent extends HttpServlet {
    * 
    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
    */
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({ "unchecked", "unused" })
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
@@ -220,7 +213,7 @@ public class ServletStudent extends HttpServlet {
                   + " (level, release_date, expiry_date, year, requested_cfu,"
                   + " serial, validated_cfu, fk_user, fk_certifier, fk_state, certificate_serial) "
                   + " VALUES " + " (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
-              stmt = conn.prepareStatement(sql, stmt.RETURN_GENERATED_KEYS);
+              stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
               stmt.setString(1, level);
               stmt.setString(2, releaseDate);
               stmt.setString(3, expiryDate);
@@ -236,7 +229,7 @@ public class ServletStudent extends HttpServlet {
                 content = "Richiesta parziale presentata con successo.";
                 redirect = request.getContextPath() + "/_areaStudent/uploadAttached.jsp";
 
-                Integer idRequest = 0;
+				Integer idRequest = 0;
 
                 ResultSet rs = stmt.getGeneratedKeys();
                 if (rs.next()) {

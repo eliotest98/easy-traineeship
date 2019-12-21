@@ -1,26 +1,20 @@
 package controller;
 
-import java.awt.Label;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Request;
 import model.SystemAttribute;
 import org.json.simple.JSONObject;
 import interfacce.UserInterface;
-import sun.util.calendar.LocalGregorianCalendar.Date;
 
 /**
  * Servlet implementation class ServletAdmin.
@@ -171,7 +165,8 @@ public class ServletAdmin<WritableWorkbook> extends HttpServlet {
    * 
    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
    */
-  public void doPost(HttpServletRequest request, HttpServletResponse response)
+  @SuppressWarnings("unchecked")
+public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     Integer result = 0; // indica se la query è riuscita
     String error = ""; // indica il mex di errore
