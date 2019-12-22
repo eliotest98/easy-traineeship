@@ -4,15 +4,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.*;
 import java.sql.*;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 import org.junit.jupiter.api.Test;
 
 import controller.DbConnection;
-import model.DAO.EnteConvenzionatoDAO;
 import model.DAO.TirocinanteDAO;
-import model.EnteConvenzionato;
 import model.Tirocinante;
 
 class TirocinanteDAOTest {

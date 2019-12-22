@@ -28,9 +28,15 @@ public class Tirocinante extends Student {
      * @param codiceFiscale is the tax code of the Tirocinante.
      * @param telefono is the number phone of the Tirocinante.
      */
-    public Tirocinante(long matricola, String facolta, Date dataNascita, String luogoNascita, String cittadinanza, String residenza, String codiceFiscale, long telefono) {
+    public Tirocinante(String email, String name, String surname, char sex, String password, int userType, long matricola, Date dataNascita, String luogoNascita, String cittadinanza, String residenza, String codiceFiscale, long telefono) {
+        super.setName(name);
+        super.setSurname(surname);
+        super.setPassword(password);
+        super.setSex(sex);
+        super.setUserType(userType);
+        super.setEmail(email);
         this.matricola = matricola;
-        this.facolta = facolta;
+        this.facolta = "Informatica";
         this.dataNascita = dataNascita;
         this.luogoNascita = luogoNascita;
         this.cittadinanza = cittadinanza;
@@ -43,43 +49,43 @@ public class Tirocinante extends Student {
     }
 	
 	public String getName() {
-		return name;
+		return super.getName();
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		super.setName(name);
 	}
 
 	public String getSurname() {
-		return surname;
+		return super.getSurname();
 	}
 
 	public void setSurname(String surname) {
-		this.surname = surname;
+		super.setSurname(surname);;
 	}
 
 	public char getSex() {
-		return sex;
+		return super.getSex();
 	}
 
 	public void setSex(char sex) {
-		this.sex = sex;
+		super.setSex(sex);;
 	}
 
 	public String getPassword() {
-		return password;
+		return super.getPassword();
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		super.setPassword(password);
 	}
 
 	public int getUserType() {
-		return userType;
+		return super.getUserType();
 	}
 
 	public void setUserType(int userType) {
-		this.userType = userType;
+		super.setUserType(userType);;
 	}
 
 
