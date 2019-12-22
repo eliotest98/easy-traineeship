@@ -8,6 +8,10 @@
     //Per prelevare l'utente (Tirocinanate) dalla sessione e precompilare i campi del form.
     Tirocinante user = new Tirocinante();
     //user = (Tirocinante) request.getSession().getAttribute("user");
+    //Per vedere chi è in sessione.
+    //int resp = (int)request.getSession().getAttribute("userET");
+    int resp = 0;
+    System.out.println("Sessione: "+request.getSession().getAttribute("userET"));
 %>
 <!-- Pagina per l'invio della richiesta di inizio Tirocinio, dallo studente alla segreteria. -->
 
@@ -28,8 +32,7 @@
         <jsp:param name="pageName" value="<%= pageName %>" />
         <jsp:param name="pageFolder" value="<%= pageFolder %>" />
     </jsp:include>
-
-
+    
     <div class="sidebar-page-container basePage signUpPage">
         <div class="auto-container">
             <div class="row clearfix">
@@ -38,106 +41,132 @@
                         <div class="news-block-seven">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 signUp-container">
                                 <div class="panel">
+                                	<%if(resp==0){%>
                                     <h2 class="text-center">Invio Richiesta Tirocinio:</h2>
                                     <p class="text-center">Compilare i campi per l'invio della richiesta di inizio Tirocinio.</p>
                                 </div>
                                 <!-- Form per l'invio della richiesta. -->
-                                <form id="invioRichiestaTirocinio" action="/ServletRichiestaInizioTirocinioET" method="post">
+                                <form action="../src/controller/ServletRichiestaInizioTirocinioET" method="post" id="invioRichiestaTirocinio" >
                                 	<!-- Campo nome tirocinante, lunghezza fra 1 e 50, formato solo lettere. -->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="nomeTirocinante">Nome</label>
-                                        <input type="text" class="form-control" id="nomeTirocinante" name="nomeTirocinante" value="<%=user.getName()%>"
-                                               size="50" min="1" maxlength="50" required disabled>
+                                        <input type="text" class="form-control" id="nomeTirocinante" name="nomeTirocinante" 
+                                        	   value="<%=user.getName()%>" 
+                                        	    title="Il Sistema ha rilevato il nome del Tirocinante."
+                                        	    required disabled>
                                     </div>
                                     <!-- Campo cognome tirocinante, lunghezza fra 1 e 50, formato solo lettere. -->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="cognomeTirocinante">Cognome</label>
-                                        <input type="text" class="form-control" id="cognomeTirocinante" name="cognomeTirocinante" value="<%=user.getSurname()%>"
-                                               size="50" min="1" maxlength="50" required disabled>
+                                        <input type="text" class="form-control" id="cognomeTirocinante" name="cognomeTirocinante" 
+                                        	   value="<%=user.getSurname()%>" 
+                                        	   title="Il Sistema ha rilevato il cognome del Tirocinante."
+                                        	   required disabled>
                                     </div>
                                     <!-- Campo matricola tirocinante, lunghezza 10 cifre, formato solo numeri. -->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="matricolaTirocinante">Matricola</label>
-                                        <input type="tel" class="form-control" id="matricolaTirocinante" name="matricolaTirocinante" value="051210"
-                                               placeholder="0512105239" size="10" min="10" maxlength="10" required>
+                                        <input type="tel" class="form-control" id="matricolaTirocinante" name="matricolaTirocinante" 
+                                        	   value="051210" placeholder="0512105239" size="10" maxlength="10" 
+                                        	   title="La lunghezza della matricola deve essere necessariamente 10 cifre." 
+                                        	   required pattern="[0-9]{10}">
                                     </div>
                                     <!-- Campo facolta tirocinante, lunghezza fra 1 e 50, formato solo lettere. -->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="facoltaTirocinante">Facolt&agrave;</label>
-                                        <input type="text" class="form-control" id="facoltaTirocinante" name="facoltaTirocinante" value="Informatica"
-                                               size="50" min="1" maxlength="50" required disabled>
+                                        <input type="text" class="form-control" id="facoltaTirocinante" name="facoltaTirocinante" 
+                                        	   title="Il Sistema è esteso solamente alla Facolt&agrave; di informatica."
+                                        	   value="Informatica" required disabled>
                                     </div>
-                                     <!-- Campo data di nascita, lunghezza ==10, formato cifre + /. -->
+                                     <!-- Campo data di nascita, lunghezza ==10, formato cifre + /.
+                                     	  Ho usato date, quindi non saprei come fare i controlli.
+                                     	  Min e max, servono per far sì che non si sfori quelle date. -->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="dataDiNascita">Data di Nascita</label>
                                         <input type="date" class="form-control" name="dataDiNascita" id="dataDiNascita"
-                                               size="10" min="10" maxlength="10" required>
+                                        	   title="La Data di nascita del Tirocinante deve essere valida."
+                                               min="1919-12-31" max="2000-12-31" required>
                                     </div>
                                     <!-- Campo luogo di nascita, lunghezza fra 1 e 64, formato caratteri alfabetici-->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="luogoDiNascita">Luogo di Nascita</label>
                                         <input type="text" class="form-control" name="luogoDiNascita" id="luogoDiNascita" 
-                                               placeholder="Napoli" size="64" min="1" maxlength="64" required>
+                                               title="Il Luogo di nascita deve contenere almeno 1 carattere e massimo 64."
+                                               placeholder="Napoli" size="64" maxlength="64" required pattern="[A-Z a-z]{1,64}">
                                     </div>
                                     <!-- Campo cittadinanza, lunghezza fra 1 e 64, formato caratteri alfabetici-->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="cittadinanza">Cittadinanza</label>
                                         <input type="text" class="form-control" name="cittadinanza" id="cittadinanza"
-                                               placeholder="Italiana" size="64" min="1" maxlength="64" required>
+                                               title="La Cittadinanza deve contenere almeno 1 carattere e massimo 64."
+                                               placeholder="Italiana" size="64" maxlength="64" required pattern="[A-Z a-z]{1,64}">
                                     </div>
                                      <!-- Campo residenza, lunghezza fra 1 e 64, formato caratteri alfanumerici-->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="residenza">Residenza</label>
                                         <input type="text" class="form-control" name="residenza" id="residenza"
-                                               placeholder="Via Per Nola 49" size="64" min="1" maxlength="64" required>
+                                               title="La Residenza deve contenere almeno 1 carattere e massimo 64."
+                                               placeholder="Via Per Nola 49" size="64" maxlength="64" 
+                                               required pattern="[A-Z a-z 0-9]{1,64}">
                                     </div>
                                      <!-- Campo Codice fiscale, lunghezza == 16, formato caratteri alfanumerici-->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="codiceFiscale">Codice Fiscale</label>
                                         <input type="text" class="form-control" name="codiceFiscale" id="codiceFiscale"
-                                               placeholder="GRLSMN98R64F924S" size="16" min="16" maxlength="16" required>
+                                               title="Il Codice Fiscale deve essere esattamente di 16 caratteri, fra maiuscole e numeri."
+                                               placeholder="GRLSMN98R64F924S" size="16" maxlength="16" 
+                                               required pattern="[A-Z0-9]{16}">
                                     </div>
                                      <!-- Campo Telefono, lunghezza == 10, formato caratteri numerici-->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="telefono">Telefono</label>
                                         <input type="tel" class="form-control" name="telefono" id="telefono"
-                                               placeholder="3469486823" size="10" min="10" maxlength="10" required>
+                                               title="Il numero di Telefono deve essere esattamente 10 cifre."
+                                               placeholder="3469486823" size="10" maxlength="10" 
+                                               required pattern="[0-9]{10}">
                                     </div>
                                      <!-- Campo email, lunghezza fra 1 e 50 con @studenti.unisa.it, formato alfanumerici-->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="email">E-mail</label>
-                                        <input type="email" class="form-control" name="email" id="email" value="<%=user.getEmail()%>"
-                                               size="50" min="1" maxlength="50" required disabled>
+                                        <input type="email" class="form-control" name="email" id="email"
+                                        	   title="Il Sistema ha rilevato l'E-mail del Tirocinante."
+                                       		   value="<%=user.getEmail()%>" required disabled>
                                     </div>
                                      <!-- Campo CFU conseguiti, lunghezza fra 1 e 180, formato numerico-->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="cfu">CFU Conseguiti</label>
-                                        <input type="tel" class="form-control" name="cfu" id="cfu"
-                                               placeholder="175" size="3" min="1" maxlength="3" required>
+                                        <input type="number" class="form-control" name="cfu" id="cfu"
+                                               title="Il numero di CFU conseguiti deve essere compreso fra 1 e 180."
+                                               placeholder="175" min="1" max="180" maxlength="3" 
+                                               required pattern="[0-9]{1,3}">
                                     </div>
                                     <!-- Campo competenze possedute, lunghezza fra 1 e 256-->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="competenzePossedute">Competenze Possedute</label>
                                         <input type="text" class="form-control" name="competenzePossedute" id="competenzePossedute"
-                                               placeholder="Java,C++.." min="1" maxlength="256" required>
+                                               title="Il campo deve contenere almeno un carattere e massimo 256."
+                                               placeholder="Java,C++.." maxlength="256" required pattern="{1,256}">
                                     </div>
                                     <!-- Campo competenze da acquisire, lunghezza fra 1 e 256-->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="competenzeDaAcquisire">Competenze da Acquisire</label>
                                         <input type="text" class="form-control" name="competenzeDaAcquisire" id="competenzeDaAcquisire"
-                                               placeholder="Python" min="1" maxlength="256" required>
+                                               title="Il campo deve contenere almeno un carattere e massimo 256."
+                                               placeholder="Python" maxlength="256" required pattern="{1,256}">
                                     </div>
                                     <!-- Campo Modalita svolgimento tirocinio, lunghezza fra 1 e 256-->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="modalitaTirocinio">Modalit&agrave; svolgimento Tirocinio</label>
-                                        <input type="text" class="form-control" name="modalitaTirocinio" id="modalitaTirocinio" value="Esterno"
-                                               min="1" maxlength="256" required disabled>
+                                        <input type="text" class="form-control" name="modalitaTirocinio" id="modalitaTirocinio" 
+                                        	   title="Il campo deve contenere almeno un carattere e massimo 256."
+                                        	   placeholder="Svolgimento, in sede..." maxlength="256" required pattern="{1,256}">
                                     </div>
                                       <!-- Campo attivita previste, lunghezza fra 1 e 256-->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="attivitaPreviste">Attivit&agrave; previste</label>
                                         <input type="text" class="form-control" name="attivitaPreviste" id="attivitaPreviste"
-                                               placeholder="Svolgimento, in sede..." min="1" maxlength="256" required>
+                                               title="Il campo deve contenere almeno un carattere e massimo 256."
+                                               placeholder="Svolgimento, in sede..." maxlength="256" required pattern="{1,256}">
                                     </div>
                                     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     	<!-- Bottone per resettare -->
@@ -147,6 +176,13 @@
                                     </div>
                                     <div class="clearfix"></div>
                                 </form>
+                                  <%} else {%>
+									<h3 style="text-align: center;">
+										L'Utente in Sessione non &egrave; abilitato a svolgere questa funzionalit&agrave;.<br>
+										Si prega di uscire dalla pagina, <br>
+										Clicca <a href="../index.jsp"> qui </a> per tornare alla Home. 
+									</h3>
+								 <%}%>
                             </div>
                         </div>
                     </div>
@@ -156,6 +192,10 @@
     </div>
     <jsp:include page="/partials/footer.jsp" />
 </div>
+
+<script>
+
+</script>
 
 <!--End pagewrapper
 <jsp:include page="/partials/includes.jsp" />-->

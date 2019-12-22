@@ -12,14 +12,14 @@ import model.Tirocinio;
 /**
  * Servlet implementation class ServletRichiestaInizioTirocinio
  */
-@WebServlet("/ServletRichiestaInizioTirocinio")
-public class ServletRichiestaInizioTirocinio extends HttpServlet {
+@WebServlet("/ServletRichiestaInizioTirocinioET")
+public class ServletRichiestaInizioTirocinioET extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ServletRichiestaInizioTirocinio() 
+    public ServletRichiestaInizioTirocinioET() 
     {
         super();
     }
