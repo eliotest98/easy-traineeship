@@ -33,7 +33,7 @@ public class TirocinioDAO {
 			//Query Sql per prelevare i Tirocini
 			ps= con.prepareStatement("SELECT * "
 									+ "FROM TIROCINIO "
-									+ "WHERE STATOTIROCINIO="+statoTirocinio+";");
+									+ "WHERE STATOTIROCINIO='"+statoTirocinio+"';");
 			ResultSet res = ps.executeQuery();
 			//Ciclo che inserisce all' interno della lista i 'Tirocini'
 			//restituiti dalla query
@@ -208,7 +208,7 @@ public class TirocinioDAO {
 	 * @param descrizioneEnte
 	 * @return boolean
 	 */
-	public synchronized boolean richiestaEnte(String codTirocinio, int partitaIva, String descrizioneEnte) {
+	public synchronized boolean richiestaEnte(int codTirocinio, int partitaIva, String descrizioneEnte) {
 
 		Connection con = null; // variabile per la connessione al DB
 		PreparedStatement psTirocinio = null;// Creazione oggetto Statement per il 'Tirocinio
@@ -219,7 +219,7 @@ public class TirocinioDAO {
 			
 			// Update per la richiesta all' ente
 			psTirocinio = con.prepareStatement("UPDATE TIROCINIO " + "SET DESCRIZIONEENTE='" + descrizioneEnte + "', "
-						+ "PARTITAIVA ='" + partitaIva + "' "
+						+ "PARTITAIVA =" + partitaIva + " "
 						+ "WHERE CODTIROCINIO =" + codTirocinio + "; ");
 						
 			// Se la modifica va a buon fine restituisce true

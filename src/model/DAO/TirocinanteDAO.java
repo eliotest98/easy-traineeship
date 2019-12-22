@@ -34,21 +34,29 @@ public class TirocinanteDAO {
 
         try {
             conn = new DbConnection().getInstance().getConn();
-            ps = conn.prepareStatement("SELECT * FROM TIROCINANTE WHERE matricola = ?");
+            ps = conn.prepareStatement("SELECT *"
+					+ "FROM TIROCINANTE, USER "
+					+ "WHERE TIROCINANTE.EMAIL=USER.EMAIL AND TIROCINANTE.matricola = ?");
+            ps.setInt(1, matricola);		
             ps.executeQuery();
             ResultSet rs = ps.getResultSet();
 
             if (rs.next()) {
                 tirocinante = new Tirocinante();
                 DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+                tirocinante.setEmail(rs.getString("EMAIL"));
+                tirocinante.setName(rs.getString("NAME"));
+                tirocinante.setSurname(rs.getString("SURNAME"));
+                tirocinante.setSex(rs.getString("SEX").charAt(0));
+                tirocinante.setUserType(rs.getInt("USER_TYPE"));
                 tirocinante.setMatricola(rs.getInt("MATRICOLA"));
                 tirocinante.setDataNascita(rs.getDate("DATANASCITA"));
                 tirocinante.setLuogoNascita(rs.getString("LUOGONASCITA"));
                 tirocinante.setCittadinanza(rs.getString("CITTADINANZA"));
                 tirocinante.setResidenza(rs.getString("RESIDENZA"));
                 tirocinante.setCodiceFiscale(rs.getString("CODICEFISCALE"));
-                tirocinante.setTelefono(rs.getInt("TELEFONO"));
-                tirocinante.setEmail("EMAIL");
+                tirocinante.setTelefono(rs.getLong("TELEFONO"));
+                
             }
         } catch (SQLException e) {
             // Auto-generated catch block
@@ -76,12 +84,19 @@ public class TirocinanteDAO {
 
         try {
             con = new DbConnection().getInstance().getConn();
-            ps = con.prepareStatement("SELECT * FROM TIROCINANTE;");
+            ps= con.prepareStatement("SELECT * "
+					+ "FROM TIROCINANTE, USER "
+					+ "WHERE TIROCINANTE.EMAIL=USER.EMAIL");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 tirocinanti = new ArrayList<Tirocinante>();
                 Tirocinante tirocinante = new Tirocinante();
-                //Date df = new SimpleDateFormat("MM/dd/yyyy");
+                //DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+                tirocinante.setEmail(rs.getString("EMAIL"));
+                tirocinante.setName(rs.getString("NAME"));
+                tirocinante.setSurname(rs.getString("SURNAME"));
+                tirocinante.setSex(rs.getString("SEX").charAt(0));
+                tirocinante.setUserType(rs.getInt("USER_TYPE"));
                 tirocinante.setMatricola(rs.getInt("MATRICOLA"));
                 tirocinante.setDataNascita(rs.getDate("DATANASCITA"));
                 tirocinante.setLuogoNascita(rs.getString("LUOGONASCITA"));
@@ -89,7 +104,7 @@ public class TirocinanteDAO {
                 tirocinante.setResidenza(rs.getString("RESIDENZA"));
                 tirocinante.setCodiceFiscale(rs.getString("CODICEFISCALE"));
                 tirocinante.setTelefono(rs.getLong("TELEFONO"));
-                tirocinante.setEmail(rs.getString("EMAIL"));
+                
                 tirocinanti.add(tirocinante);
             }
         } catch (SQLException e) {
@@ -128,11 +143,11 @@ public class TirocinanteDAO {
             psUser.setString(5, tirocinante.getPassword());
 
             psTirocinante = con.prepareStatement(
-                "INSERT INTO TIROCINANTE(MATRICOLA, DATANASCITA, LUOGONASCITA,"
-                    + " CITTADINANZA, RESIDENZA, CODICEFISCALE," + "TELEFONO, EMAIL) "
+                "INSERT INTO TIROCINANTE(MATRICOLA, DATANASCITA, LUOGONASCITA, "
+                    + "CITTADINANZA, RESIDENZA, CODICEFISCALE, TELEFONO, EMAIL) "
                     + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            psTirocinante.setLong(1, tirocinante.getMatricola());
-            DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ITALIAN);
+            psTirocinante.setInt(1, tirocinante.getMatricola());
+            //DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ITALIAN);
             Date date = tirocinante.getDataNascita();
             psTirocinante.setDate(2, (java.sql.Date) date);
             psTirocinante.setString(3, tirocinante.getLuogoNascita());
@@ -143,8 +158,11 @@ public class TirocinanteDAO {
             psTirocinante.setString(8, tirocinante.getEmail());
 
 
-            if ((psUser.executeUpdate() == 1) && (psTirocinante.executeUpdate() == 1))
-                return true;
+            if ((psUser.executeUpdate() == 1) && (psTirocinante.executeUpdate() == 1)) {
+            	con.commit();
+            	return true;
+            }
+                
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -178,8 +196,11 @@ public class TirocinanteDAO {
                 psUser = con.prepareStatement(
                     "UPDATE USER " + "SET PASSWORD =" + password + " WHERE EMAIL = '" + email
                         + "';");
-                if (psUser.executeUpdate() == 1)
+                if (psUser.executeUpdate() == 1) {
+                	con.commit();
                     return true;
+                }
+                
             } catch (SQLException e) {
                 e.printStackTrace();
             } finally {
