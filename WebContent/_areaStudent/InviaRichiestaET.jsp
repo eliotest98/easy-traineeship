@@ -45,8 +45,10 @@
                                     <h2 class="text-center">Invio Richiesta Tirocinio:</h2>
                                     <p class="text-center">Compilare i campi per l'invio della richiesta di inizio Tirocinio.</p>
                                 </div>
-                                <!-- Form per l'invio della richiesta. -->
-                                <form action="../src/controller/ServletRichiestaInizioTirocinioET" method="post" id="invioRichiestaTirocinio" >
+                                <!-- Form per l'invio della richiesta. 
+                                	 NB: javascrip è relativo, essendo state inserite le espressioni regolari
+                                	 all'interno dell'input type, nell'attributo PATTERN. -->
+                                <form action="../ServletRichiestaInizioTirocinioET" method="post" id="invioRichiestaTirocinio" >
                                 	<!-- Campo nome tirocinante, lunghezza fra 1 e 50, formato solo lettere. -->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="nomeTirocinante">Nome</label>
@@ -68,14 +70,15 @@
                                         <label for="matricolaTirocinante">Matricola</label>
                                         <input type="tel" class="form-control" id="matricolaTirocinante" name="matricolaTirocinante" 
                                         	   value="051210" placeholder="0512105239" size="10" maxlength="10" 
-                                        	   title="La lunghezza della matricola deve essere necessariamente 10 cifre." 
+                                        	   title="La lunghezza della matricola deve essere necessariamente 10 cifre.
+                                        	   Essendo il Sistema esteso al Dipartimento di Informatica, si accettano Matricole con inizio: 051210." 
                                         	   required pattern="[0-9]{10}">
                                     </div>
                                     <!-- Campo facolta tirocinante, lunghezza fra 1 e 50, formato solo lettere. -->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="facoltaTirocinante">Facolt&agrave;</label>
                                         <input type="text" class="form-control" id="facoltaTirocinante" name="facoltaTirocinante" 
-                                        	   title="Il Sistema è esteso solamente alla Facolt&agrave; di informatica."
+                                        	   title="Il Sistema &agrave; esteso solamente alla Facolt&agrave; di Informatica."
                                         	   value="Informatica" required disabled>
                                     </div>
                                      <!-- Campo data di nascita, lunghezza ==10, formato cifre + /.
@@ -120,7 +123,7 @@
                                      <!-- Campo Telefono, lunghezza == 10, formato caratteri numerici-->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="telefono">Telefono</label>
-                                        <input type="tel" class="form-control" name="telefono" id="telefono"
+                                        <input type="text" class="form-control" name="telefono" id="telefono"
                                                title="Il numero di Telefono deve essere esattamente 10 cifre."
                                                placeholder="3469486823" size="10" maxlength="10" 
                                                required pattern="[0-9]{10}">
@@ -180,7 +183,7 @@
 									<h3 style="text-align: center;">
 										L'Utente in Sessione non &egrave; abilitato a svolgere questa funzionalit&agrave;.<br>
 										Si prega di uscire dalla pagina, <br>
-										Clicca <a href="../index.jsp"> qui </a> per tornare alla Home. 
+										Clicca <a href="../index.jsp"> qui </a> per tornare alla Home. <br>
 									</h3>
 								 <%}%>
                             </div>
@@ -192,10 +195,6 @@
     </div>
     <jsp:include page="/partials/footer.jsp" />
 </div>
-
-<script>
-
-</script>
 
 <!--End pagewrapper
 <jsp:include page="/partials/includes.jsp" />-->

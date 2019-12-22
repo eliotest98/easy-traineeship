@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,14 +32,15 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
 	{ 
 	  /**
 	  * Controllo autenticazione tramite parametro in sessione (0 = Studente ET alias Tirocinante).
-      */
+      
 	    String userET = (String) request.getSession().getAttribute("userET");
+	    
 	    if ((userET == null) || (!userET.equals("0"))) 
 	    {
 	      response.sendRedirect("login.jsp");
 	      return;
 	    }
-	    
+	   */
 	    Tirocinante tirocinante = new Tirocinante();
 	    Tirocinio tirocinio = new Tirocinio();
 	    
@@ -46,7 +48,7 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
 	    
 	    tirocinante.setSurname(request.getParameter("cognomeTirocinante"));
 	    
-	    tirocinante.setMatricola(Integer.parseInt(request.getParameter("matricolaTirocinante")));
+	    tirocinante.setMatricola(Long.parseLong(request.getParameter("matricolaTirocinante")));
 	    
 	    tirocinante.setFacolta(request.getParameter("facoltaTirocinante"));
 	    
@@ -58,10 +60,11 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
 	    
 	    tirocinante.setCodiceFiscale(request.getParameter("codiceFiscale"));
 	    
-	    tirocinante.setTelefono(Integer.parseInt(request.getParameter("telefono")));
+	    tirocinante.setTelefono(Long.parseLong(request.getParameter("telefono")));
 	    
 	    tirocinante.setEmail(request.getParameter("email"));
-	    tirocinio.setCfuPrevisti((short)Integer.parseInt(request.getParameter("cfu")));
+	    
+	    tirocinio.setCfuPrevisti(Short.parseShort(request.getParameter("cfu")));
 	    
 	    tirocinio.setCompetenze(request.getParameter("competenzePossedute"));
 	    
@@ -72,6 +75,9 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
 	    tirocinio.setAttivitaPreviste(request.getParameter("attivitaPreviste"));
 	    
 	    tirocinio.setMatricola(tirocinante.getMatricola());
+	    
+	    RequestDispatcher d = request.getRequestDispatcher("InviaRichiestaET.jsp");
+	    d.forward(request, response);
 	}
 
 	/**

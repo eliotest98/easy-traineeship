@@ -20,13 +20,13 @@ public class Tirocinante extends Student {
      * Contructor.
      *
      * @param matricola ï¿½ la chiave primaria del Tirocinante.
-     * @param facolta ï¿½ sempre informatica, ma ï¿½ stato messo in caso di ampliamento del sistema.
-     * @param dataNascita ï¿½ la data di nascita del Tirocinante.
+     * @param facolta ï¿½ sempre informatica, ma è stato messo in caso di ampliamento del sistema.
+     * @param dataNascita è la data di nascita del Tirocinante.
      * @param luogoNascita is the place of birth of the Tirocinante.
-     * @param cittadinanza is the citizenship of the Tirocinante.
-     * @param residenza is the residence of the Tirocinante.
-     * @param codiceFiscale is the tax code of the Tirocinante.
-     * @param telefono is the number phone of the Tirocinante.
+     * @param cittadinanza è la cittadinanza del Tirocinante.
+     * @param residenza è la residenza del Tirocinante.
+     * @param codiceFiscale è il codice fiscale del Tirocinante.
+     * @param telefono + il numero di telefono del Tirocinante.
      */
     public Tirocinante(String email, String name, String surname, char sex, String password, int userType, long matricola, Date dataNascita, String luogoNascita, String cittadinanza, String residenza, String codiceFiscale, long telefono) {
         super.setName(name);
