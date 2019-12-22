@@ -4,6 +4,7 @@
 <%
 	String pageName = "index.jsp";
 	String pageFolder = "";
+	
 %>
 
 <!DOCTYPE html>
