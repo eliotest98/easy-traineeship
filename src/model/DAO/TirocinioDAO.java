@@ -159,20 +159,23 @@ public class TirocinioDAO {
 			con= new DbConnection().getInstance().getConn();
 			
 			//Insert per l'inserimento in 'Tirocinio' dei dati parziali del 'Tirocinio'
-			psTirocinio= con.prepareStatement("INSERT INTO TIROCINIO(DATAINIZIOTIROCINO, CFUPREVISTI,"
+			psTirocinio= con.prepareStatement("INSERT INTO TIROCINIO(CODTIROCINIO,DATAINIZIOTIROCINO, CFUPREVISTI,"
 																+ "COMPETENZE, COMPETENZEACQUISIRE,"
 																+ "ATTIVITAPREVISTE, SVOLGIMENTOTIROCINIO,"
-																+ "STATOTIROCINIO, MATRICOLA) "
-										+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
-			psTirocinio.setString(1, tirocinio.getDataInizioTirocinio());
-			psTirocinio.setInt(2, tirocinio.getCfuPrevisti());
-			psTirocinio.setString(3, tirocinio.getCompetenze());
-			psTirocinio.setString(4, tirocinio.getCompetenzeAcquisire());
-			psTirocinio.setString(5, tirocinio.getAttivitaPreviste());
-			psTirocinio.setString(6, tirocinio.getSvolgimentoTirocinio());
-			psTirocinio.setString(7, "inviataAllaSegreteria");
-			psTirocinio.setInt(8, tirocinio.getMatricola());
-			
+																+ "STATOTIROCINIO,PROGETTOFORMATIVO,DESCRIZIONEENTE, MATRICOLA,PARTITAIVA) "
+										+ "VALUES (?,?, ?, ?, ?, ?, ?, ?, ?,?,?,?);");
+			psTirocinio.setInt(1, tirocinio.getCodTirocinio());
+			psTirocinio.setString(2, tirocinio.getDataInizioTirocinio());
+			psTirocinio.setShort(3, tirocinio.getCfuPrevisti());
+			psTirocinio.setString(4, tirocinio.getCompetenze());
+			psTirocinio.setString(5, tirocinio.getCompetenzeAcquisire());
+			psTirocinio.setString(6, tirocinio.getAttivitaPreviste());
+			psTirocinio.setString(7, tirocinio.getSvolgimentoTirocinio());
+			psTirocinio.setString(8, "inviataAllaSegreteria");
+			psTirocinio.setString(9, tirocinio.getProgettoFormativo());
+			psTirocinio.setString(10, tirocinio.getDescrizioneEnte());
+			psTirocinio.setInt(11, tirocinio.getMatricola());
+			psTirocinio.setString(12, tirocinio.getPartitaIva());
 			
 			//Se l'inserimento va a buon fine restituisce true
 			if(psTirocinio.executeUpdate()==1)
@@ -208,7 +211,7 @@ public class TirocinioDAO {
 	 * @param descrizioneEnte
 	 * @return boolean
 	 */
-	public synchronized boolean richiestaEnte(int codTirocinio, int partitaIva, String descrizioneEnte) {
+	public synchronized boolean richiestaEnte(int codTirocinio, String partitaIva, String descrizioneEnte) {
 
 		Connection con = null; // variabile per la connessione al DB
 		PreparedStatement psTirocinio = null;// Creazione oggetto Statement per il 'Tirocinio
@@ -318,7 +321,7 @@ public class TirocinioDAO {
 													+ "COMPETENZE=?, COMPETENZEACQUISIRE = ?, "
 													+ "ATTIVITAPREVISTE = ?, SVOLGIMENTOTIROCINIO = ?, "
 													+ "STATOTIROCINIO = ?, PROGETTOFORMATIVO = ?, "
-													+ "DESCRIZIONEENTE = ?, MATRICOLA = ? "
+													+ "DESCRIZIONEENTE = ?, MATRICOLA = ?,"
 													+ "PARTITAIVA = ? "
 													+ "WHERE CODTIROCINIO=?;");
 				
@@ -426,8 +429,11 @@ public class TirocinioDAO {
 			ResultSet res = ps.executeQuery();
 			//Ciclo che inserisce all' interno della lista i 'Tirocini'
 			//restituiti dalla query
+			if(res.next())
+			{
 			progettoFormativo=res.getString("PROGETTOFORMATIVO");
-		} 
+			}
+			} 
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
