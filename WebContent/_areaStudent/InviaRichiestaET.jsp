@@ -48,7 +48,8 @@
                                 <!-- Form per l'invio della richiesta. 
                                 	 NB: javascrip è relativo, essendo state inserite le espressioni regolari
                                 	 all'interno dell'input type, nell'attributo PATTERN. -->
-                                <form action="../ServletRichiestaInizioTirocinioET" method="post" id="invioRichiestaTirocinio" >
+                                <form action="../ServletRichiestaInizioTirocinioET" method="post" 
+                                	  id="invioRichiestaTirocinio" onsubmit="return checkMatricola()">
                                 	<!-- Campo nome tirocinante, lunghezza fra 1 e 50, formato solo lettere. -->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="nomeTirocinante">Nome</label>
@@ -69,10 +70,9 @@
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="matricolaTirocinante">Matricola</label>
                                         <input type="tel" class="form-control" id="matricolaTirocinante" name="matricolaTirocinante" 
-                                        	   value="051210" placeholder="0512105239" size="10" maxlength="10" 
+                                        	   value="051210" placeholder="0512105239" size="10" maxlength="10"
                                         	   title="La lunghezza della matricola deve essere necessariamente 10 cifre.
-                                        	   Essendo il Sistema esteso al Dipartimento di Informatica, si accettano Matricole con inizio: 051210." 
-                                        	   required pattern="[0-9]{10}">
+                                        	   Essendo il Sistema esteso al Dipartimento di Informatica, si accettano Matricole con inizio: 051210." >
                                     </div>
                                     <!-- Campo facolta tirocinante, lunghezza fra 1 e 50, formato solo lettere. -->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -195,7 +195,30 @@
     </div>
     <jsp:include page="/partials/footer.jsp" />
 </div>
-
+<script>
+	/*Controllo matricola*/
+	function checkMatricola()
+	{
+		 var matricola = document.getElementById("matricolaTirocinante").value;
+		 var letters =  /^[0-9]$/;
+		 console.log("Sono qui");
+		 /*vede se matcha
+		 if(matricola.match(letters))
+		 {*/
+			 alert(matricola.length);
+			 if(matricola.length==10)
+			 {
+				 console.log("ok"); 
+				 return true;
+			 }
+		 /*}*/
+		 else
+		 {
+			 
+			 return false;
+		 }
+	}
+</script>
 <!--End pagewrapper
 <jsp:include page="/partials/includes.jsp" />-->
 
