@@ -34,6 +34,7 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
       menu +=
           "<li><a href=\"" + request.getContextPath() + "/VisualizzaEnteET.jsp\">Lista Ente</a></li>";
       menu += "<li><a href=\"" + request.getContextPath() + "/_areaSecretary/RegistrazioneEnteET.jsp\">Registra Ente</a></li> ";
+      
       menu +=
               "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
     }else if (pageName.equals("ModificaEnteET.jsp")) { //se ci troviamo in modificaEnteET.jsp
@@ -55,11 +56,30 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
           + "/uploadAttached.jsp\">Carica Allegato</a></li>";
       menu += "<li><a href=\"" + request.getContextPath()
           + "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
+      menu += "<li><a href=\"" + request.getContextPath()
+          + "/InviaRichiestaET.jsp\">Richiesta Tirocinio</a></li> ";
       menu += "<li><a href=\"" + request.getContextPath()  + "/"
           + "ServletListaEnteET?richiestaEnte=ok\">Richiesta Ente</a></li> ";
       menu +=
           "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
     }
+    if (pageName.equals("InviaRichiestaET.jsp")) { //se stiamo in viewRequest
+        menu += "<li class='current'><a href=\"" + request.getContextPath() + "/" + pageFolder
+            + "/viewRequest.jsp\">Richieste</a></li>";
+        menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
+            + "/firstForm.jsp\">Compila Richiesta</a></li>";
+        menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
+            + "/uploadAttached.jsp\">Carica Allegato</a></li>";
+        menu += "<li><a href=\"" + request.getContextPath()
+            + "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
+        menu += "<li class='current'><a href=\"" + request.getContextPath()
+            + "/InviaRichiestaET.jsp\">Richiesta Tirocinio</a></li> ";
+        menu += "<li><a href=\"" + request.getContextPath()  + "/"
+            + "ServletListaEnteET?richiestaEnte=ok\">Richiesta Ente</a></li> ";
+        menu +=
+            "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+      }
+ 
     if (pageName.equals("firstForm.jsp")) {
       menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
           + "/firstForm.jsp\">Compila Richiesta</a></li>";
