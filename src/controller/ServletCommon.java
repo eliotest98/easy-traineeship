@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Admin;
 import model.Secretary;
 import model.Student;
+import model.EnteConvenzionato;
 import org.json.simple.JSONObject;
 
 /**
@@ -79,13 +80,13 @@ public class ServletCommon extends HttpServlet {
           } else {
             int count = r.last() ? r.getRow() : 0;
             if (count == 1) {
-            	String userET=null;
+              String userET=null;
               UserInterface user = null;
               String name = r.getString("name");
               String surname = r.getString("surname");
               char sex = r.getString("sex").charAt(0);
-
               int userType = r.getInt("user_type");
+              
               if (userType == 0) { // Profilo Student
                 redirect = request.getContextPath() + "/_areaStudent/viewRequest.jsp";
                 user = new Student(email, name, surname, sex, password, userType);
@@ -98,9 +99,15 @@ public class ServletCommon extends HttpServlet {
                 redirect = request.getContextPath() + "/_areaAdmin/viewRequest.jsp";
                 user = new Admin(email, name, surname, sex, password, userType);
                 userET="2";
-              }
-              else if (userType == 3) { //Profilo Ente Convenzionato
-                userET="3"; //L'utenete in sessione è un Ente Convenzionato
+              } else if (userType == 3) { //Profilo Ente Convenzionato
+            	redirect = request.getContextPath() + "/VisualizzaEnteET.jsp";
+            	user = new EnteConvenzionato();
+            	user.setEmail(email);
+            	user.setSurname(surname);
+            	user.setSex(sex);
+            	user.setPassword(password);
+            	user.setUserType(userType);
+                userET="3"; //L'utente in sessione è un Ente Convenzionato
               }
               else {
                 throw new NumberFormatException("utente non valido");
