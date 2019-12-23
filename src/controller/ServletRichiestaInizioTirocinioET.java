@@ -32,7 +32,7 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
 	{ 
 	  /**
 	  * Controllo autenticazione tramite parametro in sessione (0 = Studente ET alias Tirocinante).
-      
+      */
 	    String userET = (String) request.getSession().getAttribute("userET");
 	    
 	    if ((userET == null) || (!userET.equals("0"))) 
@@ -40,7 +40,7 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
 	      response.sendRedirect("login.jsp");
 	      return;
 	    }
-	   */
+	   
 	    Tirocinante tirocinante = new Tirocinante();
 	    Tirocinio tirocinio = new Tirocinio();
 	    
