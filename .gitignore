@@ -7,3 +7,4 @@ src/controller/DbConnection.java
 /bin/
 /build/
 /*.checkstyle
+WebContent/WEB-INF/web.xml
