@@ -147,10 +147,9 @@ class EnteConvenzionatoDAOTest {
 				e.printStackTrace();
 			}
 			
-			EnteConvenzionato ente = new EnteConvenzionato("azienda@email.it", "Cap Gemini", "NA", ' ', "password", 3,
-					"25/12/1980", "99999999999", "Salerno", "Giacomo", "Carmine", "3401414140", 8, "Pino", "TE",
-					"Molto interessante");
-			assertEquals(enteConDao.eliminaEnte(ente), true);
+
+			String emailEnte="azienda@email.it";
+			assertEquals(enteConDao.eliminaEnte(emailEnte), true);
 
 			try {
 				Statement stmtSelect = conn.createStatement();
