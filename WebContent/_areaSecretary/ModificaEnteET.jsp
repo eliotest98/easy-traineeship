@@ -56,7 +56,7 @@
 										<p class="text-center">Compila tutti i campi per
 											modificare un nuovo ente.</p>
 									</div>
-									<form id="signUp" action="../ServletModificaEnteET"
+									<form id="signUp" name="modificaEnte"  action="../ServletModificaEnteET"
 										method="post">
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="name">Nome Ente</label> <input type="text"
@@ -148,19 +148,18 @@
 
 	<script>
 		/*Form Input Values*/
-		const form = document.forms["registrazioneEnte"]
-		const name = document.forms["registrazioneEnte"]["name"].value;
-		const partitaIva = document.forms["registrazioneEnte"]["partitaIva"].value;
-		const email = document.forms["registrazioneEnte"]["email"].value;
-		const sede = document.forms["registrazioneEnte"]["sede"].value;
-		const telefono = document.forms["registrazioneEnte"]["telefono"].value;
-		const dipendenti = document.forms["registrazioneEnte"]["dipendenti"].value;
-		const rappresentante = document.forms["registrazioneEnte"]["rappresentante"].value;
-		const dataDiNascita = document.forms["registrazioneEnte"]["dataDiNascita"].value;
-		const dotRiferimento = document.forms["registrazioneEnte"]["dotRiferimento"].value;
-		const referente = document.forms["registrazioneEnte"]["referente"].value;
-		const descrizioneAttivita = document.forms["registrazioneEnte"]["descrizioneAttivita"];
-		console.log("descrizioneAttivita")
+		const form = document.forms["modificaEnte"];
+		const name = document.forms["modificaEnte"]["name"].value;
+		const partitaIva = document.forms["modificaEnte"]["partitaIva"].value;
+		const email = document.forms["modificaEnte"]["email"].value;
+		const sede = document.forms["modificaEnte"]["sede"].value;
+		const telefono = document.forms["modificaEnte"]["telefono"].value;
+		const dipendenti = document.forms["modificaEnte"]["dipendenti"].value;
+		const rappresentante = document.forms["modificaEnte"]["rappresentante"].value;
+		const dataDiNascita = document.forms["modificaEnte"]["dataDiNascita"].value;
+		const dotRiferimento = document.forms["modificaEnte"]["dotRiferimento"].value;
+		const referente = document.forms["modificaEnte"]["referente"].value;
+		const descrizioneAttivita = document.forms["modificaEnte"]["descrizioneAttivita"];
 		/*REGEX Values*/
 		const alphaNumRGX = /^[a-z A-Z 0-9]$/
 		const alphRGX = /^[a-z A-Z]$/
