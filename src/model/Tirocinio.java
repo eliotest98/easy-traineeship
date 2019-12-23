@@ -17,6 +17,8 @@ public class Tirocinio {
 	private String descrizioneEnte;
 	private int matricola;
 	private String partitaIva;
+	private Tirocinante tirocinante;
+	private EnteConvenzionato enteConvenzionato;
 	
 	/** Costruttore vuoto. **/
 	public Tirocinio() 
@@ -41,7 +43,7 @@ public class Tirocinio {
      * @param partitaIva dell' 'EnteConvenzionato' associato
      * 
      */
-    public Tirocinio(int codTirocinio, String dataInizioTirocinio, short cfuPrevisti, String competenze, String competenzeAcquisire, String attivitaPreviste, String svolgimentoTirocinio, String statoTirocinio, String progettoFormativo, String descrizioneEnte, int matricola, String partitaIva) {
+    public Tirocinio(int codTirocinio, String dataInizioTirocinio, short cfuPrevisti, String competenze, String competenzeAcquisire, String attivitaPreviste, String svolgimentoTirocinio, String statoTirocinio, String progettoFormativo, String descrizioneEnte, int matricola, String partitaIva, Tirocinante tirocinante, EnteConvenzionato enteConvenzionato) {
         this.codTirocinio = codTirocinio;
         this.dataInizioTirocinio = dataInizioTirocinio;
         this.cfuPrevisti = cfuPrevisti;
@@ -54,6 +56,8 @@ public class Tirocinio {
         this.descrizioneEnte = descrizioneEnte;
         this.matricola=matricola;
         this.partitaIva=partitaIva;
+        this.tirocinante=tirocinante;
+        this.enteConvenzionato=enteConvenzionato;
     }
 
     public int getCodTirocinio() {
@@ -151,4 +155,23 @@ public class Tirocinio {
 	public void setPartitaIva(String partitaIva) {
 		this.partitaIva = partitaIva;
 	}
+
+	public Tirocinante getTirocinante() {
+		return tirocinante;
+	}
+
+	public void setTirocinante(Tirocinante tirocinante) {
+		this.tirocinante = tirocinante;
+	}
+
+	public EnteConvenzionato getEnteConvenzionato() {
+		return enteConvenzionato;
+	}
+
+	public void setEnteConvenzionato(EnteConvenzionato enteConvenzionato) {
+		this.enteConvenzionato = enteConvenzionato;
+	}
+	
+	
+	
 }

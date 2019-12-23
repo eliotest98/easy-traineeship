@@ -47,7 +47,7 @@ STATOTIROCINIO varchar(64) not null,
 PROGETTOFORMATIVO varchar(128) not null,
 DESCRIZIONEENTE  varchar(256) not null,
 MATRICOLA bigint(10) not null,
-PARTITAIVA varchar(12) not null,
+PARTITAIVA varchar(12),
 primary key (CODTIROCINIO),
 foreign key (MATRICOLA) references TIROCINANTE(MATRICOLA)
 on update cascade
