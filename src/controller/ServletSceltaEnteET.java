@@ -50,12 +50,12 @@ public class ServletSceltaEnteET extends HttpServlet {
 			throw new IllegalArgumentException("Il campo Ente non rispetta il formato");
 		}
 		// Controllo nome tirocinante
-		String nome = request.getParameter("nome");
+		String nome = request.getParameter("name");
 		if (nome.length() == 0) {
 			throw new IllegalArgumentException("Il campo Nome e' vuoto");
 		} else if (nome.length() > 50) {
 			throw new IllegalArgumentException("Il campo Nome supera la lunghezza consentita");
-		} else if (!nome.matches("^[ 0-9a-zA-Z\\.]+$")) {
+		} else if (!nome.matches("^[a-zA-Z\\.]+$")) {
 			throw new IllegalArgumentException("Il campo Nome non rispetta il formato");
 		}
 		// Controllo cognome tirocinante
@@ -64,7 +64,7 @@ public class ServletSceltaEnteET extends HttpServlet {
 			throw new IllegalArgumentException("Il campo Cognome e' vuoto");
 		} else if (cognome.length() > 50) {
 			throw new IllegalArgumentException("Il campo Cognome supera la lunghezza consentita");
-		} else if (!cognome.matches("^[ 0-9a-zA-Z\\.]+$")) {
+		} else if (!cognome.matches("^[a-zA-Z\\.]+$")) {
 			throw new IllegalArgumentException("Il campo Cognome non rispetta il formato");
 		}
 		// Controllo facoltà
@@ -73,7 +73,7 @@ public class ServletSceltaEnteET extends HttpServlet {
 			throw new IllegalArgumentException("Il campo Facolta' e' vuoto");
 		} else if (facolta.length() > 50) {
 			throw new IllegalArgumentException("Il campo Facolta' supera la lunghezza consentita");
-		} else if (!facolta.matches("^[ a-zA-Z]+$")) {
+		} else if (!facolta.matches("^[a-zA-Z]+$")) {
 			throw new IllegalArgumentException("Il campo Facolta' non rispetta il formato");
 		}
 		// Controllo descrizione
