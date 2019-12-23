@@ -85,7 +85,9 @@ public class TirocinioDAO {
 				enteConvenzionato.setDotRiferimento(res.getString("DOTRIFERIMENTO"));
 				enteConvenzionato.setDescrizioneAttivita(res.getString("DESCRIZIONEATTIVITA"));
 				enteConvenzionato.setDataDiNascita(res.getString("DATANASCITA"));
-                
+				tirocinio.setTirocinante(tirocinante);
+				tirocinio.setEnteConvenzionato(enteConvenzionato);
+				
 				listaTirocini.add(tirocinio);//listaTirocini
 			}
 		} 
@@ -127,8 +129,11 @@ public class TirocinioDAO {
 			con= new DbConnection().getInstance().getConn();
 			//Query Sql per prelevare i Tirocini
 			ps= con.prepareStatement("SELECT * "
-									+ "FROM TIROCINIO "
-									+ "WHERE STATOTIROCINIO='"+statoTirocinio+"';");
+					+ "FROM TIROCINIO, TIROCINANTE, USER, ENTECONVENZIONATO "
+					+ "WHERE TIROCINIO.MATRICOLA=TIROCINANTE.MATRICOLA && "
+					+ "TIROCINANTE.EMAIL=USER.EMAIL && "
+					+ "TIROCINIO.PARTITAIVA=ENTECONVENZIONATO.PARTITAIVA && "
+					+ "TIROCINIO.STATOTIROCINIO='"+statoTirocinio+"';");
 			ResultSet res = ps.executeQuery();
 			//Ciclo che inserisce all' interno della lista i 'Tirocini'
 			//restituiti dalla query
@@ -136,6 +141,9 @@ public class TirocinioDAO {
 			{
 				
 				Tirocinio tirocinio= new Tirocinio();
+				Tirocinante tirocinante= new Tirocinante();
+				EnteConvenzionato enteConvenzionato= new EnteConvenzionato();
+				//Dati del Tirocinio
 				tirocinio.setCodTirocinio(res.getInt("CODTIROCINIO"));
 				tirocinio.setDataInizioTirocinio(res.getString("DATAINIZIOTIROCINO"));
 				tirocinio.setCfuPrevisti(res.getShort("CFUPREVISTI"));
@@ -148,6 +156,35 @@ public class TirocinioDAO {
 				tirocinio.setDescrizioneEnte(res.getString("DESCRIZIONEENTE"));
 				tirocinio.setMatricola(res.getInt("MATRICOLA"));
 				tirocinio.setPartitaIva(res.getString("PARTITAIVA"));
+				//Dati del Tirocinante
+				tirocinante.setEmail(res.getString("EMAIL"));
+                tirocinante.setName(res.getString("NAME"));
+                tirocinante.setSurname(res.getString("SURNAME"));
+                tirocinante.setSex(res.getString("SEX").charAt(0));
+                tirocinante.setUserType(res.getInt("USER_TYPE"));
+                tirocinante.setMatricola(res.getInt("MATRICOLA"));
+                tirocinante.setDataNascita(res.getDate("DATANASCITA"));
+                tirocinante.setLuogoNascita(res.getString("LUOGONASCITA"));
+                tirocinante.setCittadinanza(res.getString("CITTADINANZA"));
+                tirocinante.setResidenza(res.getString("RESIDENZA"));
+                tirocinante.setCodiceFiscale(res.getString("CODICEFISCALE"));
+                tirocinante.setTelefono(res.getLong("TELEFONO"));
+                tirocinio.setTirocinante(tirocinante);
+                //Dati ente convenzionato
+                enteConvenzionato.setEmail(res.getString("EMAIL"));
+				enteConvenzionato.setName(res.getString("NAME"));
+				enteConvenzionato.setPartitaIva(res.getString("PARTITAIVA"));
+				enteConvenzionato.setSede(res.getString("SEDE"));
+				enteConvenzionato.setRappresentante(res.getString("RAPPRESENTANTE"));
+				enteConvenzionato.setReferente(res.getString("REFERENTE"));
+				enteConvenzionato.setTelefono(res.getString("TELEFONO"));
+				enteConvenzionato.setDipendenti(res.getShort("DIPENDENTI"));
+				enteConvenzionato.setDotRiferimento(res.getString("DOTRIFERIMENTO"));
+				enteConvenzionato.setDescrizioneAttivita(res.getString("DESCRIZIONEATTIVITA"));
+				enteConvenzionato.setDataDiNascita(res.getString("DATANASCITA"));
+				tirocinio.setTirocinante(tirocinante);
+				tirocinio.setEnteConvenzionato(enteConvenzionato);
+				
 				listaTirocini.add(tirocinio);//listaTirocini
 			}
 		} 
