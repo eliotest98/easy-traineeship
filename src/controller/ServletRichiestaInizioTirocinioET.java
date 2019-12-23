@@ -76,7 +76,6 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
 	    
 	    tirocinio.setMatricola(tirocinante.getMatricola());
 	   
-	    System.out.println("SALVATORE è DOWN");
 	    RequestDispatcher d = request.getServletContext().getRequestDispatcher("/VisualizzaEnteET.jsp");
 	    d.forward(request, response);
 	}

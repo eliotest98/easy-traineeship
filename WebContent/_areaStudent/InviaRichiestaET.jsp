@@ -1,17 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="ISO-8859-1" import="controller.CheckSession,model.Tirocinante"%>
+         pageEncoding="ISO-8859-1" import="controller.CheckSession,model.Student"%>
 
 <%
     String pageName = "InviaRichiestaET.jsp";
     String pageFolder = "_areaStudent";
     
-    //Per prelevare l'utente (Tirocinanate) dalla sessione e precompilare i campi del form.
-    Tirocinante user = new Tirocinante();
-    //user = (Tirocinante) request.getSession().getAttribute("user");
+    //Per prelevare l'utente dalla sessione e precompilare i campi del form.
+    Student user = (Student)request.getSession().getAttribute("user");
     //Per vedere chi è in sessione.
-    //int resp = (int)request.getSession().getAttribute("userET");
-    int resp = 0;
-    System.out.println("Sessione: "+request.getSession().getAttribute("userET"));
+    int resp = Integer.parseInt((String)request.getSession().getAttribute("userET"));
+    
 %>
 <!-- Pagina per l'invio della richiesta di inizio Tirocinio, dallo studente alla segreteria. -->
 
@@ -69,10 +67,10 @@
                                     <!-- Campo matricola tirocinante, lunghezza 10 cifre, formato solo numeri. -->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="matricolaTirocinante">Matricola</label>
-                                        <input type="tel" class="form-control" id="matricolaTirocinante" name="matricolaTirocinante" 
+                                        <input type="text" class="form-control" id="matricolaTirocinante" name="matricolaTirocinante" 
                                         	   value="051210" placeholder="0512105239" size="10" maxlength="10"
-                                        	   title="La lunghezza della matricola deve essere necessariamente 10 cifre.
-                                        	   Essendo il Sistema esteso al Dipartimento di Informatica, si accettano Matricole con inizio: 051210." >
+                                        	   title="La lunghezza della matricola deve essere necessariamente 10 cifre. Essendo il Sistema esteso al Dipartimento di Informatica, si accettano Matricole con inizio: 051210." 
+                                        	   required pattern="[0-9]{10}">
                                     </div>
                                     <!-- Campo facolta tirocinante, lunghezza fra 1 e 50, formato solo lettere. -->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -95,14 +93,16 @@
                                         <label for="luogoDiNascita">Luogo di Nascita</label>
                                         <input type="text" class="form-control" name="luogoDiNascita" id="luogoDiNascita" 
                                                title="Il Luogo di nascita deve contenere almeno 1 carattere e massimo 64."
-                                               placeholder="Napoli" size="64" maxlength="64" required pattern="[A-Z a-z]{1,64}">
+                                               placeholder="Napoli" size="64" maxlength="64" 
+                                               required pattern="[A-Z a-z]{1,64}">
                                     </div>
                                     <!-- Campo cittadinanza, lunghezza fra 1 e 64, formato caratteri alfabetici-->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="cittadinanza">Cittadinanza</label>
                                         <input type="text" class="form-control" name="cittadinanza" id="cittadinanza"
                                                title="La Cittadinanza deve contenere almeno 1 carattere e massimo 64."
-                                               placeholder="Italiana" size="64" maxlength="64" required pattern="[A-Z a-z]{1,64}">
+                                               placeholder="Italiana" size="64" maxlength="64" 
+                                               required pattern="[A-Z a-z]{1,64}">
                                     </div>
                                      <!-- Campo residenza, lunghezza fra 1 e 64, formato caratteri alfanumerici-->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -173,9 +173,13 @@
                                     </div>
                                     <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     	<!-- Bottone per resettare -->
-                                    	<button type="reset" class="btn btn-primary btn-submit">Reset</button>
+                                    	<button type="reset" class="btn btn-primary btn-submit">
+                                    		Reset
+                                    	</button>
                                     	<!-- Bottone per inviare la richiesta -->
-                                        <button type="submit" class="btn btn-primary btn-submit">Invio Richiesta</button>
+                                        <button type="submit" class="btn btn-primary btn-submit" onclick="return check()">
+                                        	Invio Richiesta
+                                        </button>
                                     </div>
                                     <div class="clearfix"></div>
                                 </form>
@@ -196,31 +200,46 @@
     <jsp:include page="/partials/footer.jsp" />
 </div>
 <script>
-	/*Controllo matricola*/
+	/*Controllo matricola 051210 informatica*/
+	var matOk = false;
+	
 	function checkMatricola()
 	{
 		 var matricola = document.getElementById("matricolaTirocinante").value;
-		 var letters =  /^[0-9]$/;
-		 console.log("Sono qui");
-		 /*vede se matcha
-		 if(matricola.match(letters))
-		 {*/
-			 alert(matricola.length);
-			 if(matricola.length==10)
-			 {
-				 console.log("ok"); 
-				 return true;
-			 }
-		 /*}*/
+		 var mat = matricola.substring(0, 6);
+		 /*vede se matcha*/
+		 if(mat == "051210")
+		 {
+			 toastr.success("Matricola corretta.");
+			 matOk = true;
+			 return true;
+		 }
 		 else
 		 {
-			 
+			 showAlert();
+			 toastr.warning("Matricola non rilevata.");
+			 matOk = false;
 			 return false;
 		 }
+	}
+	/*Funzione che consente la sottomissione dei campi alla richiesta.*/
+	function check()
+	{
+		if(matOk)
+		{
+			showAlert();
+			toastr.success("Invio richiesta Tirocinio completato con successo.");
+			return true;
+		}
+		else
+		{
+			showAlert();
+			toastr.error("Invio non riuscito.");
+			return false;
+		}
 	}
 </script>
 <!--End pagewrapper
 <jsp:include page="/partials/includes.jsp" />-->
-
 </body>
 </html>
