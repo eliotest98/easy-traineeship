@@ -38,7 +38,7 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
 		ArrayList<Tirocinio> listaTirocini=new ArrayList<Tirocinio>();
 		//Ricerco tutti gli 'EntiConvenzionati' e li inserisco nella listaTirocini
 		try {
-			listaTirocini=tirocinio.allTirocinio();
+			listaTirocini=tirocinio.allTirocinioByStato("In attesa della Segreteria");
 		}
 		catch (Exception e) {
 			e.printStackTrace();
