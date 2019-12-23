@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,19 +41,28 @@ public class ServletEliminaEnteET extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		EnteConvenzionatoDAO enteDao = new EnteConvenzionatoDAO();
-		EnteConvenzionato enteBean = null;
-		
-		enteBean = (EnteConvenzionato) request.getAttribute("ente");
-		
-		if(enteBean!=null) {
+		/*Controllo che il parametro non sia vuoto*/
+		if(!request.getParameter("enteEmail").isEmpty()) {
+		String emailEnte = request.getParameter("enteEmail");
+		/*Se non ci sono stati problemi*/
+		if(emailEnte!=null) {
 			try {
-				boolean res = enteDao.eliminaEnte(enteBean);
-			} catch (SQLException e) {
+				EnteConvenzionatoDAO enteDao = new EnteConvenzionatoDAO();
+				boolean res = enteDao.eliminaEnte(emailEnte);
+				request.setAttribute("result", res);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("VisualizzaEnteET");
+				dispatcher.forward(request, response);
+				return;
+				} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
 
 	}
-
+		/*Altrimenti segnalo l'errore*/
+		request.setAttribute("result", false);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("VisualizzaEnteET");
+		dispatcher.forward(request, response);
+		return;
+	}
 }
