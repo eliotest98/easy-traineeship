@@ -9,8 +9,103 @@ import java.sql.SQLException;
 
 import controller.DbConnection;
 import model.Tirocinio;
+import model.EnteConvenzionato;
+import model.Tirocinante;
 
 public class TirocinioDAO {
+	
+	/*
+	 * Metodo che interroga il DB e restituisce tutti i 'Tirocini'
+	 * 
+	 * 
+	 * @return listaTirocini
+	 * */
+	public synchronized ArrayList allTirocinio()
+	{
+		
+		Connection con = null; //variabile per la connesione del DB
+		PreparedStatement ps = null;// Creazione oggetto Statement
+		//ArrayLista di tipo Tirocinio
+		ArrayList<Tirocinio> listaTirocini = new ArrayList<Tirocinio>();
+		try 
+		{
+			//Connessione con il DB
+			con= new DbConnection().getInstance().getConn();
+			//Query Sql per prelevare i Tirocini
+			ps= con.prepareStatement("SELECT * "
+									+ "FROM TIROCINIO, TIROCINANTE, USER, ENTECONVENZIONATO "
+									+ "WHERE TIROCINIO.MATRICOLA=TIROCINANTE.MATRICOLA && "
+									+ "TIROCINANTE.EMAIL=USER.EMAIL && "
+									+ "TIROCINIO.PARTITAIVA=ENTECONVENZIONATO.PARTITAIVA");
+			ResultSet res = ps.executeQuery();
+			//Ciclo che inserisce all' interno della lista i 'Tirocini'
+			//restituiti dalla query
+			while(res.next())
+			{
+				
+				Tirocinio tirocinio= new Tirocinio();
+				Tirocinante tirocinante= new Tirocinante();
+				EnteConvenzionato enteConvenzionato= new EnteConvenzionato();
+				//Dati del Tirocinio
+				tirocinio.setCodTirocinio(res.getInt("CODTIROCINIO"));
+				tirocinio.setDataInizioTirocinio(res.getString("DATAINIZIOTIROCINO"));
+				tirocinio.setCfuPrevisti(res.getShort("CFUPREVISTI"));
+				tirocinio.setCompetenze(res.getString("COMPETENZE"));
+				tirocinio.setCompetenzeAcquisire(res.getString("COMPETENZEACQUISIRE"));
+				tirocinio.setAttivitaPreviste(res.getString("ATTIVITAPREVISTE"));
+				tirocinio.setSvolgimentoTirocinio(res.getString("SVOLGIMENTOTIROCINIO"));
+				tirocinio.setStatoTirocinio(res.getString("STATOTIROCINIO"));
+				tirocinio.setProgettoFormativo(res.getString("PROGETTOFORMATIVO"));
+				tirocinio.setDescrizioneEnte(res.getString("DESCRIZIONEENTE"));
+				tirocinio.setMatricola(res.getInt("MATRICOLA"));
+				tirocinio.setPartitaIva(res.getString("PARTITAIVA"));
+				//Dati del Tirocinante
+				tirocinante.setEmail(res.getString("EMAIL"));
+                tirocinante.setName(res.getString("NAME"));
+                tirocinante.setSurname(res.getString("SURNAME"));
+                tirocinante.setSex(res.getString("SEX").charAt(0));
+                tirocinante.setUserType(res.getInt("USER_TYPE"));
+                tirocinante.setMatricola(res.getInt("MATRICOLA"));
+                tirocinante.setDataNascita(res.getDate("DATANASCITA"));
+                tirocinante.setLuogoNascita(res.getString("LUOGONASCITA"));
+                tirocinante.setCittadinanza(res.getString("CITTADINANZA"));
+                tirocinante.setResidenza(res.getString("RESIDENZA"));
+                tirocinante.setCodiceFiscale(res.getString("CODICEFISCALE"));
+                tirocinante.setTelefono(res.getLong("TELEFONO"));
+                tirocinio.setTirocinante(tirocinante);
+                //Dati ente convenzionato
+                enteConvenzionato.setEmail(res.getString("EMAIL"));
+				enteConvenzionato.setName(res.getString("NAME"));
+				enteConvenzionato.setPartitaIva(res.getString("PARTITAIVA"));
+				enteConvenzionato.setSede(res.getString("SEDE"));
+				enteConvenzionato.setRappresentante(res.getString("RAPPRESENTANTE"));
+				enteConvenzionato.setReferente(res.getString("REFERENTE"));
+				enteConvenzionato.setTelefono(res.getString("TELEFONO"));
+				enteConvenzionato.setDipendenti(res.getShort("DIPENDENTI"));
+				enteConvenzionato.setDotRiferimento(res.getString("DOTRIFERIMENTO"));
+				enteConvenzionato.setDescrizioneAttivita(res.getString("DESCRIZIONEATTIVITA"));
+				enteConvenzionato.setDataDiNascita(res.getString("DATANASCITA"));
+                
+				listaTirocini.add(tirocinio);//listaTirocini
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+			try 
+			{
+				ps.close();// Chiusura oggetto Statement 
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		return listaTirocini;	
+	}
 	
 	/*
 	 * Metodo che interroga il DB e restituisce tutti i 'Tirocini'
@@ -40,20 +135,20 @@ public class TirocinioDAO {
 			while(res.next())
 			{
 				
-				Tirocinio purchase= new Tirocinio();
-				purchase.setCodTirocinio(res.getInt("CODTIROCINIO"));
-				purchase.setDataInizioTirocinio(res.getString("DATAINIZIOTIROCINO"));
-				purchase.setCfuPrevisti(res.getShort("CFUPREVISTI"));
-				purchase.setCompetenze(res.getString("COMPETENZE"));
-				purchase.setCompetenzeAcquisire(res.getString("COMPETENZEACQUISIRE"));
-				purchase.setAttivitaPreviste(res.getString("ATTIVITAPREVISTE"));
-				purchase.setSvolgimentoTirocinio(res.getString("SVOLGIMENTOTIROCINIO"));
-				purchase.setStatoTirocinio(res.getString("STATOTIROCINIO"));
-				purchase.setProgettoFormativo(res.getString("PROGETTOFORMATIVO"));
-				purchase.setDescrizioneEnte(res.getString("DESCRIZIONEENTE"));
-				purchase.setMatricola(res.getInt("MATRICOLA"));
-				purchase.setPartitaIva(res.getString("PARTITAIVA"));
-				listaTirocini.add(purchase);//listaTirocini
+				Tirocinio tirocinio= new Tirocinio();
+				tirocinio.setCodTirocinio(res.getInt("CODTIROCINIO"));
+				tirocinio.setDataInizioTirocinio(res.getString("DATAINIZIOTIROCINO"));
+				tirocinio.setCfuPrevisti(res.getShort("CFUPREVISTI"));
+				tirocinio.setCompetenze(res.getString("COMPETENZE"));
+				tirocinio.setCompetenzeAcquisire(res.getString("COMPETENZEACQUISIRE"));
+				tirocinio.setAttivitaPreviste(res.getString("ATTIVITAPREVISTE"));
+				tirocinio.setSvolgimentoTirocinio(res.getString("SVOLGIMENTOTIROCINIO"));
+				tirocinio.setStatoTirocinio(res.getString("STATOTIROCINIO"));
+				tirocinio.setProgettoFormativo(res.getString("PROGETTOFORMATIVO"));
+				tirocinio.setDescrizioneEnte(res.getString("DESCRIZIONEENTE"));
+				tirocinio.setMatricola(res.getInt("MATRICOLA"));
+				tirocinio.setPartitaIva(res.getString("PARTITAIVA"));
+				listaTirocini.add(tirocinio);//listaTirocini
 			}
 		} 
 		catch (SQLException e) 
@@ -101,20 +196,20 @@ public class TirocinioDAO {
 			while(res.next())
 			{
 				
-				Tirocinio purchase= new Tirocinio();
-				purchase.setCodTirocinio(res.getInt("CODTIROCINIO"));
-				purchase.setDataInizioTirocinio(res.getString("DATAINIZIOTIROCINO"));
-				purchase.setCfuPrevisti(res.getShort("CFUPREVISTI"));
-				purchase.setCompetenze(res.getString("COMPETENZE"));
-				purchase.setCompetenzeAcquisire(res.getString("COMPETENZEACQUISIRE"));
-				purchase.setAttivitaPreviste(res.getString("ATTIVITAPREVISTE"));
-				purchase.setSvolgimentoTirocinio(res.getString("SVOLGIMENTOTIROCINIO"));
-				purchase.setStatoTirocinio(res.getString("STATOTIROCINIO"));
-				purchase.setProgettoFormativo(res.getString("PROGETTOFORMATIVO"));
-				purchase.setDescrizioneEnte(res.getString("DESCRIZIONEENTE"));
-				purchase.setMatricola(res.getInt("MATRICOLA"));
-				purchase.setPartitaIva(res.getString("PARTITAIVA"));
-				listaTirocini.add(purchase);//listaTirocini
+				Tirocinio tirocinio= new Tirocinio();
+				tirocinio.setCodTirocinio(res.getInt("CODTIROCINIO"));
+				tirocinio.setDataInizioTirocinio(res.getString("DATAINIZIOTIROCINO"));
+				tirocinio.setCfuPrevisti(res.getShort("CFUPREVISTI"));
+				tirocinio.setCompetenze(res.getString("COMPETENZE"));
+				tirocinio.setCompetenzeAcquisire(res.getString("COMPETENZEACQUISIRE"));
+				tirocinio.setAttivitaPreviste(res.getString("ATTIVITAPREVISTE"));
+				tirocinio.setSvolgimentoTirocinio(res.getString("SVOLGIMENTOTIROCINIO"));
+				tirocinio.setStatoTirocinio(res.getString("STATOTIROCINIO"));
+				tirocinio.setProgettoFormativo(res.getString("PROGETTOFORMATIVO"));
+				tirocinio.setDescrizioneEnte(res.getString("DESCRIZIONEENTE"));
+				tirocinio.setMatricola(res.getInt("MATRICOLA"));
+				tirocinio.setPartitaIva(res.getString("PARTITAIVA"));
+				listaTirocini.add(tirocinio);//listaTirocini
 			}
 		} 
 		catch (SQLException e) 
