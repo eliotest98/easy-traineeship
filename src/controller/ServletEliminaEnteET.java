@@ -10,11 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.EnteConvenzionato;
 import model.DAO.EnteConvenzionatoDAO;
 
 /**
  * Servlet implementation class ServletEliminaEnteET
+ * 
+ * Questa Servlet implementa la funzionalità di eliminazione di un ente in base alla sua email.
  */
 @WebServlet("/ServletEliminaEnteET")
 public class ServletEliminaEnteET extends HttpServlet {
@@ -50,7 +51,7 @@ public class ServletEliminaEnteET extends HttpServlet {
 				EnteConvenzionatoDAO enteDao = new EnteConvenzionatoDAO();
 				boolean res = enteDao.eliminaEnte(emailEnte);
 				request.setAttribute("result", res);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("VisualizzaEnteET");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("VisualizzaEnteET.jsp");
 				dispatcher.forward(request, response);
 				return;
 				} catch (SQLException e) {
@@ -61,7 +62,7 @@ public class ServletEliminaEnteET extends HttpServlet {
 	}
 		/*Altrimenti segnalo l'errore*/
 		request.setAttribute("result", false);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("VisualizzaEnteET");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("VisualizzaEnteET.jsp");
 		dispatcher.forward(request, response);
 		return;
 	}
