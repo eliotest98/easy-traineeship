@@ -96,7 +96,7 @@ public class EnteConvenzionatoDAO {
 			psUser.setString(1, enteConvenzionato.getEmail());
 			psUser.setString(2, enteConvenzionato.getName());
 			psUser.setString(3, enteConvenzionato.getSurname());
-			psUser.setString(4, " ");
+			psUser.setString(4, "N");
 			psUser.setString(5, enteConvenzionato.getPassword());
 			
 			//Insert per l'inserimento in 'EnteConvenzionato' dei dati parziali di 'EnteConvenzionato'
@@ -229,18 +229,17 @@ public class EnteConvenzionatoDAO {
 	 * Metodo che interagisce con il DB ed elimina l' 'EnteConvenzionato' di
 	 * riferimento
 	 * 
-	 * @param enteConvenzionato
+	 * @param email
 	 * 
 	 * @return boolean
 	 */
-	public synchronized boolean eliminaEnte(EnteConvenzionato enteConvenzionato) throws SQLException {
+	public synchronized boolean eliminaEnte(String email) throws SQLException {
 
 		Connection con = null;
 		PreparedStatement psUser = null;
 		try {
 			con = new DbConnection().getInstance().getConn();
-			psUser = con.prepareStatement("DELETE FROM USER WHERE EMAIL='?';");
-			psUser.setString(1, enteConvenzionato.getEmail());
+			psUser = con.prepareStatement("DELETE FROM USER WHERE EMAIL='"+email+"';");
 			int result = psUser.executeUpdate();
 			con.commit();
 			if (result==0) {

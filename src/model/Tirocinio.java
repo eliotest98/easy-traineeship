@@ -17,6 +17,8 @@ public class Tirocinio {
 	private String descrizioneEnte;
 	private long matricola;
 	private String partitaIva;
+	private Tirocinante tirocinante;
+	private EnteConvenzionato enteConvenzionato;
 	
 	/** Costruttore vuoto. **/
 	public Tirocinio() 
@@ -55,6 +57,8 @@ public class Tirocinio {
         this.descrizioneEnte = descrizioneEnte;
         this.matricola=matricola;
         this.partitaIva=partitaIva;
+        this.tirocinante=tirocinante;
+        this.enteConvenzionato=enteConvenzionato;
     }
 
     public int getCodTirocinio() {
@@ -152,4 +156,23 @@ public class Tirocinio {
 	public void setPartitaIva(String partitaIva) {
 		this.partitaIva = partitaIva;
 	}
+
+	public Tirocinante getTirocinante() {
+		return tirocinante;
+	}
+
+	public void setTirocinante(Tirocinante tirocinante) {
+		this.tirocinante = tirocinante;
+	}
+
+	public EnteConvenzionato getEnteConvenzionato() {
+		return enteConvenzionato;
+	}
+
+	public void setEnteConvenzionato(EnteConvenzionato enteConvenzionato) {
+		this.enteConvenzionato = enteConvenzionato;
+	}
+	
+	
+	
 }

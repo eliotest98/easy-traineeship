@@ -456,4 +456,57 @@ class TirocinioDAOTest {
 					
 					
 				}
+				
+				//Test del metodo allTirocinio di TirocinioDAO 
+				@Test
+				void allTirocinio() 
+				{
+					boolean inserito = false;
+					try 
+					{
+						
+						Statement stmtSelect = conn.createStatement();
+						String sql4 = ("INSERT INTO User VALUES('p.aurilia@studenti.unisa.it','Pellegrino','Aurilia','M','pelle','0');");
+				    	stmtSelect.executeUpdate(sql4);
+						String sql2 = ("INSERT INTO tirocinante VALUES('4859','"+modifiedDate+"','Salerno','italiana','Salerno','rlaplg98a08i805e','3294475051','p.aurilia@studenti.unisa.it');");
+				    	stmtSelect.executeUpdate(sql2);
+				    	String sql5 = ("INSERT INTO User VALUES('green@gmail.com','Salvatore','Totti','M','pass98','3');");
+				    	stmtSelect.executeUpdate(sql5);
+				    	String sql3 = ("INSERT INTO enteconvenzionato VALUES('11111111111','Avellino','Salvatore Totti','0825519149','100','Michele Persico','Michele Porto','08/01/1977','esperti in siti web','green@gmail.com');");
+				    	stmtSelect.executeUpdate(sql3);
+				    	String sql1 = ("INSERT INTO tirocinio VALUES('1','"+modifiedDate+"','11','informatica','javascript','Java','Bene','Accettato','progettoformativa.pdf','ragazzo valido','4859','11111111111');");
+				    	stmtSelect.executeUpdate(sql1);
+				    	conn.commit();
+				    	
+				    }
+				    catch (Exception e) {
+				    	e.printStackTrace();
+				    }
+					
+					ArrayList<Tirocinio> listaTirocini =tirocinioDao.allTirocinio();
+		                if(listaTirocini.size()>0)
+					   {
+							inserito = true;
+							
+						}
+			                	assertEquals(inserito,true);
+					try 
+					{
+					    Statement stmtSelect = conn.createStatement();
+					    String sql1 = ("DELETE FROM tirocinio WHERE CODTIROCINIO='1';");
+					    stmtSelect.executeUpdate(sql1);
+					    String sql2 = ("DELETE FROM tirocinante WHERE matricola='4859';");
+					    stmtSelect.executeUpdate(sql2);
+					    String sql3 = ("DELETE FROM enteconvenzionato WHERE partitaIva='11111111111';");
+					    stmtSelect.executeUpdate(sql3);
+					    String sql4 = ("DELETE FROM User WHERE email='p.aurilia@studenti.unisa.it';");
+					    stmtSelect.executeUpdate(sql4);
+					    String sql5 = ("DELETE FROM User WHERE email='green@gmail.com';");
+				    	stmtSelect.executeUpdate(sql5);
+				    	conn.commit();
+					}
+					catch (Exception e) {
+					    e.printStackTrace();
+					}
+				}
 }

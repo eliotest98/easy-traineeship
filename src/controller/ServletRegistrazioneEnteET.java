@@ -127,11 +127,16 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
     if (!partitaIva.matches("^\\d{11}")) {
       throw new IllegalArgumentException("Il campo 'Partita IVA' non rispetta il formato");
     }
-
+    
+    /**
+     * Genera password criptata
+     */
+    String password = new Utils().generatePwd("12345678");
+    
     /**
      * Istanziazione dell'oggetto EnteConvezionato.
      */
-    EnteConvenzionato enteCon = new EnteConvenzionato(email, name, "NA", 'N', "123456", 3,
+    EnteConvenzionato enteCon = new EnteConvenzionato(email, name, "NA", 'N', password, 3,
         dataDiNascita, partitaIva, sede, rappresentante, referente, telefono,
         Integer.parseInt(dipendenti), dotRiferimento, "TE", descrizioneAttivita);
     /**
