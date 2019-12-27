@@ -16,14 +16,14 @@ import model.DAO.TirocinioDAO;
 /**
  * Servlet implementation class SerlvetGestioneRichiesteEnteET
  */
-@WebServlet("/SerlvetGestioneRichiesteEnteET")
-public class SerlvetGestioneRichiesteEnteET extends HttpServlet {
+@WebServlet("/ServletGestioneRichiesteEnteET")
+public class ServletGestioneRichiesteEnteET extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SerlvetGestioneRichiesteEnteET() {
+    public ServletGestioneRichiesteEnteET() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,8 +32,9 @@ public class SerlvetGestioneRichiesteEnteET extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		TirocinioDAO richiestaEnte= new TirocinioDAO();  
-		//Array list di Enti convenzionati
+		//Array list di Tirocinio
 		ArrayList<Tirocinio> listaRichiesteEnte=new ArrayList<Tirocinio>();
 		//Ricerco tutte le richieste all'ente e li inserisco nella listaRichiesteEnte
 		try {
@@ -50,7 +51,6 @@ public class SerlvetGestioneRichiesteEnteET extends HttpServlet {
 			request.setAttribute("listaRichiesteEnte", listaRichiesteEnte);
 		}
 		
-
 		String pag = "VisualizzaRichiestaEnteET.jsp";
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(pag);
