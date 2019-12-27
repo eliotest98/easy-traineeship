@@ -171,10 +171,10 @@ public class TirocinioDAO {
 			psTirocinio.setString(5, tirocinio.getCompetenzeAcquisire());
 			psTirocinio.setString(6, tirocinio.getAttivitaPreviste());
 			psTirocinio.setString(7, tirocinio.getSvolgimentoTirocinio());
-			psTirocinio.setString(8, "inviataAllaSegreteria");
+			psTirocinio.setString(8, "In attesa della Segreteria");
 			psTirocinio.setString(9, tirocinio.getProgettoFormativo());
 			psTirocinio.setString(10, tirocinio.getDescrizioneEnte());
-			psTirocinio.setInt(11, tirocinio.getMatricola());
+			psTirocinio.setLong(11, tirocinio.getMatricola());
 			psTirocinio.setString(12, tirocinio.getPartitaIva());
 			
 			//Se l'inserimento va a buon fine restituisce true

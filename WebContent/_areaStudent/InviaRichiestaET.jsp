@@ -17,8 +17,14 @@
 <html>
 <head>
     <jsp:include page="/partials/head.jsp" />
+    <style type="text/css">
+    	/*Non togliete, esterno non funziona*/
+	    .toast 
+	    {
+	    	opacity: 0,8 !important;
+		}
+    </style>
 </head>
-
 <body onLoad="">
 <div class="page-wrapper" id="InvioRichiestaET">
 
@@ -47,7 +53,7 @@
                                 	 NB: javascrip è relativo, essendo state inserite le espressioni regolari
                                 	 all'interno dell'input type, nell'attributo PATTERN. -->
                                 <form action="../ServletRichiestaInizioTirocinioET" method="post" 
-                                	  id="invioRichiestaTirocinio" onsubmit="return checkMatricola()">
+                                	  id="invioRichiestaTirocinio" onsubmit="return check()">
                                 	<!-- Campo nome tirocinante, lunghezza fra 1 e 50, formato solo lettere. -->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="nomeTirocinante">Nome</label>
@@ -177,7 +183,7 @@
                                     		Reset
                                     	</button>
                                     	<!-- Bottone per inviare la richiesta -->
-                                        <button type="submit" class="btn btn-primary btn-submit" onclick="return check()">
+                                        <button type="submit" class="btn btn-primary btn-submit">
                                         	Invio Richiesta
                                         </button>
                                     </div>
@@ -200,9 +206,7 @@
     <jsp:include page="/partials/footer.jsp" />
 </div>
 <script>
-	/*Controllo matricola 051210 informatica*/
-	var matOk = false;
-	
+	/*Controllo se la matricola inizia con 051210, informatica*/
 	function checkMatricola()
 	{
 		 var matricola = document.getElementById("matricolaTirocinante").value;
@@ -210,23 +214,23 @@
 		 /*vede se matcha*/
 		 if(mat == "051210")
 		 {
+			 console.log("si");
+			 showAlert();
 			 toastr.success("Matricola corretta.");
-			 matOk = true;
 			 return true;
 		 }
 		 else
 		 {
 			 showAlert();
 			 toastr.warning("Matricola non rilevata.");
-			 matOk = false;
 			 return false;
 		 }
 	}
 	/*Funzione che consente la sottomissione dei campi alla richiesta.*/
 	function check()
 	{
-		if(matOk)
-		{
+		if(checkMatricola())
+		{	
 			showAlert();
 			toastr.success("Invio richiesta Tirocinio completato con successo.");
 			return true;

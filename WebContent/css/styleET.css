@@ -1,10 +1,16 @@
 /**REGISTRAZIONE ENTE**/
 @media screen and (-webkit-min-device-pixel-ratio:0) {
-    input[type=date], input[type=time], input[type=datetime-local], input[type=month] {
-        line-height: 100%; /*Fix cattiva visualizzazione del datepicker*/
-    }
+	input[type=date], input[type=time], input[type=datetime-local], input[type=month]
+		{
+		line-height: 100%; /*Fix cattiva visualizzazione del datepicker*/
+	}
 }
 
-#registrazioneEnte{
-    text-align:left !important; /*Label a sinistra*/
+#registrazioneEnte {
+	text-align: left !important; /*Label a sinistra*/
+}
+
+/*Opacità dei toast*/
+.toast {
+	opacity: 0, 8 !important;
 }

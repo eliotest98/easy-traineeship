@@ -140,6 +140,7 @@ public class ServletStudent extends HttpServlet {
                 request.getSession().setAttribute("user", user);
                 content = "Registrazione effettuata correttamente.";
                 result = 1;
+                request.getSession().setAttribute("userET", 0);
               } else {
                 error = "Impossibile effettuare la registrazione.";
               }
