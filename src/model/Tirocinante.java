@@ -1,8 +1,8 @@
 package model;
 
-import java.util.Date;
+import java.sql.Date;
 
-/**
+/*
  * Class.
  *
  * Questa classe va a rappresentare l'oggetto Tirocinante che nel seguente dominio applicativo raffigura il tirocinante che si presta al Tirocinio.

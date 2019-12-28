@@ -1,7 +1,7 @@
 package model.DAO;
 
 import java.util.ArrayList;
-
+import java.sql.Date;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -297,17 +297,17 @@ public class TirocinioDAO {
 																+ "STATOTIROCINIO,PROGETTOFORMATIVO,DESCRIZIONEENTE, MATRICOLA,PARTITAIVA) "
 										+ "VALUES (?,?, ?, ?, ?, ?, ?, ?, ?,?,?,?);");
 			psTirocinio.setInt(1, tirocinio.getCodTirocinio());
-			psTirocinio.setString(2, tirocinio.getDataInizioTirocinio());
+            psTirocinio.setDate(2, new Date(0));
 			psTirocinio.setShort(3, tirocinio.getCfuPrevisti());
 			psTirocinio.setString(4, tirocinio.getCompetenze());
 			psTirocinio.setString(5, tirocinio.getCompetenzeAcquisire());
 			psTirocinio.setString(6, tirocinio.getAttivitaPreviste());
 			psTirocinio.setString(7, tirocinio.getSvolgimentoTirocinio());
 			psTirocinio.setString(8, "In attesa della Segreteria");
-			psTirocinio.setString(9, tirocinio.getProgettoFormativo());
-			psTirocinio.setString(10, tirocinio.getDescrizioneEnte());
+			psTirocinio.setString(9, " ");
+			psTirocinio.setString(10, " ");
 			psTirocinio.setLong(11, tirocinio.getMatricola());
-			psTirocinio.setString(12, tirocinio.getPartitaIva());
+			psTirocinio.setString(12, " ");
 			
 			//Se l'inserimento va a buon fine restituisce true
 			if(psTirocinio.executeUpdate()==1)
