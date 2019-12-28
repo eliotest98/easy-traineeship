@@ -69,7 +69,7 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
       menu += "<li><a href=\"" + request.getContextPath()
           + "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
       menu += "<li><a href=\"" + request.getContextPath()
-          + "/InviaRichiestaET.jsp\">Richiesta Tirocinio</a></li> ";
+          + "/_areaStudent/InviaRichiestaET.jsp\">Richiesta Tirocinio</a></li> ";
       menu += "<li><a href=\"" + request.getContextPath()  + "/"
           + "ServletListaEnteET?richiestaEnte=ok\">Richiesta Ente</a></li> ";
       menu +=
@@ -85,7 +85,7 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
         menu += "<li><a href=\"" + request.getContextPath()
             + "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
         menu += "<li class='current'><a href=\"" + request.getContextPath()
-            + "/InviaRichiestaET.jsp\">Richiesta Tirocinio</a></li> ";
+            + "/_areaStudent/InviaRichiestaET.jsp\">Richiesta Tirocinio</a></li> ";
         menu += "<li><a href=\"" + request.getContextPath()  + "/"
             + "ServletListaEnteET?richiestaEnte=ok\">Richiesta Ente</a></li> ";
         menu +=

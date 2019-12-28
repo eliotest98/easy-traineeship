@@ -15,7 +15,7 @@ public class Tirocinio {
     private String progettoFormativo;
 	private String competenzeAcquisire;
 	private String descrizioneEnte;
-	private int matricola;
+	private long matricola;
 	private String partitaIva;
 	private Tirocinante tirocinante;
 	private EnteConvenzionato enteConvenzionato;
@@ -43,7 +43,8 @@ public class Tirocinio {
      * @param partitaIva dell' 'EnteConvenzionato' associato
      * 
      */
-    public Tirocinio(int codTirocinio, String dataInizioTirocinio, short cfuPrevisti, String competenze, String competenzeAcquisire, String attivitaPreviste, String svolgimentoTirocinio, String statoTirocinio, String progettoFormativo, String descrizioneEnte, int matricola, String partitaIva, Tirocinante tirocinante, EnteConvenzionato enteConvenzionato) {
+    public Tirocinio(int codTirocinio, String dataInizioTirocinio, short cfuPrevisti, String competenze, String competenzeAcquisire, String attivitaPreviste, String svolgimentoTirocinio, String statoTirocinio, String progettoFormativo, String descrizioneEnte, long
+        matricola, String partitaIva) {
         this.codTirocinio = codTirocinio;
         this.dataInizioTirocinio = dataInizioTirocinio;
         this.cfuPrevisti = cfuPrevisti;
@@ -140,11 +141,11 @@ public class Tirocinio {
 		this.descrizioneEnte = descrizioneEnte;
 	}
 
-	public int getMatricola() {
+	public long getMatricola() {
 		return matricola;
 	}
 
-	public void setMatricola(int matricola) {
+	public void setMatricola(long matricola) {
 		this.matricola = matricola;
 	}
 

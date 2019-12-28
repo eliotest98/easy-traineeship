@@ -138,6 +138,7 @@ public class ServletStudent extends HttpServlet {
                 redirect = request.getContextPath() + "/_areaStudent/viewRequest.jsp";
                 user = new Student(email, name, surname, sex, password, userType);
                 request.getSession().setAttribute("user", user);
+                request.getSession().setAttribute("userET", "0");
                 content = "Registrazione effettuata correttamente.";
                 result = 1;
               } else {

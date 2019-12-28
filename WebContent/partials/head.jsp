@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"%>
 <meta charset="utf-8">
-<title>Easy Traineeship/English Validation - Universit&agrave; degli Studi di
-	Salerno</title>
+<title>Easy Traineeship/English Validation - Universit&agrave; degli Studi di Salerno</title>
 
 <!-- Stylesheets -->
 <link href="<%= request.getContextPath() %>/css/bootstrap.css"

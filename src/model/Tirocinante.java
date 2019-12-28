@@ -2,104 +2,98 @@ package model;
 
 import java.sql.Date;
 
-/**
+/*
  * Class.
  *
  * Questa classe va a rappresentare l'oggetto Tirocinante che nel seguente dominio applicativo raffigura il tirocinante che si presta al Tirocinio.
  */
 public class Tirocinante extends Student {
-	private String email;
-	private String name;
-	private String surname;
-	private char sex;
-	private String password;
-	private int userType;
-    private int matricola;
+    private long matricola;
+    private String facolta;
     private Date dataNascita;
     private String luogoNascita;
     private String cittadinanza;
     private String residenza;
     private String codiceFiscale;
     private long telefono;
-    
-	/**
+    /**
      * Contructor.
      *
-     * @param matricola is the id of Tirocinante
-     * @param dataNascita is the birth date of the Tirocinante.
+     * @param matricola ï¿½ la chiave primaria del Tirocinante.
+     * @param facolta ï¿½ sempre informatica, ma è stato messo in caso di ampliamento del sistema.
+     * @param dataNascita è la data di nascita del Tirocinante.
      * @param luogoNascita is the place of birth of the Tirocinante.
-     * @param cittadinanza is the citizenship of the Tirocinante.
-     * @param residenza is the residence of the Tirocinante.
-     * @param codiceFiscale is the tax code of the Tirocinante.
-     * @param telefono is the number phone of the Tirocinante.
+     * @param cittadinanza è la cittadinanza del Tirocinante.
+     * @param residenza è la residenza del Tirocinante.
+     * @param codiceFiscale è il codice fiscale del Tirocinante.
+     * @param telefono + il numero di telefono del Tirocinante.
      */
-    public Tirocinante(String email, String name, String surname, char sex, String password,
-    	      int userType, int matricola, Date dataNascita, String luogoNascita, String cittadinanza, String residenza, String codiceFiscale, long telefono) {
-    	this.email = email;
-    	this.name = name;
-        this.surname = surname;
-        this.sex = sex;
-        this.password = password;
-        this.userType = userType;
-    	this.matricola = matricola;
+    public Tirocinante(String email, String name, String surname, char sex, String password, int userType, long matricola, Date dataNascita, String luogoNascita, String cittadinanza, String residenza, String codiceFiscale, long telefono) {
+        super.setName(name);
+        super.setSurname(surname);
+        super.setPassword(password);
+        super.setSex(sex);
+        super.setUserType(userType);
+        super.setEmail(email);
+        this.matricola = matricola;
+        this.facolta = "Informatica";
         this.dataNascita = dataNascita;
         this.luogoNascita = luogoNascita;
         this.cittadinanza = cittadinanza;
         this.residenza = residenza;
         this.codiceFiscale = codiceFiscale;
         this.telefono = telefono;
-        
     }
 
 	public Tirocinante() {
     }
 	
 	public String getName() {
-		return name;
+		return super.getName();
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		super.setName(name);
 	}
 
 	public String getSurname() {
-		return surname;
+		return super.getSurname();
 	}
 
 	public void setSurname(String surname) {
-		this.surname = surname;
+		super.setSurname(surname);;
 	}
 
 	public char getSex() {
-		return sex;
+		return super.getSex();
 	}
 
 	public void setSex(char sex) {
-		this.sex = sex;
+		super.setSex(sex);;
 	}
 
 	public String getPassword() {
-		return password;
+		return super.getPassword();
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		super.setPassword(password);
 	}
 
 	public int getUserType() {
-		return userType;
+		return super.getUserType();
 	}
 
 	public void setUserType(int userType) {
-		this.userType = userType;
+		super.setUserType(userType);;
 	}
 
 
-    public int getMatricola() {
+    public long getMatricola() {
         return matricola;
     }
 
-    public void setMatricola(int matricola) {
+    public void setMatricola(long matricola) {
         this.matricola = matricola;
     }
 
@@ -150,12 +144,12 @@ public class Tirocinante extends Student {
     public void setTelefono(long telefono) {
         this.telefono = telefono;
     }
-    
-    public String getEmail() {
-		return email;
-	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getFacolta() {
+      return facolta;
+    }
+
+    public void setFacolta(String facolta) {
+      this.facolta = facolta;
+    }
 }
