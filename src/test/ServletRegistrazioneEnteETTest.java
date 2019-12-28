@@ -389,6 +389,7 @@ class ServletRegistrazioneEnteETTest {
 			try {
 				Statement stmtSelect = conn.createStatement();
 		    	stmtSelect.executeUpdate("DELETE FROM User WHERE EMAIL='greentech@gmail.com';");
+		    	conn.commit();
 			}
 			catch (Exception e){
 				e.printStackTrace();
