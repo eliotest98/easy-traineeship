@@ -33,7 +33,7 @@ class ServletGestioneRichiesteSegreteriaETTest {
 	@BeforeEach
 	public void setUp() {
 		when(requestMock.getSession()).thenReturn(sessionMock);
-		when(sessionMock.getAttribute("userET")).thenReturn("0");
+		when(sessionMock.getAttribute("userET")).thenReturn("1");
 	}
 	@Test
 	void testReindirizzamento() {
