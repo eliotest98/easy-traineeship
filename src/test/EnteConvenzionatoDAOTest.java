@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.*;
 import java.sql.*;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import controller.DbConnection;
@@ -15,6 +16,21 @@ class EnteConvenzionatoDAOTest {
 	
 	Connection conn  = new DbConnection().getInstance().getConn();
 	EnteConvenzionatoDAO enteConDao = new EnteConvenzionatoDAO();
+	
+	//metodo tearDown per rimuovere i campi inseriti durante i test
+	@AfterEach
+	public void tearDown() {
+		try 
+		{
+		    Statement stmtSelect = conn.createStatement();
+		    String sql1 = ("DELETE FROM User WHERE EMAIL='azienda@email.it';");
+		    stmtSelect.executeUpdate(sql1);
+		    conn.commit();
+		}
+		catch (Exception e) {
+		    e.printStackTrace();
+		}
+	}
 	
 	//Test del metodo allEnte di EnteConvenzionatoDAO 
 	@Test
@@ -43,17 +59,6 @@ class EnteConvenzionatoDAOTest {
 			}
 		}
 		assertEquals(inserito,true);
-		
-		try 
-		{
-		    Statement stmtSelect = conn.createStatement();
-		    String sql1 = ("DELETE FROM User WHERE EMAIL='azienda@email.it';");
-		    stmtSelect.executeUpdate(sql1);
-		    conn.commit();
-		}
-		catch (Exception e) {
-		    e.printStackTrace();
-		}
 	}
 	
 	//Test del metodo InserisciEnte di EnteConvenzionatoDAO
@@ -63,16 +68,6 @@ class EnteConvenzionatoDAOTest {
 		
 		EnteConvenzionato ente = new EnteConvenzionato("azienda@email.it","Cap Gemini","NA",' ',"password",3,"25/12/1980","99999999999","Salerno","Giacomo","Carmine","3401414140",8,"Pino","TE","Molto interessante");
 		assertEquals(enteConDao.inserisciEnte(ente),true);
-		
-		try {
-		    Statement stmtSelect = conn.createStatement();
-		    String sql1 = ("DELETE FROM User WHERE EMAIL='azienda@email.it';");
-		    stmtSelect.executeUpdate(sql1);
-		    conn.commit();
-		}
-		catch (Exception e) {
-		    e.printStackTrace();
-		}
 	}
 	
 	//Test del metodo ModificaEnte di EnteConvenzionatoDAO quando l'elemento da modificare non è presente nel database
@@ -83,18 +78,6 @@ class EnteConvenzionatoDAOTest {
 		EnteConvenzionato ente = new EnteConvenzionato("azienda@email.it","Cap Gemini","NA",' ',"password",3,"25/12/1980","99999999999","Salerno","Giacomo","Carmine","3401414140",8,"Pino","TE","Molto interessante");
 		
 		assertEquals(enteConDao.modificaEnte(ente),false);
-		
-		try 
-		{
-		    Statement stmtSelect = conn.createStatement();
-		    String sql1 = ("DELETE FROM User WHERE EMAIL='azienda@email.it';");
-		    stmtSelect.executeUpdate(sql1);
-		    conn.commit();
-		}
-		catch (Exception e) 
-		{
-		    e.printStackTrace();
-		}
 	}
 
 	//Test del metodo ModificaEnte di EnteConvenzionatoDAO quando l'elemento da modificare è presente nel database
@@ -118,18 +101,6 @@ class EnteConvenzionatoDAOTest {
 		
 		EnteConvenzionato ente = new EnteConvenzionato("azienda@email.it","Cap Gemini","NA",' ',"password",3,"25/12/1980","99999999999","Salerno","Giacomo","Carmine","3401414140",8,"Pino","TE","Molto interessante");
 		assertEquals(enteConDao.modificaEnte(ente),true);
-		
-		try 
-		{
-		    Statement stmtSelect = conn.createStatement();
-		    String sql1 = ("DELETE FROM User WHERE EMAIL='azienda@email.it';");
-		    stmtSelect.executeUpdate(sql1);
-		    conn.commit();
-		}
-		catch (Exception e) 
-		{
-		    e.printStackTrace();
-		}
 	}
 	
 	// Test del metodo eliminaEnte di EnteConvenzionatoDAO
@@ -150,15 +121,6 @@ class EnteConvenzionatoDAOTest {
 
 			String emailEnte="azienda@email.it";
 			assertEquals(enteConDao.eliminaEnte(emailEnte), true);
-
-			try {
-				Statement stmtSelect = conn.createStatement();
-				String sql1 = ("DELETE FROM User WHERE EMAIL='azienda@email.it';");
-				stmtSelect.executeUpdate(sql1);
-				conn.commit();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
 		
 	//Test del metodo updatePassword di EnteConvenzionatoDAO 
@@ -181,18 +143,6 @@ class EnteConvenzionatoDAOTest {
 	    }
 		
 		assertEquals(enteConDao.updatePassword("azienda@email.it", "123456"),true);
-		
-		try 
-		{
-		    Statement stmtSelect = conn.createStatement();
-		    String sql1 = ("DELETE FROM User WHERE EMAIL='azienda@email.it';");
-		    stmtSelect.executeUpdate(sql1);
-		    conn.commit();
-		}
-		catch (Exception e) 
-		{
-		    e.printStackTrace();
-		}
 	}
 }
 

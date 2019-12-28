@@ -19,26 +19,26 @@ import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 
 import controller.DbConnection;
-import controller.ServletGestioneRichiesteSegreteriaET;
+import controller.ServletGestioneRichiesteEnteET;
 
-class ServletGestioneRichiesteSegreteriaETTest {
+class ServletGestioneRichiesteEnteETTest {
 	
 	Connection conn = new DbConnection().getInstance().getConn();
 	//Creazione mock	
 	HttpServletRequest requestMock = mock(HttpServletRequest.class);
 	HttpServletResponse responseMock = mock(HttpServletResponse.class);
 	HttpSession sessionMock = mock(HttpSession.class);
-	ServletGestioneRichiesteSegreteriaET servletSecretaryMock = mock(ServletGestioneRichiesteSegreteriaET.class);
+	ServletGestioneRichiesteEnteET servletSecretaryMock = mock(ServletGestioneRichiesteEnteET.class);
 	RequestDispatcher dispatcherMock = mock(RequestDispatcher.class);
 	@BeforeEach
 	public void setUp() {
 		when(requestMock.getSession()).thenReturn(sessionMock);
-		when(sessionMock.getAttribute("userET")).thenReturn("1");
+		when(sessionMock.getAttribute("userET")).thenReturn("3");
 	}
 	@Test
 	void testReindirizzamento() {
-		when(requestMock.getRequestDispatcher("_areaSecretary/VisualizzaRichiestaET.jsp")).thenReturn(dispatcherMock);
-		ServletGestioneRichiesteSegreteriaET test = new ServletGestioneRichiesteSegreteriaET();
+		when(requestMock.getRequestDispatcher("VisualizzaRichiestaEnteET.jsp")).thenReturn(dispatcherMock);
+		ServletGestioneRichiesteEnteET test = new ServletGestioneRichiesteEnteET();
 		try {
 			test.doGet(requestMock, responseMock);
 		} catch (ServletException e1) {

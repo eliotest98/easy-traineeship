@@ -382,13 +382,14 @@ class ServletRegistrazioneEnteETTest {
 					"sono gli strumenti che mettiamo a disposizione delle  aziende nostre clienti per aumentarne la " +  
 					"produttività e l’efficienza interna, e per migliorarne sensibilmente il rapporto con la propria clientela");
 			when(requestMock.getParameter("partitaIva")).thenReturn("12312312312");
-			when(requestMock.getRequestDispatcher("risultato.jsp")).thenReturn(dispatcherMock);
+			when(requestMock.getRequestDispatcher("VisualizzaEnteET.jsp")).thenReturn(dispatcherMock);
 			ServletRegistrazioneEnteET test = new ServletRegistrazioneEnteET();
 			test.doPost(requestMock, responseMock);
 			
 			try {
 				Statement stmtSelect = conn.createStatement();
 		    	stmtSelect.executeUpdate("DELETE FROM User WHERE EMAIL='greentech@gmail.com';");
+		    	conn.commit();
 			}
 			catch (Exception e){
 				e.printStackTrace();

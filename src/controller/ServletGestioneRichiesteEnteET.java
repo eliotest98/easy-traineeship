@@ -31,8 +31,17 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    /**
+	     * Controllo autenticazione tramite parametro in sessione (3 = EnteConvenzionato).
+	     */
+	    String userET = (String) request.getSession().getAttribute("userET");
+	    if ((userET == null) || (!userET.equals("3"))) {
+	      response.sendRedirect("login.jsp");
+	      return;
+	    }
+	    
+		//Visualizza Lista Richieste
 		TirocinioDAO richiestaEnte= new TirocinioDAO();  
 		//Array list di Tirocinio
 		ArrayList<Tirocinio> listaRichiesteEnte=new ArrayList<Tirocinio>();
@@ -61,7 +70,7 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
