@@ -210,10 +210,10 @@ public class TirocinioDAO {
 	 * Metodo che interroga il DB e restituisce tutti i 'Tirocini'
 	 * persenti all' interno di un enteConvenzionato
 	 * 
-	 * @param partitaIva
+	 * @param email
 	 * @return listaTirocini
 	 * */
-	public synchronized ArrayList allTirocinioByEnte(String partitaIva)
+	public synchronized ArrayList allTirocinioByEnte(String email)
 	{
 		
 		Connection con = null; //variabile per la connesione del DB
@@ -226,10 +226,11 @@ public class TirocinioDAO {
 			con= new DbConnection().getInstance().getConn();
 			//Query Sql per prelevare i Tirocini
 			ps= con.prepareStatement("SELECT * "
-					+ "FROM TIROCINIO, TIROCINANTE, USER "
+					+ "FROM TIROCINIO, TIROCINANTE, USER, ENTECONVENZIONATO"
 					+ "WHERE TIROCINIO.MATRICOLA=TIROCINANTE.MATRICOLA && "
 					+ "TIROCINANTE.EMAIL=USER.EMAIL && "
-					+ "TIROCINIO.PARTITAIVA='"+partitaIva+"';");
+					+ "TIROCINIO.PARTITAIVA=ENTECONVENZIONATO.PARTITAIVA && "
+					+ "ENTECONVENZIONATO.EMAIL='"+email+"';");
 			ResultSet res = ps.executeQuery();
 			//Ciclo che inserisce all' interno della lista i 'Tirocini'
 			//restituiti dalla query
