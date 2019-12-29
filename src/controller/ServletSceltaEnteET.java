@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import interfacce.UserInterface;
+import model.Tirocinio;
 import model.DAO.TirocinanteDAO;
 import model.DAO.TirocinioDAO;
 
@@ -91,10 +92,10 @@ public class ServletSceltaEnteET extends HttpServlet {
 		String partitaIva = (String) request.getParameter("partitaIva");
 		UserInterface user = (UserInterface)request.getSession().getAttribute("user");
 		long matricola = tirocinanteDao.ricercaTirocinanteByEmail(user.getEmail()).getMatricola();
-		ArrayList<Integer> codTirocinio = tirocinioDAO.allTirocinioTirocinante(matricola);  //creare un metodo che restituisca un solo codTirocinio
+		ArrayList<Tirocinio> listaTirocini = tirocinioDAO.allTirocinioTirocinante(matricola);  //creare un metodo che restituisca un solo codTirocinio
 		try {
-			Boolean prova1 = tirocinioDAO.richiestaEnte(codTirocinio.get(codTirocinio.size()), partitaIva, descrizione);
-			Boolean prova2 = tirocinioDAO.modificaStatoTirocinio(codTirocinio.get(codTirocinio.size()),"inviataAllEnte");
+			Boolean prova1 = tirocinioDAO.richiestaEnte(listaTirocini.get(listaTirocini.size()).getCodTirocinio(), partitaIva, descrizione);
+			Boolean prova2 = tirocinioDAO.modificaStatoTirocinio(listaTirocini.get(listaTirocini.size()).getCodTirocinio(),"in attesa dell'Ente");
 			if ((prova1==true) && (prova2==true)) {
 				request.setAttribute("L'invio della richiesta e' avvenuto con successo", mess);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/_areaStudent/viewRequest.jsp");// Controlla jsp
