@@ -18,24 +18,27 @@ import model.DAO.TirocinioDAO;
  */
 @WebServlet("/ServletStatoTirocinanteET")
 public class ServletStatoTirocinanteET extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+  private static final long serialVersionUID = 1L;
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int matricola = Integer.valueOf((String)request.getAttribute("matricola"));
-		
-		TirocinioDAO tirocinioDao = new TirocinioDAO();
-		
-		ArrayList<Tirocinante> tirocini = tirocinioDao.allTirocinioTirocinante(matricola);
-		
-		request.setAttribute("tirocini", tirocini);
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("StatoProprioTirocinioET");
-		dispatcher.forward(request, response);
-	}
+  public void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    // response.getWriter().append("Served at: ").append(request.getContextPath());
+    doPost(request, response);
+  }
+
+  public void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+
+    int matricola = Integer.valueOf((String) request.getAttribute("matricola"));
+
+    TirocinioDAO tirocinioDao = new TirocinioDAO();
+
+    ArrayList<Tirocinante> tirocini = tirocinioDao.allTirocinioTirocinante(matricola);
+
+    request.setAttribute("tirocini", tirocini);
+
+    RequestDispatcher dispatcher = request.getRequestDispatcher("StatoProprioTirocinioET");
+    dispatcher.forward(request, response);
+  }
 
 }
