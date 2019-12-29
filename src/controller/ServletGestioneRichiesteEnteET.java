@@ -36,11 +36,11 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
 	    /**
 	     * Controllo autenticazione tramite parametro in sessione (3 = EnteConvenzionato).
 	     */
-	    /*String userET = (String) request.getSession().getAttribute("userET");
+	    String userET = (String) request.getSession().getAttribute("userET");
 	    if ((userET == null) || (!userET.equals("3"))) {
 	      response.sendRedirect("login.jsp");
 	      return;
-	    }*/
+	    }
 	    
 		//Visualizza Lista Richieste
 		TirocinioDAO richiestaEnte= new TirocinioDAO();  

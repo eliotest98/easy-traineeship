@@ -7,13 +7,12 @@
 	
 	/**
      * Controllo autenticazione tramite parametro in sessione (3 = EnteConvenzionato).
-     
+    */ 
     String userET = (String) request.getSession().getAttribute("userET");
     if ((userET == null) || (!userET.equals("3"))) {
       response.sendRedirect("login.jsp");
       return;
     }
-    */
     
 	ArrayList<Tirocinio> listaRichiesteEnte=new ArrayList<Tirocinio>();
 	listaRichiesteEnte=(ArrayList<Tirocinio>)request.getAttribute("listaRichiesteEnte");
