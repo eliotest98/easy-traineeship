@@ -60,7 +60,6 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
 		{
 			//Assegno alla richiesta la 'listaEnti'
 			request.setAttribute("listaRichiesteEnte", listaRichiesteEnte);
-			System.out.println(listaRichiesteEnte.get(0).getMatricola());
 		}
 		
 		String pag = "_areaEnteET/VisualizzaRichiestaEnteET.jsp";
