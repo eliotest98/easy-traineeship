@@ -92,8 +92,8 @@
 														
 														<td class="text-center" align="center">
 															<a href='_areaSecretary/ModificaEnteET.jsp?ente=<%=i%>' class="btn btn-primary btn-action modificaEnte" title="Modifica Ente" data-idrequest="35"><i class="fa fa-edit"></i></a>
-															<form id="signUp" action="./ServletEliminaEnteET" method="post">
-																<button id="email" name="enteEmail"  value=<%=listaEnti.get(i).getEmail() %> type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Elimina Ente" onclick="return confirm('Sicuro di voler cancellare l\'Ente?');"><i class="fa fa-times"></i></button>
+															<form id="signUp" action="./ServletEliminaEnteET" method="post" onsubmit="return check()">
+																<button id="email" name="enteEmail"  value=<%=listaEnti.get(i).getEmail() %> type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Elimina Ente"><i class="fa fa-times"></i></button>
 															</form>
 														</td>
 														<%
@@ -151,7 +151,23 @@
 			        }        
 			    } );
 			});
+			/*Funzione che chiede conferma sull'eliminazione dell'Ente*/
+			function check()
+			{
+				var testo;
+				if(confirm('Sicuro di voler cancellare l\'Ente?'))
+				{	
+					showAlert();
+					toastr.success("Eliminazione eseguita con successo.");
+					return true;
+				}
+				else
+				{
+					showAlert();
+					toastr.error("Eliminazione non effettuata.");
+					return false;
+				}
+			}
 		</script>
-	
 </body>
 </html>
