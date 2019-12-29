@@ -27,17 +27,61 @@ public class TirocinanteDAO {
      * @param matricola
      * @return Tirocinante tirocinante
      */
-    public Tirocinante ricercaTirocinante(int matricola) {
+    public Tirocinante ricercaTirocinanteByMatricola(long matricola) {
         Tirocinante tirocinante = null;
         Connection conn = null;
         PreparedStatement ps = null;
 
         try {
             conn = new DbConnection().getInstance().getConn();
-            ps = conn.prepareStatement("SELECT *"
+            ps = conn.prepareStatement("SELECT * "
 					+ "FROM TIROCINANTE, USER "
 					+ "WHERE TIROCINANTE.EMAIL=USER.EMAIL AND TIROCINANTE.matricola = ?");
-            ps.setInt(1, matricola);		
+            ps.setLong(1, matricola);		
+            ps.executeQuery();
+            ResultSet rs = ps.getResultSet();
+
+            if (rs.next()) {
+                tirocinante = new Tirocinante();
+                DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+                tirocinante.setEmail(rs.getString("EMAIL"));
+                tirocinante.setName(rs.getString("NAME"));
+                tirocinante.setSurname(rs.getString("SURNAME"));
+                tirocinante.setSex(rs.getString("SEX").charAt(0));
+                tirocinante.setUserType(rs.getInt("USER_TYPE"));
+                tirocinante.setMatricola(rs.getInt("MATRICOLA"));
+                tirocinante.setDataNascita(rs.getDate("DATANASCITA"));
+                tirocinante.setLuogoNascita(rs.getString("LUOGONASCITA"));
+                tirocinante.setCittadinanza(rs.getString("CITTADINANZA"));
+                tirocinante.setResidenza(rs.getString("RESIDENZA"));
+                tirocinante.setCodiceFiscale(rs.getString("CODICEFISCALE"));
+                tirocinante.setTelefono(rs.getLong("TELEFONO"));
+                
+            }
+        } catch (SQLException e) {
+            // Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            try {
+                ps.close();
+            } catch (SQLException e) {
+                // Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        return tirocinante;
+    }
+    
+    public Tirocinante ricercaTirocinanteByEmail(String email) {
+        Tirocinante tirocinante = null;
+        Connection conn = null;
+        PreparedStatement ps = null;
+
+        try {
+            conn = new DbConnection().getInstance().getConn();
+            ps = conn.prepareStatement("SELECT * "
+					+ "FROM TIROCINANTE, USER "
+					+ "WHERE TIROCINANTE.EMAIL=USER.EMAIL AND USER.EMAIL='" + email +"';");		
             ps.executeQuery();
             ResultSet rs = ps.getResultSet();
 
