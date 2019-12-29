@@ -16,6 +16,8 @@ class EnteConvenzionatoDAOTest {
 	
 	Connection conn  = new DbConnection().getInstance().getConn();
 	EnteConvenzionatoDAO enteConDao = new EnteConvenzionatoDAO();
+	EnteConvenzionato ente = new EnteConvenzionato("azienda@email.it","Cap Gemini","NA",'N',"password",3,"25/12/1980","99999999999","Salerno","Giacomo","Carmine","3401414140",8,"Pino","TE","Molto interessante");
+	
 	
 	//metodo tearDown per rimuovere i campi inseriti durante i test
 	@AfterEach
@@ -54,7 +56,7 @@ class EnteConvenzionatoDAOTest {
 		
 		ArrayList<EnteConvenzionato> listaEnti = enteConDao.allEnte();
 		for( i = 0; i < listaEnti.size(); i++) {
-			if (listaEnti.get(i).getName().equals("Cap Gemini")) {
+			if (listaEnti.get(i).getEmail().equals(ente.getEmail()) && listaEnti.get(i).getPartitaIva().equals(ente.getPartitaIva())) {
 				inserito = true;
 			}
 		}
@@ -65,18 +67,13 @@ class EnteConvenzionatoDAOTest {
 	@Test
 	void testInserisciEnte() throws SQLException
 	{
-		
-		EnteConvenzionato ente = new EnteConvenzionato("azienda@email.it","Cap Gemini","NA",' ',"password",3,"25/12/1980","99999999999","Salerno","Giacomo","Carmine","3401414140",8,"Pino","TE","Molto interessante");
 		assertEquals(enteConDao.inserisciEnte(ente),true);
 	}
 	
 	//Test del metodo ModificaEnte di EnteConvenzionatoDAO quando l'elemento da modificare non è presente nel database
 	@Test
 	void testModificaEnteCampoNonPresente() throws SQLException
-	{
-		
-		EnteConvenzionato ente = new EnteConvenzionato("azienda@email.it","Cap Gemini","NA",' ',"password",3,"25/12/1980","99999999999","Salerno","Giacomo","Carmine","3401414140",8,"Pino","TE","Molto interessante");
-		
+	{	
 		assertEquals(enteConDao.modificaEnte(ente),false);
 	}
 
@@ -99,7 +96,7 @@ class EnteConvenzionatoDAOTest {
 	    	e.printStackTrace();
 	    }
 		
-		EnteConvenzionato ente = new EnteConvenzionato("azienda@email.it","Cap Gemini","NA",' ',"password",3,"25/12/1980","99999999999","Salerno","Giacomo","Carmine","3401414140",8,"Pino","TE","Molto interessante");
+		ente.setDescrizioneAttivita("Noioso");
 		assertEquals(enteConDao.modificaEnte(ente),true);
 	}
 	
@@ -117,10 +114,8 @@ class EnteConvenzionatoDAOTest {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
 
-			String emailEnte="azienda@email.it";
-			assertEquals(enteConDao.eliminaEnte(emailEnte), true);
+			assertEquals(enteConDao.eliminaEnte(ente.getEmail()), true);
 		}
 		
 	//Test del metodo updatePassword di EnteConvenzionatoDAO 
@@ -142,7 +137,8 @@ class EnteConvenzionatoDAOTest {
 	    	e.printStackTrace();
 	    }
 		
-		assertEquals(enteConDao.updatePassword("azienda@email.it", "123456"),true);
+		ente.setPassword("123456");
+		assertEquals(enteConDao.updatePassword(ente.getEmail(), ente.getPassword()),true);
 	}
 }
 

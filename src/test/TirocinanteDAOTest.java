@@ -92,6 +92,18 @@ class TirocinanteDAOTest {
 	@Test
 	void testInserisciTirocinante() throws SQLException
 	{
+		
+		try 
+		{
+	    	Statement stmtSelect = conn.createStatement();
+	    	String sql1 = ("INSERT INTO User VALUES('azienda@email.it','Cap Gemini','NA','N','password','0');");
+	    	stmtSelect.executeUpdate(sql1);
+	    	conn.commit();
+	    }
+	    catch (Exception e) {
+	    	e.printStackTrace();
+	    }
+		
 		Tirocinante tirocinante = new Tirocinante("azienda@email.it","Cap Gemini","NA",'N',"password",0,0512103313,data,"Salerno","Italiana","Salerno","QVGXRV78A52H443B",3491494900L);
 		assertEquals(tirocinanteDao.inserisciTirocinante(tirocinante),true);
 		

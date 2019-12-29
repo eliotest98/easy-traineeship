@@ -128,19 +128,9 @@ public class TirocinanteDAO {
 
         Connection con = null;
         PreparedStatement psTirocinante = null;
-        PreparedStatement psUser = null;
 
         try {
             con = new DbConnection().getInstance().getConn();
-
-            psUser = con.prepareStatement(
-                "INSERT INTO USER(EMAIL, NAME, SURNAME, SEX, PASSWORD, USER_TYPE) "
-                    + "VALUES (?, ?, ?, ?, ?, 0)");
-            psUser.setString(1, tirocinante.getEmail());
-            psUser.setString(2, tirocinante.getName());
-            psUser.setString(3, tirocinante.getSurname());
-            psUser.setString(4, " ");
-            psUser.setString(5, tirocinante.getPassword());
 
             psTirocinante = con.prepareStatement(
                 "INSERT INTO TIROCINANTE(MATRICOLA, DATANASCITA, LUOGONASCITA, "
@@ -158,7 +148,7 @@ public class TirocinanteDAO {
             psTirocinante.setString(8, tirocinante.getEmail());
 
 
-            if ((psUser.executeUpdate() == 1) && (psTirocinante.executeUpdate() == 1)) {
+            if ( (psTirocinante.executeUpdate() == 1)) {
             	con.commit();
             	return true;
             }
@@ -169,7 +159,6 @@ public class TirocinanteDAO {
         } finally {
             try {
                 psTirocinante.close();
-                psUser.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }

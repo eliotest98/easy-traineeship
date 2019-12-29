@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import interfacce.UserInterface;
 import model.Tirocinio;
 import model.DAO.TirocinioDAO;
 
@@ -45,9 +46,10 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
 		TirocinioDAO richiestaEnte= new TirocinioDAO();  
 		//Array list di Tirocinio
 		ArrayList<Tirocinio> listaRichiesteEnte=new ArrayList<Tirocinio>();
+		UserInterface user = (UserInterface)request.getSession().getAttribute("user");
 		//Ricerco tutte le richieste all'ente e li inserisco nella listaRichiesteEnte
 		try {
-			listaRichiesteEnte=richiestaEnte.allTirocinioByStato("In attesa dell'Ente");
+			listaRichiesteEnte=richiestaEnte.allTirocinioByEnte(user.getEmail());
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -60,7 +62,7 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
 			request.setAttribute("listaRichiesteEnte", listaRichiesteEnte);
 		}
 		
-		String pag = "VisualizzaRichiestaEnteET.jsp";
+		String pag = "_areaEnteET/VisualizzaRichiestaEnteET.jsp";
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(pag);
         dispatcher.forward(request, response);

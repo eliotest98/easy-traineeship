@@ -100,13 +100,14 @@ public class ServletCommon extends HttpServlet {
                 user = new Admin(email, name, surname, sex, password, userType);
                 userET="2";
               } else if (userType == 3) { //Profilo Ente Convenzionato
-            	redirect = request.getContextPath() + "/VisualizzaEnteET.jsp";
+            	redirect = request.getContextPath() + "/_areaEnteET/VisualizzaRichiestaEnteET.jsp";
             	user = new EnteConvenzionato();
             	user.setEmail(email);
             	user.setSurname(surname);
             	user.setSex(sex);
             	user.setPassword(password);
             	user.setUserType(userType);
+            	
                 userET="3"; //L'utente in sessione è un Ente Convenzionato
               }
               else {
