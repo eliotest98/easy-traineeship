@@ -38,7 +38,7 @@ on delete cascade
 CREATE TABLE TIROCINIO (
 CODTIROCINIO INT auto_increment,
 DATAINIZIOTIROCINO date not null,
-CFUPREVISTI tinyint(3) not null,
+CFUPREVISTI int(3) not null,
 COMPETENZE longtext not null,
 COMPETENZEACQUISIRE longtext not null,
 ATTIVITAPREVISTE longtext not null,
