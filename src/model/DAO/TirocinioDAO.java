@@ -129,10 +129,9 @@ public class TirocinioDAO {
 			con= new DbConnection().getInstance().getConn();
 			//Query Sql per prelevare i Tirocini
 			ps= con.prepareStatement("SELECT * "
-					+ "FROM TIROCINIO, TIROCINANTE, USER, ENTECONVENZIONATO "
+					+ "FROM TIROCINIO, TIROCINANTE, USER "
 					+ "WHERE TIROCINIO.MATRICOLA=TIROCINANTE.MATRICOLA && "
 					+ "TIROCINANTE.EMAIL=USER.EMAIL && "
-					+ "TIROCINIO.PARTITAIVA=ENTECONVENZIONATO.PARTITAIVA && "
 					+ "TIROCINIO.STATOTIROCINIO='"+statoTirocinio+"';");
 			ResultSet res = ps.executeQuery();
 			//Ciclo che inserisce all' interno della lista i 'Tirocini'
@@ -169,21 +168,9 @@ public class TirocinioDAO {
                 tirocinante.setResidenza(res.getString("RESIDENZA"));
                 tirocinante.setCodiceFiscale(res.getString("CODICEFISCALE"));
                 tirocinante.setTelefono(res.getLong("TELEFONO"));
-                tirocinio.setTirocinante(tirocinante);
-                //Dati ente convenzionato
-                enteConvenzionato.setEmail(res.getString("EMAIL"));
-				enteConvenzionato.setName(res.getString("NAME"));
-				enteConvenzionato.setPartitaIva(res.getString("PARTITAIVA"));
-				enteConvenzionato.setSede(res.getString("SEDE"));
-				enteConvenzionato.setRappresentante(res.getString("RAPPRESENTANTE"));
-				enteConvenzionato.setReferente(res.getString("REFERENTE"));
-				enteConvenzionato.setTelefono(res.getString("TELEFONO"));
-				enteConvenzionato.setDipendenti(res.getShort("DIPENDENTI"));
-				enteConvenzionato.setDotRiferimento(res.getString("DOTRIFERIMENTO"));
-				enteConvenzionato.setDescrizioneAttivita(res.getString("DESCRIZIONEATTIVITA"));
-				enteConvenzionato.setDataDiNascita(res.getString("DATANASCITA"));
+ 
+              
 				tirocinio.setTirocinante(tirocinante);
-				tirocinio.setEnteConvenzionato(enteConvenzionato);
 				
 				listaTirocini.add(tirocinio);//listaTirocini
 			}
