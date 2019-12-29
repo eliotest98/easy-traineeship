@@ -17,7 +17,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/partials/head.jsp" />
+	<jsp:include page="/partials/head.jsp" />
 </head>
 <body onLoad="showData()">
 	<div class="page-wrapper">
@@ -48,8 +48,10 @@
 										<span>E-mail: s.grilletto@studenti.unisa.it</span><br>
 										<span>Indicazione delle modalit&agrave; di svolgimento del Tirocinio:</span>
 									</div>
-									<button onclick="mostraStato()">Mostra STATO TIROCINIO</button>
-									<p id="qui"></p>
+									<div style="text-align: center;">
+										<button onclick="mostraStato()"><p id ="cambia">MOSTRA STATO TIROCINIO</p></button>
+										<p id="qui" style="display: none;">STATO</p>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -62,6 +64,24 @@
 	<!--End pagewrapper-->
 	<jsp:include page="/partials/includes.jsp" />
 	<script type="text/javascript">
+	
+		var mostrato = false;
+		
+		function mostraStato()
+		{
+			if(mostrato == false)
+			{
+				document.getElementById("qui").style.display = "block";
+				document.getElementById("cambia").innerHTML = "NASCONDI STATO TIROCINIO";
+				mostrato = true;
+			}
+			else
+			{
+				document.getElementById("qui").style.display = "none";
+				document.getElementById("cambia").innerHTML = "MOSTRA STATO TIROCINIO";
+				mostrato = false;
+			}
+		}
 	
 	</script>
 </body>
