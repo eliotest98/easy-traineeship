@@ -135,8 +135,8 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
     		 logoRedirect = request.getContextPath()+"/_areaSecretary/viewRequest.jsp";
     		 menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
     		          + "/viewRequest.jsp\">Richieste</a></li>";
-    		      menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-    		          + "/VisualizzaRichiestaET.jsp\">Richieste Tirocinio</a></li>";
+    		      menu += "<li><a href=\"" + request.getContextPath() + ""
+    		          + "/_areaSecretary/VisualizzaRichiestaET.jsp\">Richieste Tirocinio</a></li>";
     		      menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/VisualizzaEnteET.jsp\">Lista Ente</a></li>";
     		      menu += "<li><a href=\"" + request.getContextPath() + "/_areaSecretary/RegistrazioneEnteET.jsp\">Registra Ente</a></li> ";
     		      menu +="<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";

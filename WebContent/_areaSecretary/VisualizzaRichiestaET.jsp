@@ -21,7 +21,7 @@
 <head>
 <jsp:include page="/partials/head.jsp" />
 </head>
-<body onLoad="showData()">
+<body>
 	<div class="page-wrapper">
 	
 		<jsp:include page="/partials/header.jsp">
