@@ -375,11 +375,11 @@ public class TirocinioDAO {
 			con= new DbConnection().getInstance().getConn();
 			
 			//Insert per l'inserimento in 'Tirocinio' dei dati parziali del 'Tirocinio'
-			psTirocinio= con.prepareStatement("INSERT INTO TIROCINIO(CODTIROCINIO,DATAINIZIOTIROCINO, CFUPREVISTI,"
-																+ "COMPETENZE, COMPETENZEACQUISIRE,"
-																+ "ATTIVITAPREVISTE, SVOLGIMENTOTIROCINIO,"
-																+ "STATOTIROCINIO,PROGETTOFORMATIVO,DESCRIZIONEENTE, MATRICOLA,PARTITAIVA) "
-										+ "VALUES (?,?, ?, ?, ?, ?, ?, ?, ?,?,?,?);");
+			psTirocinio= con.prepareStatement("INSERT INTO TIROCINIO(CODTIROCINIO,DATAINIZIOTIROCINO, CFUPREVISTI, "
+																+ "COMPETENZE, COMPETENZEACQUISIRE, "
+																+ "ATTIVITAPREVISTE, SVOLGIMENTOTIROCINIO, "
+																+ "STATOTIROCINIO, PROGETTOFORMATIVO, DESCRIZIONEENTE, MATRICOLA, PARTITAIVA) "
+										+ "VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 			psTirocinio.setInt(1, tirocinio.getCodTirocinio());
             psTirocinio.setDate(2, new Date(0));
 			psTirocinio.setShort(3, tirocinio.getCfuPrevisti());
