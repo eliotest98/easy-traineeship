@@ -9,6 +9,7 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 
 import controller.DbConnection;
+import controller.Utils;
 import model.EnteConvenzionato;
 import model.Tirocinio;
 import model.DAO.EnteConvenzionatoDAO;
@@ -22,7 +23,7 @@ class TirocinioDAOTest {
 	String modifiedDate= new SimpleDateFormat("yyyy-MM-dd").format(data);
 	
 	//metodo tearDown per rimuovere i campi inseriti durante i test
-	@AfterEach
+	/*@AfterEach
 	public void tearDown() {
 		try 
 		{
@@ -42,7 +43,7 @@ class TirocinioDAOTest {
 		catch (Exception e) {
 		    e.printStackTrace();
 		}
-	}
+	}*/
 	
 	//Test del metodo allTirocinioByStato di TirocinioDAO 
 	@Test
@@ -132,7 +133,7 @@ class TirocinioDAOTest {
     	stmtSelect.executeUpdate(sql4);
 		String sql2 = ("INSERT INTO tirocinante VALUES('4859','"+modifiedDate+"','Salerno','italiana','Salerno','rlaplg98a08i805e','3294475051','p.aurilia@studenti.unisa.it');");
     	stmtSelect.executeUpdate(sql2);
-    	String sql5 = ("INSERT INTO User VALUES('green@gmail.com','Salvatore','Totti','M','pass98','3');");
+    	String sql5 = ("INSERT INTO User VALUES('green@gmail.com','Salvatore','Totti','M','"+ new Utils().generatePwd("password")+"','3');");
     	stmtSelect.executeUpdate(sql5);
     	String sql3 = ("INSERT INTO enteconvenzionato VALUES('11111111111','Avellino','Salvatore Totti','0825519149','100','Michele Persico','Michele Porto','08/01/1977','esperti in siti web','green@gmail.com');");
     	stmtSelect.executeUpdate(sql3);

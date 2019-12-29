@@ -226,7 +226,7 @@ public class TirocinioDAO {
 			con= new DbConnection().getInstance().getConn();
 			//Query Sql per prelevare i Tirocini
 			ps= con.prepareStatement("SELECT * "
-					+ "FROM TIROCINIO, TIROCINANTE, USER, ENTECONVENZIONATO"
+					+ "FROM TIROCINIO, TIROCINANTE, USER, ENTECONVENZIONATO "
 					+ "WHERE TIROCINIO.MATRICOLA=TIROCINANTE.MATRICOLA && "
 					+ "TIROCINANTE.EMAIL=USER.EMAIL && "
 					+ "TIROCINIO.PARTITAIVA=ENTECONVENZIONATO.PARTITAIVA && "
@@ -239,7 +239,6 @@ public class TirocinioDAO {
 				
 				Tirocinio tirocinio= new Tirocinio();
 				Tirocinante tirocinante= new Tirocinante();
-				EnteConvenzionato enteConvenzionato= new EnteConvenzionato();
 				//Dati del Tirocinio
 				tirocinio.setCodTirocinio(res.getInt("CODTIROCINIO"));
 				tirocinio.setDataInizioTirocinio(res.getString("DATAINIZIOTIROCINO"));
