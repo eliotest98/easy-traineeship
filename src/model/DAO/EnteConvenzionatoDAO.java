@@ -42,6 +42,11 @@ public class EnteConvenzionatoDAO {
 				EnteConvenzionato purchase= new EnteConvenzionato();
 				purchase.setEmail(res.getString("EMAIL"));
 				purchase.setName(res.getString("NAME"));
+				purchase.setSurname("NA");
+				purchase.setSex('N');
+				purchase.setPassword(" ");
+				purchase.setUserType(3);
+				purchase.setDataDiNascita(res.getString("DATANASCITA"));
 				purchase.setPartitaIva(res.getString("PARTITAIVA"));
 				purchase.setSede(res.getString("SEDE"));
 				purchase.setRappresentante(res.getString("RAPPRESENTANTE"));
@@ -49,8 +54,9 @@ public class EnteConvenzionatoDAO {
 				purchase.setTelefono(res.getString("TELEFONO"));
 				purchase.setDipendenti(res.getShort("DIPENDENTI"));
 				purchase.setDotRiferimento(res.getString("DOTRIFERIMENTO"));
+				purchase.setTipoTirocinio("TE");
 				purchase.setDescrizioneAttivita(res.getString("DESCRIZIONEATTIVITA"));
-				purchase.setDataDiNascita(res.getString("DATANASCITA"));
+				
 				listaEnti.add(purchase);//listaEnti
 			}
 		} 
