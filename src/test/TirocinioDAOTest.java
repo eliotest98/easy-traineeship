@@ -136,6 +136,7 @@ class TirocinioDAOTest {
     	stmtSelect.executeUpdate(sql5);
     	String sql3 = ("INSERT INTO enteconvenzionato VALUES('11111111111','Avellino','Salvatore Totti','0825519149','100','Michele Persico','Michele Porto','08/01/1977','esperti in siti web','green@gmail.com');");
     	stmtSelect.executeUpdate(sql3);
+    	conn.commit();
 		Tirocinio test1=new Tirocinio();
 		test1.setCodTirocinio(1);
 		test1.setDataInizioTirocinio(modifiedDate);                  

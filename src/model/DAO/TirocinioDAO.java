@@ -391,7 +391,7 @@ public class TirocinioDAO {
 			psTirocinio.setString(9, " ");
 			psTirocinio.setString(10, " ");
 			psTirocinio.setLong(11, tirocinio.getMatricola());
-			psTirocinio.setString(12, " ");
+			psTirocinio.setString(12, tirocinio.getPartitaIva());
 			
 			//Se l'inserimento va a buon fine restituisce true
 			if(psTirocinio.executeUpdate()==1)
