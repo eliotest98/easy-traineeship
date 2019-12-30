@@ -36,16 +36,12 @@ class ServletGestioneRichiesteSegreteriaETTest {
 		when(sessionMock.getAttribute("userET")).thenReturn("1");
 	}
 	@Test
-	void testReindirizzamento() {
+	void testReindirizzamento() throws ServletException, IOException {
 		when(requestMock.getRequestDispatcher("_areaSecretary/VisualizzaRichiestaET.jsp")).thenReturn(dispatcherMock);
 		ServletGestioneRichiesteSegreteriaET test = new ServletGestioneRichiesteSegreteriaET();
-		try {
-			test.doGet(requestMock, responseMock);
-		} catch (ServletException e1) {
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+		test.doGet(requestMock, responseMock);
+		verify(dispatcherMock).forward(requestMock, responseMock);
+
 	}
 }
 

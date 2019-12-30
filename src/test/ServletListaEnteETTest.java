@@ -32,30 +32,21 @@ class ServletListaEnteETTest {
 	RequestDispatcher dispatcherMock = mock(RequestDispatcher.class);
 
 	@Test
-	void testReindirizzamentoVisualizzaListaEnte() {
+	void testReindirizzamentoVisualizzaListaEnte() throws ServletException, IOException {
 		when(requestMock.getRequestDispatcher("VisualizzaEnteET.jsp")).thenReturn(dispatcherMock);
 		ServletListaEnteET test = new ServletListaEnteET();
-		try {
-			test.doGet(requestMock, responseMock);
-		} catch (ServletException e1) {
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+		test.doGet(requestMock, responseMock);
+		verify(dispatcherMock).forward(requestMock, responseMock);
 	}
 	
 	@Test
-	void testReindirizzamentoInviaRichiestaEnte() {
+	void testReindirizzamentoInviaRichiestaEnte() throws ServletException, IOException {
 		when(requestMock.getParameter("richiestaEnte")).thenReturn("1");
 		when(requestMock.getRequestDispatcher("_areaStudent/InviaRichiestaEnteET.jsp")).thenReturn(dispatcherMock);
 		ServletListaEnteET test = new ServletListaEnteET();
-		try {
-			test.doGet(requestMock, responseMock);
-		} catch (ServletException e1) {
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+		test.doGet(requestMock, responseMock);
+		verify(dispatcherMock).forward(requestMock, responseMock);
+
 	}
 }
 
