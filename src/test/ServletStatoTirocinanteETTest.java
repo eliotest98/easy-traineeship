@@ -39,12 +39,5 @@ class ServletStatoTirocinanteETTest {
 		when(requestMock.getRequestDispatcher("StatoProprioTirocinioET")).thenReturn(dispatcherMock);
 		ServletStatoTirocinanteET test = new ServletStatoTirocinanteET();
 		test.doPost(requestMock, responseMock);
-		try {
-			Statement stmtSelect = conn.createStatement();
-	    	stmtSelect.executeUpdate("DELETE FROM User WHERE EMAIL='a.delpiero10@studenti.unisa.it';");
-		}
-		catch (Exception e){
-			e.printStackTrace();
-			}
 	}
 }
