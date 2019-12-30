@@ -424,9 +424,9 @@ public class TirocinioDAO {
 			
 			
 			// Update per la richiesta all' ente
-			psTirocinio = con.prepareStatement("UPDATE TIROCINIO " + "SET DESCRIZIONEENTE='" + descrizioneEnte + "', "
-						+ "PARTITAIVA =" + partitaIva + " "
-						+ "WHERE CODTIROCINIO =" + codTirocinio + "; ");
+			psTirocinio = con.prepareStatement("UPDATE TIROCINIO SET DESCRIZIONEENTE='" + descrizioneEnte + "', "
+						+ "PARTITAIVA ='" + partitaIva + "' "
+						+ "WHERE CODTIROCINIO ='" + codTirocinio + "'; ");
 						
 			// Se la modifica va a buon fine restituisce true
 			if (psTirocinio.executeUpdate() == 1) {
@@ -466,9 +466,7 @@ public class TirocinioDAO {
 			con= new DbConnection().getInstance().getConn();
 			
 			//Insert per l'inserimento in 'Tirocinio' dei dati parziali del 'Tirocinio'
-			psTirocinio= con.prepareStatement("UPDATE TIROCINIO " 
-											+ "SET STATOTIROCINIO ='"+statoTirocinio+"' " 
-											+ "WHERE CODTIROCINIO ="+codTirocinio+"; ");
+			psTirocinio=con.prepareStatement("UPDATE TIROCINIO SET STATOTIROCINIO='"+statoTirocinio+"' WHERE CODTIROCINIO='"+codTirocinio+"';");
 			
 			//Se la modifica va a buon fine restituisce true
 			if(psTirocinio.executeUpdate()==1)
