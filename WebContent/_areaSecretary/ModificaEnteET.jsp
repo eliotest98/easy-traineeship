@@ -127,7 +127,7 @@
 										</div>
 										<div
 											class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-											<button type="submit" class="btn btn-primary btn-submit">Modifica
+											<button onclick="myScript()" type="submit" class="btn btn-primary btn-submit">Modifica
 												Ente</button>
 										</div>
 										<div class="clearfix"></div>
@@ -144,8 +144,13 @@
 	<!--End pagewrapper-->
 
 	<!--!!!!!!!!CAUSA ERRORI!!!!!!!!!!!-->
-<!-- 	<jsp:include page="/partials/includes.jsp" /> -->
-
+ 	<jsp:include page="/partials/includes.jsp" />
+	<script>
+	function myScript()
+	{
+		toastr.success("Modifica effettuata con successo");
+	}
+	</script>
 	<script>
 	/*Form Input Values*/
 	const form = document.forms["modificaEnte"];
