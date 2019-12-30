@@ -1,18 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="ISO-8859-1" import="controller.CheckSession"%>
+	pageEncoding="ISO-8859-1" import="controller.CheckSession,model.Student, model.Tirocinante, model.Tirocinio"%>
 <%@ page import="java.util.*,model.Request"%>
 <%
 	String pageName = "HomeStudente.jsp";
 	String pageFolder = "_areaStudent";
 
-	/*
     //Per prelevare l'utente dalla sessione e precompilare i campi.
     Student user = (Student)request.getSession().getAttribute("user");
     Tirocinante tirocinante = (Tirocinante)request.getSession().getAttribute("Tirocinante");
     //Per completare i campi di tirocinio
     Tirocinio t = (Tirocinio)request.getSession().getAttribute("ProgettoFormativo");
     //Per vedere chi è in sessione.
-    int resp = Integer.parseInt((String)request.getSession().getAttribute("userET"));*/
+    int resp = Integer.parseInt((String)request.getSession().getAttribute("userET"));
 
 %>
 <!DOCTYPE html>
@@ -36,7 +35,7 @@
 						<div class="content">
 							<div class="news-block-seven">
 								<div class="bordiET">
-									<h2 class="centro">BENVENUTO NELLA TUA AREA UTENTE nome!</h2>
+									<h2 class="centro">BENVENUTO NELLA TUA AREA UTENTE <%=user.getName().toUpperCase() %>!</h2>
 									<div class="pf">
 										<img alt="Omino" class="imgET" src="../imagesEV/omino.png">
 									</div>
