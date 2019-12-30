@@ -34,8 +34,6 @@
 			<jsp:param name="pageName" value="<%=pageName%>" />
 			<jsp:param name="pageFolder" value="<%=pageFolder%>" />
 		</jsp:include>
-
-
 		<div class="sidebar-page-container basePage signUpPage">
 			<div class="auto-container">
 				<div class="row clearfix">
