@@ -18,6 +18,7 @@
 <html>
 <head>
 	<jsp:include page="/partials/head.jsp" />
+	<link href="<%= request.getContextPath() %>/css/styleET.css" rel="stylesheet">
 </head>
 <body onLoad="showData()">
 	<div class="page-wrapper">
@@ -34,24 +35,25 @@
 						<div class="content">
 							<div class="news-block-seven">
 								<!--controllo sessione-->
-								<div style="border: 2px solid orange; font-size: 18px; margin: 3%; border-radius: 10px;">
-									<h2 style="text-align: center;">Progetto Formativo:</h2>
-									<div style="display: inline-block; margin: 5%;">
+								<div class="bordiET">
+									<h2 class="centro">Progetto Formativo:</h2>
+									<div class="pf">
 										<span>Nome: SIMONA</span><br> 
 										<span>Matricola: 0512105239</span><br>
 										<span>Crediti previsti: 23</span><br>
 										<span>Indicazione delle attivit&agrave; formative previste: **blablabla**</span><br>
 									</div>
-									<div style="display: inline-block; margin: 5%;">
+									<div class="pf">
 										<span>Cognome: GRILLETTO</span><br>
 										<span>Facolt&agrave;: Informatica</span><br>
 										<span>E-mail: s.grilletto@studenti.unisa.it</span><br>
 										<span>Indicazione delle modalit&agrave; di svolgimento del Tirocinio:</span>
 									</div>
-									<div style="text-align: center;">
-										<button onclick="mostraStato()"><p id ="cambia">MOSTRA STATO TIROCINIO</p></button>
+									<div class="centro">
+										<button onclick="mostraStato()" class="buttonET"><p id ="cambia">MOSTRA STATO TIROCINIO</p></button>
 										<p id="qui" style="display: none;">STATO</p>
 									</div>
+									<br>
 								</div>
 							</div>
 						</div>

@@ -14,3 +14,45 @@
 .toast {
 	opacity: 0, 8 !important;
 }
+/*Per la pagina home studente e stato proprio tirocinio, botsi e bottoni personalizzati*/
+.bordiET {
+	border: 2px solid orange;
+	font-size: 18px;
+	margin: 3%;
+	border-radius: 10px;
+}
+
+.centro {
+	text-align: center;
+}
+
+.pf {
+	display: inline-block;
+	margin: 5%;
+}
+
+.buttonET {
+	background-color: transparent;
+	border-radius: 10px;
+	border: 2px solid orange;
+}
+
+.buttonET:hover {
+	background: orange;
+	color: white;
+}
+
+.imgET {
+	margin: 5%;
+	background-color: transparent;
+	opacity: 0.8;
+}
+
+.imgET:hover{
+	opacity: 1;
+}
+
+.mgR
+{
+	margin-left: 20%;
+}
