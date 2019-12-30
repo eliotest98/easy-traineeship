@@ -108,11 +108,11 @@
 												placeholder="Referente Tirocini" 
 												name="referente" id="referente" >
 										</div>
-										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+										<div class="form-group col-lg-12 col-md-12 col-md-12 ">
 											<label for="descrizioneAttivita">Descrizione Attivit&agrave;</label>
-											<input type="text" class="form-control"
+											<textarea class="form-control"  rows="3"
 												placeholder="Descrizione delle Attivit&agrave;" name="descrizioneAttivita"
-												id="descrizioneAttivita">
+												id="descrizioneAttivita"></textarea>
 										</div>
 										<div
 											class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
