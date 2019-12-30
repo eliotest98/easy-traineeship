@@ -107,7 +107,7 @@ public class Uploader extends HttpServlet {
           }
           fi.write(file);
           content += fileName;
-          // System.out.println(filePath + fileName);
+
           result = 1;
         }
       }

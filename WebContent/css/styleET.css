@@ -23,36 +23,51 @@
 }
 
 .centro {
+	margin-top: 3%;
 	text-align: center;
 }
 
 .pf {
 	display: inline-block;
 	margin: 5%;
+	border: dotted;
 }
 
 .buttonET {
-	background-color: transparent;
+	background-color: orange;
 	border-radius: 10px;
+	color: white;
 	border: 2px solid orange;
+	outline: none;
+	width: 400px;
+	height: 70px;
 }
 
 .buttonET:hover {
-	background: orange;
-	color: white;
+	background: transparent;
+	color: orange;
+	outline: none;
 }
 
 .imgET {
-	margin: 5%;
+	margin-top: 10%; height : 400 px;
+	width: auto;
 	background-color: transparent;
+	border: 2px solid transparent;
+	border-radius: 10px;
 	opacity: 0.8;
+	height: 400 px;
 }
 
-.imgET:hover{
+.imgET:hover {
 	opacity: 1;
 }
 
-.mgR
-{
+.mgR {
 	margin-left: 20%;
+}
+
+.linkET {
+	text-decoration: none;
+	color: rgba(0, 0, 0, 0.6);
 }

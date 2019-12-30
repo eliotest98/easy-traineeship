@@ -37,14 +37,14 @@
 							<div class="news-block-seven">
 								<div class="bordiET">
 									<h2 class="centro">BENVENUTO NELLA TUA AREA UTENTE nome!</h2>
-									<div class="separa pf">
-										<img alt="Omino" class="imgET" src="https://img1.pngdownload.id/20181202/ehh/kisspng-computer-icons-scalable-vector-graphics-portable-n-man-svg-png-icon-free-download-321863-onlinew-5c045db6484e62.4493060115437900062962.jpg">
+									<div class="pf">
+										<img alt="Omino" class="imgET" src="../imagesEV/omino.png">
 									</div>
 									<div class="pf centro mgR">
 										<h4>Dove vuoi navigare?</h4><br>
-										<a href="_areaStudent/viewRequest.jsp" class="linkET"><button class="buttonET">Richieste effettuate per la convalida dei CFU</button></a><br><br>
-										<a href="" class="linkET"><button class="buttonET">Richieste effettuate per il Tirocinio Esterno</button></a><br><br>
-										<a href="" class="linkET"><button class="buttonET">Controlla lo stato del TUO Tirocinio!</button></a><br><br>
+										<a href="../_areaStudent/viewRequest.jsp" class="linkET"><button class="buttonET">Richieste effettuate per la convalida dei CFU</button></a><br><br>
+										<a href="" class="linkET"><button class="buttonET" disabled>Richieste effettuate per il Tirocinio Esterno</button></a><br><br>
+										<a href="../_areaStudent/StatoProprioTirocinioET.jsp" class="linkET"><button class="buttonET">Controlla lo stato del TUO Tirocinio!</button></a><br><br>
 									</div>
 								</div>
 							</div>

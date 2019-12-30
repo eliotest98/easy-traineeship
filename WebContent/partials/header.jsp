@@ -3,181 +3,201 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 	import="controller.CheckSession , controller.Utils "%>
 
 <%
-  String pageName = request.getParameter("pageName");
-  String pageFolder = request.getParameter("pageFolder");
-  String menu = "";
-  String hiddenMenu = "";
-  String logoRedirect= "";		//tiene traccia del path a cui reindirizzare il sito quando si preme sul logo
-  String Segreteria=" ";
+	String pageName = request.getParameter("pageName");
+	String pageFolder = request.getParameter("pageFolder");
+	String menu = "";
+	String hiddenMenu = "";
+	String logoRedirect = ""; //tiene traccia del path a cui reindirizzare il sito quando si preme sul logo
+	String Segreteria = " ";
 	Segreteria = (String) session.getAttribute("Segreteria");
-  
-  CheckSession ck = new CheckSession(pageFolder, pageName, request.getSession());
-  if(!ck.isAllowed()){			//cliccando sul logo reinderizza a index se non si è loggati
-	  logoRedirect = request.getContextPath()+ck.getUrlRedirect();
-  }
 
-  if (pageFolder.equals("_areaAdmin")) { //se stiamo in una pagina dell'area admin
-	  logoRedirect = request.getContextPath()+"/_areaAdmin/viewRequest.jsp";
-  
-    if (pageName.equals("viewRequest.jsp")) {
-      menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
-          + "/viewRequest.jsp\">Richieste</a></li>";
-      menu +=
-          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
-    }
-  } else if (pageFolder.equals("_areaSecretary")) { //se stiamo in una pagina dell'area segreteria
-	  logoRedirect = request.getContextPath()+"/_areaSecretary/viewRequest.jsp";
-  
-    if (pageName.equals("viewRequest.jsp")) {
-      menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
-          + "/viewRequest.jsp\">Richieste</a></li>";
-      menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-          + "/VisualizzaRichiestaET.jsp\">Richieste Tirocinio</a></li>";
-      menu += "<li><a href=\"" + request.getContextPath() + "/VisualizzaEnteET.jsp\">Lista Ente</a></li>";
-      menu += "<li><a href=\"" + request.getContextPath() + "/_areaSecretary/RegistrazioneEnteET.jsp\">Registra Ente</a></li> ";
-      menu +="<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
-    }if (pageName.equals("VisualizzaRichiestaET.jsp")) {
-        menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-                + "/viewRequest.jsp\">Richieste</a></li>";
-            menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
-                + "/VisualizzaRichiestaET.jsp\">Richieste Tirocinio</a></li>";
-            menu += "<li><a href=\"" + request.getContextPath() + "/VisualizzaEnteET.jsp\">Lista Ente</a></li>";
-            menu += "<li><a href=\"" + request.getContextPath() + "/_areaSecretary/RegistrazioneEnteET.jsp\">Registra Ente</a></li> ";
-            menu +="<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
-    }else if (pageName.equals("ModificaEnteET.jsp")) { //se ci troviamo in modificaEnteET.jsp
-        menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
-        + "/VisualizzaEnteET.jsp\">Modifica Ente</a></li> <li ><a href=javascript:history.go(-1);>Indietro</a></li> ";
-    }else if (pageName.equals("RegistrazioneEnteET.jsp")) { //se ci troviamo in modificaEnteET.jsp
-    	menu += "<li ><a href=\"" + request.getContextPath() + "/" + pageFolder
-    	          + "/viewRequest.jsp\">Richieste</a></li>";
-    	      menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-    	          + "/VisualizzaRichiestaET.jsp\">Richieste Tirocinio</a></li>";
-    	      menu += "<li><a href=\"" + request.getContextPath() + "/VisualizzaEnteET.jsp\">Lista Ente</a></li>";
-    	      menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/_areaSecretary/RegistrazioneEnteET.jsp\">Registra Ente</a></li> ";
-    	      menu +="<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
-      }
-  } else if (pageFolder.equals("_areaStudent")) { //se stiamo in una pagina dell'area studente
-	 logoRedirect = request.getContextPath()+"/_areaStudent/viewRequest.jsp";
-  
-    if (pageName.equals("viewRequest.jsp")) { //se stiamo in viewRequest
-      menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
-          + "/viewRequest.jsp\">Richieste</a></li>";
-      menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-          + "/firstForm.jsp\">Compila Richiesta</a></li>";
-      menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-          + "/uploadAttached.jsp\">Carica Allegato</a></li>";
-      menu += "<li><a href=\"" + request.getContextPath()
-          + "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
-      menu += "<li><a href=\"" + request.getContextPath()
-          + "/_areaStudent/InviaRichiestaET.jsp\">Richiesta Tirocinio</a></li> ";
-      menu += "<li><a href=\"" + request.getContextPath()  + "/"
-          + "ServletListaEnteET?richiestaEnte=ok\">Richiesta Ente</a></li> ";
-      menu +=
-          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
-    }
-    if (pageName.equals("InviaRichiestaET.jsp")) { //se stiamo in viewRequest
-    	   menu += "<li ><a href=\"" + request.getContextPath() + "/" + pageFolder
-    		          + "/viewRequest.jsp\">Richieste</a></li>";
+	CheckSession ck = new CheckSession(pageFolder, pageName, request.getSession());
+	if (!ck.isAllowed()) { //cliccando sul logo reinderizza a index se non si è loggati
+		logoRedirect = request.getContextPath() + ck.getUrlRedirect();
+	}
+
+	if (pageFolder.equals("_areaAdmin")) { //se stiamo in una pagina dell'area admin
+		logoRedirect = request.getContextPath() + "/_areaAdmin/viewRequest.jsp";
+
+		if (pageName.equals("viewRequest.jsp")) {
+			menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/viewRequest.jsp\">Richieste</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+		}
+	} else if (pageFolder.equals("_areaSecretary")) { //se stiamo in una pagina dell'area segreteria
+		logoRedirect = request.getContextPath() + "/_areaSecretary/viewRequest.jsp";
+
+		if (pageName.equals("viewRequest.jsp")) {
+			menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/viewRequest.jsp\">Richieste</a></li>";
 			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-    		          + "/firstForm.jsp\">Compila Richiesta</a></li>";
-    		      menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-    		          + "/uploadAttached.jsp\">Carica Allegato</a></li>";
-    		      menu += "<li><a href=\"" + request.getContextPath()
-    		          + "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
-    		      menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
-    		          + "/_areaStudent/InviaRichiestaET.jsp\">Richiesta Tirocinio</a></li> ";
-    		      menu += "<li><a href=\"" + request.getContextPath()  + "/"
-    		          + "ServletListaEnteET?richiestaEnte=ok\">Richiesta Ente</a></li> ";
-    		      menu +=
-    		          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";       
-      }
+					+ "/VisualizzaRichiestaET.jsp\">Richieste Tirocinio</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath() + "/VisualizzaEnteET.jsp\">Lista Ente</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath()
+					+ "/_areaSecretary/RegistrazioneEnteET.jsp\">Registra Ente</a></li> ";
+			menu += "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+		}
+		if (pageName.equals("VisualizzaRichiestaET.jsp")) {
+			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/viewRequest.jsp\">Richieste</a></li>";
+			menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/VisualizzaRichiestaET.jsp\">Richieste Tirocinio</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath() + "/VisualizzaEnteET.jsp\">Lista Ente</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath()
+					+ "/_areaSecretary/RegistrazioneEnteET.jsp\">Registra Ente</a></li> ";
+			menu += "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+		} else if (pageName.equals("ModificaEnteET.jsp")) { //se ci troviamo in modificaEnteET.jsp
+			menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
+					+ "/VisualizzaEnteET.jsp\">Modifica Ente</a></li> <li ><a href=javascript:history.go(-1);>Indietro</a></li> ";
+		} else if (pageName.equals("RegistrazioneEnteET.jsp")) { //se ci troviamo in modificaEnteET.jsp
+			menu += "<li ><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/viewRequest.jsp\">Richieste</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/VisualizzaRichiestaET.jsp\">Richieste Tirocinio</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath() + "/VisualizzaEnteET.jsp\">Lista Ente</a></li>";
+			menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
+					+ "/_areaSecretary/RegistrazioneEnteET.jsp\">Registra Ente</a></li> ";
+			menu += "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+		}
+	} else if (pageFolder.equals("_areaStudent")) { //se stiamo in una pagina dell'area studente
+		logoRedirect = request.getContextPath() + "/_areaStudent/HomeStudente.jsp";
 
-    
-    if (pageName.equals("firstForm.jsp")) {
-    	menu += "<li ><a href=\"" + request.getContextPath() + "/" + pageFolder
-		          + "/viewRequest.jsp\">Richieste</a></li>";
-		menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
-		          + "/firstForm.jsp\">Compila Richiesta</a></li>";
-		      menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-		          + "/uploadAttached.jsp\">Carica Allegato</a></li>";
-		      menu += "<li><a href=\"" + request.getContextPath()
-		          + "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
-		      menu += "<li ><a href=\"" + request.getContextPath()
-		          + "/_areaStudent/InviaRichiestaET.jsp\">Richiesta Tirocinio</a></li> ";
-		      menu += "<li><a href=\"" + request.getContextPath()  + "/"
-		          + "ServletListaEnteET?richiestaEnte=ok\">Richiesta Ente</a></li> ";
-		      menu +=
-		          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>"; 
-    }
-    if (pageName.equals("uploadAttached.jsp")) {
-    	menu += "<li ><a href=\"" + request.getContextPath() + "/" + pageFolder
-		          + "/viewRequest.jsp\">Richieste</a></li>";
-		menu += "<li ><a href=\"" + request.getContextPath() + "/" + pageFolder
-		          + "/firstForm.jsp\">Compila Richiesta</a></li>";
-		      menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
-		          + "/uploadAttached.jsp\">Carica Allegato</a></li>";
-		      menu += "<li><a href=\"" + request.getContextPath()
-		          + "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
-		      menu += "<li ><a href=\"" + request.getContextPath()
-		          + "/_areaStudent/InviaRichiestaET.jsp\">Richiesta Tirocinio</a></li> ";
-		      menu += "<li><a href=\"" + request.getContextPath()  + "/"
-		          + "ServletListaEnteET?richiestaEnte=ok\">Richiesta Ente</a></li> ";
-		      menu +=
-		          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
-    }
-    if (pageName.equals("signUp.jsp")) {
-		logoRedirect = request.getContextPath()+ck.getUrlRedirect();	//siccome signUp è raggiungibile solo quando non sono loggato
-      menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
-          + "/signUp.jsp\">Registrati</a></li>";
-      menu += "<li><a href=\"" + request.getContextPath() + "/index.jsp\">Benvenuto</a></li>";
-    }
-  }else if (pageFolder.equals("_areaEnteET")) { //se stiamo in una pagina dell'area studente
-		 logoRedirect = request.getContextPath()+"/_areaStudent/viewRequest.jsp";
-		  
-		    if (pageName.equals("VisualizzaRichiestaEnteET.jsp")) { //se stiamo in viewRequest
-		      menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
-		          + "/VisualizzaRichiestaEnteET.jsp\">Richieste</a></li>";
-		      menu +=
-		          "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
-		    }
-  }else if (pageFolder.equals("")) { //se non siamo (o siamo) loggati
-    if (pageName.equals("login.jsp")) { //se ci troviamo in login.jsp
-      menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
-          + "/login.jsp\">Login</a></li>";
-      menu += "<li><a href=\"" + request.getContextPath() + "/index.jsp\">Benvenuto</a></li>";
-    } else if (pageName.equals("index.jsp")) { //se ci troviamo in index.jsp
-      menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
-          + "/index.jsp\">Benvenuto</a></li> <li ><a href=\"" + request.getContextPath()
-          + "/VisualizzaEnteET.jsp\">Lista Enti</a></li>";
-    } else { //se ci troviamo in logout.jsp
-      if (pageName.equals("logout.jsp")) {
-        menu += "<li><a href=\"" + request.getContextPath()
-            + "/index.jsp\">Benvenuto</a></li>";
-        menu += "<li><a href=\"" + request.getContextPath() + "/login.jsp\">Accedi</a></li>";
-      }else if (pageName.equals("VisualizzaEnteET.jsp"))  //se ci troviamo in visualizzaEnteET.jsp
-      { 
-    	 if(Segreteria!=null)
-    	 {
-    		 logoRedirect = request.getContextPath()+"/_areaSecretary/viewRequest.jsp";
-    		 menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-    		          + "/viewRequest.jsp\">Richieste</a></li>";
-    		      menu += "<li><a href=\"" + request.getContextPath() + ""
-    		          + "/_areaSecretary/VisualizzaRichiestaET.jsp\">Richieste Tirocinio</a></li>";
-    		      menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/VisualizzaEnteET.jsp\">Lista Ente</a></li>";
-    		      menu += "<li><a href=\"" + request.getContextPath() + "/_areaSecretary/RegistrazioneEnteET.jsp\">Registra Ente</a></li> ";
-    		      menu +="<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
-    	 }
-    	 else
-    	 {
-     	 	menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
-          + "/VisualizzaEnteET.jsp\">Lista Enti</a></li> <li ><a href=javascript:history.go(-1);>Indietro</a></li> ";
-    	 }
-    }
-    }
-  }
+		if (pageName.equals("viewRequest.jsp")) { //se stiamo in viewRequest
+			menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/viewRequest.jsp\">Richieste</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/firstForm.jsp\">Compila Richiesta</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/uploadAttached.jsp\">Carica Allegato</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath()
+					+ "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
+			menu += "<li><a href=\"" + request.getContextPath()
+					+ "/_areaStudent/InviaRichiestaET.jsp\">Richiesta Tirocinio</a></li> ";
+			menu += "<li><a href=\"" + request.getContextPath() + "/"
+					+ "ServletListaEnteET?richiestaEnte=ok\">Richiesta Ente</a></li> ";
+			menu += "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+		}
+		if (pageName.equals("HomeStudente.jsp")) { //se stiamo in home dello studente, fra et ed ev
+			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/firstForm.jsp\">Compila Richiesta</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/uploadAttached.jsp\">Carica Allegato</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath()
+					+ "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
+			menu += "<li><a href=\"" + request.getContextPath()
+					+ "/_areaStudent/InviaRichiestaET.jsp\">Richiesta Tirocinio</a></li> ";
+			menu += "<li><a href=\"" + request.getContextPath() + "/"
+					+ "ServletListaEnteET?richiestaEnte=ok\">Richiesta Ente</a></li> ";
+			menu += "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+		}
+		if (pageName.equals("StatoProprioTirocinioET.jsp")) { //se stiamo in controlla stato
+			menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/viewRequest.jsp\">Richieste</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/firstForm.jsp\">Compila Richiesta</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/uploadAttached.jsp\">Carica Allegato</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath()
+					+ "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
+			menu += "<li><a href=\"" + request.getContextPath()
+					+ "/_areaStudent/InviaRichiestaET.jsp\">Richiesta Tirocinio</a></li> ";
+			menu += "<li><a href=\"" + request.getContextPath() + "/"
+					+ "ServletListaEnteET?richiestaEnte=ok\">Richiesta Ente</a></li> ";
+			menu += "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+		}
+		if (pageName.equals("InviaRichiestaET.jsp")) { //se stiamo in invio richiesta
+			menu += "<li ><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/viewRequest.jsp\">Richieste</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/firstForm.jsp\">Compila Richiesta</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/uploadAttached.jsp\">Carica Allegato</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath()
+					+ "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
+			menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
+					+ "/_areaStudent/InviaRichiestaET.jsp\">Richiesta Tirocinio</a></li> ";
+			menu += "<li><a href=\"" + request.getContextPath() + "/"
+					+ "ServletListaEnteET?richiestaEnte=ok\">Richiesta Ente</a></li> ";
+			menu += "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+		}
+		if (pageName.equals("firstForm.jsp")) { //pagina cfu inglese
+			menu += "<li ><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/viewRequest.jsp\">Richieste</a></li>";
+			menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/firstForm.jsp\">Compila Richiesta</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/uploadAttached.jsp\">Carica Allegato</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath()
+					+ "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
+			menu += "<li ><a href=\"" + request.getContextPath()
+					+ "/_areaStudent/InviaRichiestaET.jsp\">Richiesta Tirocinio</a></li> ";
+			menu += "<li><a href=\"" + request.getContextPath() + "/"
+					+ "ServletListaEnteET?richiestaEnte=ok\">Richiesta Ente</a></li> ";
+			menu += "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+		}
+		if (pageName.equals("uploadAttached.jsp")) { //bho
+			menu += "<li ><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/viewRequest.jsp\">Richieste</a></li>";
+			menu += "<li ><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/firstForm.jsp\">Compila Richiesta</a></li>";
+			menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/uploadAttached.jsp\">Carica Allegato</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath()
+					+ "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
+			menu += "<li ><a href=\"" + request.getContextPath()
+					+ "/_areaStudent/InviaRichiestaET.jsp\">Richiesta Tirocinio</a></li> ";
+			menu += "<li><a href=\"" + request.getContextPath() + "/"
+					+ "ServletListaEnteET?richiestaEnte=ok\">Richiesta Ente</a></li> ";
+			menu += "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+		}
+		if (pageName.equals("signUp.jsp")) {
+			logoRedirect = request.getContextPath() + ck.getUrlRedirect(); //siccome signUp è raggiungibile solo quando non sono loggato
+			menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/signUp.jsp\">Registrati</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath() + "/index.jsp\">Benvenuto</a></li>";
+		}
+	} else if (pageFolder.equals("_areaEnteET")) { //se stiamo in una pagina dell'area utente
+		logoRedirect = request.getContextPath() + "/_areaStudent/viewRequest.jsp";
+		if (pageName.equals("VisualizzaRichiestaEnteET.jsp")) { //se stiamo in viewRequest
+			menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/VisualizzaRichiestaEnteET.jsp\">Richieste</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+		}
+	} else if (pageFolder.equals("")) { //se non siamo (o siamo) loggati
+		if (pageName.equals("login.jsp")) { //se ci troviamo in login.jsp
+			menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
+					+ "/login.jsp\">Login</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath() + "/index.jsp\">Benvenuto</a></li>";
+		} else if (pageName.equals("index.jsp")) { //se ci troviamo in index.jsp
+			menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
+					+ "/index.jsp\">Benvenuto</a></li> <li ><a href=\"" + request.getContextPath()
+					+ "/VisualizzaEnteET.jsp\">Lista Enti</a></li>";
+		} else { //se ci troviamo in logout.jsp
+			if (pageName.equals("logout.jsp")) {
+				menu += "<li><a href=\"" + request.getContextPath() + "/index.jsp\">Benvenuto</a></li>";
+				menu += "<li><a href=\"" + request.getContextPath() + "/login.jsp\">Accedi</a></li>";
+			} else if (pageName.equals("VisualizzaEnteET.jsp")) //se ci troviamo in visualizzaEnteET.jsp
+			{
+				if (Segreteria != null) {
+					logoRedirect = request.getContextPath() + "/_areaSecretary/viewRequest.jsp";
+					menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
+							+ "/viewRequest.jsp\">Richieste</a></li>";
+					menu += "<li><a href=\"" + request.getContextPath() + ""
+							+ "/_areaSecretary/VisualizzaRichiestaET.jsp\">Richieste Tirocinio</a></li>";
+					menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
+							+ "/VisualizzaEnteET.jsp\">Lista Ente</a></li>";
+					menu += "<li><a href=\"" + request.getContextPath()
+							+ "/_areaSecretary/RegistrazioneEnteET.jsp\">Registra Ente</a></li> ";
+					menu += "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+				} else {
+					menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
+							+ "/VisualizzaEnteET.jsp\">Lista Enti</a></li> <li ><a href=javascript:history.go(-1);>Indietro</a></li> ";
+				}
+			}
+		}
+	}
 
-
-  hiddenMenu = menu;
+	hiddenMenu = menu;
 %>
 <!-- Modal -->
 <div id="defaultModal" class="modal fade" role="dialog">
