@@ -55,13 +55,13 @@
 											<label for="name">Nome Ente</label> <input type="text"
 												class="form-control" id="name" name="name"
 												placeholder="Nome Ente" minlength="1" maxlength="64"
-												required>
+												required pattern="[0-9a-zA-Z. ]{1,64}">
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="partitaIva">Partita IVA</label> <input type="tel"
 												oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
 												class="form-control" placeholder="Partita IVA"
-												name="partitaIva" id="partitaIva" size="11" required>
+												name="partitaIva" id="partitaIva" size="11" required pattern="[0-9]{11}">
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="email">Email</label> <input type="email"
@@ -71,52 +71,52 @@
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="sede">Sede</label> <input type="text"
 												class="form-control" id="sede" name="sede"
-												placeholder="Sede" minlength="1" maxlength="64" required>
+												placeholder="Sede" minlength="1" maxlength="64" required pattern="[A-Z a-z 0-9]{1,64}">
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="telefono">Numero di telefono</label> <input
 												type="tel"
 												oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
 												class="form-control" placeholder="Numero di Telefono"
-												name="telefono" id="telefono" size="10" required>
+												name="telefono" id="telefono" size="10" required pattern="[0-9]{10}">
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="dipendenti">Numero Dipendenti</label> <input
 												type="text" class="form-control"
 												placeholder="Numero di Dipendenti" name="dipendenti"
-												id="dipendenti" required>
+												id="dipendenti" required pattern="[0-9]{1,64}">
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="rappresentante">Nome Rappresentante</label> <input
 												type="text" class="form-control" id="rappresentante"
 												name="rappresentante" placeholder="Nome Rappresentante"
-												minlength="1" maxlength="64" required>
+												minlength="1" maxlength="64" required pattern="[a-z A-Z]{1,64}">
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="dataDiNascita">Data di Nascita del
 												Rappresentante</label> <input type="text" class="form-control"
 												placeholder="Data di Nascita" name="dataDiNascita"
-												id="dataDiNascita" required>
+												id="dataDiNascita" required pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])/(0[1-9]|1[012])/[0-9]{4}">
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="dotRiferimento">Professore di Riferimento</label>
 											<input type="text" class="form-control" id="dotRiferimento"
 												name="dotRiferimento"
 												placeholder="Professore di Riferimento" minlength="1"
-												maxlength="64" required>
+												maxlength="64" required pattern="[a-z A-Z]{1,64}">
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="referente">Referente Tirocini</label> <input
 												type="text" class="form-control"
 												placeholder="Referente Tirocini" minlength="1"
-												maxlength="64" name="referente" id="referente" required>
+												maxlength="64" name="referente" id="referente" required pattern="[a-z A-Z]{1,64}">
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="descrizioneAttivita">Descrizione Attivit&agrave;</label>
 											<input type="text" class="form-control"
 												placeholder="Descrizione delle Attivit&agrave;" minlength="1"
 												maxlength="256" name="descrizioneAttivita"
-												id="descrizioneAttivita" required>
+												id="descrizioneAttivita" required pattern="{1,256}">
 										</div>
 										<div
 											class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
