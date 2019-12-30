@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import interfacce.UserInterface;
+import model.Tirocinio;
+import model.DAO.TirocinanteDAO;
 import model.DAO.TirocinioDAO;
 
 /**
@@ -19,6 +22,7 @@ import model.DAO.TirocinioDAO;
 public class ServletSceltaEnteET extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final TirocinioDAO tirocinioDAO = new TirocinioDAO();
+	TirocinanteDAO tirocinanteDao = new TirocinanteDAO();
 	String mess = null;
 
 	public ServletSceltaEnteET() {
@@ -83,20 +87,29 @@ public class ServletSceltaEnteET extends HttpServlet {
 		} else if (descrizione.length() > 256) {
 			throw new IllegalArgumentException("Il campo Descrizione supera la lunghezza consentita");
 		}
-		int matricola = (int) request.getSession().getAttribute("matricola");// da capire
+		//int matricola = (int) request.getSession().getAttribute("matricola");// da capire
 		// se la passiamo in sessione
 		String partitaIva = (String) request.getParameter("partitaIva");
-		ArrayList<Integer> codTirocinio = tirocinioDAO.allTirocinioTirocinante(matricola);  //creare un metodo che restituisca un solo codTirocinio
+		UserInterface user = (UserInterface)request.getSession().getAttribute("user");
+		long matricola = tirocinanteDao.ricercaTirocinanteByEmail(user.getEmail()).getMatricola();
+		ArrayList<Tirocinio> listaTirocini = tirocinioDAO.allTirocinioTirocinante(matricola);  //creare un metodo che restituisca un solo codTirocinio
 		try {
-			if (true /*(tirocinioDAO.richiestaEnte(codTirocinio, partitaIva, descrizione)) // metodo per associare l ente e la descrizione
-						&& (tirocinioDAO.modificaStatoTirocinio(codTirocinio,"inviataAllEnte")*/)// metodo per settare lo stato
+			Boolean prova1 = tirocinioDAO.richiestaEnte(listaTirocini.get(listaTirocini.size()).getCodTirocinio(), partitaIva, descrizione);
+			Boolean prova2 = tirocinioDAO.modificaStatoTirocinio(listaTirocini.get(listaTirocini.size()).getCodTirocinio(),"in attesa dell'Ente");
+			if ((prova1==true) && (prova2==true)) {
+				request.setAttribute("L'invio della richiesta e' avvenuto con successo", mess);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/_areaStudent/viewRequest.jsp");// Controlla jsp
+				dispatcher.forward(request, response);
+			}
+			/*if ((tirocinioDAO.richiestaEnte(codTirocinio.get(codTirocinio.size() )), partitaIva, descrizione)) && (tirocinioDAO.modificaStatoTirocinio(codTirocinio,"inviataAllEnte"))
 			{
 				throw new IllegalArgumentException("L'invio della richiesta non e' stato effettuato");
-			} else {
+			} 
+			else {
 				request.setAttribute("L'invio della richiesta e' avvenuto con successo", mess);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("risultato.jsp");// Controlla jsp
 				dispatcher.forward(request, response);
-			}
+			}*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

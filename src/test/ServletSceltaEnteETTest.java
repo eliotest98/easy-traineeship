@@ -5,6 +5,8 @@ import static org.mockito.Mockito.*;
 
 import java.io.*;
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,14 +18,19 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
+import org.mockito.stubbing.OngoingStubbing;
 
 import controller.DbConnection;
+import controller.ServletRichiestaInizioTirocinioET;
 import controller.ServletSceltaEnteET;
+import model.Student;
 
 class ServletSceltaEnteETTest {
 	
 	
 	Connection conn = new DbConnection().getInstance().getConn();
+	Date data=new Date();
+	String modifiedDate= new SimpleDateFormat("yyyy-MM-dd").format(data);
 	
 	//Creazione mock	
 		HttpServletRequest requestMock = mock(HttpServletRequest.class);
@@ -31,12 +38,37 @@ class ServletSceltaEnteETTest {
 		HttpSession sessionMock = mock(HttpSession.class);
 		ServletSceltaEnteET servletSecretaryMock = mock(ServletSceltaEnteET.class);
 		RequestDispatcher dispatcherMock = mock(RequestDispatcher.class);
+		Student student=new Student("p.aurilia@studenti.unisa.it","Pellegrino","Aurilia",'M',"pel98",0);
 		
 		
 		@BeforeEach
 		public void setUp() {
 			when(requestMock.getSession()).thenReturn(sessionMock);
 			when(sessionMock.getAttribute("userET")).thenReturn("0");
+			when(sessionMock.getAttribute("user")).thenReturn(student);
+		}
+		
+		//metodo tearDown per rimuovere i campi inseriti durante i test
+		@AfterEach
+		public void tearDown() {
+			try 
+			{
+			    Statement stmtSelect = conn.createStatement();
+			    String sql1 = ("DELETE FROM tirocinio WHERE CODTIROCINIO='1';");
+			    stmtSelect.executeUpdate(sql1);
+			    String sql2 = ("DELETE FROM tirocinante WHERE matricola='4859';");
+			    stmtSelect.executeUpdate(sql2);
+			    String sql3 = ("DELETE FROM enteconvenzionato WHERE partitaIva='11111111111';");
+			    stmtSelect.executeUpdate(sql3);
+			    String sql4 = ("DELETE FROM User WHERE email='p.aurilia@studenti.unisa.it';");
+			    stmtSelect.executeUpdate(sql4);
+			    String sql5 = ("DELETE FROM User WHERE email='green@gmail.com';");
+		    	stmtSelect.executeUpdate(sql5);
+		    	conn.commit();
+			}
+			catch (Exception e) {
+			    e.printStackTrace();
+			}
 		}
 
 		//TC_GR_7.01:Campo ente vuoto
@@ -192,9 +224,22 @@ class ServletSceltaEnteETTest {
 	    IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 		assertEquals("Il campo Descrizione supera la lunghezza consentita",e.getMessage());
 	}
+	
 	//Test case TC_GA_7.15: Scelta Ente effettuata correttamente
 	@Test
-	void testSceltaEnte() throws ServletException, IOException {
+	void testSceltaEnte() throws ServletException, IOException, SQLException {
+		Statement stmtSelect = conn.createStatement();
+		String sql4 = ("INSERT INTO User VALUES('p.aurilia@studenti.unisa.it','Pellegrino','Aurilia','M','pelle','0');");
+    	stmtSelect.executeUpdate(sql4);
+		String sql2 = ("INSERT INTO tirocinante VALUES('4859','"+modifiedDate+"','Salerno','italiana','Salerno','rlaplg98a08i805e','3294475051','p.aurilia@studenti.unisa.it');");
+    	stmtSelect.executeUpdate(sql2);
+    	String sql5 = ("INSERT INTO User VALUES('green@gmail.com','Salvatore','Totti','M','pass98','3');");
+    	stmtSelect.executeUpdate(sql5);
+    	String sql3 = ("INSERT INTO enteconvenzionato VALUES('11111111111','Avellino','Salvatore Totti','0825519149','100','Michele Persico','Michele Porto','08/01/1977','esperti in siti web','green@gmail.com');");
+    	stmtSelect.executeUpdate(sql3);
+    	String sql1 = ("INSERT INTO tirocinio VALUES('1','"+modifiedDate+"','11','informatica','javascript','Java','Bene','Accettato','progettoformativa.pdf','ragazzo valido','4859','11111111111');");
+    	stmtSelect.executeUpdate(sql1);
+    	conn.commit();
 		when(requestMock.getParameter("ente")).thenReturn("Carlo SRL");
 		when(requestMock.getParameter("name")).thenReturn("Mario");
 		when(requestMock.getParameter("cognome")).thenReturn("Rossi");
@@ -203,6 +248,12 @@ class ServletSceltaEnteETTest {
 		when(requestMock.getRequestDispatcher("risultato.jsp")).thenReturn(dispatcherMock);
 		ServletSceltaEnteET test = new ServletSceltaEnteET();
 		test.doPost(requestMock, responseMock);
-		assertEquals("L'invio della richiesta e' avvenuto con successo",requestMock.getParameter("L'invio della richiesta e' avvenuto con successo"));
+		//try {
+			//Statement stmtSelect = conn.createStatement();
+	    	//stmtSelect.executeUpdate("DELETE FROM Tirocinio WHERE ;");
+		//}
+		//e.printStackTrace();
+			//}
+		}
+
 	}
-}

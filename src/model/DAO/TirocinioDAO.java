@@ -283,7 +283,7 @@ public class TirocinioDAO {
 	 * 
 	 * @return listaTirocini
 	 * */
-	public synchronized ArrayList allTirocinioTirocinante(int matricola)
+	public synchronized ArrayList allTirocinioTirocinante(long matricola)
 	{
 		
 		Connection con = null; //variabile per la connesione del DB

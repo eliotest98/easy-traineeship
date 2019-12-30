@@ -36,9 +36,9 @@ class TirocinanteDAOTest {
 		}
 	}
 	
-	//Test del metodo ricercaTirocinante (byMatricola) di TirocinanteDAO 
+	//Test del metodo ricercaTirocinanteByMatricola di TirocinanteDAO 
 	@Test
-	void testRicercaTirocinante() throws SQLException 
+	void testRicercaTirocinanteByMatricola() throws SQLException 
 	{
 		
 		try 
@@ -54,9 +54,31 @@ class TirocinanteDAOTest {
 	    	e.printStackTrace();
 	    }
 		
-		Tirocinante tirocinante = tirocinanteDao.ricercaTirocinante(512103313);
+		Tirocinante tirocinante = tirocinanteDao.ricercaTirocinanteByMatricola(512103313);
 		assertEquals(tirocinante.getMatricola(),512103313);
 	}
+	
+	//Test del metodo ricercaTirocinanteByEmail di TirocinanteDAO 
+		@Test
+		void testRicercaTirocinanteByEmail() throws SQLException 
+		{
+			
+			try 
+			{
+		    	Statement stmtSelect = conn.createStatement();
+		    	String sql1 = ("INSERT INTO User VALUES('azienda@email.it','Cap Gemini','NA','N','password','0');");
+		    	stmtSelect.executeUpdate(sql1);
+		    	String sql2 = ("INSERT INTO Tirocinante VALUES('0512103313','" + modifiedDate + "','Salerno','Italiana','Salerno','QVGXRV78A52H443B','3491494900','azienda@email.it');");
+		    	stmtSelect.executeUpdate(sql2);
+		    	conn.commit();
+		    }
+		    catch (Exception e) {
+		    	e.printStackTrace();
+		    }
+			
+			Tirocinante tirocinante = tirocinanteDao.ricercaTirocinanteByEmail("azienda@email.it");
+			assertEquals(tirocinante.getMatricola(),512103313);
+		}
 	
 	//Test del metodo allTirocinante di TirocinanteDAO 
 	@Test
