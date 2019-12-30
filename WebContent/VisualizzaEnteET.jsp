@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.*,controller.ServletListaEnteET, model.EnteConvenzionato, controller.CheckSession" %>
 <%
+	String email="";
 	String pageName = "VisualizzaEnteET.jsp";
 	String pageFolder = "";
 
@@ -47,7 +48,7 @@
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 25%;
 }
 
 /* The Close Button */
@@ -128,13 +129,12 @@
 													//Se è in sessione la segreteria mostro le azioni
 													if(Segreteria!=null)
 													{
+														email = listaEnti.get(i).getEmail();
 														%>
 														
 														<td class="text-center" align="center">
 															<a href='_areaSecretary/ModificaEnteET.jsp?ente=<%=i%>' class="btn btn-primary btn-action modificaEnte" title="Modifica Ente" data-idrequest="35"><i class="fa fa-edit"></i></a>
-															<form id="signUp" action="./ServletEliminaEnteET" method="post">
-																<button id="email" name="enteEmail"  value=<%=listaEnti.get(i).getEmail() %> type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Elimina Ente"><i class="fa fa-times"></i></button>
-															</form>
+															<button id="email" name="enteEmail"  type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Elimina Ente"><i class="fa fa-times"></i></button>												
 														</td>
 														<%
 													}
@@ -145,6 +145,7 @@
 										</tbody>
 									</table>
 								<%}%>
+								
 								<!-- The Modal -->
 								<div id="myModal" class="modal">
 								
@@ -152,7 +153,11 @@
 								  <div class="modal-content">
 								    <span class="close">&times;</span>
 								    <p>Sei sicuro di voler eliminare l'Ente?</p>
-								  </div>
+								    <form id="signUp" action="./ServletEliminaEnteET" method="post">
+											<button onclick="elimina()"id="email" name="enteEmail"  value=<%=email %> type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Elimina Ente">Si</button>
+											<button onclick="notelimina()"id="close" name="enteEmail"  type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Elimina Ente">No</button>
+									</form>
+									</div>
 								
 								</div>
 							</div>
@@ -166,7 +171,6 @@
 	<!--End pagewrapper-->
 
 	<jsp:include page="/partials/includes.jsp" />
-	
 		<script>
 			//script 'DataTable' di Bootstrap' per la gestione della 'Tabella'
 			jQuery(document).ready(function($){
@@ -216,13 +220,11 @@
 			  if(btn == email)
 				{	
 					showAlert();
-					toastr.success("Eliminazione eseguita con successo.");
 					return true;
 				}
 				else
 				{
 					showAlert();
-					toastr.error("Eliminazione non effettuata.");
 					return false;
 				}
 			}
@@ -230,14 +232,28 @@
 			// When the user clicks on <span> (x), close the modal
 			span.onclick = function() {
 			  modal.style.display = "none";
+			  toastr.error("Eliminazione non effettuata");
 			}
 
 			// When the user clicks anywhere outside of the modal, close it
 			window.onclick = function(event) {
 			  if (event.target == modal) {
 			    modal.style.display = "none";
+			    toastr.error("Eliminazione non effettuata");
 			  }
 			}
+		</script>
+		<script>
+		function elimina()
+		{
+			toastr.success("Eliminazione effettuata con successo");
+		}
+		</script>
+		<script>
+		function notelimina()
+		{
+			toastr.error("Eliminazione non effettuata");
+		}
 		</script>
 </body>
 </html>
