@@ -120,10 +120,10 @@
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="descrizioneAttivita">Descrizione Attivit&agrave;</label>
-											<input type="text" class="form-control"
+											<textarea class="form-control"
 												placeholder="Descrizione delle Attivit&agrave;" value=<%=listaEnti.get(i).getDescrizioneAttivita() %> minlength="1"
 												maxlength="256" name="descrizioneAttivita"
-												id="descrizioneAttivita" required>
+												id="descrizioneAttivita" required></textarea>
 										</div>
 										<div
 											class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
