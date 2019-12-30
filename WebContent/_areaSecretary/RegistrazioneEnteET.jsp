@@ -137,7 +137,7 @@
 	<!--End pagewrapper-->
 
 	<!--!!!!!!!!CAUSA ERRORI!!!!!!!!!!!-->
-	<jsp:include page="/partials/includes.jsp" />
+	<!--<jsp:include page="/partials/includes.jsp" />-->
 
 	<script>
 		/*Form Input Values*/
