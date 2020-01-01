@@ -262,7 +262,7 @@
 				toastr.error("Formato del Telefono non rispettato")
 				return false;
 			}
-			if (!enumRGX.test(dipendenti)) // Check Format
+			if (!numRGX.test(dipendenti)) // Check Format
 			{
 				toastr.error("Registrazione non effettuata")
 				toastr.error("Formato dei Dipendenti non rispettato")
