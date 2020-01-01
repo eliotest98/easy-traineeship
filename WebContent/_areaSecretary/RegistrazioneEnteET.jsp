@@ -80,7 +80,7 @@
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="dipendenti">Numero Dipendenti</label> <input
-												type="text" class="form-control"
+												type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"  class="form-control"
 												placeholder="Numero di Dipendenti" name="dipendenti"
 												id="dipendenti" >
 										</div>
@@ -167,66 +167,77 @@
 			/*LENGTH VALIDATION*/
 			if (name.length <= 0 || name.length > 64) // Check Length
 			{
+				showAlert();
 				toastr.error("Lunghezza del Nome non rispettata")
 				toastr.error("Registrazione non effettuata")
 				return false;
 			}
 			if (partitaIva.length <= 0 || partitaIva.length > 11) // Check Length
 			{
+				showAlert();
 				toastr.error("Lunghezza della Partita Iva non rispettata")
 				toastr.error("Registrazione non effettuata")
 				return false;
 			}
 			if (email.length <= 0 || email.length > 64) // Check Length
 			{
+				showAlert();
 				toastr.error("Lunghezza dell'Email non rispettata")
 				toastr.error("Registrazione non effettuata")
 				return false;
 			}
 			if (sede.length <= 0 || sede.length > 64) // Check Length
 			{
+				showAlert();
 				toastr.error("Lunghezza della Sede non rispettata")
 			    toastr.error("Registrazione non effettuata")
 				return false;
 			}
 			if (telefono.length <= 0 || telefono.length > 64) // Check Length
 			{
+				showAlert();
 				toastr.error("Registrazione non effettuata")
 				toastr.error("Lunghezza del Telefono non rispettata")
 				return false;
 			}
 			if (dipendenti.length <= 0 || dipendenti.length > 64) // Check Length
 			{
+				showAlert();
 				toastr.error("Registrazione non effettuata")
 				toastr.error("Lunghezza dei Dipendenti non rispettata")
 				return false;
 			}
 			if (rappresentante.length <= 0 || rappresentante.length > 64) // Check Length
 			{
+				showAlert();
 				toastr.error("Registrazione non effettuata")
 				toastr.error("Lunghezza del Rappresentante non rispettata")
 				return false;
 			}
 			if (dataDiNascita.length <= 0 || dataDiNascita.length > 64) // Check Length
 			{
+				showAlert();
 				toastr.error("Registrazione non effettuata")
 				toastr.error("Lunghezza della Data Di Nascita non rispettata")
 				return false;
 			}
 			if (dotRiferimento.length <= 0 || dotRiferimento.length > 64) // Check Length
 			{
+				showAlert();
 				toastr.error("Registrazione non effettuata")
 				toastr.error("Lunghezza del Dottore di Riferimento non rispettata")
 				return false;
 			}
 			if (referente.length <= 0 || referente.length > 64) // Check Length
 			{
+				showAlert();
 				toastr.error("Registrazione non effettuata")
 				toastr.error("Lunghezza del Referente non rispettata")
 				return false;
 			}
 			if (descrizioneAttivita.length <= 0 || descrizioneAttivita.length > 64) // Check Length
 			{
+				showAlert();
 				toastr.error("Registrazione non effettuata")
 				toastr.error("Lunghezza  della Descrizione Attività non rispettata")
 				return false;
@@ -234,70 +245,82 @@
 			/*FORMAT VALIDATION*/
 			if (alphRGX.test(name)) // Check Format
 			{
+				showAlert();
 				toastr.error("Registrazione non effettuata")
 				toastr.error("Formato del Nome non rispettato")
 				return false;
 			}
 			if (numRGX.test(partitaIva)) // Check Format
 			{
+				showAlert();
 				toastr.error("Registrazione non effettuata")
 				toastr.error("Formato della Partita Iva non rispettato")
 				return false;
 			}
 			if (mailRGX.test(email)) // Check Format
 			{
+				showAlert();
 				toastr.error("Registrazione non effettuata")
 				toastr.error("Formato dell'Email non rispettato")
 				return false;
 			}
 			if (alphRGX.test(sede)) // Check Format
 			{
+				showAlert();
 				toastr.error("Registrazione non effettuata")
 				toastr.error("Formato della Sede non rispettato")
 				return false;
 			}
 			if (!numRGX.test(telefono)) // Check Format
 			{
+				showAlert();
 				toastr.error("Registrazione non effettuata")
 				toastr.error("Formato del Telefono non rispettato")
 				return false;
 			}
-			if (!numRGX.test(dipendenti)) // Check Format
+			if (enumRGX.test(dipendenti)) // Check Format
 			{
+				showAlert();
 				toastr.error("Registrazione non effettuata")
 				toastr.error("Formato dei Dipendenti non rispettato")
 				return false;
 			}
 			if (alphRGX.test(rappresentante)) // Check Format
 			{
+				showAlert();
 				toastr.error("Registrazione non effettuata")
 				toastr.error("Formato del Rappresentante non rispettato")
 				return false;
 			}
 			if (!dateRGX.test(dataDiNascita)) // Check Format
 			{
+				showAlert();
 				toastr.error("Registrazione non effettuata")
 				toastr.error("Formato della Data di Nascita non rispettato")
 				return false;
 			}
 			if (alphRGX.test(dotRiferimento)) // Check Format
 			{
+				showAlert();
 				toastr.error("Registrazione non effettuata")
 				toastr.error("Formato del Dottore di Riferimento non rispettato")
 				return false;
 			}
 			if (alphRGX.test(referente)) // Check Format
 			{
+				showAlert();
 				toastr.error("Registrazione non effettuata")
 				toastr.error("Formato del Referente non rispettato")
 				return false;
 			}
 			if (alphaNumRGX.test(descrizioneAttivita)) // Check Format
 			{
+				showAlert();
 				toastr.error("Registrazione non effettuata")
 				toastr.error("Formato della Descrizione Attivita non rispettato")
 				return false;
 			}
+			showAlert();
 			toastr.success("Registrazione  effettuata")
 			return true
 		}
