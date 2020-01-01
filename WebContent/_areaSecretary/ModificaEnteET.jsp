@@ -89,7 +89,7 @@
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="dipendenti">Numero Dipendenti</label> <input
-												type="text" class="form-control"
+												type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control"
 												placeholder="Numero di Dipendenti" value="<%=listaEnti.get(i).getDipendenti() %>" name="dipendenti"
 												id="dipendenti" required pattern="[0-9]{1,64}">
 										</div>
