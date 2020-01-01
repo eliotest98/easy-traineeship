@@ -135,11 +135,6 @@
 	<!--!!!!!!!!CAUSA ERRORI!!!!!!!!!!!-->
 	<!--<jsp:include page="/partials/includes.jsp" />-->
 	<script>
-	function successMessage(){
-		toastr.success("Registrazione effettuata con successo");
-	}
-	</script>
-	<script>
 		/*This function validate form inputs*/
 		function validate() {
 	
@@ -156,7 +151,6 @@
 			var dotRiferimento = document.getElementById("dotRiferimento").value;
 			var referente = document.getElementById("referente").value;
 			var descrizioneAttivita = document.getElementById("descrizioneAttivita").value;
-			console.log(name)
 			/*REGEX Values*/
 			const alphaNumRGX = /^[a-z A-Z 0-9]$/
 			const alphRGX = /^[a-z A-Z]$/
