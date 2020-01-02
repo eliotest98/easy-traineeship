@@ -155,7 +155,7 @@
 								    <p>Sei sicuro di voler eliminare l'Ente?</p>
 								    <form id="signUp" action="./ServletEliminaEnteET" method="post">
 											<button onclick="elimina()"id="email" name="enteEmail"  value=<%=email %> type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Elimina Ente">Si</button>
-											<button onclick="notelimina()"id="close" name="enteEmail"  type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Elimina Ente">No</button>
+											<button onclick="notelimina()"id="close" name="enteEmail"  type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button>
 									</form>
 									</div>
 								

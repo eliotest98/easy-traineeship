@@ -50,6 +50,8 @@ class TirocinioDAOTest {
 	void allTirocinio() 
 	{
 		boolean inserito = false;
+		int i;
+		
 		try 
 		{
 			
@@ -72,9 +74,10 @@ class TirocinioDAOTest {
 	    }
 		
 		ArrayList<Tirocinio> listaTirocini =tirocinioDao.allTirocinio();
-        if(listaTirocini.size()>0)
-        {
-			inserito = true;	
+		for( i = 0; i < listaTirocini.size(); i++) {
+			if (listaTirocini.get(i).getCodTirocinio()==1 && listaTirocini.get(i).getMatricola()==4859) {
+				inserito = true;
+			}
 		}
         assertEquals(inserito,true);
 	}
@@ -290,10 +293,7 @@ class TirocinioDAOTest {
 	@Test
 	void modificaTirocinio() 
 	{
-		boolean inserito = false;
 		
-	
-	//	Tirocinio nuovo= new Tirocinio(1,modifiedDate,11,"java","Javascript","css","Bene","Annullato","Progettoformartivo.pdf","Ragazzo valido",4859,"11111111111");
 		Tirocinio nuovo=new Tirocinio();
 		nuovo.setCodTirocinio(1);
 		nuovo.setDataInizioTirocinio(modifiedDate);
@@ -336,8 +336,7 @@ class TirocinioDAOTest {
 	//Test del metodo uploadProgettoFormativo di TirocinioDAO 
 	@Test
 	void uploadProgettoFormativo() 
-	{
-		boolean inserito = false;				
+	{			
 		
 		try 
 		{
@@ -389,8 +388,76 @@ class TirocinioDAOTest {
 	    	e.printStackTrace();
 	    }
 		
-		
 		assertEquals(tirocinioDao.downloadProgettoFormativo(1),"progettoformativa.pdf");
 	}
+	
+		//Test del metodo AllDocumentiDaFirmareByStudente di TirocinioDAO 
+		@Test
+		void testAllDocumentiDaFirmareByStudente() 
+		{	
+			boolean inserito = false;
+			int i;
+			
+			try 
+			{
+				Statement stmtSelect = conn.createStatement();
+				String sql4 = ("INSERT INTO User VALUES('p.aurilia@studenti.unisa.it','Pellegrino','Aurilia','M','pelle','0');");
+		    	stmtSelect.executeUpdate(sql4);
+				String sql2 = ("INSERT INTO tirocinante VALUES('4859','"+modifiedDate+"','Salerno','italiana','Salerno','rlaplg98a08i805e','3294475051','p.aurilia@studenti.unisa.it');");
+		    	stmtSelect.executeUpdate(sql2);
+		    	String sql5 = ("INSERT INTO User VALUES('green@gmail.com','Salvatore','Totti','M','pass98','3');");
+		    	stmtSelect.executeUpdate(sql5);
+		    	String sql3 = ("INSERT INTO enteconvenzionato VALUES('11111111111','Avellino','Salvatore Totti','0825519149','100','Michele Persico','Michele Porto','08/01/1977','esperti in siti web','green@gmail.com');");
+		    	stmtSelect.executeUpdate(sql3);
+		    	String sql1 = ("INSERT INTO tirocinio VALUES('1','"+modifiedDate+"','11','informatica','javascript','Java','Bene','Accettato','progettoformativa.pdf','ragazzo valido','4859','11111111111');");
+		    	stmtSelect.executeUpdate(sql1);
+		    	conn.commit();
+		    }
+		    catch (Exception e) {
+		    	e.printStackTrace();
+		    }
+			
+			ArrayList<Tirocinio> listaTirocini = tirocinioDao.allDocumentiDaFirmareByStudente(4859, "Accettato");
+			for( i = 0; i < listaTirocini.size(); i++) {
+				if (listaTirocini.get(i).getCodTirocinio()==1 && listaTirocini.get(i).getMatricola()==4859 && listaTirocini.get(i).getStatoTirocinio().contentEquals("Accettato")) {
+					inserito = true;
+				}
+			}
+	        assertEquals(inserito,true);
+		}
+		
+		//Test del metodo AllDocumentiDaFirmareByEnte di TirocinioDAO 
+				@Test
+				void testAllDocumentiDaFirmareByEnte() 
+				{	
+					boolean inserito = false;
+					int i;
 					
-}
+					try 
+					{
+						Statement stmtSelect = conn.createStatement();
+						String sql4 = ("INSERT INTO User VALUES('p.aurilia@studenti.unisa.it','Pellegrino','Aurilia','M','pelle','0');");
+				    	stmtSelect.executeUpdate(sql4);
+						String sql2 = ("INSERT INTO tirocinante VALUES('4859','"+modifiedDate+"','Salerno','italiana','Salerno','rlaplg98a08i805e','3294475051','p.aurilia@studenti.unisa.it');");
+				    	stmtSelect.executeUpdate(sql2);
+				    	String sql5 = ("INSERT INTO User VALUES('green@gmail.com','Salvatore','Totti','M','pass98','3');");
+				    	stmtSelect.executeUpdate(sql5);
+				    	String sql3 = ("INSERT INTO enteconvenzionato VALUES('11111111111','Avellino','Salvatore Totti','0825519149','100','Michele Persico','Michele Porto','08/01/1977','esperti in siti web','green@gmail.com');");
+				    	stmtSelect.executeUpdate(sql3);
+				    	String sql1 = ("INSERT INTO tirocinio VALUES('1','"+modifiedDate+"','11','informatica','javascript','Java','Bene','Accettato','progettoformativa.pdf','ragazzo valido','4859','11111111111');");
+				    	stmtSelect.executeUpdate(sql1);
+				    	conn.commit();
+				    }
+				    catch (Exception e) {
+				    	e.printStackTrace();
+				    }
+					
+					ArrayList<Tirocinio> listaTirocini = tirocinioDao.allDocumentiDaFirmareByEnte("11111111111", "Accettato");
+					for( i = 0; i < listaTirocini.size(); i++) {
+						if (listaTirocini.get(i).getCodTirocinio()==1 && listaTirocini.get(i).getPartitaIva().equals("11111111111") && listaTirocini.get(i).getStatoTirocinio().contentEquals("Accettato")) {
+							inserito = true;
+						}
+					}
+			        assertEquals(inserito,true);
+				}
+}		

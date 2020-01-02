@@ -632,9 +632,9 @@ public class TirocinioDAO {
 			//restituiti dalla query
 			if(res.next())
 			{
-			progettoFormativo=res.getString("PROGETTOFORMATIVO");
+				progettoFormativo=res.getString("PROGETTOFORMATIVO");
 			}
-			} 
+		} 
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
@@ -748,7 +748,7 @@ public class TirocinioDAO {
 	 * @param partitaIva, statoTirocinio
 	 * @return listaTirocini
 	 * */
-	public synchronized ArrayList allDocumentiDaFirmareByEnte(int partitaIva, String statoTirocinio)
+	public synchronized ArrayList allDocumentiDaFirmareByEnte(String partitaIva, String statoTirocinio)
 	{
 		
 		Connection con = null; //variabile per la connesione del DB
