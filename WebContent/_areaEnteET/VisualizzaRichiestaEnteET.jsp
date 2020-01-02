@@ -80,7 +80,7 @@
 											
 													<td class='text-center'><%=listaRichiesteEnte.get(i).getStatoTirocinio()%></td>
 													<td class="text-center" align="center">
-														<a disabled href='_areaSecretary/VisualizzaStatoTirocinioET.jsp?matricola=<%=listaRichiesteEnte.get(i).getMatricola()%>' class="btn btn-primary btn-action modificaEnte" title="Accetta/Rifiuta" data-idrequest="35"><i class="fa fa-eye"></i></a>
+														<a href='VisualizzaTirocinanteEnteET.jsp?matricola=<%=listaRichiesteEnte.get(i).getMatricola()%>' class="btn btn-primary btn-action modificaEnte" title="Accetta/Rifiuta" data-idrequest="35"><i class="fa fa-eye"></i></a>
 													</td>
 												</tr>
 											<%
