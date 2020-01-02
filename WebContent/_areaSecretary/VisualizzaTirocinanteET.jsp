@@ -92,6 +92,12 @@
 								//Se la listaEnti non è null mostro la tabella
 								if(tirocinante!=null)
 								{
+									Date giorno = tirocinante.getDataNascita();
+									String data = giorno.toString();
+									String anno = data.substring(0,4);
+									String mese = data.substring(4,8);
+									String day = data.substring(8,10);
+									String datanascita = day+mese+anno;
 								%>
 									<div class="panel">
 										<h2 class="text-center">Informazioni del Tirocinante</h2>
@@ -118,7 +124,7 @@
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="sede">Data di Nascita</label> <input type="text"
 												class="form-control" id="sede" name="sede"
-												placeholder="Sede" value="<%=tirocinante.getDataNascita()%>" minlength="1" maxlength="64" required disabled>
+												placeholder="Sede" value="<%=datanascita%>" minlength="1" maxlength="64" required disabled>
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="telefono">Luogo di Nascita</label> <input
