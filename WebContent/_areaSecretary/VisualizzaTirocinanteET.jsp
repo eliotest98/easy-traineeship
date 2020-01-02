@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="java.util.*,controller.ServletListaEnteET, model.Tirocinante, controller.CheckSession" %>
+<%@ page import="java.util.*,controller.ServletListaEnteET, model.Tirocinante, model.Tirocinio, controller.CheckSession" %>
 <%
 	String pageName = "VisualizzaTirocinanteET.jsp";
 	String pageFolder = "_areaSecretary";
@@ -14,6 +14,8 @@
 	long matricola = Long.valueOf(request.getParameter("matricola"));
 	Tirocinante tirocinante=new Tirocinante();
 	tirocinante=(Tirocinante)request.getAttribute("tirocinante");
+	Tirocinio tirocinio=new Tirocinio();
+	tirocinio = (Tirocinio)request.getAttribute("tirocinio");
 	
 	if(tirocinante==null)
 	{
@@ -168,6 +170,13 @@
 												placeholder="Descrizione delle Attivit&agrave;" value="<%=tirocinante.getTelefono()%>" minlength="1"
 												maxlength="256" name="descrizioneAttivita"
 												id="descrizioneAttivita" required disabled>
+										</div>
+										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+											<label for="cfu">CFU Conseguiti</label>
+											<input type = "text" class="form-control"
+												placeholder="CFU Conseguiti" value="<%=tirocinio.getCfuPrevisti()%>" minlength="1"
+												maxlength="3" name="cfuConseguiti"
+												id="cfu" required disabled>
 										</div>
 										<div
 											class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">

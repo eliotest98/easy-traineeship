@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +13,7 @@ import model.Tirocinante;
 import model.Tirocinio;
 import model.DAO.EnteConvenzionatoDAO;
 import model.DAO.TirocinanteDAO;
+import model.DAO.TirocinioDAO;
 
 /**
  * Servlet implementation class ServletVisualizzaTirocinanteET
@@ -32,27 +35,44 @@ public class ServletVisualizzaTirocinanteET extends HttpServlet {
    */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    //Istanzio il Dao e il Tirocinio
-    TirocinanteDAO dao = new TirocinanteDAO();
-    Tirocinante tirocinante = new Tirocinante();
-    //ricerco il tirocinio che ha una matricola specifica
-    try {
-      String matricola = request.getParameter("matricola");
-      long matricolaLong = Long.parseLong(matricola); 
-      tirocinante = dao.ricercaTirocinanteByMatricola(matricolaLong);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    
-    //Controllo se il tirocinante è vuoto
-    if(tirocinante != null)
-    {
-      //setto l'attributo tirocinante
-      request.setAttribute("tirocinante", tirocinante);
-    }
-    
-    RequestDispatcher dispatcher = request.getRequestDispatcher("_areaSecretary/VisualizzaTirocinanteET.jsp");
-    dispatcher.forward(request, response);
+
+		 //Istanzio il Dao e il Tirocinio
+	    TirocinanteDAO dao = new TirocinanteDAO();
+	    TirocinioDAO daoTirocinio = new TirocinioDAO();
+	    Tirocinante tirocinante = new Tirocinante();
+	    Tirocinio tirocinio = new Tirocinio();
+	    Tirocinio tempTirocinio = new Tirocinio();
+		ArrayList<Tirocinio> listaRichiesteEnte=new ArrayList<Tirocinio>();
+	    //ricerco il tirocinio che ha una matricola specifica
+	    try {
+	      String matricola = request.getParameter("matricola");
+	      long matricolaLong = Long.parseLong(matricola); 
+	      tirocinante = dao.ricercaTirocinanteByMatricola(matricolaLong);
+	      listaRichiesteEnte = daoTirocinio.allTirocinioTirocinante(matricolaLong);
+	      
+	      int size = listaRichiesteEnte.size();
+	      for (int j = 0; j < size; j++) {
+	    	  tempTirocinio = listaRichiesteEnte.get(j);
+	    	  if (tempTirocinio.getStatoTirocinio().equals("In attesa della Segreteria")) {
+	    		  tirocinio=tempTirocinio;
+	    		  System.out.println(tirocinio.toString());
+	    	  }
+	      }
+	      
+	    } catch (Exception e) {
+	      e.printStackTrace();
+	    }
+	    
+	    //Controllo se il tirocinante è vuoto
+	    if(tirocinante != null)
+	    {
+	      //setto l'attributo tirocinante
+	      request.setAttribute("tirocinante", tirocinante);
+	      request.setAttribute("tirocinio", tirocinio);
+	    }
+	    
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("_areaSecretary/VisualizzaTirocinanteET.jsp");
+	    dispatcher.forward(request, response);
   }
 
   /**
