@@ -41,7 +41,7 @@
 								%>
 								<div class="bordiET">
 									<%
-										if (lista!= null && tirocinante != null) {
+										if (lista != null && tirocinante != null) {
 									%>
 									<h2 class="centro">PROGETTO FORMATIVO:</h2>
 									<div class="pf">
@@ -67,7 +67,7 @@
 									<br>
 									<%
 										}
-						  					if (lista == null || tirocinante == null) {
+											if (lista == null || tirocinante == null) {
 									%>
 									<h2 class="centro">
 										OPS..
