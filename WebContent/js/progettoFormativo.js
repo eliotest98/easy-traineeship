@@ -97,8 +97,15 @@
 		    doc.fromHTML("Posizione assicurativa INAIL: Gestione per conto dello Stato", 9, 83);
 		    doc.fromHTML("Polizza assicurativa RC ________________________________________________________", 9, 90);
 		    doc.fromHTML("Polizza assicurativa Infortuni  ________________________________________________", 9, 97);
-		    testo="Ai sensi dell’art.5 della convenzione Rep.n.___________, a cui fa riferimento il presente progetto formativo, il Soggetto ospitante, in caso di infortunio del tirocinante durante lo svolgimento del tirocinio,  si impegna a segnalare tempestivamente l’evento al Dipartimento di Informatica e al Responsabile dell’Ufficio Stato Giuridico e Formazione dell’Università, al fine di consentire a quest’ultimo di trasmettere la denuncia di infortunio all'INAIL in via telematica entro i tempi previsti dalla normativa vigente (48 ore). Il Responsabile pro tempore dell’Ufficio Stato Giuridico e Formazione dell’Ateneo è il dott. Pasquale Talarico, di cui si indicano di seguito il recapito telefonico e gli indirizzi e-mail a cui far pervenire la segnalazione dell’infortunio con copia della convenzione e del progetto formativo.  Inoltre all’Ufficio Stato Giuridico e Formazione vanno trasmessi, a cura del tirocinante, una copia del certificato medico di infortunio lavorativo e una relazione scritta sulle modalità in cui è avvenuto l’infortunio (orario dell’infortunio, data e ora di abbandono del posto del di lavoro, attività svolta in occasione dell’infortunio e cause dello stesso). Tale documentazione deve essere trasmessa con la massima tempestività per le vie brevi oppure tramite e-mail.";
+		    var testo="Ai sensi dell’art.5 della convenzione Rep.n.___________, a cui fa riferimento il presente progetto formativo, il Soggetto ospitante, in caso di infortunio del tirocinante durante lo svolgimento del tirocinio,  si impegna a segnalare tempestivamente l’evento al Dipartimento di Informatica e al Responsabile dell’Ufficio Stato Giuridico e Formazione dell’Università, al fine di consentire a quest’ultimo di trasmettere la denuncia di infortunio all'INAIL in via telematica entro i tempi previsti dalla normativa vigente (48 ore). Il Responsabile pro tempore dell’Ufficio Stato Giuridico e Formazione dell’Ateneo è il dott. Pasquale Talarico, di cui si indicano di seguito il recapito telefonico e gli indirizzi e-mail a cui far pervenire la segnalazione dell’infortunio con copia della convenzione e del progetto formativo.  Inoltre all’Ufficio Stato Giuridico e Formazione vanno trasmessi, a cura del tirocinante, una copia del certificato medico di infortunio lavorativo e una relazione scritta sulle modalità in cui è avvenuto l’infortunio (orario dell’infortunio, data e ora di abbandono del posto del di lavoro, attività svolta in occasione dell’infortunio e cause dello stesso). Tale documentazione deve essere trasmessa con la massima tempestività per le vie brevi oppure tramite e-mail.";
 		   
-		    
+		    var splitTesto = doc.splitTextToSize(testo, 180);
+		    doc.text(10, 115, splitTesto);
+		    	
+			doc.text("Ufficio Stato Giuridico e Formazione", 105, 185, null, null,  'center');	
+			doc.text("Tel. 089 96 6204 ", 105, 192, null, null,  'center');	
+			doc.text("e-mail p.talarico@unisa.it ", 105, 199, null, null,  'center');	
+			doc.text("e-mail ufgiufor@unisa.it ", 105, 206, null, null,  'center');	
+			
 	        doc.save('a4.pdf')
 		}
