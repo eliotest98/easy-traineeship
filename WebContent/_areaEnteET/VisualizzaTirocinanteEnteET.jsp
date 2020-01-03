@@ -103,8 +103,8 @@
 										<h2 class="text-center">Informazioni del Tirocinante</h2>
 									</div>
 									
-									<form id="signUp"  name="modificaEnte"  action="../ServletGestioneRichiesteEnteET"
-										method="post">
+								<!-- 	<form id="signUp"  name="modificaEnte"  action="../ServletGestioneRichiesteEnteET"
+										method="post"> -->
 										<!-- Campo Matricola -->
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 									    	<strong>Matricola </strong>  <% out.println( "<br>" + "0" +tirocinante.getMatricola()); %>
@@ -184,38 +184,37 @@
 											<button id="Rifiuta" type="submit" class="btn btn-primary btn-submit" title="Rifiuta" data-idrequest="35">Rifiuta</button>														
 										</div>
 										<div class="clearfix"></div>
-									</form>
+								<!-- 	</form> -->
 								<%}%>
 								
 								<!-- Modal Accettazione -->
-								<div id="myModal" class="modal">
+								<div id="myModalAccettazione" class="modal">
 								
 								  <!-- Modal content -->
 								  <div class="modal-content">
-								    <span class="close">&times;</span>
+								    <span class="close"></span>
 								    <p>Sei sicuro di voler accettare la richiesta di Tirocinio?</p>
-								    <form id="signUp" action="../ServletGestioneRichiesteSegreteriaET" method="post">
-											<button onclick="accetta()"id="Accetta" name="enteEmail"  value="niente per il momento" type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Accetta Richiesta">Si</button>
-											<button onclick="notaccetta()"id="close" name="enteEmail"  type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button>
-									</form>
+								  		<form id="modalAccettaForm" >
+								  		 <input id="i" type="text" required>
+								  		 <button onclick="accetta()"id="modalAccettaButton" name="accettaRichiesta" value="niente per il momento" type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Accetta Richiesta">Si</button>
+										 <button onclick="notaccetta()"id="close" name="nonAccetta" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button>
+										</form>
 									</div>
 								</div>
+								
 								<!-- The Modal Rifiuto -->
 								<div id="myModalRifiuto" class="modal">
 								
-								  <!-- Modal content -->
-								  <div class="modal-content">
-								    <span class="close">&times;</span>
+								 <!-- Modal content -->
+								 <div class="modal-content">
+								    <span class="close"></span>
 								    <p>Sei sicuro di voler rifiutare la richiesta di Tirocinio?</p>
-								    <form id="modalRifiuto" action="../ServletGestioneRichiesteEnteET" method="post">
-								    		
-												<label for="nome">Inserisci Motivazione</label> 
-												<input type="text" class="form-control" id="motivazione" name="motivazione" placeholder="Motivazione del Rifiuto" minlength="1" maxlength="256" required>
-											
-										
-												<button onclick="rifiuta()"id="Accetta" name="enteEmail"  value="niente per il momento" type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Rifiuta Richiesta">Si</button>
-												<button onclick="notrifiuta()"id="close" name="enteEmail"  type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button>
-										
+								    <form id="modalRifiutoForm" action="../ServletGestioneRichiesteEnteET" method="post">
+											<label for="nome">Inserisci Motivazione</label> 
+											<input type="text" class="form-control" id="motivazione" name="motivazione" placeholder="Motivazione del Rifiuto" minlength="1" maxlength="256" required>
+									
+											<button onclick="rifiuta()"id="rifiuta" name="rifiutaRichiesta"  value="niente per il momento" type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Rifiuta Richiesta">Si</button>
+											<button onclick="notrifiuta()"id="close" name="nonRifiuta"  type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button>
 									</form>
 									</div>
 								</div>
@@ -266,17 +265,17 @@
 			    } );
 			}); 
 			// Get the modal
-			var modal = document.getElementById("myModal");
+			var modalAccettazione = document.getElementById("myModalAccettazione");
 			var modalRifiuto = document.getElementById("myModalRifiuto");
 			// Get the button that opens the modal
-			var btn = document.getElementById("Accetta");
-			var btn2 = document.getElementById("Rifiuta");
+			var btnAccettazione = document.getElementById("Accetta");
+			var btnRifiuto = document.getElementById("Rifiuta");
 			// Get the <span> element that closes the modal
 			var span = document.getElementsByClassName("close")[0];
-			var span2 = document.getElementsByClassName("close")[0];
+		
 			// When the user clicks the button, open the modal 
-			btn.onclick = function() {
-			  modal.style.display = "block";
+			btnAccettazione.onclick = function() {
+			  modalAccettazione.style.display = "block";
 			 /* if(btn == email)
 				{	
 					showAlert();
@@ -288,22 +287,8 @@
 					return false;
 				}*/
 			}
-
-			// When the user clicks on <span> (x), close the modal
-			span.onclick = function() {
-			  modal.style.display = "none";
-			  toastr.error("Accettazione non effettuata");
-			}
-
-			// When the user clicks anywhere outside of the modal, close it
-			window.onclick = function(event) {
-			  if (event.target == modal) {
-			    modal.style.display = "none";
-			    toastr.error("Accettazione non effettuata");
-			  }
-			}
 			//Quando l'utente clicca sul tasto2 apri il modal
-			btn2.onclick = function() {
+			btnRifiuto.onclick = function() {
 			  modalRifiuto.style.display = "block";
 			 /* if(btn == email)
 				{	
@@ -316,31 +301,54 @@
 					return false;
 				}*/
 			}
-
 			// When the user clicks on <span> (x), close the modal
-			span2.onclick = function() {
-			  modalRifiuto.style.display = "none";
-			  toastr.error("Rifiuto non effettuato");
+			span.onclick = function() {
+			  modalAccettazione.style.display = "none";
+			  toastr.error("Operazione non effettuata");
 			}
-
+			
 			// When the user clicks anywhere outside of the modal, close it
 			window.onclick = function(event) {
-			  if (event.target == modal2) {
+			  if (event.target == modalAccettazione) {
+			    modalAccettazione.style.display = "none";
+			    toastr.error("Accettazione non effettuata");
+			  }
+			  if (event.target == modalRifiuto) {
 			    modalRifiuto.style.display = "none";
 			    toastr.error("Rifiuto non effettuato");
-			  }
 			}
+
+		}
 		</script>
 		<script>
 		function accetta()
 		{
 			toastr.success("Accettazione effettuata con successo");
+			document.getElementById("modalAccettaForm").action="../ServletGestioneRichiesteEnteET";
+			document.getElementById("modalAccettaForm").method="post";
+			document.getElementById("i").value=" ";
 		}
 		</script>
 		<script>
 		function notaccetta()
 		{
+			modalAccettazione.style.display = "none";
+			document.getElementById("modalAccettaForm").method="post";
 			toastr.error("Accettazione non effettuata");
+		}
+		</script>
+		<script>
+		function rifiuta()
+		{
+			toastr.success("Rifiuto effettuato con successo");
+		}
+		</script>
+		<script>
+		function notrifiuta()
+		{
+			modalRifiuto.style.display = "none";
+			toastr.error("Rifiuto non effettuato");
+			
 		}
 		</script>
 </body>
