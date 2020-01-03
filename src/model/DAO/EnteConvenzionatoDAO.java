@@ -180,7 +180,7 @@ public class EnteConvenzionatoDAO {
 				psUser.setString(1, enteConvenzionato.getEmail());
 				psUser.setString(2, enteConvenzionato.getName());
 				psUser.setString(3, enteConvenzionato.getSurname());
-				psUser.setString(4, " ");
+				psUser.setString(4, "N");
 				psUser.setString(5, enteConvenzionato.getPassword());
 				psUser.setString(6, enteConvenzionato.getEmail());
 				//Update per la Modifica in 'EnteConvenzionato' dei dati parziali di 'EnteConvenzionato'

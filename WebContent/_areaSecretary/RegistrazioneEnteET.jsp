@@ -155,7 +155,7 @@
 			const alphaNumRGX = /^[a-z A-Z 0-9]$/
 			const alphRGX = /^[a-z A-Z]$/
 			const dateRGX = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/
-			const enumRGX = /^[0-9]{1,3}$/
+			const enumRGX = /^d+$/
 			const mailRGX = /^[A-z0-9\.\+_-] +@[A-z0-9\._-]+\.[A-z]{2,6}$/
 			const numRGX = /^[0-9]{10}$/
 			/*LENGTH VALIDATION*/
