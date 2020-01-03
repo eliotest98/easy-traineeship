@@ -194,11 +194,13 @@
 								  <div class="modal-content">
 								    <span class="close"></span>
 								    <p>Sei sicuro di voler accettare la richiesta di Tirocinio?</p>
-								  		<form id="modalAccettaForm" >
-								  		 <input id="i" type="text" required>
+								  		<table>
+								  		<tr><td><form id="modalAccettaForm" action="../ServletGestioneRichiesteEnteET" method="post">
 								  		 <button onclick="accetta()"id="modalAccettaButton" name="accettaRichiesta" value="niente per il momento" type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Accetta Richiesta">Si</button>
-										 <button onclick="notaccetta()"id="close" name="nonAccetta" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button>
-										</form>
+								  		 </form></td>
+										 <td><button onclick="notaccetta()"id="close" name="nonAccetta" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button></td></tr>
+										</table>
+										
 									</div>
 								</div>
 								
@@ -324,8 +326,6 @@
 		function accetta()
 		{
 			toastr.success("Accettazione effettuata con successo");
-			document.getElementById("modalAccettaForm").action="../ServletGestioneRichiesteEnteET";
-			document.getElementById("modalAccettaForm").method="post";
 			document.getElementById("i").value=" ";
 		}
 		</script>
@@ -333,7 +333,6 @@
 		function notaccetta()
 		{
 			modalAccettazione.style.display = "none";
-			document.getElementById("modalAccettaForm").method="post";
 			toastr.error("Accettazione non effettuata");
 		}
 		</script>
