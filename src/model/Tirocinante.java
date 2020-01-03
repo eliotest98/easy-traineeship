@@ -5,151 +5,154 @@ import java.sql.Date;
 /*
  * Class.
  *
- * Questa classe va a rappresentare l'oggetto Tirocinante che nel seguente dominio applicativo raffigura il tirocinante che si presta al Tirocinio.
+ * Questa classe va a rappresentare l'oggetto Tirocinante che nel seguente dominio applicativo
+ * raffigura il tirocinante che si presta al Tirocinio.
  */
 public class Tirocinante extends Student {
-    private long matricola;
-    private String facolta;
-    private Date dataNascita;
-    private String luogoNascita;
-    private String cittadinanza;
-    private String residenza;
-    private String codiceFiscale;
-    private long telefono;
-    /**
-     * Contructor.
-     *
-     * @param matricola ï¿½ la chiave primaria del Tirocinante.
-     * @param facolta ï¿½ sempre informatica, ma è stato messo in caso di ampliamento del sistema.
-     * @param dataNascita è la data di nascita del Tirocinante.
-     * @param luogoNascita is the place of birth of the Tirocinante.
-     * @param cittadinanza è la cittadinanza del Tirocinante.
-     * @param residenza è la residenza del Tirocinante.
-     * @param codiceFiscale è il codice fiscale del Tirocinante.
-     * @param telefono + il numero di telefono del Tirocinante.
-     */
-    public Tirocinante(String email, String name, String surname, char sex, String password, int userType, long matricola, Date dataNascita, String luogoNascita, String cittadinanza, String residenza, String codiceFiscale, long telefono) {
-        super.setName(name);
-        super.setSurname(surname);
-        super.setPassword(password);
-        super.setSex(sex);
-        super.setUserType(userType);
-        super.setEmail(email);
-        this.matricola = matricola;
-        this.facolta = "Informatica";
-        this.dataNascita = dataNascita;
-        this.luogoNascita = luogoNascita;
-        this.cittadinanza = cittadinanza;
-        this.residenza = residenza;
-        this.codiceFiscale = codiceFiscale;
-        this.telefono = telefono;
-    }
+  private long matricola;
+  private String facolta;
+  private Date dataNascita;
+  private String luogoNascita;
+  private String cittadinanza;
+  private String residenza;
+  private String codiceFiscale;
+  private long telefono;
 
-	public Tirocinante() {
-    }
-	
-	public String getName() {
-		return super.getName();
-	}
+  /**
+   * Contructor.
+   *
+   * @param matricola ï¿½ la chiave primaria del Tirocinante.
+   * @param facolta ï¿½ sempre informatica, ma è stato messo in caso di ampliamento del sistema.
+   * @param dataNascita è la data di nascita del Tirocinante.
+   * @param luogoNascita is the place of birth of the Tirocinante.
+   * @param cittadinanza è la cittadinanza del Tirocinante.
+   * @param residenza è la residenza del Tirocinante.
+   * @param codiceFiscale è il codice fiscale del Tirocinante.
+   * @param telefono + il numero di telefono del Tirocinante.
+   */
+  public Tirocinante(String email, String name, String surname, char sex, String password,
+      int userType, long matricola, Date dataNascita, String luogoNascita, String cittadinanza,
+      String residenza, String codiceFiscale, long telefono) {
+    super.setName(name);
+    super.setSurname(surname);
+    super.setPassword(password);
+    super.setSex(sex);
+    super.setUserType(userType);
+    super.setEmail(email);
+    this.matricola = matricola;
+    this.facolta = "Informatica";
+    this.dataNascita = dataNascita;
+    this.luogoNascita = luogoNascita;
+    this.cittadinanza = cittadinanza;
+    this.residenza = residenza;
+    this.codiceFiscale = codiceFiscale;
+    this.telefono = telefono;
+  }
 
-	public void setName(String name) {
-		super.setName(name);
-	}
+  public Tirocinante() {}
 
-	public String getSurname() {
-		return super.getSurname();
-	}
+  public String getName() {
+    return super.getName();
+  }
 
-	public void setSurname(String surname) {
-		super.setSurname(surname);;
-	}
+  public void setName(String name) {
+    super.setName(name);
+  }
 
-	public char getSex() {
-		return super.getSex();
-	}
+  public String getSurname() {
+    return super.getSurname();
+  }
 
-	public void setSex(char sex) {
-		super.setSex(sex);;
-	}
+  public void setSurname(String surname) {
+    super.setSurname(surname);;
+  }
 
-	public String getPassword() {
-		return super.getPassword();
-	}
+  public char getSex() {
+    return super.getSex();
+  }
 
-	public void setPassword(String password) {
-		super.setPassword(password);
-	}
+  public void setSex(char sex) {
+    super.setSex(sex);;
+  }
 
-	public int getUserType() {
-		return super.getUserType();
-	}
+  public String getPassword() {
+    return super.getPassword();
+  }
 
-	public void setUserType(int userType) {
-		super.setUserType(userType);;
-	}
+  public void setPassword(String password) {
+    super.setPassword(password);
+  }
+
+  public int getUserType() {
+    return super.getUserType();
+  }
+
+  public void setUserType(int userType) {
+    super.setUserType(userType);;
+  }
 
 
-    public long getMatricola() {
-        return matricola;
-    }
+  public long getMatricola() {
+    return matricola;
+  }
 
-    public void setMatricola(long matricola) {
-        this.matricola = matricola;
-    }
+  public void setMatricola(long matricola) {
+    this.matricola = matricola;
+  }
 
-    public Date getDataNascita() {
-        return dataNascita;
-    }
+  public Date getDataNascita() {
+    return dataNascita;
+  }
 
-    public void setDataNascita(Date dataNascita) {
-        this.dataNascita = dataNascita;
-    }
+  public void setDataNascita(Date dataNascita) {
+    this.dataNascita = dataNascita;
+  }
 
-    public String getLuogoNascita() {
-        return luogoNascita;
-    }
+  public String getLuogoNascita() {
+    return luogoNascita;
+  }
 
-    public void setLuogoNascita(String luogoNascita) {
-        this.luogoNascita = luogoNascita;
-    }
+  public void setLuogoNascita(String luogoNascita) {
+    this.luogoNascita = luogoNascita;
+  }
 
-    public String getCittadinanza() {
-        return cittadinanza;
-    }
+  public String getCittadinanza() {
+    return cittadinanza;
+  }
 
-    public void setCittadinanza(String cittadinanza) {
-        this.cittadinanza = cittadinanza;
-    }
+  public void setCittadinanza(String cittadinanza) {
+    this.cittadinanza = cittadinanza;
+  }
 
-    public String getResidenza() {
-        return residenza;
-    }
+  public String getResidenza() {
+    return residenza;
+  }
 
-    public void setResidenza(String residenza) {
-        this.residenza = residenza;
-    }
+  public void setResidenza(String residenza) {
+    this.residenza = residenza;
+  }
 
-    public String getCodiceFiscale() {
-        return codiceFiscale;
-    }
+  public String getCodiceFiscale() {
+    return codiceFiscale;
+  }
 
-    public void setCodiceFiscale(String codiceFiscale) {
-        this.codiceFiscale = codiceFiscale;
-    }
+  public void setCodiceFiscale(String codiceFiscale) {
+    this.codiceFiscale = codiceFiscale;
+  }
 
-    public long getTelefono() {
-        return telefono;
-    }
+  public long getTelefono() {
+    return telefono;
+  }
 
-    public void setTelefono(long telefono) {
-        this.telefono = telefono;
-    }
+  public void setTelefono(long telefono) {
+    this.telefono = telefono;
+  }
 
-    public String getFacolta() {
-      return facolta;
-    }
+  public String getFacolta() {
+    return facolta;
+  }
 
-    public void setFacolta(String facolta) {
-      this.facolta = facolta;
-    }
+  public void setFacolta(String facolta) {
+    this.facolta = facolta;
+  }
 }

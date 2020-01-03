@@ -155,7 +155,7 @@
 								    <p>Sei sicuro di voler eliminare l'Ente?</p>
 								    <form id="signUp" action="./ServletEliminaEnteET" method="post">
 											<button onclick="elimina()"id="email" name="enteEmail"  value=<%=email %> type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Elimina Ente">Si</button>
-											<button onclick="notelimina()"id="close" name="enteEmail"  type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Elimina Ente">No</button>
+											<button onclick="notelimina()"id="close" name="enteEmail"  type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button>
 									</form>
 									</div>
 								
@@ -232,6 +232,7 @@
 			// When the user clicks on <span> (x), close the modal
 			span.onclick = function() {
 			  modal.style.display = "none";
+			  showAlert();
 			  toastr.error("Eliminazione non effettuata");
 			}
 
@@ -239,6 +240,7 @@
 			window.onclick = function(event) {
 			  if (event.target == modal) {
 			    modal.style.display = "none";
+			    showAlert();
 			    toastr.error("Eliminazione non effettuata");
 			  }
 			}
@@ -246,12 +248,14 @@
 		<script>
 		function elimina()
 		{
+			showAlert();
 			toastr.success("Eliminazione effettuata con successo");
 		}
 		</script>
 		<script>
 		function notelimina()
 		{
+			showAlert();
 			toastr.error("Eliminazione non effettuata");
 		}
 		</script>

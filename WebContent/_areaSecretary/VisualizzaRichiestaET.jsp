@@ -71,7 +71,7 @@
 											
 													<td class='text-center'><%=listaTirocini.get(i).getStatoTirocinio()%></td>
 													<td class="text-center" align="center">
-														<a disabled href='_areaSecretary/VisualizzaStatoTirocinioET.jsp?matricola=<%=listaTirocini.get(i).getMatricola()%>' class="btn btn-primary btn-action modificaEnte" title="Accetta/Rifiuta" data-idrequest="35"><i class="fa fa-eye"></i></a>
+														<a href='VisualizzaTirocinanteET.jsp?matricola=<%=listaTirocini.get(i).getMatricola()%>' class="btn btn-primary btn-action modificaEnte" title="Accetta/Rifiuta" data-idrequest="35"><i class="fa fa-eye"></i></a>
 													</td>
 												</tr>
 											<%
