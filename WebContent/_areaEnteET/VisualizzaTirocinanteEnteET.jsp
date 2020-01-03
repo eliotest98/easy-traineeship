@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="java.util.*,controller.ServletListaEnteET, model.Tirocinante, model.Tirocinio, controller.CheckSession" %>
+<%@ page import="java.util.*,controller.ServletVisualizzaTirocinanteEnteET, model.Tirocinante, model.Tirocinio, controller.CheckSession" %>
 <%
-	String pageName = "VisualizzaTirocinanteET.jsp";
-	String pageFolder = "_areaSecretary";
+	String pageName = "VisualizzaTirocinanteEnteET.jsp";
+	String pageFolder = "_areaEnteET";
 
 	CheckSession ck = new CheckSession(pageFolder, pageName, request.getSession());
-	//Prelevo dalla sessione la Segreteria
-	String Segreteria=" ";
-	Segreteria = (String) session.getAttribute("Segreteria");
+	//Prelevo dalla sessione l' EnteConvenzionato
+	String EnteConvenzionato=" ";
+	EnteConvenzionato = (String) session.getAttribute("EnteConvenzionato");
 	
 	//Prelevo la matricola e istanzio un tirocinante
 	long matricola = Long.valueOf(request.getParameter("matricola"));
@@ -21,7 +21,7 @@
 	{
 		request.setAttribute("matricola", matricola);
         RequestDispatcher dispatcher;
-        dispatcher = request.getRequestDispatcher("../ServletVisualizzaTirocinanteET");
+        dispatcher = request.getRequestDispatcher("../ServletVisualizzaTirocinanteEnteET");
         dispatcher.forward(request, response);
     }
 
@@ -102,81 +102,78 @@
 									<div class="panel">
 										<h2 class="text-center">Informazioni del Tirocinante</h2>
 									</div>
-									<form id="signUp"  name="modificaEnte"  action="../ServletModificaEnteET"
+									<form id="signUp"  name="modificaEnte"  action="../ServletGestioneRichiesteEnteET"
 										method="post">
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-											<label for="name">Matricola</label> <input type="text"
-												class="form-control" id="name" name="name"
-												placeholder="Nome Ente" value="0<%=tirocinante.getMatricola()%>" minlength="1" maxlength="64"
+											<label for="matricola">Matricola</label> <input type="text"
+												class="form-control" id="matricola" name="matricola"
+												placeholder="Matricola" value="0<%=tirocinante.getMatricola()%>" minlength="1" maxlength="64"
 												required disabled>
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-											<label for="partitaIva">Nome</label> <input type="tel"
-												oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-												class="form-control" placeholder="Partita IVA" value="<%=tirocinante.getName()%>"
-												name="partitaIva" id="partitaIva" size="11" required disabled>
+											<label for="name">Nome</label> <input type="text"
+												class="form-control" placeholder="Name" value="<%=tirocinante.getName()%>"
+												name="name" id="name" size="11" required disabled>
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-											<label for="email">Cognome</label> <input type="email"
-												class="form-control" id="email" name="email"
+											<label for="surname">Cognome</label> <input type="text"
+												class="form-control" id="surname" name="surname"
 												placeholder="Email" value="<%=tirocinante.getSurname()%>" minlength="3" maxlength="64" required disabled>
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-											<label for="sede">Data di Nascita</label> <input type="text"
-												class="form-control" id="sede" name="sede"
-												placeholder="Sede" value="<%=datanascita%>" minlength="1" maxlength="64" required disabled>
+											<label for="dataDiNascita">Data di Nascita</label> <input type="text"
+												class="form-control" id="dataDiNascita" name="dataDiNascita"
+												placeholder="Data di Nascita" value="<%=datanascita%>" minlength="1" maxlength="64" required disabled>
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-											<label for="telefono">Luogo di Nascita</label> <input
-												type="tel"
-												oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-												class="form-control" placeholder="Numero di Telefono" value="<%=tirocinante.getLuogoNascita()%>"
-												name="telefono" id="telefono" size="10" required disabled>
+											<label for="luogoDiNascita">Luogo di Nascita</label> 
+											<input	type="text" class="form-control" placeholder="Luogo di Nascita" value="<%=tirocinante.getLuogoNascita()%>"
+												name="luogoDiNascita" id="luogoDiNascita" size="10" required disabled>
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-											<label for="dipendenti">Cittadinanza</label> <input
+											<label for="cittadinanza">Cittadinanza</label> <input
 												type="text" class="form-control"
-												placeholder="Numero di Dipendenti" value="<%=tirocinante.getCittadinanza()%>" name="dipendenti"
-												id="dipendenti" required disabled>
+												placeholder="Cittadinanza" value="<%=tirocinante.getCittadinanza()%>" name="cittadinanza"
+												id="cittadinanza" required disabled>
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-											<label for="rappresentante">Facoltà</label> <input
-												type="text" class="form-control" id="rappresentante"
-												name="rappresentante" placeholder="Nome Rappresentante" value="Informatica"
+											<label for="facolta">Facolt&agrave;</label> <input
+												type="text" class="form-control" id="facolta"
+												name="facolta" placeholder="Facoltà" value="Informatica"
 												minlength="1" maxlength="64" required disabled>
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-											<label for="dataDiNascita">Sesso</label> <input type="text" class="form-control"
-												placeholder="Data di Nascita" value="<%=tirocinante.getSex()%>" name="dataDiNascita"
-												id="dataDiNascita" required disabled>
+											<label for="sesso">Sesso</label> <input type="text" class="form-control"
+												placeholder="Sesso" value="<%=tirocinante.getSex()%>" name="sesso"
+												id="sesso" required disabled>
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-											<label for="dotRiferimento">E-Mail</label>
-											<input type="text" class="form-control" id="dotRiferimento"
-												name="dotRiferimento"
-												placeholder="Professore di Riferimento" value="<%=tirocinante.getEmail()%>" minlength="1"
+											<label for="email">E-Mail</label>
+											<input type="email" class="form-control" id="email"
+												name="email" placeholder="email" value="<%=tirocinante.getEmail()%>" minlength="1"
 												maxlength="64" required disabled>
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-											<label for="referente">Residenza</label> <input
+											<label for="residenza">Residenza</label> <input
 												type="text" class="form-control"
-												placeholder="Referente Tirocini" value="<%=tirocinante.getResidenza()%>" minlength="1"
-												maxlength="64" name="referente" id="referente" required disabled>
+												placeholder="residenza" value="<%=tirocinante.getResidenza()%>" minlength="1"
+												maxlength="64" name="residenza" id="residenza" required disabled>
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-											<label for="descrizioneAttivita">Codice Fiscale</label>
+											<label for="codiceFiscale">Codice Fiscale</label>
 											<input type = "text" class="form-control"
-												placeholder="Descrizione delle Attivit&agrave;" value="<%=tirocinante.getCodiceFiscale()%>" minlength="1"
-												maxlength="256" name="descrizioneAttivita"
-												id="descrizioneAttivita" required disabled>
+												placeholder=" Codice Fiscale" value="<%=tirocinante.getCodiceFiscale()%>" minlength="1"
+												maxlength="256" name="codiceFiscale"
+												id="codiceFiscale" required disabled>
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-											<label for="descrizioneAttivita">Numero di Telefono</label>
-											<input type = "text" class="form-control"
-												placeholder="Descrizione delle Attivit&agrave;" value="<%=tirocinante.getTelefono()%>" minlength="1"
-												maxlength="256" name="descrizioneAttivita"
-												id="descrizioneAttivita" required disabled>
+											<label for="telefono">Numero di Telefono</label>
+											<input type = "tel" class="form-control"
+												placeholder="Numero di Telefono" value="<%=tirocinante.getTelefono()%>" minlength="1"
+												maxlength="256" name="telefono"
+												id="telefono" required disabled>
 										</div>
+										<!--  Campo CFU conseguiti prelevato da Tirocinio -->
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="cfu">CFU Conseguiti</label>
 											<input type = "text" class="form-control"
@@ -184,6 +181,37 @@
 												maxlength="3" name="cfuConseguiti"
 												id="cfu" required disabled>
 										</div>
+										<!-- Campo Competenze Possedute Prelevato da Tirocinio -->
+										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        	<label for="competenzePossedute">Competenze Possedute</label>
+                                        	<input type="text" class="form-control" name="competenzePossedute" id="competenzePossedute"
+                                               placeholder="Competenze Possedute" value="<%=tirocinio.getCompetenze()%>" maxlength="256" required disabled>
+                                   		</div>
+                                   		<!-- Campo competenze da acquisire Prelevato da Tirocinio-->
+                                    	<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        	<label for="competenzeDaAcquisire">Competenze da Acquisire</label>
+                                        	<input type="text" class="form-control" name="competenzeDaAcquisire" id="competenzeDaAcquisire"
+                                               placeholder="Competenze da Acquisire" value="<%=tirocinio.getCompetenzeAcquisire()%>" maxlength="256" required disabled>
+                                    	</div>
+                                    	<!-- Campo Modalita svolgimento tirocinio, prelevato da Tirocinio-->
+                                    	<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                        	<label for="modalitaTirocinio">Modalit&agrave; svolgimento Tirocinio</label>
+                                        	<input type="text" class="form-control" name="modalitaTirocinio" id="modalitaTirocinio" 
+                                        	   placeholder="Svolgimento" value="<%=tirocinio.getSvolgimentoTirocinio()%>" maxlength="256" required disabled>
+                                    	</div>
+                                    	<!-- Campo attivita previste, prelevato da Tirocinio -->
+	                                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+	                                        <label for="attivitaPreviste">Attivit&agrave; previste</label>
+	                                        <input type="text" class="form-control" name="attivitaPreviste" id="attivitaPreviste"
+	                                         	placeholder=".." value="<%=tirocinio.getAttivitaPreviste() %>" maxlength="256" required disabled>
+	                                    </div>
+	                                    <!-- Campo Descrizione, prelevato da Tirocinio -->
+	                                    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+											<label for="descrizione">Descrizione</label>
+											 <input	type="text" class="form-control" name="descrizione" id="descrizione"  minlength="1"
+											 	placeholder="Descrizione" value="<%=tirocinio.getDescrizioneEnte()%>" maxlength="256" required disabled>
+											</div>
+										<!-- Tasti Accetta / Rifuta -->
 										<div
 											class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
 											<button id="Accetta" type="submit" class="btn btn-primary btn-submit" title="Accetta" data-idrequest="35">Accetta</button>
@@ -201,9 +229,6 @@
 								    <span class="close">&times;</span>
 								    <p>Sei sicuro di voler accettare la richiesta di Tirocinio?</p>
 								    <form id="signUp" action="../ServletGestioneRichiesteSegreteriaET" method="post">
-											<textarea class="form-control"  rows="3"
-												placeholder="Motivazione del Rifiuto;" name="motivazioneRifiuto"
-												id="motivazioneRifiuto" required></textarea>
 											<button onclick="accetta()"id="Accetta" name="enteEmail"  value="niente per il momento" type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Accetta Richiesta">Si</button>
 											<button onclick="notaccetta()"id="close" name="enteEmail"  type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button>
 									</form>
@@ -281,7 +306,6 @@
 			// When the user clicks on <span> (x), close the modal
 			span.onclick = function() {
 			  modal.style.display = "none";
-			  showAlert();
 			  toastr.error("Accettazione non effettuata");
 			}
 
@@ -289,7 +313,6 @@
 			window.onclick = function(event) {
 			  if (event.target == modal) {
 			    modal.style.display = "none";
-			    showAlert();
 			    toastr.error("Accettazione non effettuata");
 			  }
 			}
@@ -297,14 +320,12 @@
 		<script>
 		function accetta()
 		{
-			showAlert();
 			toastr.success("Accettazione effettuata con successo");
 		}
 		</script>
 		<script>
 		function notaccetta()
 		{
-			showAlert();
 			toastr.error("Accettazione non effettuata");
 		}
 		</script>
