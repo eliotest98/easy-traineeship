@@ -201,6 +201,9 @@
 								    <span class="close">&times;</span>
 								    <p>Sei sicuro di voler accettare la richiesta di Tirocinio?</p>
 								    <form id="signUp" action="../ServletGestioneRichiesteSegreteriaET" method="post">
+											<textarea class="form-control"  rows="3"
+												placeholder="Motivazione del Rifiuto;" name="motivazioneRifiuto"
+												id="motivazioneRifiuto" required></textarea>
 											<button onclick="accetta()"id="Accetta" name="enteEmail"  value="niente per il momento" type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Accetta Richiesta">Si</button>
 											<button onclick="notaccetta()"id="close" name="enteEmail"  type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button>
 									</form>
