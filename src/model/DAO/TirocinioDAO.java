@@ -350,6 +350,7 @@ public class TirocinioDAO {
 		Tirocinio tirocinio=null;
 		Connection con = null; //variabile per la connesione del DB
 		PreparedStatement ps = null;// Creazione oggetto Statement
+		PreparedStatement psView = null;
 		PreparedStatement psViewClose = null;
 		//ArrayLista di tipo Tirocinio
 		try 
