@@ -45,26 +45,24 @@
 									%>
 									<h2 class="centro">PROGETTO FORMATIVO:</h2>
 									<div class="pf">
-										<span><b>Nome: </b><%=tirocinante.getName()%></span><br> 
-										<span><b>Cognome: </b>
-											<%=tirocinante.getSurname()%></span><br> 
-										<span><b>Matricola: </b>
-											<%=tirocinante.getMatricola()%></span><br> 
-										<span><b>Facolt&agrave;: </b>
-											<%=tirocinante.getFacolta()%></span><br> 
+										<span><b>Nome: </b><%=tirocinante.getName()%></span><br>
+										<span><b>Cognome: </b> <%=tirocinante.getSurname()%></span><br>
+										<span><b>Matricola: </b> <%=tirocinante.getMatricola()%></span><br>
+										<span><b>Facolt&agrave;: </b> <%=tirocinante.getFacolta()%></span><br>
 										<span><b>E-mail: </b><%=tirocinante.getEmail()%></span><br>
 										<span><b>Crediti previsti: </b><%=lista.get(0).getCfuPrevisti()%></span><br>
-										<span><b>Indicazione delle attivit&agrave; formative
-											previste:</b><br> <%=lista.get(0).getAttivitaPreviste()%></span><br>
-										<span><b>Indicazione
-											delle modalit&agrave; di svolgimento del Tirocinio:</b><br>
-											<%=lista.get(0).getSvolgimentoTirocinio()%></span><br>
+										<span><b>Indicazione delle attivit&agrave;
+												formative previste:</b><br> <%=lista.get(0).getAttivitaPreviste()%></span><br>
+										<span><b>Indicazione delle modalit&agrave; di
+												svolgimento del Tirocinio:</b><br> <%=lista.get(0).getSvolgimentoTirocinio()%></span><br>
 									</div>
 									<div class="centro">
 										<button onclick="mostraStato()" class="buttonET">
 											<p id="cambia">MOSTRA STATO TIROCINIO</p>
 										</button>
-										<p id="qui" style="display: none;"><%=lista.get(0).getStatoTirocinio()%></p>
+										<p id="qui" style="display: none;">
+											<b><%=lista.get(0).getStatoTirocinio().toUpperCase()%></b>
+										</p>
 									</div>
 									<br>
 									<%
