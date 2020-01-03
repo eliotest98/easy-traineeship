@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Admin;
 import model.Secretary;
 import model.Student;
+import model.Tirocinante;
 import model.EnteConvenzionato;
 import org.json.simple.JSONObject;
 

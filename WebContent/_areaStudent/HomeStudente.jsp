@@ -5,13 +5,8 @@
 	String pageName = "HomeStudente.jsp";
 	String pageFolder = "_areaStudent";
 
-    //Per prelevare l'utente dalla sessione e precompilare i campi.
+    //Per prelevare l'utente dalla sessione.
     Student user = (Student)request.getSession().getAttribute("user");
-    Tirocinante tirocinante = (Tirocinante)request.getSession().getAttribute("Tirocinante");
-    //Per completare i campi di tirocinio
-    Tirocinio t = (Tirocinio)request.getSession().getAttribute("ProgettoFormativo");
-    //Per vedere chi è in sessione.
-    int resp = Integer.parseInt((String)request.getSession().getAttribute("userET"));
 
 %>
 <!DOCTYPE html>
@@ -43,7 +38,7 @@
 										<h4>Dove vuoi navigare?</h4><br>
 										<a href="../_areaStudent/viewRequest.jsp" class="linkET"><button class="buttonET">Richieste effettuate per la convalida dei CFU</button></a><br><br>
 										<a href="" class="linkET"><button class="buttonET" disabled>Richieste effettuate per il Tirocinio Esterno</button></a><br><br>
-										<a href="../_areaStudent/StatoProprioTirocinioET.jsp" class="linkET"><button class="buttonET">Controlla lo stato del TUO Tirocinio!</button></a><br><br>
+										<a href="../ServletStatoTirocinanteET" class="linkET"><button class="buttonET">Controlla lo stato del TUO Tirocinio!</button></a><br><br>
 									</div>
 								</div>
 							</div>
