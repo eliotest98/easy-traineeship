@@ -305,6 +305,7 @@
 		<script>
 		function accetta()
 		{
+			showAlert();
 			toastr.success("Accettazione effettuata con successo");
 			document.getElementById("i").value=" ";
 		}

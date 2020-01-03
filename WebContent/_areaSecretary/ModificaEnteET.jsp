@@ -31,7 +31,7 @@
 </head>
 
 <body onLoad="">
-	<div class="page-wrapper" id="registrazioneEnte">
+	<div class="page-wrapper" id="modificaEnte">
 
 		<!-- Preloader -->
 		<!-- <div class="preloader"></div>  -->
@@ -89,7 +89,7 @@
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="dipendenti">Numero Dipendenti</label> <input
-												type="text" class="form-control"
+												type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control"
 												placeholder="Numero di Dipendenti" value="<%=listaEnti.get(i).getDipendenti() %>" name="dipendenti"
 												id="dipendenti" required pattern="[0-9]{1,64}">
 										</div>
@@ -127,7 +127,7 @@
 										</div>
 										<div
 											class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-											<button onclick="myScript()" type="submit" class="btn btn-primary btn-submit">Modifica
+											<button onclick="return validate()"  class="btn btn-primary btn-submit">Modifica
 												Ente</button>
 										</div>
 										<div class="clearfix"></div>
@@ -146,147 +146,186 @@
 	<!--!!!!!!!!CAUSA ERRORI!!!!!!!!!!!-->
  	<!--<jsp:include page="/partials/includes.jsp" />-->
 	<script>
-	function myScript()
-	{
-		toastr.success("Modifica effettuata con successo");
-	}
-	</script>
-	<script>
-	/*Form Input Values*/
-	const form = document.forms["modificaEnte"];
-	const name = document.forms["modificaEnte"]["name"].value;
-	const partitaIva = document.forms["modificaEnte"]["partitaIva"].value;
-	const email = document.forms["modificaEnte"]["email"].value;
-	const sede = document.forms["modificaEnte"]["sede"].value;
-	const telefono = document.forms["modificaEnte"]["telefono"].value;
-	const dipendenti = document.forms["modificaEnte"]["dipendenti"].value;
-	const rappresentante = document.forms["modificaEnte"]["rappresentante"].value;
-	const dataDiNascita = document.forms["modificaEnte"]["dataDiNascita"].value;
-	const dotRiferimento = document.forms["modificaEnte"]["dotRiferimento"].value;
-	const referente = document.forms["modificaEnte"]["referente"].value;
-	const descrizioneAttivita = document.forms["modificaEnte"]["descrizioneAttivita"];
-	/*REGEX Values*/
-	const alphaNumRGX = /^[a-z A-Z 0-9]$/
-	const alphRGX = /^[a-z A-Z]$/
-	const dateRGX = /^[1-9]{2}/ [1-9]{2}/[0-9]{4}$/
-	const enumRGX = /^[0-9]$/
-	const mailRGX = /^[A-z0-9\.\+_-] +@[A-z0-9\._-]+\.[A-z]{2,6}$/
-	const numRGX = /^[0-9]{10}$/
 	/*This function validate form inputs*/
 	function validate() {
+		/*Form Input Values*/
+		const form = document.forms["modificaEnte"];
+		const name = document.forms["modificaEnte"]["name"].value;
+		const partitaIva = document.forms["modificaEnte"]["partitaIva"].value;
+		const email = document.forms["modificaEnte"]["email"].value;
+		const sede = document.forms["modificaEnte"]["sede"].value;
+		const telefono = document.forms["modificaEnte"]["telefono"].value;
+		const dipendenti = document.forms["modificaEnte"]["dipendenti"].value;
+		const rappresentante = document.forms["modificaEnte"]["rappresentante"].value;
+		const dataDiNascita = document.forms["modificaEnte"]["dataDiNascita"].value;
+		const dotRiferimento = document.forms["modificaEnte"]["dotRiferimento"].value;
+		const referente = document.forms["modificaEnte"]["referente"].value;
+		const descrizioneAttivita = document.forms["modificaEnte"]["descrizioneAttivita"];
+		/*REGEX Values*/
+		const alphaNumRGX = /^[a-z A-Z 0-9]$/
+		const alphRGX = /^[a-z A-Z]$/
+		const dateRGX = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/
+		const enumRGX = /^d+$/
+		const mailRGX = /^[A-z0-9\.\+_-] +@[A-z0-9\._-]+\.[A-z]{2,6}$/
+		const numRGX = /^[0-9]{10}$/
 		/*LENGTH VALIDATION*/
 		if (name.length <= 0 || name.length > 64) // Check Length
 		{
-			toastr.error("Lunghezza non rispettata")
+			showAlert();
+			toastr.error("Lunghezza del Nome non rispettata")
+			toastr.error("Modifica non effettuata")
 			return false;
 		}
-		if (partitaIva.length != 11) // Check Length
+		if (partitaIva.length <= 0 || partitaIva.length > 11) // Check Length
 		{
-			toastr.error("Lunghezza non rispettata")
+			showAlert();
+			toastr.error("Lunghezza della Partita Iva non rispettata")
+			toastr.error("Modifica non effettuata")
 			return false;
 		}
 		if (email.length <= 0 || email.length > 64) // Check Length
 		{
-			toastr.error("Lunghezza non rispettata")
+			showAlert();
+			toastr.error("Lunghezza dell'Email non rispettata")
+			toastr.error("Modifica non effettuata")
 			return false;
 		}
 		if (sede.length <= 0 || sede.length > 64) // Check Length
 		{
-			toastr.error("Lunghezza non rispettata")
+			showAlert();
+			toastr.error("Lunghezza della Sede non rispettata")
+		    toastr.error("Modifica non effettuata")
 			return false;
 		}
 		if (telefono.length <= 0 || telefono.length > 64) // Check Length
 		{
-			toastr.error("Lunghezza non rispettata")
+			showAlert();
+			toastr.error("Modifica non effettuata")
+			toastr.error("Lunghezza del Telefono non rispettata")
 			return false;
 		}
 		if (dipendenti.length <= 0 || dipendenti.length > 64) // Check Length
 		{
-			toastr.error("Lunghezza non rispettata")
+			showAlert();
+			toastr.error("Modifica non effettuata")
+			toastr.error("Lunghezza dei Dipendenti non rispettata")
 			return false;
 		}
 		if (rappresentante.length <= 0 || rappresentante.length > 64) // Check Length
 		{
-			toastr.error("Lunghezza non rispettata")
+			showAlert();
+			toastr.error("Modifica non effettuata")
+			toastr.error("Lunghezza del Rappresentante non rispettata")
 			return false;
 		}
 		if (dataDiNascita.length <= 0 || dataDiNascita.length > 64) // Check Length
 		{
-			toastr.error("Lunghezza non rispettata")
+			showAlert();
+			toastr.error("Modifica non effettuata")
+			toastr.error("Lunghezza della Data Di Nascita non rispettata")
 			return false;
 		}
 		if (dotRiferimento.length <= 0 || dotRiferimento.length > 64) // Check Length
 		{
-			toastr.error("Lunghezza non rispettata")
+			showAlert();
+			toastr.error("Modifica non effettuata")
+			toastr.error("Lunghezza del Dottore di Riferimento non rispettata")
 			return false;
 		}
 		if (referente.length <= 0 || referente.length > 64) // Check Length
 		{
-			toastr.error("Lunghezza non rispettata")
+			showAlert();
+			toastr.error("Modifica non effettuata")
+			toastr.error("Lunghezza del Referente non rispettata")
 			return false;
 		}
 		if (descrizioneAttivita.length <= 0 || descrizioneAttivita.length > 64) // Check Length
 		{
-			toastr.error("Lunghezza non rispettata")
+			showAlert();
+			toastr.error("Modifica non effettuata")
+			toastr.error("Lunghezza  della Descrizione Attività non rispettata")
 			return false;
 		}
 		/*FORMAT VALIDATION*/
-		if (!alphRGX.test(name)) // Check Format
+		if (alphRGX.test(name)) // Check Format
 		{
-			toastr.error("Formato non rispettato")
+			showAlert();
+			toastr.error("Modifica non effettuata")
+			toastr.error("Formato del Nome non rispettato")
 			return false;
 		}
-		if (!numRGX.test(partitaIva)) // Check Format
+		if (numRGX.test(partitaIva)) // Check Format
 		{
-			toastr.error("Formato non rispettato")
+			showAlert();
+			toastr.error("Modifica non effettuata")
+			toastr.error("Formato della Partita Iva non rispettato")
 			return false;
 		}
-		if (!mailRGX.test(email)) // Check Format
+		if (mailRGX.test(email)) // Check Format
 		{
-			toastr.error("Formato non rispettato")
+			showAlert();
+			toastr.error("Modifica non effettuata")
+			toastr.error("Formato dell'Email non rispettato")
 			return false;
 		}
-		if (!alphRGX.test(sede)) // Check Format
+		if (alphRGX.test(sede)) // Check Format
 		{
-			toastr.error("Formato non rispettato")
+			showAlert();
+			toastr.error("Modifica non effettuata")
+			toastr.error("Formato della Sede non rispettato")
 			return false;
 		}
 		if (!numRGX.test(telefono)) // Check Format
 		{
-			toastr.error("Formato non rispettato")
+			showAlert();
+			toastr.error("Modifica non effettuata")
+			toastr.error("Formato del Telefono non rispettato")
 			return false;
 		}
-		if (!enumRGX.test(dipendenti)) // Check Format
+		if (enumRGX.test(dipendenti)) // Check Format
 		{
-			toastr.error("Formato non rispettato")
+			showAlert();
+			toastr.error("Modifica non effettuata")
+			toastr.error("Formato dei Dipendenti non rispettato")
 			return false;
 		}
-		if (!alphRGX.test(rappresentante)) // Check Format
+		if (alphRGX.test(rappresentante)) // Check Format
 		{
-			toastr.error("Formato non rispettato")
+			showAlert();
+			toastr.error("Modifica non effettuata")
+			toastr.error("Formato del Rappresentante non rispettato")
 			return false;
 		}
 		if (!dateRGX.test(dataDiNascita)) // Check Format
 		{
-			toastr.error("Formato non rispettato")
+			showAlert();
+			toastr.error("Modifica non effettuata")
+			toastr.error("Formato della Data di Nascita non rispettato")
 			return false;
 		}
-		if (!alphRGX.test(dotRiferimento)) // Check Format
+		if (alphRGX.test(dotRiferimento)) // Check Format
 		{
-			toastr.error("Formato non rispettato")
+			showAlert();
+			toastr.error("Modifica non effettuata")
+			toastr.error("Formato del Dottore di Riferimento non rispettato")
 			return false;
 		}
-		if (!alphRGX.test(referente)) // Check Format
+		if (alphRGX.test(referente)) // Check Format
 		{
-			toastr.error("Formato non rispettato")
+			showAlert();
+			toastr.error("Modifica non effettuata")
+			toastr.error("Formato del Referente non rispettato")
 			return false;
 		}
-		if (!alphaNumRGX.test(descrizioneAttivita)) // Check Format
+		if (alphaNumRGX.test(descrizioneAttivita)) // Check Format
 		{
-			toastr.error("Formato non rispettato")
+			showAlert();
+			toastr.error("Modifica non effettuata")
+			toastr.error("Formato della Descrizione Attivita non rispettato")
 			return false;
 		}
-
+		showAlert();
+		toastr.success("Modifica  effettuata")
 		return true
 	}
 	</script>
