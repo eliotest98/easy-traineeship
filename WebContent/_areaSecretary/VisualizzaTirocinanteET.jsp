@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ page import="java.util.*,controller.ServletListaEnteET, model.Tirocinante, model.Tirocinio, controller.CheckSession" %>
+    pageEncoding="UTF-8"%>
+<%@ page import="java.util.*,controller.ServletVisualizzaTirocinanteEnteET, model.Tirocinante, model.Tirocinio, controller.CheckSession" %>
 <%
-	String pageName = "VisualizzaTirocinanteET.jsp";
-	String pageFolder = "_areaSecretary";
+	String pageName = "VisualizzaTirocinanteEnteET.jsp";
+	String pageFolder = "_areaEnteET";
 
 	CheckSession ck = new CheckSession(pageFolder, pageName, request.getSession());
-	//Prelevo dalla sessione la Segreteria
-	String Segreteria=" ";
-	Segreteria = (String) session.getAttribute("Segreteria");
+	//Prelevo dalla sessione l' EnteConvenzionato
+	String EnteConvenzionato=" ";
+	EnteConvenzionato = (String) session.getAttribute("EnteConvenzionato");
 	
 	//Prelevo la matricola e istanzio un tirocinante
 	long matricola = Long.valueOf(request.getParameter("matricola"));
@@ -21,7 +21,7 @@
 	{
 		request.setAttribute("matricola", matricola);
         RequestDispatcher dispatcher;
-        dispatcher = request.getRequestDispatcher("../ServletVisualizzaTirocinanteET");
+        dispatcher = request.getRequestDispatcher("../ServletVisualizzaTirocinanteEnteET");
         dispatcher.forward(request, response);
     }
 
@@ -89,7 +89,7 @@
 								<div
 									class="col-lg-6 col-md-6 col-sm-12 col-xs-12 signUp-container">
 								<%
-								//Se la listaEnti non è null mostro la tabella
+								//Se la listaEnti non Ã¨ null mostro la tabella
 								if(tirocinante!=null)
 								{
 									Date giorno = tirocinante.getDataNascita();
@@ -102,110 +102,101 @@
 									<div class="panel">
 										<h2 class="text-center">Informazioni del Tirocinante</h2>
 									</div>
-									<form id="signUp"  name="modificaEnte"  action="../ServletModificaEnteET"
-										method="post">
+									
+								<!-- 	<form id="signUp"  name="modificaEnte"  action="../ServletGestioneRichiesteEnteET"
+										method="post"> -->
+										<!-- Campo Matricola -->
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-											<label for="name">Matricola</label> <input type="text"
-												class="form-control" id="name" name="name"
-												placeholder="Nome Ente" value="0<%=tirocinante.getMatricola()%>" minlength="1" maxlength="64"
-												required disabled>
-										</div>
+									    	<strong>Matricola </strong>  <% out.println( "<br>" + "0" +tirocinante.getMatricola()); %>
+									    </div>
+									    <!-- Campo Facolta -->
+									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									    	<strong>Facolt&agrave; </strong>  <% out.println( "<br>"+ "Informatica"); %>
+									    </div>
+									    <!-- Campo Nome -->
+									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									    	<strong>Nome </strong>  <% out.println( "<br>"+ tirocinante.getName()); %>
+									    </div>
+									    <!--  Campo Cognome -->
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-											<label for="partitaIva">Nome</label> <input type="tel"
-												oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-												class="form-control" placeholder="Partita IVA" value="<%=tirocinante.getName()%>"
-												name="partitaIva" id="partitaIva" size="11" required disabled>
-										</div>
-										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-											<label for="email">Cognome</label> <input type="email"
-												class="form-control" id="email" name="email"
-												placeholder="Email" value="<%=tirocinante.getSurname()%>" minlength="3" maxlength="64" required disabled>
-										</div>
-										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-											<label for="sede">Data di Nascita</label> <input type="text"
-												class="form-control" id="sede" name="sede"
-												placeholder="Sede" value="<%=datanascita%>" minlength="1" maxlength="64" required disabled>
-										</div>
-										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-											<label for="telefono">Luogo di Nascita</label> <input
-												type="tel"
-												oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-												class="form-control" placeholder="Numero di Telefono" value="<%=tirocinante.getLuogoNascita()%>"
-												name="telefono" id="telefono" size="10" required disabled>
-										</div>
-										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-											<label for="dipendenti">Cittadinanza</label> <input
-												type="text" class="form-control"
-												placeholder="Numero di Dipendenti" value="<%=tirocinante.getCittadinanza()%>" name="dipendenti"
-												id="dipendenti" required disabled>
-										</div>
-										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-											<label for="rappresentante">Facoltà</label> <input
-												type="text" class="form-control" id="rappresentante"
-												name="rappresentante" placeholder="Nome Rappresentante" value="Informatica"
-												minlength="1" maxlength="64" required disabled>
-										</div>
-										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-											<label for="dataDiNascita">Sesso</label> <input type="text" class="form-control"
-												placeholder="Data di Nascita" value="<%=tirocinante.getSex()%>" name="dataDiNascita"
-												id="dataDiNascita" required disabled>
-										</div>
-										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-											<label for="dotRiferimento">E-Mail</label>
-											<input type="text" class="form-control" id="dotRiferimento"
-												name="dotRiferimento"
-												placeholder="Professore di Riferimento" value="<%=tirocinante.getEmail()%>" minlength="1"
-												maxlength="64" required disabled>
-										</div>
-										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-											<label for="referente">Residenza</label> <input
-												type="text" class="form-control"
-												placeholder="Referente Tirocini" value="<%=tirocinante.getResidenza()%>" minlength="1"
-												maxlength="64" name="referente" id="referente" required disabled>
-										</div>
-										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-											<label for="descrizioneAttivita">Codice Fiscale</label>
-											<input type = "text" class="form-control"
-												placeholder="Descrizione delle Attivit&agrave;" value="<%=tirocinante.getCodiceFiscale()%>" minlength="1"
-												maxlength="256" name="descrizioneAttivita"
-												id="descrizioneAttivita" required disabled>
-										</div>
-										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-											<label for="descrizioneAttivita">Numero di Telefono</label>
-											<input type = "text" class="form-control"
-												placeholder="Descrizione delle Attivit&agrave;" value="<%=tirocinante.getTelefono()%>" minlength="1"
-												maxlength="256" name="descrizioneAttivita"
-												id="descrizioneAttivita" required disabled>
-										</div>
-										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-											<label for="cfu">CFU Conseguiti</label>
-											<input type = "text" class="form-control"
-												placeholder="CFU Conseguiti" value="<%=tirocinio.getCfuPrevisti()%>" minlength="1"
-												maxlength="3" name="cfuConseguiti"
-												id="cfu" required disabled>
-										</div>
+									    	<strong>Cognome </strong>  <% out.println( "<br>"+ tirocinante.getSurname()); %>
+									    </div>
+									    <!-- Campo data di nascita -->
+									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									    	<strong>Data di nascita </strong>  <% out.println( "<br>"+ datanascita); %>
+									    </div>
+									    <!--  Campo luogo di nascita -->
+									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									    	<strong>Luogo di Nascita </strong>  <% out.println( "<br>"+ tirocinante.getLuogoNascita()); %>
+									    </div>
+									    <!--  Campo Cittadinanza -->
+									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									    	<strong>Cittadinanza </strong>  <% out.println( "<br>"+ tirocinante.getCittadinanza()); %>
+									    </div>
+									    <!--  Campo Sesso -->
+									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									    	<strong>Sesso </strong>  <% out.println( "<br>"+ tirocinante.getSex()); %>
+									    </div>
+									    <!-- Campo E-mail -->
+									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									    	<strong>E-Mail </strong>  <% out.println( "<br>"+ tirocinante.getEmail()); %>
+									    </div>
+									    <!--  Campo Residenza -->
+									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									    	<strong>Residenza </strong>  <% out.println( "<br>"+ tirocinante.getResidenza()); %>
+									    </div>
+									    <!--  Campo Codice Fiscale -->
+									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									    	<strong>Codice Fiscale </strong>  <% out.println( "<br>"+ tirocinante.getCodiceFiscale()); %>
+									    </div>
+									    <!--  Campo Numero di Telefono -->
+									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									    	<strong>Numero di Telefono </strong>  <% out.println( "<br>"+ tirocinante.getTelefono()); %>
+									    </div>
+									    <!--  Campo CFU -->
+									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									    	<strong>CFU Conseguiti </strong>  <% out.println( "<br>"+ tirocinio.getCfuPrevisti()); %>
+									    </div>
+										<!-- Tasti Accetta / Rifuta -->
 										<div
 											class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
 											<button id="Accetta" type="submit" class="btn btn-primary btn-submit" title="Accetta" data-idrequest="35">Accetta</button>
 											<button id="Rifiuta" type="submit" class="btn btn-primary btn-submit" title="Rifiuta" data-idrequest="35">Rifiuta</button>														
 										</div>
 										<div class="clearfix"></div>
-									</form>
+								<!-- 	</form> -->
 								<%}%>
 								
-								<!-- The Modal -->
-								<div id="myModal" class="modal">
+								<!-- Modal Accettazione -->
+								<div id="myModalAccettazione" class="modal">
 								
 								  <!-- Modal content -->
 								  <div class="modal-content">
-								    <span class="close">&times;</span>
+								    <span class="close"></span>
 								    <p>Sei sicuro di voler accettare la richiesta di Tirocinio?</p>
-								    <form id="signUp" action="../ServletGestioneRichiesteSegreteriaET" method="post">
-											<textarea class="form-control"  rows="3"
-												placeholder="Motivazione del Rifiuto;" name="motivazioneRifiuto"
-												id="motivazioneRifiuto" required></textarea>
-											<button onclick="accetta()"id="Accetta" name="enteEmail"  value="niente per il momento" type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Accetta Richiesta">Si</button>
-											<button onclick="notaccetta()"id="close" name="enteEmail"  type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button>
+								  		<table>
+								  		<tr><td><form id="modalAccettaForm" action="../ServletGestioneRichiesteSegreteriaET" method="post">
+								  		 <button onclick="accetta()"id="modalAccettaButton" name="accettaRichiesta" value="niente per il momento" type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Accetta Richiesta">Si</button>
+								  		 </form></td>
+										 <td><button onclick="notaccetta()"id="close" name="nonAccetta" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button></td></tr>
+										</table>
+										
+									</div>
+								</div>
+								
+								<!-- The Modal Rifiuto -->
+								<div id="myModalRifiuto" class="modal">
+								
+								 <!-- Modal content -->
+								 <div class="modal-content">
+								    <span class="close"></span>
+								    <p>Sei sicuro di voler rifiutare la richiesta di Tirocinio?</p>
+								    <form id="modalRifiutoForm" action="../ServletGestioneRichiesteSegreteriaET" method="post">
+											<label for="nome">Inserisci Motivazione</label> 
+											<input type="text" class="form-control" id="motivazione" name="motivazione" placeholder="Motivazione del Rifiuto" minlength="1" maxlength="256" required>
+									
+											<button onclick="rifiuta()"id="rifiuta" name="rifiutaRichiesta"  value="niente per il momento" type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Rifiuta Richiesta">Si</button>
+											<button onclick="notrifiuta()"id="close" name="nonRifiuta"  type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button>
 									</form>
 									</div>
 								</div>
@@ -254,19 +245,20 @@
 
 			        }        
 			    } );
-			});// Get the modal
-			var modal = document.getElementById("myModal");
-
+			}); 
+			// Get the modal
+			var modalAccettazione = document.getElementById("myModalAccettazione");
+			var modalRifiuto = document.getElementById("myModalRifiuto");
 			// Get the button that opens the modal
-			var btn = document.getElementById("Accetta");
-
+			var btnAccettazione = document.getElementById("Accetta");
+			var btnRifiuto = document.getElementById("Rifiuta");
 			// Get the <span> element that closes the modal
 			var span = document.getElementsByClassName("close")[0];
-
+		
 			// When the user clicks the button, open the modal 
-			btn.onclick = function() {
-			  modal.style.display = "block";
-			  if(btn == email)
+			btnAccettazione.onclick = function() {
+			  modalAccettazione.style.display = "block";
+			 /* if(btn == email)
 				{	
 					showAlert();
 					return true;
@@ -275,33 +267,67 @@
 				{
 					showAlert();
 					return false;
-				}
+				}*/
 			}
-
+			//Quando l'utente clicca sul tasto2 apri il modal
+			btnRifiuto.onclick = function() {
+			  modalRifiuto.style.display = "block";
+			 /* if(btn == email)
+				{	
+					showAlert();
+					return true;
+				}
+				else
+				{
+					showAlert();
+					return false;
+				}*/
+			}
 			// When the user clicks on <span> (x), close the modal
 			span.onclick = function() {
-			  modal.style.display = "none";
-			  toastr.error("Accettazione non effettuata");
+			  modalAccettazione.style.display = "none";
+			  toastr.error("Operazione non effettuata");
 			}
-
+			
 			// When the user clicks anywhere outside of the modal, close it
 			window.onclick = function(event) {
-			  if (event.target == modal) {
-			    modal.style.display = "none";
+			  if (event.target == modalAccettazione) {
+			    modalAccettazione.style.display = "none";
 			    toastr.error("Accettazione non effettuata");
 			  }
+			  if (event.target == modalRifiuto) {
+			    modalRifiuto.style.display = "none";
+			    toastr.error("Rifiuto non effettuato");
 			}
+
+		}
 		</script>
 		<script>
 		function accetta()
 		{
 			toastr.success("Accettazione effettuata con successo");
+			document.getElementById("i").value=" ";
 		}
 		</script>
 		<script>
 		function notaccetta()
 		{
+			modalAccettazione.style.display = "none";
 			toastr.error("Accettazione non effettuata");
+		}
+		</script>
+		<script>
+		function rifiuta()
+		{
+			toastr.success("Rifiuto effettuato con successo");
+		}
+		</script>
+		<script>
+		function notrifiuta()
+		{
+			modalRifiuto.style.display = "none";
+			toastr.error("Rifiuto non effettuato");
+			
 		}
 		</script>
 </body>
