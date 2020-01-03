@@ -350,20 +350,32 @@ public class TirocinioDAO {
 		Tirocinio tirocinio=null;
 		Connection con = null; //variabile per la connesione del DB
 		PreparedStatement ps = null;// Creazione oggetto Statement
+		PreparedStatement psViewClose = null;
 		//ArrayLista di tipo Tirocinio
 		try 
 		{
 			//Connessione con il DB
 			con= new DbConnection().getInstance().getConn();
 			//Query Sql per prelevare i Tirocini
+			psView= con.prepareStatement("create view viewEnte as "
+					+ "select email, name as NomeEnte "
+					+ "from user; ");
+			
+			
 			ps= con.prepareStatement("SELECT * "
-					+ "FROM TIROCINIO, TIROCINANTE, USER, ENTECONVENZIONATO "
+					+ "FROM TIROCINIO, TIROCINANTE, USER, ENTECONVENZIONATO, viewEnte "
 					+ "WHERE TIROCINIO.MATRICOLA=TIROCINANTE.MATRICOLA && "
 					+ "TIROCINANTE.EMAIL=USER.EMAIL && "
 					+ "TIROCINIO.PARTITAIVA=ENTECONVENZIONATO.PARTITAIVA && "
+					+ "viewEnte.email=ENTECONVENZIONATO.EMAIL && "
 					+ "TIROCINIO.STATOTIROCINIO='"+stato+"' && "
-					+ "USER.EMAIL='"+email+"';");
+					+ "USER.EMAIL='"+email+"'; ");
+			
+			psViewClose= con.prepareStatement("DROP VIEW viewEnte; ");
+			
+			int resView = psView.executeUpdate();
 			ResultSet res = ps.executeQuery();
+			int resViewClose= psViewClose.executeUpdate();
 			//Ciclo che inserisce all' interno della lista i 'Tirocini'
 			//restituiti dalla query
 			while(res.next())
@@ -401,7 +413,7 @@ public class TirocinioDAO {
                 tirocinio.setTirocinante(tirocinante);
                 //Dati ente convenzionato
                 enteConvenzionato.setEmail(res.getString("EMAIL"));
-				enteConvenzionato.setName(res.getString("NAME"));
+				enteConvenzionato.setName(res.getString("nomeEnte"));
 				enteConvenzionato.setPartitaIva(res.getString("PARTITAIVA"));
 				enteConvenzionato.setSede(res.getString("SEDE"));
 				enteConvenzionato.setRappresentante(res.getString("RAPPRESENTANTE"));
@@ -415,6 +427,8 @@ public class TirocinioDAO {
 				tirocinio.setEnteConvenzionato(enteConvenzionato);
 				
 			}
+			
+			
 		} 
 		catch (SQLException e) 
 		{
@@ -425,6 +439,9 @@ public class TirocinioDAO {
 			try 
 			{
 				ps.close();// Chiusura oggetto Statement 
+				psView.close();
+
+				
 			} 
 			catch (SQLException e) 
 			{
