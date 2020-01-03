@@ -84,6 +84,10 @@
 								<input type="hidden" id="referente" value="<%= tirocinio.getEnteConvenzionato().getReferente() %>" />
 								
 								<input type="hidden" id="cfu" value="<%= tirocinio.getCfuPrevisti() %>" />
+								
+								<input type="hidden" id="sede" value="<%= tirocinio.getEnteConvenzionato().getSede() %>" />
+								
+								<input type="hidden" id="dataInizioTirocinio" value="<%= tirocinio.getDataInizioTirocinio() %>" />
 							
 		</div>
 		<jsp:include page="/partials/footer.jsp" />
@@ -92,81 +96,7 @@
 
 	<jsp:include page="/partials/includes.jsp" />
 
-	<script>
-		function createPdf(){
-			var data = new Date();
-			var gg, mm, aaaa;
-			gg = data.getDate() + "/";
-			mm = data.getMonth() + 1 + "/";
-			aaaa = data.getFullYear();
-			
-			var doc = new jsPDF();
-
-			doc.setFont("Garamond");
-			doc.setTextColor(50,60,181);
-			doc.setFontStyle("bold");
-			doc.setFontSize(14);
-			doc.text("UNIVERSITA' DEGLI STUDI DI SALERNO ",105, 20, null, null,  'center');			
-			doc.setFontSize(12);
-			doc.text("DIPARTIMENTO DI INFORMATICA", 105, 30, null, null, 'center');			
-			doc.setTextColor('black');
-			doc.setFontSize(12);
-			doc.text("PROGETTO FORMATIVO E DI ORIENTAMENTO", 105, 40, null, null, 'center' );
-			doc.text('LAUREA TRIENNALE / LAUREA MAGISTRALE ', 105, 50, null, null, 'center' );
-			doc.setFontSize(12);
-			doc.text('Relativo alla Convenzione per tirocinio di formazione ed orientamento (curriculare) stipulata', 10, 60);
-			doc.fromHTML('<b>con <em>' + $("#name").val()  + ' ' + $("#surname").val()  + '</em> in data  <em>' +  gg + mm + aaaa + '</em>, Repertorio N. <em>' + $("#cod").val() + '</em></b>', 9, 60);
-			doc.text('SOGGETTO PROMOTORE', 10, 80);
-	       	doc.setFontStyle('justify');
-	       	doc.text("Dipartimento di Informatica dell' Universita' degli Studi di Salerno; ", 10, 87);
-	        doc.text('Sede in Via Giovanni Paolo II, 132, 84084 Fisciano (Salerno)', 10, 94);
-		    doc.text('Indirizzo PEC ammicent@pec.unisa.it ', 10, 101);
-		    doc.text('Codice Fiscale 80018670655 ', 10, 108);
-	        doc.text('Rappresentante legale: prof. Alfredo De Santis, in qualità di Direttore pro tempore, nato a nato a Nocera ', 10, 115);
-		    doc.text('Inferiore (SA) il 07/12/1960. ', 10, 122);	
-	        
-	        doc.setFontStyle("bold");
-		    doc.text('SOGGETTO OSPITANTE ', 10, 135);
-	        doc.setFontStyle("justify");
-	        
-	        doc.fromHTML('Denominazione  <em><b> ' + $("#denominazione").val() + ' </b></em> (specificare la natura giuridica) ', 9, 135);
-	        doc.fromHTML('Sede legale in <em><b>' + $("#sede").val()  + '</b></em> ', 9, 142);
-	        doc.fromHTML('Indirizzo PEC <em><b>' + $("#pec").val()  + '</b></em> ', 9, 149);
-	        doc.fromHTML('Codice Fiscale e Partita IVA <em><b>' + $("#partitaIva").val()  + '</b></em> ', 9, 156);
-			
-	        doc.fromHTML("Rappresentante legale: <em><b> " + $("#rappresentante").val() + " </em></b>, in qualità di <em><b>Amministratore</em></b>, nato a ______________ ", 9, 163);
-	        doc.fromHTML("il: <em><b> " + $("#dataNascita").val() + " </em></b> ", 9, 170);
-	        doc.fromHTML("Attività economica esercitata _________________", 9, 177);
-	        doc.fromHTML("Codice ATECO _________________ ", 9, 184);
-	        doc.fromHTML("Numero Dipendenti a tempo indeterminato <em><b> " + $("#dipendenti").val() + " </em></b>", 9, 191);
-
-		    doc.fromHTML('<b>TIROCIANTE</b> ', 9, 204);
-
-	        doc.fromHTML('Cognome e nome del tirocinante;', 9, 211);
-	        doc.fromHTML('Data e luogo di nascita <em><b>' + $("#dataNascitaTirocinante").val()  + ' ' + $("#luogoNascitaTirocinante").val()  + '</b></em> ', 9, 218);
-	        doc.fromHTML('Cittadinanza <em><b>' + $("#cittadinanza").val()  + '</b></em> ', 9, 225);
-	        doc.fromHTML('Residenza <em><b>' + $("#residenza").val()  + '</b></em> ', 9, 232);
-	        
-	        doc.addPage();
-	        
-	        doc.fromHTML('Codice Fiscale <em><b>' + $("#codiceFiscaleTirocinante").val()  + '</b></em>', 9, 20);
-	        doc.fromHTML('Telefono n. <em><b>' + $("#telefonoTirocinante").val()  + ' </b></em> ', 9, 27);
-	        doc.fromHTML('Indirizzo e-mail <em><b>' + $("#emailTirocinante").val()  + '</b></em> ', 9, 34);
-	        doc.fromHTML('Iscritto al Corso di Laurea Triennale in Informatica  ', 9, 41);
-	        
-		    doc.fromHTML('<b>TUTOR DESIGNATO DAL DIPARTIMENTO:<em>'+ $("#dotRiferimento").val()+ '</em></b>', 9, 55);
-		    
-		    doc.fromHTML('<b>TUTOR DESIGNATO DAL SOGGETTO OSPITANTE: <em>'+ $("#referente").val() +'</em></b>' , 9, 69);
-		    doc.fromHTML("Tel. __________________", 9, 76);
-		    doc.fromHTML("Email _________________ ", 9, 83);
-		    
-		    doc.fromHTML("<b>N. TOTALE DI CREDITI FORMATIVI PREVISTI PER L' ATTIVITÀ DI TIROCINIO: <em>"+ $("#cfu").val() + "</em> di cui:</b>", 9, 97);
-		    
-		    doc.fromHTML("Email _________________ ", 9, 104);
-		    
-	        doc.save('a4.pdf')
-		}
-		</script>
+		<script src="<%= request.getContextPath() %>/js/progettoFormativo.js"></script>
 
 
 	
