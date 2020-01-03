@@ -45,16 +45,19 @@
 									%>
 									<h2 class="centro">PROGETTO FORMATIVO:</h2>
 									<div class="pf">
-										<span>Nome: <%=tirocinante.getName()%></span><br> <span>Matricola:
-											<%=tirocinante.getMatricola()%></span><br> <span>Crediti
-											previsti: <%=lista.get(0).getCfuPrevisti()%></span><br> <span>Indicazione
-											delle attivit&agrave; formative previste:<br> <%=lista.get(0).getAttivitaPreviste()%></span>
-									</div>
-									<div class="pf">
-										<span>Cognome: <%=tirocinante.getSurname()%></span><br>
-										<span>Facolt&agrave;: <%=tirocinante.getFacolta()%></span><br>
-										<span>E-mail: <%=tirocinante.getEmail()%></span><br> <span>Indicazione
-											delle modalit&agrave; di svolgimento del Tirocinio:<br>
+										<span><b>Nome: </b><%=tirocinante.getName()%></span><br> 
+										<span><b>Cognome: </b>
+											<%=tirocinante.getSurname()%></span><br> 
+										<span><b>Matricola: </b>
+											<%=tirocinante.getMatricola()%></span><br> 
+										<span><b>Facolt&agrave;: </b>
+											<%=tirocinante.getFacolta()%></span><br> 
+										<span><b>E-mail: </b><%=tirocinante.getEmail()%></span><br>
+										<span><b>Crediti previsti: </b><%=lista.get(0).getCfuPrevisti()%></span><br>
+										<span><b>Indicazione delle attivit&agrave; formative
+											previste:</b><br> <%=lista.get(0).getAttivitaPreviste()%></span><br>
+										<span><b>Indicazione
+											delle modalit&agrave; di svolgimento del Tirocinio:</b><br>
 											<%=lista.get(0).getSvolgimentoTirocinio()%></span><br>
 									</div>
 									<div class="centro">
@@ -66,16 +69,16 @@
 									<br>
 									<%
 										}
-											if (lista == null || tirocinante == null) {
+						  					if (lista == null || tirocinante == null) {
 									%>
 									<h2 class="centro">
 										OPS..
 										<%=user.getName()%>
-										<%=user.getSurname()%>, Non hai ancora compilato la
-										richiesta di inizio Tirocinio?
+										<%=user.getSurname()%>, Non hai ancora compilato la richiesta
+										di inizio Tirocinio?
 									</h2>
 									<h3 class="centro">
-										Clicca <a href="easy-traineeship/WebContent/_areaStudent/InviaRichiestaET.jsp">qui!</a>
+										Clicca <a href="_areaStudent/InviaRichiestaET.jsp">qui!</a>
 									</h3>
 									<%
 										}
