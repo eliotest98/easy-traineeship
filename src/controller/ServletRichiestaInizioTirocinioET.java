@@ -279,7 +279,7 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
     TirocinioDAO ti = new TirocinioDAO();
     ti.inserisciTirocinio(tirocinio);
 
-    RequestDispatcher d = request.getRequestDispatcher("/HomeStudente.jsp");
+    RequestDispatcher d = request.getRequestDispatcher("/_areaStudent/HomeStudente.jsp");
     d.forward(request, response);
   }
 
