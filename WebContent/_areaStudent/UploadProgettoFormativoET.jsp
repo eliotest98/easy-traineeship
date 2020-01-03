@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"
-	import=" model.*, controller.CheckSession, model.SystemAttribute, controller.Utils, controller.DbConnection, java.sql.Connection, java.sql.ResultSet, java.sql.Statement, java.text.SimpleDateFormat"%>
+	import=" model.Student, model.Tirocinio, controller.CheckSession"%>
 
 <%
 	String pageName = "IploadProgettoFomativoET.jsp";
@@ -20,8 +20,7 @@
         RequestDispatcher dispatcher = request.getRequestDispatcher("../ServletProgettoFormativoET");
         dispatcher.forward(request, response);
     }	 
-	
-	
+
 %>
 
 <!DOCTYPE html>
@@ -60,7 +59,7 @@
 								</div>
 								
 								<!--  invio dei dati alla funzione "createPdf()" per -->
-								<input type="hidden" id="name" value="<%= tirocinio.getTirocinante().getName() %>" />
+								<input type="hidden" id="name" value="<%=tirocinio.getTirocinante().getName() %>" />
 								<input type="hidden" id="surname" value="<%= tirocinio.getTirocinante().getSurname() %>" />
 								<input type="hidden" id="cod" value="<%= tirocinio.getCodTirocinio() %>" />
 								<input type="hidden" id="denominazione" value="<%= tirocinio.getEnteConvenzionato().getName() %>" />
@@ -71,6 +70,20 @@
 								<input type="hidden" id="rappresentante" value="<%= tirocinio.getEnteConvenzionato().getRappresentante() %>" />
 								<input type="hidden" id="dataNascita" value="<%= tirocinio.getEnteConvenzionato().getDataDiNascita() %>" />
 								<input type="hidden" id="dipendenti" value="<%= tirocinio.getEnteConvenzionato().getDipendenti() %>" />
+								
+								<input type="hidden" id="dataNascitaTirocinante" value="<%= tirocinio.getTirocinante().getDataNascita() %>" />
+								<input type="hidden" id="luogoNascitaTirocinante" value="<%= tirocinio.getTirocinante().getLuogoNascita() %>" />
+								<input type="hidden" id="cittadinanza" value="<%= tirocinio.getTirocinante().getCittadinanza() %>" />
+								<input type="hidden" id="residenza" value="<%= tirocinio.getTirocinante().getResidenza() %>" />
+								
+								<input type="hidden" id="codiceFiscaleTirocinante" value="<%= tirocinio.getTirocinante().getCodiceFiscale() %>" />
+								<input type="hidden" id="telefonoTirocinante" value="<%= tirocinio.getTirocinante().getTelefono() %>" />
+								<input type="hidden" id="emailTirocinante" value="<%= tirocinio.getTirocinante().getEmail() %>" />
+								
+								<input type="hidden" id="dotRiferimento" value="<%= tirocinio.getEnteConvenzionato().getDotRiferimento() %>" />
+								<input type="hidden" id="referente" value="<%= tirocinio.getEnteConvenzionato().getReferente() %>" />
+								
+								<input type="hidden" id="cfu" value="<%= tirocinio.getCfuPrevisti() %>" />
 							
 		</div>
 		<jsp:include page="/partials/footer.jsp" />
@@ -126,7 +139,32 @@
 	        doc.fromHTML("Attività economica esercitata _________________", 9, 177);
 	        doc.fromHTML("Codice ATECO _________________ ", 9, 184);
 	        doc.fromHTML("Numero Dipendenti a tempo indeterminato <em><b> " + $("#dipendenti").val() + " </em></b>", 9, 191);
-			doc.save('a4.pdf')
+
+		    doc.fromHTML('<b>TIROCIANTE</b> ', 9, 204);
+
+	        doc.fromHTML('Cognome e nome del tirocinante;', 9, 211);
+	        doc.fromHTML('Data e luogo di nascita <em><b>' + $("#dataNascitaTirocinante").val()  + ' ' + $("#luogoNascitaTirocinante").val()  + '</b></em> ', 9, 218);
+	        doc.fromHTML('Cittadinanza <em><b>' + $("#cittadinanza").val()  + '</b></em> ', 9, 225);
+	        doc.fromHTML('Residenza <em><b>' + $("#residenza").val()  + '</b></em> ', 9, 232);
+	        
+	        doc.addPage();
+	        
+	        doc.fromHTML('Codice Fiscale <em><b>' + $("#codiceFiscaleTirocinante").val()  + '</b></em>', 9, 20);
+	        doc.fromHTML('Telefono n. <em><b>' + $("#telefonoTirocinante").val()  + ' </b></em> ', 9, 27);
+	        doc.fromHTML('Indirizzo e-mail <em><b>' + $("#emailTirocinante").val()  + '</b></em> ', 9, 34);
+	        doc.fromHTML('Iscritto al Corso di Laurea Triennale in Informatica  ', 9, 41);
+	        
+		    doc.fromHTML('<b>TUTOR DESIGNATO DAL DIPARTIMENTO:<em>'+ $("#dotRiferimento").val()+ '</em></b>', 9, 55);
+		    
+		    doc.fromHTML('<b>TUTOR DESIGNATO DAL SOGGETTO OSPITANTE: <em>'+ $("#referente").val() +'</em></b>' , 9, 69);
+		    doc.fromHTML("Tel. __________________", 9, 76);
+		    doc.fromHTML("Email _________________ ", 9, 83);
+		    
+		    doc.fromHTML("<b>N. TOTALE DI CREDITI FORMATIVI PREVISTI PER L' ATTIVITÀ DI TIROCINIO: <em>"+ $("#cfu").val() + "</em> di cui:</b>", 9, 97);
+		    
+		    doc.fromHTML("Email _________________ ", 9, 104);
+		    
+	        doc.save('a4.pdf')
 		}
 		</script>
 

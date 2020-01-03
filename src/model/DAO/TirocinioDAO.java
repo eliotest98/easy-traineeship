@@ -405,7 +405,7 @@ public class TirocinioDAO {
                 tirocinante.setSex(res.getString("SEX").charAt(0));
                 tirocinante.setUserType(res.getInt("USER_TYPE"));
                 tirocinante.setMatricola(res.getInt("MATRICOLA"));
-                tirocinante.setDataNascita(res.getDate("DATANASCITA"));
+                tirocinante.setDataNascita(res.getDate("TIROCINANTE.DATANASCITA"));
                 tirocinante.setLuogoNascita(res.getString("LUOGONASCITA"));
                 tirocinante.setCittadinanza(res.getString("CITTADINANZA"));
                 tirocinante.setResidenza(res.getString("RESIDENZA"));
@@ -423,7 +423,7 @@ public class TirocinioDAO {
 				enteConvenzionato.setDipendenti(res.getShort("DIPENDENTI"));
 				enteConvenzionato.setDotRiferimento(res.getString("DOTRIFERIMENTO"));
 				enteConvenzionato.setDescrizioneAttivita(res.getString("DESCRIZIONEATTIVITA"));
-				enteConvenzionato.setDataDiNascita(res.getString("DATANASCITA"));
+				enteConvenzionato.setDataDiNascita(res.getString("ENTECONVENZIONATO.DATANASCITA"));
 				tirocinio.setTirocinante(tirocinante);
 				tirocinio.setEnteConvenzionato(enteConvenzionato);
 				
