@@ -62,42 +62,42 @@
 											<label for="name">Nome Ente</label> <input type="text"
 												class="form-control" id="name" name="name"
 												placeholder="Nome Ente" value="<%=listaEnti.get(i).getName() %>" minlength="1" maxlength="64"
-												required pattern="[0-9a-zA-Z. ]{1,64}">
+												required pattern="[0-9a-zA-Z. ]{1,64}" title="Formato del nome non corretto.">
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="partitaIva">Partita IVA</label> <input type="tel"
 												oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
 												class="form-control" placeholder="Partita IVA" value="<%=listaEnti.get(i).getPartitaIva() %>"
-												name="partitaIva" id="partitaIva" size="11" required pattern="[0-9]{11}">
+												name="partitaIva" id="partitaIva" size="11" required pattern="[0-9]{11}" title="Formato della partita iva non corretto.">
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="email">Email</label> <input type="email"
 												class="form-control" id="email" name="email"
-												placeholder="Email" value="<%=listaEnti.get(i).getEmail() %>" minlength="3" maxlength="64" required>
+												placeholder="Email" value="<%=listaEnti.get(i).getEmail() %>" minlength="3" maxlength="64" required  title="Formato dell'Email non corretto.">
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="sede">Sede</label> <input type="text"
 												class="form-control" id="sede" name="sede"
-												placeholder="Sede" value="<%=listaEnti.get(i).getSede() %>" minlength="1" maxlength="64" required pattern="[A-Z a-z 0-9]{1,64}">
+												placeholder="Sede" value="<%=listaEnti.get(i).getSede() %>" minlength="1" maxlength="64" required pattern="[A-Z a-z 0-9]{1,64}" title="Formato della Sede non corretto.">
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="telefono">Numero di telefono</label> <input
 												type="tel"
 												oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
 												class="form-control" placeholder="Numero di Telefono" value="<%=listaEnti.get(i).getTelefono() %>"
-												name="telefono" id="telefono" size="10" required pattern="[0-9]{10}">
+												name="telefono" id="telefono" size="10" required pattern="[0-9]{10}" title="Formato del telefono non corretto.">
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="dipendenti">Numero Dipendenti</label> <input
 												type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control"
 												placeholder="Numero di Dipendenti" value="<%=listaEnti.get(i).getDipendenti() %>" name="dipendenti"
-												id="dipendenti" required pattern="[0-9]{1,64}">
+												id="dipendenti" required pattern="[0-9]{1,64}" title="Formato del numero di dipendenti non corretto.">
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="rappresentante">Nome Rappresentante</label> <input
 												type="text" class="form-control" id="rappresentante"
 												name="rappresentante" placeholder="Nome Rappresentante" value="<%=listaEnti.get(i).getRappresentante() %>"
-												minlength="1" maxlength="64" required pattern="[a-z A-Z]{1,64}">
+												minlength="1" maxlength="64" required pattern="[a-z A-Z]{1,64}" title="Formato del Rappresentante non corretto.">
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="dataDiNascita">Data di Nascita del
@@ -110,20 +110,20 @@
 											<input type="text" class="form-control" id="dotRiferimento"
 												name="dotRiferimento"
 												placeholder="Professore di Riferimento" value="<%=listaEnti.get(i).getDotRiferimento() %>" minlength="1"
-												maxlength="64" required pattern="[a-z A-Z]{1,64}">
+												maxlength="64" required pattern="[a-z A-Z]{1,64}" title="Formato del Professore di Riferimento non corretto.">
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="referente">Referente Tirocini</label> <input
 												type="text" class="form-control"
 												placeholder="Referente Tirocini" value="<%=listaEnti.get(i).getReferente() %>" minlength="1"
-												maxlength="64" name="referente" id="referente" required pattern="[a-z A-Z]{1,64}">
+												maxlength="64" name="referente" id="referente" required pattern="[a-z A-Z]{1,64}" title="Formato del referente non corretto.">
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="descrizioneAttivita">Descrizione Attivit&agrave;</label>
 											<input type = "text" class="form-control"
 												placeholder="Descrizione delle Attivit&agrave;" value="<%=listaEnti.get(i).getDescrizioneAttivita() %>" minlength="1"
 												maxlength="256" name="descrizioneAttivita"
-												id="descrizioneAttivita" required pattern="{1,256}">
+												id="descrizioneAttivita" required pattern="{1,256}" title="Formato della descrizione attività non corretto.">
 										</div>
 										<div
 											class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
