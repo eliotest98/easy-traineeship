@@ -53,6 +53,7 @@
 														if (listaEnti != null) {
 															//Scorro tutta la listaEnti
 															for (int i = 0; i < listaEnti.size(); i++) {
+																//!!!! PARTITAIVA e NOME ENTE vengono passati sulla stessa stringa - la servlet li scompone e prende i valori singoli
 													%>
 													<option value="<%=listaEnti.get(i).getPartitaIva()%><%=listaEnti.get(i).getName() %>"><%=listaEnti.get(i).getName()%></option>
 													<%
