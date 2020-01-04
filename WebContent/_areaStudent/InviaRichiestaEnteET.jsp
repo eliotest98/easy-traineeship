@@ -11,7 +11,7 @@
 	//Per vedere chi � in sessione.
     int resp = Integer.parseInt((String)request.getSession().getAttribute("userET"));
 	Student s = (Student) request.getSession().getAttribute("user");
-	//Compilare il men� a tendina per gli enti
+	//Compilare il menu a tendina per gli enti
 	ArrayList<EnteConvenzionato> listaEnti = new ArrayList<EnteConvenzionato>();
 	listaEnti = (ArrayList<EnteConvenzionato>) request.getAttribute("listaEnti");
 %>

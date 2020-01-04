@@ -44,22 +44,19 @@ public class ServletSceltaEnteET extends HttpServlet {
 			response.sendRedirect("login.jsp");
 			return;
 		}
+		// Controllo ente partita iva, perchè cliccando il nome si passa la chiave primaria (partita iva)
+		String ente = request.getParameter("ente");
 		
-		String partitaIva = (String) request.getParameter("ente").substring(0, 11);
-		System.out.println("PARTITAIVA: " + partitaIva);
-		
-		// Controllo nome ente
-		String ente = request.getParameter("ente").substring(11);
-		System.out.println("ENTE: " + ente);
-		if (ente.length() == 0) {
-			throw new IllegalArgumentException("Il campo Ente e' vuoto");
-		} else if (ente.length() > 64) {
-			throw new IllegalArgumentException("Il campo Ente supera la lunghezza consentita");
-		} else if (!ente.matches("^[ 0-9a-zA-Z\\.]+$")) {
+		if (ente==null) {
+			throw new IllegalArgumentException("Il campo Ente è vuoto");
+		} else if (ente.length() != 11) {
+			throw new IllegalArgumentException("Il campo Ente non è di 11 cifre");
+		} else if (!ente.matches("^[0-9]+$")) {
 			throw new IllegalArgumentException("Il campo Ente non rispetta il formato");
 		}
 		// Controllo nome tirocinante
 		String nome = request.getParameter("nome");
+		
 		if (nome.length() == 0) {
 			throw new IllegalArgumentException("Il campo Nome e' vuoto");
 		} else if (nome.length() > 50) {
@@ -69,6 +66,7 @@ public class ServletSceltaEnteET extends HttpServlet {
 		}
 		// Controllo cognome tirocinante
 		String cognome = request.getParameter("cognome");
+		
 		if (cognome.length() == 0) {
 			throw new IllegalArgumentException("Il campo Cognome e' vuoto");
 		} else if (cognome.length() > 50) {
@@ -78,6 +76,7 @@ public class ServletSceltaEnteET extends HttpServlet {
 		}
 		// Controllo facoltÃ 
 		String facolta = request.getParameter("facolta");
+		
 		if (facolta.length() == 0) {
 			throw new IllegalArgumentException("Il campo Facolta' e' vuoto");
 		} else if (facolta.length() > 50) {
@@ -87,11 +86,13 @@ public class ServletSceltaEnteET extends HttpServlet {
 		}
 		// Controllo descrizione
 		String descrizione = request.getParameter("descrizione");
+		
 		if (descrizione.length() == 0) {
 			throw new IllegalArgumentException("Il campo Descrizione e' vuoto");
 		} else if (descrizione.length() > 256) {
 			throw new IllegalArgumentException("Il campo Descrizione supera la lunghezza consentita");
 		}
+		
 		//Prelevo il tirocinante dalla sessione
 		Tirocinante tirocinante = (Tirocinante) request.getSession().getAttribute("Tirocinante");
 		if(tirocinante==null)
@@ -100,24 +101,31 @@ public class ServletSceltaEnteET extends HttpServlet {
 		}
 		
 		//Prelevo il tirocinio di questo tirocinante
-		Tirocinio tirocinio = tirocinioDAO.tirocinioAttivo();
-		tirocinioDAO.modificaStatoTirocinio(tirocinio.getCodTirocinio(), "In Attesa Dell'Ente")
-		
-		long matricola = tirocinanteDao.ricercaTirocinanteByEmail(user.getEmail()).getMatricola();
-		ArrayList<Tirocinio> listaTirocini = tirocinioDAO.allTirocinioTirocinante(matricola);  //creare un metodo che restituisca un solo codTirocinio
-		try {
-			Boolean prova1 = tirocinioDAO.richiestaEnte(listaTirocini.get(listaTirocini.size()-1).getCodTirocinio(), partitaIva, descrizione);
-			System.out.println("prova1 " + prova1);
-			Boolean prova2 = tirocinioDAO.modificaStatoTirocinio(listaTirocini.get(listaTirocini.size()-1).getCodTirocinio(),"in attesa dell Ente");
-			System.out.println("prova2 " + prova2);
-			if ((prova1==true) && (prova2==true)) {
-				request.setAttribute("L'invio della richiesta e' avvenuto con successo", mess);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/_areaStudent/viewRequest.jsp");// Controlla jsp
-				dispatcher.forward(request, response);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		Tirocinio tirocinio = tirocinioDAO.tirocinioAttivo(tirocinante.getMatricola());
+		//Effettuo l'invio della richiesta
+		Boolean risp = tirocinioDAO.richiestaEnte(tirocinio.getCodTirocinio(),ente,descrizione);
+		//Se è andata a buon fine, setto lo stato, se no eccezione
+		if(risp==false)
+        {
+          throw new IllegalArgumentException("La query di invio richiesta non è andata a buon fine.");
+        }
+		//Setto lo stato, se non va bene c'è l'eccezione
+		risp = tirocinioDAO.modificaStatoTirocinio(tirocinio.getCodTirocinio(), "In Attesa Dell'Ente");
+		if(risp==false)
+		{
+		  throw new IllegalArgumentException("La query di modifica non è andata a buon fine.");
 		}
+		//Risettiamo il tirocinante, per sicurezza
+		tirocinante = tirocinio.getTirocinante();
+		tirocinio.setTirocinante(tirocinante);
+		
+		//Setto TUTTO nella sessione per sovrascrivere la merda che c'era
+		request.getSession().setAttribute("Tirocinante", tirocinante);
+		request.getSession().setAttribute("Tirocinio", tirocinio);
+		
+		//Request dispatcher alla pagina
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/_areaStudent/HomeStudente.jsp");
+		dispatcher.forward(request, response);
 	}
 }
 

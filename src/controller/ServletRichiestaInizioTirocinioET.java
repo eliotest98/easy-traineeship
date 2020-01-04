@@ -278,7 +278,13 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
 
     TirocinioDAO ti = new TirocinioDAO();
     ti.inserisciTirocinio(tirocinio);
-
+    
+    //Mi setto il tirocininante nel TIROCINIO
+    tirocinio.setTirocinante(tirocinante);
+    
+    request.getSession().setAttribute("Tirocinante", tirocinante);
+    request.getSession().setAttribute("Tirocinio", tirocinio); 
+    
     RequestDispatcher d = request.getRequestDispatcher("/_areaStudent/HomeStudente.jsp");
     d.forward(request, response);
   }
