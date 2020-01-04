@@ -44,8 +44,13 @@ public class ServletSceltaEnteET extends HttpServlet {
 			response.sendRedirect("login.jsp");
 			return;
 		}
+		
+		String partitaIva = (String) request.getParameter("ente").substring(0, 11);
+		System.out.println("PARTITAIVA: " + partitaIva);
+		
 		// Controllo nome ente
-		String ente = request.getParameter("ente");
+		String ente = request.getParameter("ente").substring(11);
+		System.out.println("ENTE: " + ente);
 		if (ente.length() == 0) {
 			throw new IllegalArgumentException("Il campo Ente e' vuoto");
 		} else if (ente.length() > 64) {
@@ -54,7 +59,7 @@ public class ServletSceltaEnteET extends HttpServlet {
 			throw new IllegalArgumentException("Il campo Ente non rispetta il formato");
 		}
 		// Controllo nome tirocinante
-		String nome = request.getParameter("name");
+		String nome = request.getParameter("nome");
 		if (nome.length() == 0) {
 			throw new IllegalArgumentException("Il campo Nome e' vuoto");
 		} else if (nome.length() > 50) {
@@ -89,7 +94,7 @@ public class ServletSceltaEnteET extends HttpServlet {
 		}
 		//int matricola = (int) request.getSession().getAttribute("matricola");// da capire
 		// se la passiamo in sessione
-		String partitaIva = (String) request.getParameter("partitaIva");
+
 		UserInterface user = (UserInterface)request.getSession().getAttribute("user");
 		long matricola = tirocinanteDao.ricercaTirocinanteByEmail(user.getEmail()).getMatricola();
 		ArrayList<Tirocinio> listaTirocini = tirocinioDAO.allTirocinioTirocinante(matricola);  //creare un metodo che restituisca un solo codTirocinio

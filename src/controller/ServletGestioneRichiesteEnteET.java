@@ -72,7 +72,6 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
 	    		try {
 	    			String codice = request.getParameter("codice");
 	    			tirocinioDAO.modificaStatoTirocinio(Integer.valueOf(codice), "Accettato e in attesa di firma (tutti)");
-	    			
 	    		}
 	    		catch (Exception e) {
 	    			e.printStackTrace();
@@ -84,7 +83,9 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
 	    	else if (flag.equals("3")) {
 	    		try {
 	    			String codice = request.getParameter("codice");
+	    			String motivazione = request.getParameter("motivazione");
 	    			tirocinioDAO.modificaStatoTirocinio(Integer.valueOf(codice), "Rifiutato");
+	    			System.out.println(motivazione);
 	    		}
 	    		catch (Exception e) {
 	    			e.printStackTrace();
