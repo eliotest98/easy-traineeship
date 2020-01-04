@@ -88,6 +88,11 @@
 								<input type="hidden" id="sede" value="<%= tirocinio.getEnteConvenzionato().getSede() %>" />
 								
 								<input type="hidden" id="dataInizioTirocinio" value="<%= tirocinio.getDataInizioTirocinio() %>" />
+								
+								<input type="hidden" id="competenze" value="<%= tirocinio.getCompetenzeAcquisire() %>" />
+								<input type="hidden" id="attivitaPreviste" value="<%= tirocinio.getAttivitaPreviste() %>" />
+								<input type="hidden" id="svolgimentoTirocinio" value="<%= tirocinio.getSvolgimentoTirocinio() %>" />
+								
 							
 		</div>
 		<jsp:include page="/partials/footer.jsp" />
