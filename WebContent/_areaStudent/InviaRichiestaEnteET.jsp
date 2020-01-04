@@ -6,12 +6,12 @@
 	String pageName = "InviaRichiestaEnteET.jsp";
 	String pageFolder = "_areaStudent";
 	
-	//Accede alla pagina solo se la richiesta di inizio tirocinio è stata accettata
+	//Accede alla pagina solo se la richiesta di inizio tirocinio ï¿½ stata accettata
 	//Fare in modo da avere il tirocinio qui..
-	//Per vedere chi è in sessione.
+	//Per vedere chi ï¿½ in sessione.
     int resp = Integer.parseInt((String)request.getSession().getAttribute("userET"));
 	Student s = (Student) request.getSession().getAttribute("user");
-	//Compilare il menù a tendina per gli enti
+	//Compilare il menï¿½ a tendina per gli enti
 	ArrayList<EnteConvenzionato> listaEnti = new ArrayList<EnteConvenzionato>();
 	listaEnti = (ArrayList<EnteConvenzionato>) request.getAttribute("listaEnti");
 %>

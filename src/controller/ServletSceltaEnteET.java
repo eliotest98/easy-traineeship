@@ -44,8 +44,13 @@ public class ServletSceltaEnteET extends HttpServlet {
 			response.sendRedirect("login.jsp");
 			return;
 		}
+		
+		String partitaIva = (String) request.getParameter("ente").substring(0, 11);
+		System.out.println("PARTITAIVA: " + partitaIva);
+		
 		// Controllo nome ente
-		String ente = request.getParameter("ente");
+		String ente = request.getParameter("ente").substring(11);
+		System.out.println("ENTE: " + ente);
 		if (ente.length() == 0) {
 			throw new IllegalArgumentException("Il campo Ente e' vuoto");
 		} else if (ente.length() > 64) {
