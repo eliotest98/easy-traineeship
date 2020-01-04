@@ -20,8 +20,7 @@
 	if(tirocinante==null)
 	{
 		request.setAttribute("matricola", matricola);
-        RequestDispatcher dispatcher;
-        dispatcher = request.getRequestDispatcher("../ServletVisualizzaTirocinanteEnteET");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("../ServletVisualizzaTirocinanteEnteET?flag=1");
         dispatcher.forward(request, response);
     }
 
@@ -195,7 +194,8 @@
 								    <span class="close"></span>
 								    <p>Sei sicuro di voler accettare la richiesta di Tirocinio?</p>
 								  		<table>
-								  		<tr><td><form id="modalAccettaForm" action="../ServletGestioneRichiesteEnteET" method="post">
+								  		<tr><td><form id="modalAccettaForm" action="../ServletGestioneRichiesteEnteET?flag=2" method="post">
+								  		<input type="hidden" name="codice" value="<%=(String)request.getParameter("codice") %>">
 								  		 <button onclick="accetta()"id="modalAccettaButton" name="accettaRichiesta" value="niente per il momento" type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Accetta Richiesta">Si</button>
 								  		 </form></td>
 										 <td><button onclick="notaccetta()"id="close" name="nonAccetta" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button></td></tr>
@@ -211,10 +211,10 @@
 								 <div class="modal-content">
 								    <span class="close"></span>
 								    <p>Sei sicuro di voler rifiutare la richiesta di Tirocinio?</p>
-								    <form id="modalRifiutoForm" action="../ServletGestioneRichiesteEnteET" method="post">
+								    <form id="modalRifiutoForm" action="../ServletGestioneRichiesteEnteET?flag=3" method="post">
 											<label for="nome">Inserisci Motivazione</label> 
 											<input type="text" class="form-control" id="motivazione" name="motivazione" placeholder="Motivazione del Rifiuto" minlength="1" maxlength="256" required>
-									
+
 											<button onclick="rifiuta()"id="rifiuta" name="rifiutaRichiesta"  value="niente per il momento" type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Rifiuta Richiesta">Si</button>
 											<button onclick="notrifiuta()"id="close" name="nonRifiuta"  type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button>
 									</form>

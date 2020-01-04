@@ -19,7 +19,7 @@
 	
 	if(listaRichiesteEnte==null)
 	{
-        RequestDispatcher dispatcher = request.getRequestDispatcher("../ServletGestioneRichiesteEnteET");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("../ServletGestioneRichiesteEnteET?flag=1");
         dispatcher.forward(request, response);
     }
 	
@@ -80,7 +80,7 @@
 											
 													<td class='text-center'><%=listaRichiesteEnte.get(i).getStatoTirocinio()%></td>
 													<td class="text-center" align="center">
-														<a href='VisualizzaTirocinanteEnteET.jsp?matricola=<%=listaRichiesteEnte.get(i).getMatricola()%>' class="btn btn-primary btn-action modificaEnte" title="Accetta/Rifiuta" data-idrequest="35"><i class="fa fa-eye"></i></a>
+														<a href='VisualizzaTirocinanteEnteET.jsp?matricola=<%=listaRichiesteEnte.get(i).getMatricola()%>&codice=<%=listaRichiesteEnte.get(i).getCodTirocinio() %>' class="btn btn-primary btn-action modificaEnte" title="Accetta/Rifiuta" data-idrequest="35"><i class="fa fa-eye"></i></a>
 													</td>
 												</tr>
 											<%

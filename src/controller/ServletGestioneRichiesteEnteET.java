@@ -42,30 +42,59 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
 	      return;
 	    }
 	    
-		//Visualizza Lista Richieste
-		TirocinioDAO richiestaEnte= new TirocinioDAO();  
-		//Array list di Tirocinio
-		ArrayList<Tirocinio> listaRichiesteEnte=new ArrayList<Tirocinio>();
-		UserInterface user = (UserInterface)request.getSession().getAttribute("user");
-		//Ricerco tutte le richieste all'ente e li inserisco nella listaRichiesteEnte
+	    TirocinioDAO tirocinioDAO = new TirocinioDAO();
+	    String flag = request.getParameter("flag");
+	    UserInterface user = (UserInterface)request.getSession().getAttribute("user");
+	    ArrayList<Tirocinio> listaRichiesteEnte=new ArrayList<Tirocinio>();
+	    
+	  //Ricerco tutte le richieste all'ente e li inserisco nella listaRichiesteEnte
 		try {
-			listaRichiesteEnte=richiestaEnte.allTirocinioByEnte(user.getEmail());
+			listaRichiesteEnte=tirocinioDAO.allTirocinioByEnte(user.getEmail());
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		//Controllo se la Lista non e' vuota
+
+		if (flag!=null) {
+	    	
+	    	//Visualizza Lista Richieste
+	    	if (flag.equals("1")) {
+	    		if(listaRichiesteEnte!=null)
+	    		{
+	    			request.setAttribute("listaRichiesteEnte", listaRichiesteEnte);
+	    		}
+	    		RequestDispatcher dispatcher = request.getRequestDispatcher("_areaEnteET/VisualizzaRichiestaEnteET.jsp");
+	            dispatcher.forward(request, response);
+	    	}
+	    	
+	    	//Accetta Richiesta - Prendo il codice del tirocinio dalla request e chiamo il metodo del DAO per modificare lo stato del tirocinio 
+	    	else if (flag.equals("2")) {
+	    		try {
+	    			String codice = request.getParameter("codice");
+	    			tirocinioDAO.modificaStatoTirocinio(Integer.valueOf(codice), "Accettato e in attesa di firma (tutti)");
+	    			
+	    		}
+	    		catch (Exception e) {
+	    			e.printStackTrace();
+	    		}
+	    		RequestDispatcher dispatcher = request.getRequestDispatcher("_areaEnteET/VisualizzaRichiestaEnteET.jsp");
+	            dispatcher.forward(request, response);
+	    	}
+	    	//Rifuta Richiesta - Prendo il codice del tirocinio dalla request e chiamo il metodo del DAO per modificare lo stato del tirocinio
+	    	else if (flag.equals("3")) {
+	    		try {
+	    			String codice = request.getParameter("codice");
+	    			tirocinioDAO.modificaStatoTirocinio(Integer.valueOf(codice), "Rifiutato");
+	    		}
+	    		catch (Exception e) {
+	    			e.printStackTrace();
+	    		}
+	    		
+	    		RequestDispatcher dispatcher = request.getRequestDispatcher("_areaEnteET/VisualizzaRichiestaEnteET.jsp");
+	            dispatcher.forward(request, response);
+	    	}
+	    }
 		
-		if(listaRichiesteEnte!=null)
-		{
-			//Assegno alla richiesta la 'listaEnti'
-			request.setAttribute("listaRichiesteEnte", listaRichiesteEnte);
-		}
-		
-		String pag = "_areaEnteET/VisualizzaRichiestaEnteET.jsp";
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher(pag);
-        dispatcher.forward(request, response);
 		
 	}
 
