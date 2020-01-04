@@ -44,38 +44,27 @@
 											la richiesta.</p>
 									</div>
 									<div>
-										<form id="signUp" action="../ServletSceltaEnteET"
+										<form id="signUp" action="./ServletSceltaEnteET"
 											method="post">
 											<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 												<label for="ente">Ente</label>
-												<select>
+												<select name="ente">
 													<%
 														if (listaEnti != null) {
 															//Scorro tutta la listaEnti
 															for (int i = 0; i < listaEnti.size(); i++) {
 													%>
-													<option value="<%=listaEnti.get(i).getName()%>"><%=listaEnti.get(i).getName()%></option>
+													<option value="<%=listaEnti.get(i).getPartitaIva()%><%=listaEnti.get(i).getName() %>"><%=listaEnti.get(i).getName()%></option>
 													<%
 															}
 														}
 													%>
 												</select>
-												<label for="partitaIva">Partita IVA</label>
-												<select>
-													<%
-														if (listaEnti != null) {
-															//Scorro tutta la listaEnti
-															for (int i = 0; i < listaEnti.size(); i++) {
-													%>
-													<option value="<%=listaEnti.get(i).getPartitaIva()%>"><%=listaEnti.get(i).getName()%></option>
-													<%
-															}
-														}
-													%>
-												</select>
+												
 											
 											</div>
 											<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+											
 												<label for="nome">Nome</label> <input type="text"
 													class="form-control" id="nome" name="nome" placeholder="Nome"
 													minlength="1" maxlength="50" required>

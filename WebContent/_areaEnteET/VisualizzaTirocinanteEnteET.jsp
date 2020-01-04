@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*,controller.ServletVisualizzaTirocinanteET, model.Tirocinante, model.Tirocinio, controller.CheckSession" %>
+<%@ page import="java.util.*,controller.ServletVisualizzaTirocinanteEnteET, model.Tirocinante, model.Tirocinio, controller.CheckSession" %>
 <%
-	String pageName = "VisualizzaTirocinanteET.jsp";
+	String pageName = "VisualizzaTirocinanteEnteET.jsp";
 	String pageFolder = "_areaEnteET";
 
 	CheckSession ck = new CheckSession(pageFolder, pageName, request.getSession());
@@ -20,8 +20,7 @@
 	if(tirocinante==null)
 	{
 		request.setAttribute("matricola", matricola);
-        RequestDispatcher dispatcher;
-        dispatcher = request.getRequestDispatcher("../ServletVisualizzaTirocinanteET");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("../ServletVisualizzaTirocinanteEnteET?flag=1");
         dispatcher.forward(request, response);
     }
 
@@ -92,19 +91,12 @@
 								//Se la listaEnti non è null mostro la tabella
 								if(tirocinante!=null)
 								{
-									//String format data di nascita
 									Date giorno = tirocinante.getDataNascita();
 									String data = giorno.toString();
 									String anno = data.substring(0,4);
 									String mese = data.substring(4,8);
 									String day = data.substring(8,10);
 									String datanascita = day+mese+anno;
-									//String forma data di inizio tirocinio
-									String giorno2 = tirocinio.getDataInizioTirocinio();
-									String anno2 = giorno2.substring(0,4);
-									String mese2 = giorno2.substring(4,8);
-									String day2 = giorno2.substring(8,10);
-									String datainiziotirocinio = day2+mese2+anno2;
 								%>
 									<div class="panel">
 										<h2 class="text-center">Informazioni del Tirocinante</h2>
@@ -164,9 +156,25 @@
 									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 									    	<strong>CFU Conseguiti </strong>  <% out.println( "<br>"+ tirocinio.getCfuPrevisti()); %>
 									    </div>
-									    <!--  Campo Data Inizio Tirocinio -->
+									    <!-- Campo Competenze Possedute -->
 									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-									    	<strong>Data Inizio Tirocinio </strong>  <% out.println( "<br>"+ datainiziotirocinio); %>
+									    	<strong>Competenze Possedute </strong>  <% out.println( "<br>"+ tirocinio.getCompetenze()); %>
+									    </div>
+									    <!-- Campo Competenze da Acquisire -->
+									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									    	<strong>Competenze da Acquisire </strong>  <% out.println( "<br>"+ tirocinio.getCompetenze()); %>
+									    </div>
+									    <!--  Campo modalità svolgimento tirocinio -->
+									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									    	<strong>Modalit&agrave; svolgimento Tirocinio </strong>  <% out.println( "<br>"+ tirocinio.getSvolgimentoTirocinio()); %>
+									    </div>
+									    <!--  Campo attività previste -->
+									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									    	<strong>Attivit&agrave; previste </strong>  <% out.println( "<br>"+ tirocinio.getAttivitaPreviste()); %>
+									    </div>
+									    <!-- Campo Descrizione -->
+									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									    	<strong>Descrizione </strong>  <% out.println( "<br>"+ tirocinio.getDescrizioneEnte()); %>
 									    </div>
 										<!-- Tasti Accetta / Rifuta -->
 										<div
@@ -186,7 +194,8 @@
 								    <span class="close"></span>
 								    <p>Sei sicuro di voler accettare la richiesta di Tirocinio?</p>
 								  		<table>
-								  		<tr><td><form id="modalAccettaForm" action="../ServletGestioneRichiesteSegreteriaET" method="post">
+								  		<tr><td><form id="modalAccettaForm" action="../ServletGestioneRichiesteEnteET?flag=2" method="post">
+								  		<input type="hidden" name="codice" value="<%=(String)request.getParameter("codice") %>">
 								  		 <button onclick="accetta()"id="modalAccettaButton" name="accettaRichiesta" value="niente per il momento" type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Accetta Richiesta">Si</button>
 								  		 </form></td>
 										 <td><button onclick="notaccetta()"id="close" name="nonAccetta" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button></td></tr>
@@ -202,10 +211,10 @@
 								 <div class="modal-content">
 								    <span class="close"></span>
 								    <p>Sei sicuro di voler rifiutare la richiesta di Tirocinio?</p>
-								    <form id="modalRifiutoForm" action="../ServletGestioneRichiesteSegreteriaET" method="post">
+								    <form id="modalRifiutoForm" action="../ServletGestioneRichiesteEnteET?flag=3" method="post">
 											<label for="nome">Inserisci Motivazione</label> 
 											<input type="text" class="form-control" id="motivazione" name="motivazione" placeholder="Motivazione del Rifiuto" minlength="1" maxlength="256" required>
-									
+											<input type="hidden" name="codice" value="<%=(String)request.getParameter("codice") %>">	
 											<button onclick="rifiuta()"id="rifiuta" name="rifiutaRichiesta"  value="niente per il momento" type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Rifiuta Richiesta">Si</button>
 											<button onclick="notrifiuta()"id="close" name="nonRifiuta"  type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button>
 									</form>
@@ -316,7 +325,6 @@
 		<script>
 		function accetta()
 		{
-			showAlert();
 			toastr.success("Accettazione effettuata con successo");
 			document.getElementById("i").value=" ";
 		}
