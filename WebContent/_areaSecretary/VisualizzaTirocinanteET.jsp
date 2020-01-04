@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*,controller.ServletVisualizzaTirocinanteEnteET, model.Tirocinante, model.Tirocinio, controller.CheckSession" %>
+<%@ page import="java.util.*,controller.ServletVisualizzaTirocinanteET, model.Tirocinante, model.Tirocinio, controller.CheckSession" %>
 <%
-	String pageName = "VisualizzaTirocinanteEnteET.jsp";
+	String pageName = "VisualizzaTirocinanteET.jsp";
 	String pageFolder = "_areaEnteET";
 
 	CheckSession ck = new CheckSession(pageFolder, pageName, request.getSession());
@@ -21,7 +21,7 @@
 	{
 		request.setAttribute("matricola", matricola);
         RequestDispatcher dispatcher;
-        dispatcher = request.getRequestDispatcher("../ServletVisualizzaTirocinanteEnteET");
+        dispatcher = request.getRequestDispatcher("../ServletVisualizzaTirocinanteET");
         dispatcher.forward(request, response);
     }
 
@@ -92,12 +92,19 @@
 								//Se la listaEnti non è null mostro la tabella
 								if(tirocinante!=null)
 								{
+									//String format data di nascita
 									Date giorno = tirocinante.getDataNascita();
 									String data = giorno.toString();
 									String anno = data.substring(0,4);
 									String mese = data.substring(4,8);
 									String day = data.substring(8,10);
 									String datanascita = day+mese+anno;
+									//String forma data di inizio tirocinio
+									String giorno2 = tirocinio.getDataInizioTirocinio();
+									String anno2 = giorno2.substring(0,4);
+									String mese2 = giorno2.substring(4,8);
+									String day2 = giorno2.substring(8,10);
+									String datainiziotirocinio = day2+mese2+anno2;
 								%>
 									<div class="panel">
 										<h2 class="text-center">Informazioni del Tirocinante</h2>
@@ -156,6 +163,10 @@
 									    <!--  Campo CFU -->
 									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 									    	<strong>CFU Conseguiti </strong>  <% out.println( "<br>"+ tirocinio.getCfuPrevisti()); %>
+									    </div>
+									    <!--  Campo Data Inizio Tirocinio -->
+									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									    	<strong>Data Inizio Tirocinio </strong>  <% out.println( "<br>"+ datainiziotirocinio); %>
 									    </div>
 										<!-- Tasti Accetta / Rifuta -->
 										<div
