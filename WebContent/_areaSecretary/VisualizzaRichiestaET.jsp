@@ -10,7 +10,10 @@
 	
 	if(listaTirocini==null)
 	{
-        RequestDispatcher dispatcher = request.getRequestDispatcher("../ServletGestioneRichiesteSegreteriaET");
+		int numero = 1;
+		request.setAttribute("flag", numero);
+        RequestDispatcher dispatcher;
+        dispatcher = request.getRequestDispatcher("../ServletGestioneRichiesteSegreteriaET");
         dispatcher.forward(request, response);
     }
 	
