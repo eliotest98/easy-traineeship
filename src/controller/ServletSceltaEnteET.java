@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import interfacce.UserInterface;
+import model.Tirocinante;
 import model.Tirocinio;
 import model.DAO.TirocinanteDAO;
 import model.DAO.TirocinioDAO;
@@ -21,7 +21,7 @@ import model.DAO.TirocinioDAO;
 @WebServlet("/ServletSceltaEnteET")
 public class ServletSceltaEnteET extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private final TirocinioDAO tirocinioDAO = new TirocinioDAO();
+	TirocinioDAO tirocinioDAO = new TirocinioDAO();
 	TirocinanteDAO tirocinanteDao = new TirocinanteDAO();
 	String mess = null;
 
@@ -54,7 +54,7 @@ public class ServletSceltaEnteET extends HttpServlet {
 			throw new IllegalArgumentException("Il campo Ente non rispetta il formato");
 		}
 		// Controllo nome tirocinante
-		String nome = request.getParameter("name");
+		String nome = request.getParameter("nome");
 		if (nome.length() == 0) {
 			throw new IllegalArgumentException("Il campo Nome e' vuoto");
 		} else if (nome.length() > 50) {
@@ -87,10 +87,17 @@ public class ServletSceltaEnteET extends HttpServlet {
 		} else if (descrizione.length() > 256) {
 			throw new IllegalArgumentException("Il campo Descrizione supera la lunghezza consentita");
 		}
-		//int matricola = (int) request.getSession().getAttribute("matricola");// da capire
-		// se la passiamo in sessione
-		String partitaIva = (String) request.getParameter("partitaIva");
-		UserInterface user = (UserInterface)request.getSession().getAttribute("user");
+		//Prelevo il tirocinante dalla sessione
+		Tirocinante tirocinante = (Tirocinante) request.getSession().getAttribute("Tirocinante");
+		if(tirocinante==null)
+		{
+		  throw new IllegalArgumentException("Il Tirocinante non esiste.");
+		}
+		
+		//Prelevo il tirocinio di questo tirocinante
+		Tirocinio tirocinio = tirocinioDAO.tirocinioAttivo();
+		tirocinioDAO.modificaStatoTirocinio(tirocinio.getCodTirocinio(), "In Attesa Dell'Ente")
+		
 		long matricola = tirocinanteDao.ricercaTirocinanteByEmail(user.getEmail()).getMatricola();
 		ArrayList<Tirocinio> listaTirocini = tirocinioDAO.allTirocinioTirocinante(matricola);  //creare un metodo che restituisca un solo codTirocinio
 		try {

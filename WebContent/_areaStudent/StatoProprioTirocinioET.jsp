@@ -59,9 +59,17 @@
 									<div class="centro">
 										<button onclick="mostraStato()" class="buttonET">
 											<p id="cambia">MOSTRA STATO TIROCINIO</p>
-										</button>
+										</button><br>
 										<p id="qui" style="display: none;">
-											<b><%=lista.get(0).getStatoTirocinio().toUpperCase()%></b>
+											<b><%=lista.get(0).getStatoTirocinio().toUpperCase()%></b><br>
+											<%if(lista.get(0).getStatoTirocinio().equalsIgnoreCase("Completato")) {%>
+												<button class="buttonET dow" disabled >
+													<p> DOWNLOAD </p>
+												</button>
+												<button class="buttonET dow" disabled>
+													<p> UPLOAD </p>
+												</button>
+											<%} %>
 										</p>
 									</div>
 									<br>
