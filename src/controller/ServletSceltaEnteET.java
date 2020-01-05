@@ -44,13 +44,13 @@ public class ServletSceltaEnteET extends HttpServlet {
 			response.sendRedirect("login.jsp");
 			return;
 		}
-		// Controllo ente partita iva, perchè cliccando il nome si passa la chiave primaria (partita iva)
+		// Controllo ente partita iva, perchï¿½ cliccando il nome si passa la chiave primaria (partita iva)
 		String ente = request.getParameter("ente");
 		
 		if (ente==null) {
-			throw new IllegalArgumentException("Il campo Ente è vuoto");
+			throw new IllegalArgumentException("Il campo Ente ï¿½ vuoto");
 		} else if (ente.length() != 11) {
-			throw new IllegalArgumentException("Il campo Ente non è di 11 cifre");
+			throw new IllegalArgumentException("Il campo Ente non ï¿½ di 11 cifre");
 		} else if (!ente.matches("^[0-9]+$")) {
 			throw new IllegalArgumentException("Il campo Ente non rispetta il formato");
 		}
@@ -104,16 +104,16 @@ public class ServletSceltaEnteET extends HttpServlet {
 		Tirocinio tirocinio = tirocinioDAO.tirocinioAttivo(tirocinante.getMatricola());
 		//Effettuo l'invio della richiesta
 		Boolean risp = tirocinioDAO.richiestaEnte(tirocinio.getCodTirocinio(),ente,descrizione);
-		//Se è andata a buon fine, setto lo stato, se no eccezione
+		//Se ï¿½ andata a buon fine, setto lo stato, se no eccezione
 		if(risp==false)
         {
-          throw new IllegalArgumentException("La query di invio richiesta non è andata a buon fine.");
+          throw new IllegalArgumentException("La query di invio richiesta non ï¿½ andata a buon fine.");
         }
-		//Setto lo stato, se non va bene c'è l'eccezione
+		//Setto lo stato, se non va bene c'ï¿½ l'eccezione
 		risp = tirocinioDAO.modificaStatoTirocinio(tirocinio.getCodTirocinio(), "In Attesa Dell'Ente");
 		if(risp==false)
 		{
-		  throw new IllegalArgumentException("La query di modifica non è andata a buon fine.");
+		  throw new IllegalArgumentException("La query di modifica non ï¿½ andata a buon fine.");
 		}
 		//Risettiamo il tirocinante, per sicurezza
 		tirocinante = tirocinio.getTirocinante();
