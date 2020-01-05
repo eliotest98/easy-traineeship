@@ -124,7 +124,7 @@
 										Impossibile accedere alla pagina di richiesta ente: <br>
 										Nessuna richiesta di tirocinio in attesa della scelta dell'ente <br>
 										Si prega di uscire dalla pagina. <br>
-										Clicca <a href="../index.jsp"> qui </a> per tornare alla Home. <br>
+										Clicca <a href="../_areaStudent/HomeStudente.jsp"> qui </a> per tornare alla Home. <br>
 										</h3>
 									<%
                                 		}
@@ -135,7 +135,7 @@
 										Impossibile accedere alla pagina di richiesta ente: <br>
 										Nessuna richiesta di tirocinio presente.<br>
 										Si prega di uscire dalla pagina. <br>
-										Clicca <a href="../index.jsp"> qui </a> per tornare alla Home. <br>
+										Clicca <a href="../_areaStudent/HomeStudente.jsp"> qui </a> per tornare alla Home. <br>
 										</h3>
 									<% 
                                 	}

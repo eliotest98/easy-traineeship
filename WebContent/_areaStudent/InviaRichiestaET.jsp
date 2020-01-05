@@ -212,7 +212,7 @@
 										Impossibile accedere alla pagina di richiesta tirocinio: <br>
 										&egrave; possibile richiedere un solo tirocinio per volta.<br>
 										Si prega di uscire dalla pagina. <br>
-										Clicca <a href="../index.jsp"> qui </a> per tornare alla Home. <br>
+										Clicca <a href="../_areaStudent/HomeStudente.jsp"> qui </a> per tornare alla Home. <br>
 									</h3>
 								 <%		
                                 	}
