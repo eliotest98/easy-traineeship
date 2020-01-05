@@ -46,11 +46,9 @@ public class ServletSceltaEnteET extends HttpServlet {
 		}
 		
 		String partitaIva = (String) request.getParameter("ente").substring(0, 11);
-		System.out.println("PARTITAIVA: " + partitaIva);
 		
 		// Controllo nome ente
 		String ente = request.getParameter("ente").substring(11);
-		System.out.println("ENTE: " + ente);
 		if (ente.length() == 0) {
 			throw new IllegalArgumentException("Il campo Ente e' vuoto");
 		} else if (ente.length() > 64) {
@@ -100,9 +98,9 @@ public class ServletSceltaEnteET extends HttpServlet {
 		ArrayList<Tirocinio> listaTirocini = tirocinioDAO.allTirocinioTirocinante(matricola);  //creare un metodo che restituisca un solo codTirocinio
 		try {
 			Boolean prova1 = tirocinioDAO.richiestaEnte(listaTirocini.get(listaTirocini.size()-1).getCodTirocinio(), partitaIva, descrizione);
-			System.out.println("prova1 " + prova1);
+			//System.out.println("prova1 " + prova1);
 			Boolean prova2 = tirocinioDAO.modificaStatoTirocinio(listaTirocini.get(listaTirocini.size()-1).getCodTirocinio(),"in attesa dell Ente");
-			System.out.println("prova2 " + prova2);
+			//System.out.println("prova2 " + prova2);
 			if ((prova1==true) && (prova2==true)) {
 				request.setAttribute("L'invio della richiesta e' avvenuto con successo", mess);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/_areaStudent/viewRequest.jsp");// Controlla jsp
