@@ -15,6 +15,9 @@ import model.Admin;
 import model.Secretary;
 import model.Student;
 import model.Tirocinante;
+import model.Tirocinio;
+import model.DAO.TirocinanteDAO;
+import model.DAO.TirocinioDAO;
 import model.EnteConvenzionato;
 import org.json.simple.JSONObject;
 
@@ -62,6 +65,9 @@ public class ServletCommon extends HttpServlet {
     int flag = Integer.parseInt(request.getParameter("flag"));
     Connection conn = new DbConnection().getInstance().getConn();
     String sql = "";
+    
+    TirocinanteDAO tirocinanteDao = new TirocinanteDAO();
+    TirocinioDAO tirocinioDao = new TirocinioDAO();
 
     if (conn != null) {
 
@@ -92,6 +98,14 @@ public class ServletCommon extends HttpServlet {
                 redirect = request.getContextPath() + "/_areaStudent/HomeStudente.jsp";
                 user = new Student(email, name, surname, sex, password, userType);
                 userET="0";
+                Tirocinante tirocinante = tirocinanteDao.ricercaTirocinanteByEmail(email);
+                
+                if (tirocinante!=null) {
+                	request.getSession().setAttribute("Tirocinante", tirocinante);
+                	Tirocinio tirociniouser = tirocinioDao.tirocinioAttivo(tirocinante.getMatricola());
+                    request.getSession().setAttribute("Tirocinio", tirociniouser);
+                }
+                
               } else if (userType == 1) { // Profilo Secretary
                 redirect = request.getContextPath() + "/_areaSecretary/viewRequest.jsp";
                 user = new Secretary(email, name, surname, sex, password, userType);

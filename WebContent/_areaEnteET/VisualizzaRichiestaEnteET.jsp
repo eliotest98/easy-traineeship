@@ -68,12 +68,19 @@
 											<%
 											//Scorro tutta la listaEnti
 											for( int i = 0; i < listaRichiesteEnte.size(); i++)
-											{ %>
+											{ 
+												//String format per la Data Inizio Tirocinio
+												String data = listaRichiesteEnte.get(i).getDataInizioTirocinio();
+												String anno = data.substring(0,4);
+												String mese = data.substring(4,8);
+												String day = data.substring(8,10);
+												String datainiziotirocinio = day+mese+anno;
+											%>
 												<tr role='row' >
 													<td class='text-center'><%=listaRichiesteEnte.get(i).getMatricola()%></td>
 													<td class='text-center'><%=listaRichiesteEnte.get(i).getTirocinante().getName()%></td>
 													<td class='text-center'><%=listaRichiesteEnte.get(i).getTirocinante().getSurname()%></td>
-													<td class='text-center'><%=listaRichiesteEnte.get(i).getDataInizioTirocinio()%></td>
+													<td class='text-center'><%=datainiziotirocinio%></td>
 													<td class='text-center'><%=listaRichiesteEnte.get(i).getCfuPrevisti()%></td>
 													<td class='text-center'><%=listaRichiesteEnte.get(i).getCompetenze()%></td>
 													<td class='text-center'><%=listaRichiesteEnte.get(i).getCompetenzeAcquisire()%></td>

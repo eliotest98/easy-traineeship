@@ -110,16 +110,21 @@ public class ServletSceltaEnteET extends HttpServlet {
           throw new IllegalArgumentException("La query di invio richiesta non � andata a buon fine.");
         }
 		//Setto lo stato, se non va bene c'� l'eccezione
-		risp = tirocinioDAO.modificaStatoTirocinio(tirocinio.getCodTirocinio(), "In Attesa Dell'Ente");
+		risp = tirocinioDAO.modificaStatoTirocinio(tirocinio.getCodTirocinio(), "Accettato e in attesa di firma (tutti)");
 		if(risp==false)
 		{
 		  throw new IllegalArgumentException("La query di modifica non � andata a buon fine.");
 		}
+		
+		//Riprendo il tirocinio appena cambiato
+		tirocinio = tirocinioDAO.tirocinioAttivo(tirocinante.getMatricola());
+		
 		//Risettiamo il tirocinante, per sicurezza
 		tirocinante = tirocinio.getTirocinante();
 		tirocinio.setTirocinante(tirocinante);
 		
 		//Setto TUTTO nella sessione per sovrascrivere la merda che c'era
+		
 		request.getSession().setAttribute("Tirocinante", tirocinante);
 		request.getSession().setAttribute("Tirocinio", tirocinio);
 		

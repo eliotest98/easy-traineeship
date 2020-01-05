@@ -5,6 +5,15 @@
 	String pageName = "VisualizzaRichiestaET.jsp";
 	String pageFolder = "_areaSecretary";	
 	
+	/**
+     * Controllo autenticazione tramite parametro in sessione (1 = Segreteria).
+    */ 
+    String userET = (String) request.getSession().getAttribute("userET");
+    if ((userET == null) || (!userET.equals("1"))) {
+      response.sendRedirect("login.jsp");
+      return;
+    }
+	
 	ArrayList<Tirocinio> listaTirocini=new ArrayList<Tirocinio>();
 	listaTirocini=(ArrayList<Tirocinio>)request.getAttribute("listaTirocini");
 	
@@ -59,16 +68,22 @@
 											<%
 											//Scorro tutta la listaEnti
 											for( int i = 0; i < listaTirocini.size(); i++)
-											{ %>
+											{ 
+												//String format per la Data Inizio Tirocinio
+												String data = listaTirocini.get(i).getDataInizioTirocinio();
+												String anno = data.substring(0,4);
+												String mese = data.substring(4,8);
+												String day = data.substring(8,10);
+												String datainiziotirocinio = day+mese+anno;
+											%>
 												<tr role='row' >
 													<td class='text-center'><%=listaTirocini.get(i).getMatricola()%></td>
 													<td class='text-center'><%=listaTirocini.get(i).getTirocinante().getName()%></td>
 													<td class='text-center'><%=listaTirocini.get(i).getTirocinante().getSurname()%></td>
-													<td class='text-center'><%=listaTirocini.get(i).getDataInizioTirocinio()%></td>
+													<td class='text-center'><%=datainiziotirocinio%></td>
 													<td class='text-center'><%=listaTirocini.get(i).getCfuPrevisti()%></td>
 													<td class='text-center'><%=listaTirocini.get(i).getCompetenze()%></td>
 													<td class='text-center'><%=listaTirocini.get(i).getCompetenzeAcquisire()%></td>
-											
 													<td class='text-center'><%=listaTirocini.get(i).getStatoTirocinio()%></td>
 													<td class="text-center" align="center">
 														<a href='VisualizzaTirocinanteET.jsp?matricola=<%=listaTirocini.get(i).getMatricola()%>' class="btn btn-primary btn-action modificaEnte" title="Accetta/Rifiuta" data-idrequest="35"><i class="fa fa-eye"></i></a>

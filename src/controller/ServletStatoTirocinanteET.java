@@ -31,27 +31,56 @@ public class ServletStatoTirocinanteET extends HttpServlet {
 
     TirocinioDAO tirocinioDao = new TirocinioDAO();
     TirocinanteDAO tirocinanteDao = new TirocinanteDAO();
-    /* Cerco lo studente in sessione */
+    
+    //Cerco lo studente in sessione
     Student s = (Student) request.getSession().getAttribute("user");
+    //Se non esiste, lancia eccezione
     if (s == null) {
       throw new IllegalArgumentException("Lo Studente non esiste");
     }
     /* Cerco il tirocinante corrispondente */
     Tirocinante tirocinante = tirocinanteDao.ricercaTirocinanteByEmail(s.getEmail());
-    if (tirocinante != null) {
-      tirocinante.setFacolta("Informatica");
-      /* Cerco i Tirocini abbinati al Tirocinante in sessione */
-      ArrayList<Tirocinio> tirocini = new ArrayList<Tirocinio>();
-      tirocini =
-          (ArrayList<Tirocinio>) tirocinioDao.allTirocinioTirocinante(tirocinante.getMatricola());
-      request.getSession().setAttribute("Tirocinio", tirocini);
+    
+    if(request.getParameter("pagina").equalsIgnoreCase("StatoProprioTirocinioET"))
+    {
+      if (tirocinante != null) 
+      {
+        //Se non è null, setto informatica nella facoltà
+        tirocinante.setFacolta("Informatica");
+        //Cerco il tiocinio attivo del tirocinante
+        Tirocinio tirocinio = (Tirocinio) tirocinioDao.tirocinioAttivo(tirocinante.getMatricola());
+        //per sicurezza,risetto  il tirocinante
+        tirocinio.setTirocinante(tirocinante);
+        //Metto il tirocinio in sessione
+        request.getSession().setAttribute("Tirocinio", tirocinio);
+      }
+      //Metto il tirocinante in sessione
+      request.getSession().setAttribute("Tirocinante", tirocinante);
+  
+      RequestDispatcher dispatcher = request.getRequestDispatcher("/_areaStudent/StatoProprioTirocinioET.jsp");
+      dispatcher.forward(request, response);
     }
-    /* Schiaffo IL TIROCINANTE nella sessione */
-    request.getSession().setAttribute("Tirocinante", tirocinante);
-
-    RequestDispatcher dispatcher =
-        request.getRequestDispatcher("/_areaStudent/StatoProprioTirocinioET.jsp");
-    dispatcher.forward(request, response);
+    else if(request.getParameter("pagina").equalsIgnoreCase("StoricoStudenteET"))
+    {
+      if (tirocinante != null) 
+      {
+        //Se non è null, setto informatica nella facoltà
+        tirocinante.setFacolta("Informatica");
+        //Cerco il tiocinio attivo del tirocinante
+        ArrayList<Tirocinio> listaTirocini = (ArrayList<Tirocinio>) tirocinioDao.allTirocinioTirocinante(tirocinante.getMatricola());
+        //Metto la lisat dei tirocini in sessione
+        request.getSession().setAttribute("listaTirocini", listaTirocini);
+      }
+      //Metto il tirocinante in sessione
+      request.getSession().setAttribute("Tirocinante", tirocinante);
+      //Vado alla pagina dello storico
+      RequestDispatcher dispatcher = request.getRequestDispatcher("/_areaStudent/StoricoStudenteET.jsp");
+      dispatcher.forward(request, response); 
+    }
+    else
+    {
+      throw new IllegalArgumentException("Pagina non trovata");
+    }
   }
 
 }

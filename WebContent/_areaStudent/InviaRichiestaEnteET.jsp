@@ -45,6 +45,11 @@
                         <div class="news-block-seven">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 signUp-container">
                                 <div class="panel">
+                                <%
+                                	Tirocinio tirocinio = (Tirocinio)request.getSession().getAttribute("Tirocinio");
+                                	if (tirocinio!=null) {
+                                		if (tirocinio.getStatoTirocinio().equalsIgnoreCase("In attesa dell ente")) {
+                                %>
 									<h2 class="text-center">Invio Richiesta di Tirocinio
 											all'Ente Convenzionato</h2>
 									<p class="text-center">Compila tutti i campi per inviare
@@ -91,6 +96,7 @@
 													%>
 										</select>
 									</div>
+									
 									<!--Controlli: TUTTO, da 1 a 256-->
 									<div class="form-group">
 										<label for="descrizione" class="desc">Descrizione:</label><br>
@@ -110,6 +116,30 @@
                                     </div>
 									<div class="clearfix"></div>
 								</form>
+								<%
+                                		}
+                                	else if ((!tirocinio.getStatoTirocinio().equalsIgnoreCase("In attesa dell Ente"))) {
+									%>
+										<h3 style="text-align: center;">
+										Impossibile accedere alla pagina di richiesta ente: <br>
+										Nessuna richiesta di tirocinio in attesa della scelta dell'ente <br>
+										Si prega di uscire dalla pagina. <br>
+										Clicca <a href="../_areaStudent/HomeStudente.jsp"> qui </a> per tornare alla Home. <br>
+										</h3>
+									<%
+                                		}
+                                	}	
+                                	else if (tirocinio==null) {
+                                	%>	
+										<h3 style="text-align: center;">
+										Impossibile accedere alla pagina di richiesta ente: <br>
+										Nessuna richiesta di tirocinio presente.<br>
+										Si prega di uscire dalla pagina. <br>
+										Clicca <a href="../_areaStudent/HomeStudente.jsp"> qui </a> per tornare alla Home. <br>
+										</h3>
+									<% 
+                                	}
+									%>
 							</div>
 						</div>
 					</div>

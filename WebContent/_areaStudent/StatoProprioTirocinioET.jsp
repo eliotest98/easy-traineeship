@@ -10,8 +10,8 @@
 	Student user = (Student) request.getSession().getAttribute("user");
 	Tirocinante tirocinante = (Tirocinante) request.getSession().getAttribute("Tirocinante");
 	//Per completare i campi di tirocinio
-	ArrayList<Tirocinio> lista = (ArrayList<Tirocinio>) request.getSession().getAttribute("Tirocinio");
-	//Per vedere chi è in sessione.
+	Tirocinio tirocinio = (Tirocinio) request.getSession().getAttribute("Tirocinio");
+	//Per vedere chi ï¿½ in sessione.
 	int resp = Integer.parseInt((String) request.getSession().getAttribute("userET"));
 %>
 <!DOCTYPE html>
@@ -41,7 +41,7 @@
 								%>
 								<div class="bordiET">
 									<%
-										if (lista != null && tirocinante != null) {
+										if (tirocinio != null && tirocinante != null) {
 									%>
 									<h2 class="centro">PROGETTO FORMATIVO:</h2>
 									<div class="pf">
@@ -50,20 +50,20 @@
 										<span><b>Matricola: </b> <%=tirocinante.getMatricola()%></span><br>
 										<span><b>Facolt&agrave;: </b> <%=tirocinante.getFacolta()%></span><br>
 										<span><b>E-mail: </b><%=tirocinante.getEmail()%></span><br>
-										<span><b>Crediti previsti: </b><%=lista.get(0).getCfuPrevisti()%></span><br>
+										<span><b>Crediti previsti: </b><%=tirocinio.getCfuPrevisti()%></span><br>
 										<span><b>Indicazione delle attivit&agrave;
-												formative previste:</b><br> <%=lista.get(0).getAttivitaPreviste()%></span><br>
+												formative previste:</b><br> <%=tirocinio.getAttivitaPreviste()%></span><br>
 										<span><b>Indicazione delle modalit&agrave; di
-												svolgimento del Tirocinio:</b><br> <%=lista.get(0).getSvolgimentoTirocinio()%></span><br>
+												svolgimento del Tirocinio:</b><br> <%=tirocinio.getSvolgimentoTirocinio()%></span><br>
 									</div>
 									<div class="centro">
 										<button onclick="mostraStato()" class="buttonET">
 											<p id="cambia">MOSTRA STATO TIROCINIO</p>
 										</button><br>
 										<p id="qui" style="display: none;">
-											<b><%=lista.get(0).getStatoTirocinio().toUpperCase()%></b><br>
-											<%if(lista.get(0).getStatoTirocinio()!=null) {%>
-												<button class="buttonET dow"  >
+											<b><%=tirocinio.getStatoTirocinio().toUpperCase()%></b><br>
+											<%if(tirocinio.getStatoTirocinio().equalsIgnoreCase("Completato")) {%>
+												<button class="buttonET dow" disabled >
 													<p> DOWNLOAD </p>
 												</button>
 											<%} %>
@@ -78,7 +78,7 @@
 									<br>
 									<%
 										}
-											if (lista == null || tirocinante == null) {
+											if (tirocinio == null || tirocinante == null) {
 									%>
 									<h2 class="centro">
 										OPS..
