@@ -33,64 +33,6 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-	    int flag = Integer.parseInt(request.getParameter("flag"));
-	    // <----------- Accetta Richiesta ----------->
-	    if (flag == 2) {
-	      TirocinioDAO tirocinio = new TirocinioDAO();
-	      // boolean che controlla se la modifica è stata fatta
-	      boolean set = false;
-	      // Array list di Tirocini
-	      ArrayList<Tirocinio> listaTirocini = new ArrayList<Tirocinio>();
-	      // Ricerco tutti gli 'EntiConvenzionati' e li inserisco nella listaTirocini
-	      try {
-	        // Prelevo la matricola
-	        String matricola = request.getParameter("matricola");
-	        long matricolaLong = Long.parseLong(matricola);
-	        listaTirocini = tirocinio.allTirocinioTirocinante(matricolaLong);
-	        // Ricerco fra i Tirocini quelli In attesa della Segreteria con uno specifico codice
-	        // tirocinio
-	        for (int i = 0; i < listaTirocini.size(); i++) {
-	          if (listaTirocini.get(i).getStatoTirocinio()
-	              .equalsIgnoreCase("In attesa della Segreteria")) {
-	            // modifico lo stato se lo trovo
-	            set = tirocinio.modificaStatoTirocinio(listaTirocini.get(i).getCodTirocinio(),
-	                "In attesa dell Ente");
-	          }
-	        }
-	      } catch (Exception e) {
-	        e.printStackTrace();
-	      }
-	    }
-	    // <--------- Rifiuta Richiesta --------->
-	    if (flag == 3) {
-	      TirocinioDAO tirocinio3 = new TirocinioDAO();
-	      // boolean che controlla se la modifica è stata fatta
-	      boolean set2 = false;
-	      // Array list di Tirocini
-	      ArrayList<Tirocinio> listaTirocini3 = new ArrayList<Tirocinio>();
-	      // Ricerco tutti gli 'EntiConvenzionati' e li inserisco nella listaTirocini
-	      try {
-	        // Prelevo la matricola
-	        String matricola = request.getParameter("matricola");
-	        long matricolaLong = Long.parseLong(matricola);
-	        // Prelevo la motivazione
-	        String motivazione = request.getParameter("motivazione");
-	        listaTirocini3 = tirocinio3.allTirocinioTirocinante(matricolaLong);
-	        // Ricerco fra i Tirocini quelli In attesa della Segreteria con uno specifico codice
-	        // tirocinio
-	        for (int i = 0; i < listaTirocini3.size(); i++) {
-	          if (listaTirocini3.get(i).getStatoTirocinio()
-	              .equalsIgnoreCase("In attesa della Segreteria")) {
-	            // Modifico lo stato in caso lo trovo
-	            set2 = tirocinio3.modificaStatoTirocinio(listaTirocini3.get(i).getCodTirocinio(),
-	                "Annullato");
-	            System.out.println(motivazione);
-	          }
-	        }
-	      } catch (Exception e) {
-	        e.printStackTrace();
-	      }
-	    }
 	    // <-------- Sezione Lista ------------>
 	    TirocinioDAO tirocinio2 = new TirocinioDAO();
 	    // Array list di Tirocini
@@ -118,8 +60,65 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
+	    int flag = Integer.parseInt(request.getParameter("flag"));
+	    // <----------- Accetta Richiesta ----------->
+	    if (flag == 2) {
+	      TirocinioDAO tirocinio = new TirocinioDAO();
+	      // boolean che controlla se la modifica ï¿½ stata fatta
+	      boolean set = false;
+	      // Array list di Tirocini
+	      ArrayList<Tirocinio> listaTirocini = new ArrayList<Tirocinio>();
+	      // Ricerco tutti gli 'EntiConvenzionati' e li inserisco nella listaTirocini
+	      try {
+	        // Prelevo la matricola
+	        String matricola = (String) request.getAttribute("matricola");
+	        long matricolaLong = Long.parseLong(matricola);
+	        listaTirocini = tirocinio.allTirocinioTirocinante(matricolaLong);
+	        // Ricerco fra i Tirocini quelli In attesa della Segreteria con uno specifico codice
+	        // tirocinio
+	        for (int i = 0; i < listaTirocini.size(); i++) {
+	          if (listaTirocini.get(i).getStatoTirocinio()
+	              .equalsIgnoreCase("In attesa della Segreteria")) {
+	            // modifico lo stato se lo trovo
+	            set = tirocinio.modificaStatoTirocinio(listaTirocini.get(i).getCodTirocinio(),
+	                "In attesa dell Ente");
+	          }
+	        }
+	      } catch (Exception e) {
+	        e.printStackTrace();
+	      }
+	    }
+	    // <--------- Rifiuta Richiesta --------->
+	    if (flag == 3) {
+	      TirocinioDAO tirocinio3 = new TirocinioDAO();
+	      // boolean che controlla se la modifica ï¿½ stata fatta
+	      boolean set2 = false;
+	      // Array list di Tirocini
+	      ArrayList<Tirocinio> listaTirocini3 = new ArrayList<Tirocinio>();
+	      // Ricerco tutti gli 'EntiConvenzionati' e li inserisco nella listaTirocini
+	      try {
+	        // Prelevo la matricola
+	        String matricola = request.getParameter("matricola");
+	        long matricolaLong = Long.parseLong(matricola);
+	        // Prelevo la motivazione
+	        String motivazione = request.getParameter("motivazione");
+	        listaTirocini3 = tirocinio3.allTirocinioTirocinante(matricolaLong);
+	        // Ricerco fra i Tirocini quelli In attesa della Segreteria con uno specifico codice
+	        // tirocinio
+	        for (int i = 0; i < listaTirocini3.size(); i++) {
+	          if (listaTirocini3.get(i).getStatoTirocinio()
+	              .equalsIgnoreCase("In attesa della Segreteria")) {
+	            // Modifico lo stato in caso lo trovo
+	            set2 = tirocinio3.modificaStatoTirocinio(listaTirocini3.get(i).getCodTirocinio(),
+	                "Annullato");
+	            System.out.println(motivazione);
+	          }
+	        }
+	      } catch (Exception e) {
+	        e.printStackTrace();
+	      }
+	    }
 	}
 
 }
