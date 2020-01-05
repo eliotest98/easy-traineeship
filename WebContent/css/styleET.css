@@ -49,7 +49,8 @@
 }
 
 .imgET {
-	margin-top: 10%; height : 400 px;
+	margin-top: 10%;
+	height: 400 px;
 	width: auto;
 	background-color: transparent;
 	border: 2px solid transparent;
@@ -69,4 +70,31 @@
 .linkET {
 	text-decoration: none;
 	color: rgba(0, 0, 0, 0.6);
+}
+/*Serve per i bottoni di doenload e upload*/
+.dow {
+	height: 50px;
+	width: 130px;
+	margin: 2%;
+}
+
+.desc {
+	position: absolute;
+	bottom: 30%;
+	left: 45%;
+}
+.textArea{
+	outline: none;
+	margin:2%;
+	border: 1px solid orange;
+	border-radius: 6px;
+	height: 150%;
+	width: 95%;
+	margin-top: 30%;
+}
+.textArea:focus {
+	outline: none;
+}
+.textArea:hover {
+	outline: none;
 }
