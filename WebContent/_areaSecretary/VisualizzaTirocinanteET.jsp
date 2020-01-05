@@ -18,7 +18,7 @@
 	tirocinio = (Tirocinio)request.getAttribute("tirocinio");
 	
 	if(tirocinante==null)
-	{
+	{	
 		request.setAttribute("matricola", matricola);
         RequestDispatcher dispatcher;
         dispatcher = request.getRequestDispatcher("../ServletVisualizzaTirocinanteET");
@@ -187,6 +187,7 @@
 								    <p>Sei sicuro di voler accettare la richiesta di Tirocinio?</p>
 								  		<table>
 								  		<tr><td><form id="modalAccettaForm" action="../ServletGestioneRichiesteSegreteriaET" method="post">
+								  		  <%request.setAttribute("matricola", matricola);%>
 								  		  <button onclick="accetta()"id="modalAccettaButton" name="flag" value="2" type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Accetta Richiesta">Si</button> </form></td>
 										 <td><button onclick="notaccetta()"id="close" name="nonAccetta" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button></td></tr>
 										</table>

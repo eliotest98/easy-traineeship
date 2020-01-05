@@ -5,6 +5,15 @@
 	String pageName = "VisualizzaRichiestaET.jsp";
 	String pageFolder = "_areaSecretary";	
 	
+	/**
+     * Controllo autenticazione tramite parametro in sessione (1 = Segreteria).
+    */ 
+    String userET = (String) request.getSession().getAttribute("userET");
+    if ((userET == null) || (!userET.equals("1"))) {
+      response.sendRedirect("login.jsp");
+      return;
+    }
+	
 	ArrayList<Tirocinio> listaTirocini=new ArrayList<Tirocinio>();
 	listaTirocini=(ArrayList<Tirocinio>)request.getAttribute("listaTirocini");
 	
