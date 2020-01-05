@@ -80,7 +80,6 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
     }
     
     String numeri = request.getParameter("flag");
-    System.out.println(numeri);
     int flag = Integer.parseInt(numeri.substring(0,1));
     long matricola = Long.parseLong(numeri.substring(1));
     // <----------- Accetta Richiesta ----------->
