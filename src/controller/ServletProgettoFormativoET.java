@@ -43,17 +43,26 @@ public class ServletProgettoFormativoET extends HttpServlet {
 
 		Tirocinio tirocinio=new Tirocinio();
 		tirocinio= tirocinioDao.allTirocinioByDocumento(user.getEmail(), "Accettato e in attesa di firma");
-
+		String pag="";
+		String result="";
 		if(tirocinio!=null)
 		{
 			//Assegno alla richiesta la 'listaTirocini'
 			request.setAttribute("tirocinio", tirocinio);
+			result="ok";
+			request.setAttribute("result", result);
+
 		}
-		
-		  
-		
-		String pag = "_areaStudent/UploadProgettoFormativoET.jsp";
-		
+		else
+		{
+			
+			result="nook";
+			request.setAttribute("tirocinio", tirocinio);
+			request.setAttribute("result", result);
+
+		}
+
+		pag = "_areaStudent/UploadProgettoFormativoET.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(pag);
         dispatcher.forward(request, response);
 	}

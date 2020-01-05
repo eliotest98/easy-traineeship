@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"
-	import=" model.Student, model.Tirocinio, controller.CheckSession"%>
+	import=" model.Student, model.Tirocinio, controller.CheckSession, controller.ServletProgettoFormativoET "%>
 
 <%
-	String pageName = "IploadProgettoFomativoET.jsp";
+	String pageName = "UploadProgettoFomativoET.jsp";
 	String pageFolder = "_areaStudent";
 	
 	//Per prelevare l'utente dalla sessione e precompilare i campi del form.
@@ -15,11 +15,19 @@
     Tirocinio tirocinio=new Tirocinio();
 	tirocinio=(Tirocinio)request.getAttribute("tirocinio");
 
-	if(tirocinio==null)
+	String result=null;
+	result=(String)request.getAttribute("result");
+	
+	if(result==null)
 	{
         RequestDispatcher dispatcher = request.getRequestDispatcher("../ServletProgettoFormativoET");
         dispatcher.forward(request, response);
-    }	 
+
+    }
+
+
+	
+	
 
 %>
 
@@ -27,6 +35,8 @@
 <html>
 <head>
 <jsp:include page="/partials/head.jsp" />
+<link href="<%=request.getContextPath()%>/css/styleET.css"
+	rel="stylesheet">
 </head>
 
 <body>
@@ -52,13 +62,42 @@
 					<div class="content-side col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="content">
 							<div class="news-block-seven">
+								<%
+								if((tirocinio!=null)&&(result.equals("ok")))
+								{
+								%>
 								<div class="form-group">
 									<button type="button"
 										class="btn btn-primary btn-submit generatePDF"
 										onclick="createPdf()">Genera PDF</button>
 								</div>
 								
+																<h2>
+									Richiesta N.
+									</h2>
+									<h2>
+										Trascina o premi sull'apposito riquadro per caricare un file
+										</h2>
+										<div action='<%= request.getContextPath() + "/Uploader" %>'
+											class='dropzoneUploader'></div>
+
+										<div class="form-group">
+											<button type="submit" class="btn btn-primary btn-submit"
+												id='aggiungiAllegati'>Concludi</button>
+										</div>
+
+								
+								
+								
+								
+								
+								
+								
+								
+								
 								<!--  invio dei dati alla funzione "createPdf()" per -->
+
+							
 								<input type="hidden" id="name" value="<%=tirocinio.getTirocinante().getName() %>" />
 								<input type="hidden" id="surname" value="<%= tirocinio.getTirocinante().getSurname() %>" />
 								<input type="hidden" id="cod" value="<%= tirocinio.getCodTirocinio() %>" />
@@ -92,7 +131,29 @@
 								<input type="hidden" id="competenze" value="<%= tirocinio.getCompetenzeAcquisire() %>" />
 								<input type="hidden" id="attivitaPreviste" value="<%= tirocinio.getAttivitaPreviste() %>" />
 								<input type="hidden" id="svolgimentoTirocinio" value="<%= tirocinio.getSvolgimentoTirocinio() %>" />
+								<%
+								} 
+								if ((tirocinio==null) ) 
+								{
+								%>
+									<div class="bordiET">
+										<h2 class="centro">
+											
+											Non ci sono documenti da caricare
+										</h2>
+										<h3 class="centro">
+											Clicca qui per tornare <a href=javascript:history.go(-1);>indietro</a>
+										</h3>
+									</div>
+								<%
+								}
+								%>
 								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 							
 		</div>
 		<jsp:include page="/partials/footer.jsp" />
@@ -104,7 +165,6 @@
 		<script src="<%= request.getContextPath() %>/js/progettoFormativo.js"></script>
 
 
-	
 	
 </body>
 </html>
