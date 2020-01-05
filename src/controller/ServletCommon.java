@@ -101,7 +101,7 @@ public class ServletCommon extends HttpServlet {
                 Tirocinante tirocinante = tirocinanteDao.ricercaTirocinanteByEmail(email);
                 if (tirocinante!=null) {
                 	Tirocinio tirociniouser = tirocinioDao.tirocinioAttivo(tirocinante.getMatricola());
-                    request.getSession().setAttribute("tirocinio", tirociniouser);
+                    request.getSession().setAttribute("Tirocinio", tirociniouser);
                 }
                 
               } else if (userType == 1) { // Profilo Secretary

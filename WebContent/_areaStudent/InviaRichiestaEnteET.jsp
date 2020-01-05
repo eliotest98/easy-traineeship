@@ -46,7 +46,7 @@
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 signUp-container">
                                 <div class="panel">
                                 <%
-                                	Tirocinio tirocinio = (Tirocinio)request.getSession().getAttribute("tirocinio");
+                                	Tirocinio tirocinio = (Tirocinio)request.getSession().getAttribute("Tirocinio");
                                 	if (tirocinio!=null) {
                                 		if (tirocinio.getStatoTirocinio().equalsIgnoreCase("In attesa dell ente")) {
                                 %>
