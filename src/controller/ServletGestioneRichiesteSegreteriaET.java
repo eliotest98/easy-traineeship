@@ -31,7 +31,8 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
    */
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    /**
+    System.out.print("Sono nel doGet");
+    /**s
      * Controllo autenticazione tramite parametro in sessione (1 = Segreteria).
      */
     String userET = (String) request.getSession().getAttribute("userET");
@@ -68,7 +69,16 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
    */
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-
+     System.out.print("Sono nel doPost");
+    /**
+     * Controllo autenticazione tramite parametro in sessione (1 = Segreteria).
+     */
+    String userET = (String) request.getSession().getAttribute("userET");
+    if ((userET == null) || (!userET.equals("1"))) {
+      response.sendRedirect("login.jsp");
+      return;
+    }
+    
     int flag = Integer.parseInt(request.getParameter("flag"));
     // <----------- Accetta Richiesta ----------->
     if (flag == 2) {
@@ -82,6 +92,7 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
         // Prelevo la matricola
         String matricola = (String) request.getAttribute("matricola");
         long matricolaLong = Long.parseLong(matricola);
+        System.out.print(matricolaLong);
         listaTirocini = tirocinio.allTirocinioTirocinante(matricolaLong);
         // Ricerco fra i Tirocini quelli In attesa della Segreteria con uno specifico codice
         // tirocinio
@@ -95,6 +106,12 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
         }
       } catch (Exception e) {
         e.printStackTrace();
+      }
+      if (set) {
+        // Setto la pagina di redirect
+        String pag = "_areaSecretary/VisualizzaRichiestaET.jsp";
+        RequestDispatcher dispatcher = request.getRequestDispatcher(pag);
+        dispatcher.forward(request, response);
       }
     }
     // <--------- Rifiuta Richiesta --------->
@@ -126,7 +143,12 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
       } catch (Exception e) {
         e.printStackTrace();
       }
+      if (set2) {
+        // Setto la pagina di redirect
+        String pag = "_areaSecretary/VisualizzaRichiestaET.jsp";
+        RequestDispatcher dispatcher = request.getRequestDispatcher(pag);
+        dispatcher.forward(request, response);
+      }
     }
   }
-
 }
