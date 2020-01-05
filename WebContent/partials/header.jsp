@@ -189,8 +189,8 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 			{
 				if (Segreteria != null) {
 					logoRedirect = request.getContextPath() + "/_areaSecretary/viewRequest.jsp";
-					menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-							+ "/viewRequest.jsp\">Richieste</a></li>";
+					menu += "<li><a href=\"" + request.getContextPath() + "" + pageFolder
+							+ "/_areaSecretary/viewRequest.jsp\">Richieste</a></li>";
 					menu += "<li><a href=\"" + request.getContextPath() + ""
 							+ "/_areaSecretary/VisualizzaRichiestaET.jsp\">Richieste Tirocinio</a></li>";
 					menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
