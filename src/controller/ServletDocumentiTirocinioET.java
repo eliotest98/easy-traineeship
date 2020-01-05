@@ -29,32 +29,39 @@ public class ServletDocumentiTirocinioET extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//String userET = (String) request.getSession().getAttribute("userET");
-		String userET = "1";
-		System.out.println("USERET ="+userET);
-		if(userET == null || (!userET.equals("0") || !userET.equals("1") || !userET.equals("2") || !userET.equals("3"))) {
+		String userET = (String) request.getSession().getAttribute("userET");
+		if(userET == null ) {
 			response.sendRedirect("login.jsp");
 			return;	
 		}
 		ArrayList<Tirocinio> listaTirocinio=new ArrayList<Tirocinio>();
-//		String statoTirocinio = (String) request.getSession().getAttribute("statoTirocinio");
-		String statoTirocinio = "Accettato e in attesa di firma";
+		String statoTirocinio = "";
 		
-		if(userET.equals("1") &&(statoTirocinio.equals("Accettato e in attesa di firma") || statoTirocinio.equals("Accettato e in attesa di firma dalla Segreteria, Ente e Admin")))
+		if(userET.equals("1"))
 		{
+			statoTirocinio="Accettato e in attesa di firma";
 			listaTirocinio=tirocinioDAO.allTirocinioByStato(statoTirocinio);
+			statoTirocinio="Accettato e in attesa di firma dalla Segreteria, Ente e Admin";
+			listaTirocinio.addAll(tirocinioDAO.allTirocinioByStato(statoTirocinio));
 		}
-		else if(userET.equals("2") && (statoTirocinio.equals("Accettato e in attesa di firma") || statoTirocinio.equals("Accettato e in attesa di firma dall' Admin")))
+		else if(userET.equals("2"))
 		{
+			statoTirocinio="Accettato e in attesa di firma";
 			listaTirocinio=tirocinioDAO.allTirocinioByStato(statoTirocinio);
+			statoTirocinio="Accettato e in attesa di firma dall' Admin";
+			listaTirocinio.addAll(tirocinioDAO.allTirocinioByStato(statoTirocinio));
 		}
-		else if(userET.equals("3") && (statoTirocinio.equals("Accettato e in attesa di firma") || statoTirocinio.equals("Accettato e in attesa di firma dall'Ente e Admin")))
+		else if(userET.equals("3"))
 		{
+			statoTirocinio="Accettato e in attesa di firma";
 			String partitaIva = (String) request.getSession().getAttribute("partitaIva");
 			listaTirocinio=tirocinioDAO.allDocumentiDaFirmareByEnte(partitaIva, statoTirocinio);
+			statoTirocinio="Accettato e in attesa di firma dall'Ente e Admin";
+			listaTirocinio.addAll(tirocinioDAO.allDocumentiDaFirmareByEnte(partitaIva, statoTirocinio));
 		}
-		else if(userET.equals("0") && statoTirocinio.equals("Accettato e in attesa di firma"))
+		else if(userET.equals("0"))
 		{
+			statoTirocinio="Accettato e in attesa di firma";
 			int matricola = (int) request.getSession().getAttribute("matricola");
 			listaTirocinio= tirocinioDAO.allDocumentiDaFirmareByStudente(matricola, statoTirocinio);
 		}
