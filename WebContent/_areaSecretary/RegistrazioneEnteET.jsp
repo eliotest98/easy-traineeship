@@ -53,7 +53,7 @@
 											<label for="name">Nome Ente</label> <input type="text"
 												class="form-control" id="name" name="name"
 												placeholder="Nome Ente" minlength="1" maxlength="64"
-												required pattern="[0-9a-zA-Z. ]{1,64}" title="Formato del nome non corretto.">
+												required pattern="[0-9a-zA-Z]{1,64}" title="Formato del nome non corretto.">
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="partitaIva">Partita IVA</label> <input type="tel"
@@ -114,7 +114,7 @@
 											<input type="text" class="form-control"
 												placeholder="Descrizione delle Attivit&agrave;" minlength="1"
 												maxlength="256" name="descrizioneAttivita"
-												id="descrizioneAttivita" required pattern="{1,256}" title="Formato della descrizione attività non corretto.">
+												id="descrizioneAttivita"  title="Formato della descrizione attività non corretto." required>
 										</div>
 										<div
 											class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
