@@ -79,7 +79,9 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
       return;
     }
     
-    int flag = Integer.parseInt(request.getParameter("flag"));
+    String numeri = request.getParameter("flag");
+    int flag = Integer.parseInt(numeri.substring(0,1));
+    long matricola = Long.parseLong(numeri.substring(1));
     // <----------- Accetta Richiesta ----------->
     if (flag == 2) {
       TirocinioDAO tirocinio = new TirocinioDAO();
@@ -90,10 +92,8 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
       // Ricerco tutti gli 'EntiConvenzionati' e li inserisco nella listaTirocini
       try {
         // Prelevo la matricola
-        String matricola = (String) request.getAttribute("matricola");
-        long matricolaLong = Long.parseLong(matricola);
-        System.out.print(matricolaLong);
-        listaTirocini = tirocinio.allTirocinioTirocinante(matricolaLong);
+        System.out.print(matricola);
+        listaTirocini = tirocinio.allTirocinioTirocinante(matricola);
         // Ricerco fra i Tirocini quelli In attesa della Segreteria con uno specifico codice
         // tirocinio
         for (int i = 0; i < listaTirocini.size(); i++) {
@@ -123,12 +123,9 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
       ArrayList<Tirocinio> listaTirocini3 = new ArrayList<Tirocinio>();
       // Ricerco tutti gli 'EntiConvenzionati' e li inserisco nella listaTirocini
       try {
-        // Prelevo la matricola
-        String matricola = request.getParameter("matricola");
-        long matricolaLong = Long.parseLong(matricola);
         // Prelevo la motivazione
         String motivazione = request.getParameter("motivazione");
-        listaTirocini3 = tirocinio3.allTirocinioTirocinante(matricolaLong);
+        listaTirocini3 = tirocinio3.allTirocinioTirocinante(matricola);
         // Ricerco fra i Tirocini quelli In attesa della Segreteria con uno specifico codice
         // tirocinio
         for (int i = 0; i < listaTirocini3.size(); i++) {

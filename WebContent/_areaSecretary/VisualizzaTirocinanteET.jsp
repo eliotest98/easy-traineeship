@@ -188,7 +188,7 @@
 								  		<table>
 								  		<tr><td><form id="modalAccettaForm" action="../ServletGestioneRichiesteSegreteriaET" method="post">
 								  		  <%request.setAttribute("matricola", matricola);%>
-								  		  <button onclick="accetta()"id="modalAccettaButton" name="flag" value="2" type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Accetta Richiesta">Si</button> </form></td>
+								  		  <button onclick="accetta()"id="modalAccettaButton" name="flag" value="2<%=matricola %>" type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Accetta Richiesta">Si</button> </form></td>
 										 <td><button onclick="notaccetta()"id="close" name="nonAccetta" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button></td></tr>
 										</table>
 										
@@ -205,7 +205,7 @@
 								    <form id="modalRifiutoForm" action="../ServletGestioneRichiesteSegreteriaET" method="post">
 											<label for="nome">Inserisci Motivazione</label> 
 											<input type="text" class="form-control" id="motivazione" name="motivazione" placeholder="Motivazione del Rifiuto" minlength="1" maxlength="256" required>
-											<button onclick="rifiuta()"id="rifiuta" name="flag"  value="3" type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Rifiuta Richiesta">Si</button>
+											<button onclick="rifiuta()"id="rifiuta" name="flag"  value="3<%=matricola %>" type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Rifiuta Richiesta">Si</button>
 											<button onclick="notrifiuta()"id="close" name="nonRifiuta"  type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button>
 									</form>
 									</div>
