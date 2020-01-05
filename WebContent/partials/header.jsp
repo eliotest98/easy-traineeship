@@ -9,10 +9,12 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 	String hiddenMenu = "";
 	String logoRedirect = ""; //tiene traccia del path a cui reindirizzare il sito quando si preme sul logo
 	String Segreteria = " ";
+	String UserET= " ";
 	
 	CheckSession ck = new CheckSession(pageName,pageFolder,request.getSession());
 	
 	Segreteria = (String) session.getAttribute("Segreteria");
+	UserET = (String) session.getAttribute("userET");
 
   if (pageFolder.equals("_areaAdmin")) { //se stiamo in una pagina dell'area admin
 	  logoRedirect = request.getContextPath()+"/_areaAdmin/viewRequest.jsp";
@@ -202,8 +204,8 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 			{
 				if (Segreteria != null) {
 					logoRedirect = request.getContextPath() + "/_areaSecretary/viewRequest.jsp";
-					menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-							+ "/viewRequest.jsp\">Richieste</a></li>";
+					menu += "<li><a href=\"" + request.getContextPath() + "" + pageFolder
+							+ "/_areaSecretary/viewRequest.jsp\">Richieste</a></li>";
 					menu += "<li><a href=\"" + request.getContextPath() + ""
 							+ "/_areaSecretary/VisualizzaRichiestaET.jsp\">Richieste Tirocinio</a></li>";
 					menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
@@ -211,7 +213,11 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 					menu += "<li><a href=\"" + request.getContextPath()
 							+ "/_areaSecretary/RegistrazioneEnteET.jsp\">Registra Ente</a></li> ";
 					menu += "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
-				} else {
+				}else if(UserET !=null){
+					logoRedirect = request.getContextPath() + "/_areaStudent/HomeStudente.jsp";
+					menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
+					+ "/VisualizzaEnteET.jsp\">Lista Enti</a></li> <li ><a href=javascript:history.go(-1);>Indietro</a></li> ";
+				}else {
 					menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
 							+ "/VisualizzaEnteET.jsp\">Lista Enti</a></li> <li ><a href=javascript:history.go(-1);>Indietro</a></li> ";
 				}

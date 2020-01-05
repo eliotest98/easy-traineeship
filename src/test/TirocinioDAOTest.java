@@ -47,9 +47,9 @@ class TirocinioDAOTest {
 	
 	//Test del metodo allTirocinio di TirocinioDAO 
 	@Test
-	void allTirocinio() 
+	void testAllTirocinio() 
 	{
-		boolean inserito = false;
+		boolean trovato = false;
 		int i;
 		
 		try 
@@ -76,17 +76,52 @@ class TirocinioDAOTest {
 		ArrayList<Tirocinio> listaTirocini =tirocinioDao.allTirocinio();
 		for( i = 0; i < listaTirocini.size(); i++) {
 			if (listaTirocini.get(i).getCodTirocinio()==1 && listaTirocini.get(i).getMatricola()==4859) {
-				inserito = true;
+				trovato = true;
 			}
 		}
-        assertEquals(inserito,true);
+        assertEquals(trovato,true);
 	}
+	
+	//Test del metodo TirocinioAttivo di TirocinioDAO 
+		@Test
+		void testTirocinioAttivo() 
+		{
+			boolean trovato = false;
+			int i;
+			
+			try 
+			{
+				
+				Statement stmtSelect = conn.createStatement();
+				String sql4 = ("INSERT INTO User VALUES('p.aurilia@studenti.unisa.it','Pellegrino','Aurilia','M','pelle','0');");
+		    	stmtSelect.executeUpdate(sql4);
+				String sql2 = ("INSERT INTO tirocinante VALUES('4859','"+modifiedDate+"','Salerno','italiana','Salerno','rlaplg98a08i805e','3294475051','p.aurilia@studenti.unisa.it');");
+		    	stmtSelect.executeUpdate(sql2);
+		    	String sql5 = ("INSERT INTO User VALUES('green@gmail.com','Salvatore','Totti','M','pass98','3');");
+		    	stmtSelect.executeUpdate(sql5);
+		    	String sql3 = ("INSERT INTO enteconvenzionato VALUES('11111111111','Avellino','Salvatore Totti','0825519149','100','Michele Persico','Michele Porto','08/01/1977','esperti in siti web','green@gmail.com');");
+		    	stmtSelect.executeUpdate(sql3);
+		    	String sql1 = ("INSERT INTO tirocinio VALUES('1','"+modifiedDate+"','11','informatica','javascript','Java','Bene','In attesa dell Ente','progettoformativa.pdf','ragazzo valido','4859','11111111111');");
+		    	stmtSelect.executeUpdate(sql1);
+		    	conn.commit();
+		    	
+		    }
+		    catch (Exception e) {
+		    	e.printStackTrace();
+		    }
+			
+			Tirocinio tirocinio = tirocinioDao.tirocinioAttivo(4859);
+				if (tirocinio.getCodTirocinio()==1 && tirocinio.getMatricola()==4859) {
+					trovato = true;
+				}
+	        assertEquals(trovato,true);
+		}
 	
 	//Test del metodo allTirocinioByStato di TirocinioDAO 
 	@Test
 	void allTirocinioByStato() 
 	{
-		boolean inserito = false;
+		boolean trovato = false;
 		String statotirocinio="inviataAllaSegreteria"; 
 		
 		try 
@@ -113,17 +148,17 @@ class TirocinioDAOTest {
 		ArrayList<Tirocinio> listaTirocini = tirocinioDao.allTirocinioByStato("Accettato");
 		for( int i = 0; i < listaTirocini.size(); i++) {
 			if (listaTirocini.get(i).getStatoTirocinio().equals("Accettato") && listaTirocini.get(i).getMatricola()==(4859)) {
-				inserito = true;
+				trovato = true;
 			}
 	}
-		assertEquals(inserito,true);
+		assertEquals(trovato,true);
 	}
 	
 	//Test del metodo allTirocinioByEnte di TirocinioDAO 
 	@Test
 	void allTirocinioByEnte() 
 	{
-		boolean inserito = false;
+		boolean trovato = false;
 		
 		try 
 		{
@@ -149,10 +184,10 @@ class TirocinioDAOTest {
 		ArrayList<Tirocinio> listaTirocini = tirocinioDao.allTirocinioByEnte("green@gmail.com");
 		for( int i = 0; i < listaTirocini.size(); i++) {
 			if (listaTirocini.get(i).getCodTirocinio()==(1) && listaTirocini.get(i).getMatricola()==(4859) && listaTirocini.get(i).getPartitaIva().equals("11111111111")) {
-				inserito = true;
+				trovato = true;
 			}
 	}
-		assertEquals(inserito,true);
+		assertEquals(trovato,true);
 	}
 	
 	
@@ -160,7 +195,7 @@ class TirocinioDAOTest {
 	@Test
 	void allTirocinioTirocinante() 
 	{
-		boolean inserito = false;
+		boolean trovato = false;
 		int mat=4859;
 		
 		try 
@@ -187,16 +222,48 @@ class TirocinioDAOTest {
 		ArrayList<Tirocinio> listaTirocini = tirocinioDao.allTirocinioTirocinante(mat);
 		for( int i = 0; i < listaTirocini.size(); i++) {
 			if (listaTirocini.get(i).getMatricola()==mat);
-				inserito = true;
+				trovato = true;
 			}
 
-		assertEquals(inserito,true);
+		assertEquals(trovato,true);
 	}
 		
-	
-	
+	//Test del metodo allTirocinioByDocumento di TirocinioDAO 
+		@Test
+		void testAllTirocinioByDocumento() 
+		{
+			boolean trovato = false;
+			int mat=4859;
+			
+			try 
+			{
+				
+				Statement stmtSelect = conn.createStatement();
+				String sql4 = ("INSERT INTO User VALUES('p.aurilia@studenti.unisa.it','Pellegrino','Aurilia','M','pelle','0');");
+		    	stmtSelect.executeUpdate(sql4);
+				String sql2 = ("INSERT INTO tirocinante VALUES('4859','"+modifiedDate+"','Salerno','italiana','Salerno','rlaplg98a08i805e','3294475051','p.aurilia@studenti.unisa.it');");
+		    	stmtSelect.executeUpdate(sql2);
+		    	String sql5 = ("INSERT INTO User VALUES('green@gmail.com','Salvatore','Totti','M','pass98','3');");
+		    	stmtSelect.executeUpdate(sql5);
+		    	String sql3 = ("INSERT INTO enteconvenzionato VALUES('11111111111','Avellino','Salvatore Totti','0825519149','100','Michele Persico','Michele Porto','08/01/1977','esperti in siti web','green@gmail.com');");
+		    	stmtSelect.executeUpdate(sql3);
+		    	String sql1 = ("INSERT INTO tirocinio VALUES('1','"+modifiedDate+"','11','informatica','javascript','Java','Bene','Accettato','progettoformativa.pdf','ragazzo valido','4859','11111111111');");
+		    	stmtSelect.executeUpdate(sql1);
+		    	conn.commit();
+		    	
+		    }
+		    catch (Exception e) {
+		    	e.printStackTrace();
+		    }
+			
+			Tirocinio tirocinio = tirocinioDao.allTirocinioByDocumento("p.aurilia@studenti.unisa.it", "Accettato");
+				if (tirocinio.getMatricola()==mat && tirocinio.getPartitaIva().equals("11111111111") && tirocinio.getCodTirocinio()==1) {
+					trovato = true;
+				}
 
-		
+			assertEquals(trovato,true);
+		}
+	
 	//Test del metodo inserisciTirocinio di TirocinioDAO 
 	@Test
 	void inserisciTirocinio() throws SQLException 
@@ -227,42 +294,12 @@ class TirocinioDAOTest {
 		
 		assertEquals(tirocinioDao.inserisciTirocinio(test1),true);
 	}
-		
-	//Test del metodo modificaStatoTirocinio di TirocinioDAO 
-	@Test
-	void modificaStatoTirocinio() 
-	{
-		boolean inserito = false;
-		
-		try 
-		{
-			
-			Statement stmtSelect = conn.createStatement();
-			String sql4 = ("INSERT INTO User VALUES('p.aurilia@studenti.unisa.it','Pellegrino','Aurilia','M','pelle','0');");
-	    	stmtSelect.executeUpdate(sql4);
-			String sql2 = ("INSERT INTO tirocinante VALUES('4859','"+modifiedDate+"','Salerno','italiana','Salerno','rlaplg98a08i805e','3294475051','p.aurilia@studenti.unisa.it');");
-	    	stmtSelect.executeUpdate(sql2);
-	    	String sql5 = ("INSERT INTO User VALUES('green@gmail.com','Salvatore','Totti','M','pass98','3');");
-	    	stmtSelect.executeUpdate(sql5);
-	    	String sql3 = ("INSERT INTO enteconvenzionato VALUES('11111111111','Avellino','Salvatore Totti','0825519149','100','Michele Persico','Michele Porto','08/01/1977','esperti in siti web','green@gmail.com');");
-	    	stmtSelect.executeUpdate(sql3);
-	    	String sql1 = ("INSERT INTO tirocinio VALUES('1','"+modifiedDate+"','11','informatica','javascript','Java','Bene','Accettato','progettoformativa.pdf','ragazzo valido','4859','11111111111');");
-	    	stmtSelect.executeUpdate(sql1);
-	    	conn.commit();
-	    	
-	    }
-	    catch (Exception e) {
-	    	e.printStackTrace();
-	    }
-		
-		assertEquals(tirocinioDao.modificaStatoTirocinio(1,"Bloccato"),true);
-	}
-		
+	
 	//Test del metodo richiestaEnte di TirocinioDAO 
 	@Test
 	void richiestaEnte() 
 	{
-		boolean inserito = false;
+		boolean trovato = false;
 		int mat=4859;
 		
 		try 
@@ -288,6 +325,37 @@ class TirocinioDAOTest {
 		
 		assertEquals(tirocinioDao.richiestaEnte(1,"11111111111","Male"),true);
 	}
+	
+	//Test del metodo modificaStatoTirocinio di TirocinioDAO 
+	@Test
+	void modificaStatoTirocinio() 
+	{
+		
+		try 
+		{
+			
+			Statement stmtSelect = conn.createStatement();
+			String sql4 = ("INSERT INTO User VALUES('p.aurilia@studenti.unisa.it','Pellegrino','Aurilia','M','pelle','0');");
+	    	stmtSelect.executeUpdate(sql4);
+			String sql2 = ("INSERT INTO tirocinante VALUES('4859','"+modifiedDate+"','Salerno','italiana','Salerno','rlaplg98a08i805e','3294475051','p.aurilia@studenti.unisa.it');");
+	    	stmtSelect.executeUpdate(sql2);
+	    	String sql5 = ("INSERT INTO User VALUES('green@gmail.com','Salvatore','Totti','M','pass98','3');");
+	    	stmtSelect.executeUpdate(sql5);
+	    	String sql3 = ("INSERT INTO enteconvenzionato VALUES('11111111111','Avellino','Salvatore Totti','0825519149','100','Michele Persico','Michele Porto','08/01/1977','esperti in siti web','green@gmail.com');");
+	    	stmtSelect.executeUpdate(sql3);
+	    	String sql1 = ("INSERT INTO tirocinio VALUES('1','"+modifiedDate+"','11','informatica','javascript','Java','Bene','Accettato','progettoformativa.pdf','ragazzo valido','4859','11111111111');");
+	    	stmtSelect.executeUpdate(sql1);
+	    	conn.commit();
+	    	
+	    }
+	    catch (Exception e) {
+	    	e.printStackTrace();
+	    }
+		
+		assertEquals(tirocinioDao.modificaStatoTirocinio(1,"Bloccato"),true);
+	}
+		
+	
 
 	//Test del metodo modificaTirocinio di TirocinioDAO 
 	@Test
@@ -364,8 +432,7 @@ class TirocinioDAOTest {
 	//Test del metodo downloadProgettoFormativo di TirocinioDAO 
 	@Test
 	void downloadProgettoFormativo() 
-	{
-		boolean inserito = false;				
+	{				
 		
 		try 
 		{
@@ -395,7 +462,7 @@ class TirocinioDAOTest {
 		@Test
 		void testAllDocumentiDaFirmareByStudente() 
 		{	
-			boolean inserito = false;
+			boolean trovato = false;
 			int i;
 			
 			try 
@@ -420,17 +487,17 @@ class TirocinioDAOTest {
 			ArrayList<Tirocinio> listaTirocini = tirocinioDao.allDocumentiDaFirmareByStudente(4859, "Accettato");
 			for( i = 0; i < listaTirocini.size(); i++) {
 				if (listaTirocini.get(i).getCodTirocinio()==1 && listaTirocini.get(i).getMatricola()==4859 && listaTirocini.get(i).getStatoTirocinio().contentEquals("Accettato")) {
-					inserito = true;
+					trovato = true;
 				}
 			}
-	        assertEquals(inserito,true);
+	        assertEquals(trovato,true);
 		}
 		
 		//Test del metodo AllDocumentiDaFirmareByEnte di TirocinioDAO 
 				@Test
 				void testAllDocumentiDaFirmareByEnte() 
 				{	
-					boolean inserito = false;
+					boolean trovato = false;
 					int i;
 					
 					try 
@@ -455,9 +522,9 @@ class TirocinioDAOTest {
 					ArrayList<Tirocinio> listaTirocini = tirocinioDao.allDocumentiDaFirmareByEnte("11111111111", "Accettato");
 					for( i = 0; i < listaTirocini.size(); i++) {
 						if (listaTirocini.get(i).getCodTirocinio()==1 && listaTirocini.get(i).getPartitaIva().equals("11111111111") && listaTirocini.get(i).getStatoTirocinio().contentEquals("Accettato")) {
-							inserito = true;
+							trovato = true;
 						}
 					}
-			        assertEquals(inserito,true);
+			        assertEquals(trovato,true);
 				}
 }		
