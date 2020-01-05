@@ -116,7 +116,7 @@ public class TirocinioDAO {
 	 * @return matricola
 	 * @return listaTirocini
 	 * */
-	public synchronized Tirocinio tirocinioAttivo(int matricola)
+	public synchronized Tirocinio tirocinioAttivo(long matricola)
 	{
 		Tirocinio tirocinio=null;
 		Connection con = null; //variabile per la connesione del DB

@@ -90,8 +90,6 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 			menu += "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
 		}
 		if (pageName.equals("StatoProprioTirocinioET.jsp")) { //se stiamo in controlla stato
-			menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
-					+ "/viewRequest.jsp\">Richieste</a></li>";
 			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
 					+ "/firstForm.jsp\">Compila Richiesta</a></li>";
 			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
@@ -105,8 +103,6 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 			menu += "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
 		}
 		if (pageName.equals("InviaRichiestaET.jsp")) { //se stiamo in invio richiesta
-			menu += "<li ><a href=\"" + request.getContextPath() + "/" + pageFolder
-					+ "/viewRequest.jsp\">Richieste</a></li>";
 			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
 					+ "/firstForm.jsp\">Compila Richiesta</a></li>";
 			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
@@ -114,6 +110,19 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 			menu += "<li><a href=\"" + request.getContextPath()
 					+ "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
 			menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
+					+ "/_areaStudent/InviaRichiestaET.jsp\">Richiesta Tirocinio</a></li> ";
+			menu += "<li><a href=\"" + request.getContextPath() + "/"
+					+ "ServletListaEnteET?richiestaEnte=ok\">Richiesta Ente</a></li> ";
+			menu += "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+		}
+		if (pageName.equals("InviaRichiestaEnteET.jsp")) { //se stiamo in home dello studente, fra et ed ev
+			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/firstForm.jsp\">Compila Richiesta</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/uploadAttached.jsp\">Carica Allegato</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath()
+					+ "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
+			menu += "<li><a href=\"" + request.getContextPath()
 					+ "/_areaStudent/InviaRichiestaET.jsp\">Richiesta Tirocinio</a></li> ";
 			menu += "<li><a href=\"" + request.getContextPath() + "/"
 					+ "ServletListaEnteET?richiestaEnte=ok\">Richiesta Ente</a></li> ";
