@@ -99,7 +99,9 @@ public class ServletCommon extends HttpServlet {
                 user = new Student(email, name, surname, sex, password, userType);
                 userET="0";
                 Tirocinante tirocinante = tirocinanteDao.ricercaTirocinanteByEmail(email);
+                
                 if (tirocinante!=null) {
+                	request.getSession().setAttribute("Tirocinante", tirocinante);
                 	Tirocinio tirociniouser = tirocinioDao.tirocinioAttivo(tirocinante.getMatricola());
                     request.getSession().setAttribute("Tirocinio", tirociniouser);
                 }
