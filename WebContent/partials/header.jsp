@@ -102,6 +102,19 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
 					+ "ServletListaEnteET?richiestaEnte=ok\">Richiesta Ente</a></li> ";
 			menu += "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
 		}
+		if (pageName.equals("StoricoStudenteET.jsp")) { //se stiamo nello storico delle richieste
+			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/firstForm.jsp\">Compila Richiesta</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
+					+ "/uploadAttached.jsp\">Carica Allegato</a></li>";
+			menu += "<li><a href=\"" + request.getContextPath()
+					+ "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
+			menu += "<li><a href=\"" + request.getContextPath()
+					+ "/_areaStudent/InviaRichiestaET.jsp\">Richiesta Tirocinio</a></li> ";
+			menu += "<li><a href=\"" + request.getContextPath() + "/"
+					+ "ServletListaEnteET?richiestaEnte=ok\">Richiesta Ente</a></li> ";
+			menu += "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
+		}
 		if (pageName.equals("InviaRichiestaET.jsp")) { //se stiamo in invio richiesta
 			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
 					+ "/firstForm.jsp\">Compila Richiesta</a></li>";

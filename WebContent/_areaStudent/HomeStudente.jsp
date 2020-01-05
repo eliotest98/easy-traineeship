@@ -43,10 +43,10 @@
 										<br> <a href="../_areaStudent/viewRequest.jsp"
 											class="linkET"><button class="buttonET">Richieste
 												effettuate per la convalida dei CFU</button></a><br>
-										<br> <a href="" class="linkET"><button
-												class="buttonET" disabled>Richieste effettuate per
+										<br> <a href="../ServletStatoTirocinanteET?pagina=StoricoStudenteET" 
+											class="linkET"><button class="buttonET">Richieste effettuate per
 												il Tirocinio Esterno</button></a><br>
-										<br> <a href="../ServletStatoTirocinanteET"
+										<br> <a href="../ServletStatoTirocinanteET?pagina=StatoProprioTirocinioET"
 											class="linkET"><button class="buttonET">Controlla
 												lo stato del TUO Tirocinio!</button></a><br>
 										<br>
