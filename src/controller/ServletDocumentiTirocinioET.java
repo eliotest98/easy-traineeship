@@ -20,7 +20,6 @@ import model.DAO.TirocinioDAO;
 public class ServletDocumentiTirocinioET extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final TirocinioDAO tirocinioDAO = new TirocinioDAO(); 
-//	String userET = "1";
 	public ServletDocumentiTirocinioET()
 	{
 		super();
@@ -33,10 +32,10 @@ public class ServletDocumentiTirocinioET extends HttpServlet {
 		//String userET = (String) request.getSession().getAttribute("userET");
 		String userET = "1";
 		System.out.println("USERET ="+userET);
-/*		if(userET == null || (!userET.equals("0") || !userET.equals("1") || !userET.equals("2") || !userET.equals("3"))) {
+		if(userET == null || (!userET.equals("0") || !userET.equals("1") || !userET.equals("2") || !userET.equals("3"))) {
 			response.sendRedirect("login.jsp");
 			return;	
-		}*/
+		}
 		ArrayList<Tirocinio> listaTirocinio=new ArrayList<Tirocinio>();
 //		String statoTirocinio = (String) request.getSession().getAttribute("statoTirocinio");
 		String statoTirocinio = "Accettato e in attesa di firma";
