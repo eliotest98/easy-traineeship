@@ -46,10 +46,17 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
 	    String flag = request.getParameter("flag");
 	    UserInterface user = (UserInterface)request.getSession().getAttribute("user");
 	    ArrayList<Tirocinio> listaRichiesteEnte=new ArrayList<Tirocinio>();
-	    
+	    ArrayList<Tirocinio> listaRichiesteEnteInAttesa = new ArrayList<Tirocinio>();
 	  //Ricerco tutte le richieste all'ente e li inserisco nella listaRichiesteEnte
 		try {
 			listaRichiesteEnte=tirocinioDAO.allTirocinioByEnte(user.getEmail());
+			if(listaRichiesteEnte!=null) {
+				for (int i=0; i<listaRichiesteEnte.size(); i++) {
+					if (listaRichiesteEnte.get(i).getStatoTirocinio().equals("In attesa dell Ente")) {
+						listaRichiesteEnteInAttesa.add(listaRichiesteEnte.get(i));	
+					}
+				}
+			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -61,7 +68,7 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
 	    	if (flag.equals("1")) {
 	    		if(listaRichiesteEnte!=null)
 	    		{
-	    			request.setAttribute("listaRichiesteEnte", listaRichiesteEnte);
+	    			request.setAttribute("listaRichiesteEnte", listaRichiesteEnteInAttesa);
 	    		}
 	    		RequestDispatcher dispatcher = request.getRequestDispatcher("_areaEnteET/VisualizzaRichiestaEnteET.jsp");
 	            dispatcher.forward(request, response);
@@ -85,6 +92,21 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
 	    			String codice = request.getParameter("codice");
 	    			String motivazione = request.getParameter("motivazione");
 	    			tirocinioDAO.modificaStatoTirocinio(Integer.valueOf(codice), "Rifiutato");
+	    			Tirocinio tirocinio = new Tirocinio();
+	    			tirocinio = tirocinioDAO.TirocinioByCodTirocinio(Integer.valueOf(codice));
+	    			System.out.println(tirocinio.getCodTirocinio());
+
+	    			Tirocinio tirocinio2 = new Tirocinio();
+	    			tirocinio2.setDataInizioTirocinio(tirocinio.getDataInizioTirocinio());
+	    			tirocinio2.setCfuPrevisti(tirocinio.getCfuPrevisti());
+	    			tirocinio2.setCompetenze(tirocinio.getCompetenze());
+	    			tirocinio2.setCompetenzeAcquisire(tirocinio.getCompetenzeAcquisire());
+					tirocinio2.setAttivitaPreviste(tirocinio.getAttivitaPreviste());
+					tirocinio2.setSvolgimentoTirocinio(tirocinio.getSvolgimentoTirocinio());
+					tirocinio2.setStatoTirocinio("In attesa della Segreteria");
+					tirocinio2.setMatricola(tirocinio.getMatricola());
+	    			tirocinio2.setTirocinante(tirocinio.getTirocinante());
+	    			tirocinioDAO.inserisciTirocinio(tirocinio2);
 	    			System.out.println(motivazione);
 	    		}
 	    		catch (Exception e) {
