@@ -94,8 +94,6 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
 	    			tirocinioDAO.modificaStatoTirocinio(Integer.valueOf(codice), "Rifiutato");
 	    			Tirocinio tirocinio = new Tirocinio();
 	    			tirocinio = tirocinioDAO.TirocinioByCodTirocinio(Integer.valueOf(codice));
-	    			System.out.println(tirocinio.getCodTirocinio());
-
 	    			Tirocinio tirocinio2 = new Tirocinio();
 	    			tirocinio2.setDataInizioTirocinio(tirocinio.getDataInizioTirocinio());
 	    			tirocinio2.setCfuPrevisti(tirocinio.getCfuPrevisti());
