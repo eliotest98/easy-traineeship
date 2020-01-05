@@ -35,8 +35,31 @@ class ServletGestioneRichiesteEnteETTest {
 		when(requestMock.getSession()).thenReturn(sessionMock);
 		when(sessionMock.getAttribute("userET")).thenReturn("3");
 	}
+	//Test Reindirizzamento (Flag 1)
 	@Test
 	void testReindirizzamento() throws ServletException, IOException {
+		when(requestMock.getParameter("flag")).thenReturn("1");
+		when(requestMock.getRequestDispatcher("_areaEnteET/VisualizzaRichiestaEnteET.jsp")).thenReturn(dispatcherMock);
+		ServletGestioneRichiesteEnteET test = new ServletGestioneRichiesteEnteET();
+		test.doGet(requestMock, responseMock);
+		verify(dispatcherMock).forward(requestMock, responseMock);
+	}
+	//Test Accettazione (flag 2)
+	@Test
+	void testAccettazione() throws ServletException, IOException {
+		when(requestMock.getParameter("flag")).thenReturn("2");
+		when(requestMock.getParameter("codice")).thenReturn("45");
+		when(requestMock.getRequestDispatcher("_areaEnteET/VisualizzaRichiestaEnteET.jsp")).thenReturn(dispatcherMock);
+		ServletGestioneRichiesteEnteET test = new ServletGestioneRichiesteEnteET();
+		test.doGet(requestMock, responseMock);
+		verify(dispatcherMock).forward(requestMock, responseMock);
+	}
+	//Test Rifiuto (flag 3)
+	@Test
+	void testRifiuto() throws ServletException, IOException {
+		when(requestMock.getParameter("flag")).thenReturn("3");
+		when(requestMock.getParameter("codice")).thenReturn("45");
+		when(requestMock.getParameter("Motivazione")).thenReturn("Hai scritto male");
 		when(requestMock.getRequestDispatcher("_areaEnteET/VisualizzaRichiestaEnteET.jsp")).thenReturn(dispatcherMock);
 		ServletGestioneRichiesteEnteET test = new ServletGestioneRichiesteEnteET();
 		test.doGet(requestMock, responseMock);

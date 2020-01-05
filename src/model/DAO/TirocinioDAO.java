@@ -1027,6 +1027,87 @@ public class TirocinioDAO {
 		}
 		return listaTirocini;	
 	}
-	
+
+			/*
+			  * Metodo che interroga il DB e restituisce il tirocinio in base 
+			  * al codice
+			  * 
+			  * @return matricola
+			  * @return listaTirocini
+			  * */
+			 public synchronized Tirocinio TirocinioByCodTirocinio(int codTirocinio)
+			 {
+			  Tirocinio tirocinio=null;
+			  Connection con = null; //variabile per la connesione del DB
+			  PreparedStatement ps = null;// Creazione oggetto Statement
+
+			  try 
+			  {
+			   //Connessione con il DB
+			   con= new DbConnection().getInstance().getConn();
+			   //Query Sql per prelevare i Tirocini
+			   ps= con.prepareStatement("SELECT * "
+			         + "FROM TIROCINIO, TIROCINANTE, USER "
+			         + "WHERE TIROCINIO.MATRICOLA=TIROCINANTE.MATRICOLA && "
+			         + "TIROCINANTE.EMAIL=USER.EMAIL && "
+			         + "TIROCINIO.CODTIROCINIO="+codTirocinio+"; ");
+			   ResultSet res = ps.executeQuery();
+			   //Ciclo che inserisce all' interno della lista i 'Tirocini'
+			   //restituiti dalla query
+			   while(res.next())
+			   {
+			    
+			    tirocinio= new Tirocinio();
+			    Tirocinante tirocinante= new Tirocinante();
+			    //Dati del Tirocinio
+			    tirocinio.setCodTirocinio(res.getInt("CODTIROCINIO"));
+			    tirocinio.setDataInizioTirocinio(res.getString("DATAINIZIOTIROCINO"));
+			    tirocinio.setCfuPrevisti(res.getShort("CFUPREVISTI"));
+			    tirocinio.setCompetenze(res.getString("COMPETENZE"));
+			    tirocinio.setCompetenzeAcquisire(res.getString("COMPETENZEACQUISIRE"));
+			    tirocinio.setAttivitaPreviste(res.getString("ATTIVITAPREVISTE"));
+			    tirocinio.setSvolgimentoTirocinio(res.getString("SVOLGIMENTOTIROCINIO"));
+			    tirocinio.setStatoTirocinio(res.getString("STATOTIROCINIO"));
+			    tirocinio.setProgettoFormativo(res.getString("PROGETTOFORMATIVO"));
+			    tirocinio.setDescrizioneEnte(res.getString("DESCRIZIONEENTE"));
+			    tirocinio.setMatricola(res.getInt("MATRICOLA"));
+			    tirocinio.setPartitaIva(res.getString("PARTITAIVA"));
+			    //Dati del Tirocinante
+			    tirocinante.setEmail(res.getString("EMAIL"));
+			                tirocinante.setName(res.getString("NAME"));
+			                tirocinante.setSurname(res.getString("SURNAME"));
+			                tirocinante.setSex(res.getString("SEX").charAt(0));
+			                tirocinante.setUserType(res.getInt("USER_TYPE"));
+			                tirocinante.setMatricola(res.getInt("MATRICOLA"));
+			                tirocinante.setDataNascita(res.getDate("DATANASCITA"));
+			                tirocinante.setLuogoNascita(res.getString("LUOGONASCITA"));
+			                tirocinante.setCittadinanza(res.getString("CITTADINANZA"));
+			                tirocinante.setResidenza(res.getString("RESIDENZA"));
+			                tirocinante.setCodiceFiscale(res.getString("CODICEFISCALE"));
+			                tirocinante.setTelefono(res.getLong("TELEFONO"));
+			                tirocinio.setTirocinante(tirocinante);
+
+			    tirocinio.setTirocinante(tirocinante);
+			    
+
+			   }
+			  } 
+			  catch (SQLException e) 
+			  {
+			   e.printStackTrace();
+			  }
+			  finally 
+			  {
+			   try 
+			   {
+			    ps.close();// Chiusura oggetto Statement 
+			   } 
+			   catch (SQLException e) 
+			   {
+			    e.printStackTrace();
+			   }
+			  }
+			  return tirocinio; 
+			 }
 }	
 	
