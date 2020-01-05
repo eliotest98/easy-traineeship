@@ -72,8 +72,6 @@ v<%@ page language="java" contentType="text/html; charset=UTF-8"
           + "/_areaStudent/InviaRichiestaET.jsp\">Richiesta Tirocinio</a></li> ";
       menu += "<li><a href=\"" + request.getContextPath()  + "/"
           + "ServletListaEnteET?richiestaEnte=ok\">Richiesta Ente</a></li> ";
-      menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-           + "/UploadProgettoFormativoET.jsp\">UploadPF</a></li>";
       menu +=
           "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
     }
