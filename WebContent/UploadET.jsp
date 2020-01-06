@@ -13,7 +13,14 @@
     
 	
     Tirocinio tirocinio=new Tirocinio();
-	tirocinio=(Tirocinio)request.getAttribute("tirocinio");
+	if((Tirocinio)request.getAttribute("tirocinio")==null)
+	{
+		int codTirocinio = Integer.parseInt((String) request.getParameter("codTirocinio"));
+	}
+	else
+	{
+		tirocinio=(Tirocinio)request.getAttribute("tirocinio");
+	}
 %>
 
 <!DOCTYPE html>
@@ -39,16 +46,23 @@
 						<div class="content">
 							<div class="news-block-seven">
 								
-								<h2>Richiesta:</h2>
+								<h2>Carica il Progetto Formativo (PDF):</h2>
 									<h2>
-										Trascina o premi sull'apposito riquadro per caricare un file
+										Trascina o premi sull'apposito riquadro per caricare un file.
 										</h2>
-										<div action='<%= request.getContextPath() + "/Uploader" %>' class='dropzoneUploader'></div>
-										<div class="form-group">
-											<button type="submit" class="btn btn-primary btn-submit" id='aggiungiAllegati'>
-												Concludi
-											</button>
+										<div class='dropzoneUploader'>
+											<form action="ServletUploadET" id="myform" name="myform">
+												<input type="file" 
+												style="text-align:center;height:180px;width: 1280px;cursor:pointer;outline:none;" 
+												name="file" required>
+												
+											</form>
 										</div>
+											<div class="form-group">
+													<input type="submit" form="myform" class="btn btn-primary btn-submit" value="Concludi">
+											</div>
+										
+										
 							<!-- <% 
 								if ((tirocinio==null) ) 
 								{
