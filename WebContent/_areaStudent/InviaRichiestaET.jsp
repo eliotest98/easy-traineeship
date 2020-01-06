@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="ISO-8859-1" import="controller.CheckSession,model.Student"%>
+         pageEncoding="ISO-8859-1" import="controller.CheckSession,model.Student, model.Tirocinio"%>
 
 <%
     String pageName = "InviaRichiestaET.jsp";
@@ -45,7 +45,10 @@
                         <div class="news-block-seven">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 signUp-container">
                                 <div class="panel">
-                                	<%if(resp==0){%>
+                                	<%
+                                		Tirocinio tirocinio = (Tirocinio)request.getSession().getAttribute("Tirocinio");
+                                		if(resp==0 && tirocinio==null){
+                                	%>
                                     <h2 class="text-center">Invio Richiesta Tirocinio:</h2>
                                     <p class="text-center">Compilare i campi per l'invio della richiesta di inizio Tirocinio.</p>
                                 </div>
@@ -189,13 +192,31 @@
                                     </div>
                                     <div class="clearfix"></div>
                                 </form>
-                                  <%} else {%>
+                                  <%
+                                  	}
+                                	//	
+                                	else if (resp!=0) 
+                                	{
+                                	%>
 									<h3 style="text-align: center;">
 										L'Utente in Sessione non &egrave; abilitato a svolgere questa funzionalit&agrave;.<br>
-										Si prega di uscire dalla pagina, <br>
+										Si prega di uscire dalla pagina. <br>
 										Clicca <a href="../index.jsp"> qui </a> per tornare alla Home. <br>
 									</h3>
-								 <%}%>
+								 <%
+								 }
+                                	else if (tirocinio!=null)
+                                	{
+                                 %>		
+                                		<h3 style="text-align: center;">
+										Impossibile accedere alla pagina di richiesta tirocinio: <br>
+										&egrave; possibile richiedere un solo tirocinio per volta.<br>
+										Si prega di uscire dalla pagina. <br>
+										Clicca <a href="../_areaStudent/HomeStudente.jsp"> qui </a> per tornare alla Home. <br>
+									</h3>
+								 <%		
+                                	}
+								 %>
                             </div>
                         </div>
                     </div>
