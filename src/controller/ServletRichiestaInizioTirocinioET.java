@@ -93,18 +93,18 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
       throw new IllegalArgumentException("Il campo 'Matricola' non rispetta il formato");
     }
     tirocinante.setMatricola(Long.parseLong(request.getParameter("matricolaTirocinante")));
-    // Controllo - assegnazione facoltà
+    // Controllo - assegnazione facoltï¿½
     tirocinante.setFacolta("Informatica");
     /*
      * if(tirocinante.getFacolta() == null || tirocinante.getFacolta().length() == 0) { throw new
      * IllegalArgumentException("Il campo 'Facolt&agrave' &grave vuoto"); }
      * 
      * if(tirocinante.getFacolta().length() > 50) { throw new
-     * IllegalArgumentException("Il campo facoltà supera la lunghezza massima consentita. L'invio della richiesta non viene effettuato."
+     * IllegalArgumentException("Il campo facoltï¿½ supera la lunghezza massima consentita. L'invio della richiesta non viene effettuato."
      * ); }
      * 
      * if(!(tirocinante.getFacolta().matches("^[A-Z a-z]+$"))) { throw new
-     * IllegalArgumentException("Il campo facoltà non rispetta il formato. L'invio della richiesta non viene effettuato."
+     * IllegalArgumentException("Il campo facoltï¿½ non rispetta il formato. L'invio della richiesta non viene effettuato."
      * ); }
      */
     // Controllo data di nascita
@@ -222,7 +222,7 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
     }
 
     tirocinio.setCfuPrevisti(Short.parseShort(request.getParameter("cfu")));
-    if (tirocinio.getCfuPrevisti() >= 180 || tirocinio.getCfuPrevisti() <= 0) {
+    if (tirocinio.getCfuPrevisti() > 180 || tirocinio.getCfuPrevisti() <= 0) {
       throw new IllegalArgumentException("Il campo 'CFU' supera la grandezza consentita");
     }
 
@@ -246,7 +246,7 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
       throw new IllegalArgumentException(
           "Il campo 'Competenze da Acquisire' supera la lunghezza consentita");
     }
-    // Controllo modalità tirocinio
+    // Controllo modalitï¿½ tirocinio
     tirocinio.setSvolgimentoTirocinio(request.getParameter("modalitaTirocinio"));
 
     if (tirocinio.getSvolgimentoTirocinio() == null
@@ -259,7 +259,7 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
       throw new IllegalArgumentException(
           "Il campo 'Modalit&agrave svolgimento tirocinio' supera la lunghezza consentita");
     }
-    // Controllo attività
+    // Controllo attivitï¿½
     tirocinio.setAttivitaPreviste(request.getParameter("attivitaPreviste"));
 
     if (tirocinio.getAttivitaPreviste() == null || tirocinio.getAttivitaPreviste().length() == 0) {
@@ -277,14 +277,14 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
     TirocinanteDAO t = new TirocinanteDAO();
     if(t.inserisciTirocinante(tirocinante)==false)
     {
-      throw new IllegalArgumentException("La query di inserimentodel Tirocinante non è andata a buon fine");
+      throw new IllegalArgumentException("La query di inserimentodel Tirocinante non ï¿½ andata a buon fine");
     }
 
     //Setto il tirocinio nel database
     TirocinioDAO ti = new TirocinioDAO();
     if(ti.inserisciTirocinio(tirocinio)==false)
     {
-      throw new IllegalArgumentException("La query di inserimento del Tirocinio non è andata a buon fine");
+      throw new IllegalArgumentException("La query di inserimento del Tirocinio non ï¿½ andata a buon fine");
     }
     
     //Mi setto il tirocininante nel TIROCINIO
