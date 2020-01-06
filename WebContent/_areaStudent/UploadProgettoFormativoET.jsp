@@ -157,7 +157,7 @@
 	<script src="<%= request.getContextPath() %>/js/progettoFormativo.js"></script>
 	
 	<script src="<%= request.getContextPath() %>/js/pages/scripts_uploadET.js"></script>
-
+	<script src="<%= request.getContextPath() %>/js/filesystem_dropzone.js"></script>
 	
 		<script>
 			$( document ).ready(function() {	
