@@ -7,18 +7,19 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Tirocinio;
 import model.DAO.TirocinioDAO;
-import model.Tirocinante;
 
 /**
  * Servlet implementation class ServletUploadET
  */
 @WebServlet("/ServletUploadET")
+@MultipartConfig
 public class ServletUploadET extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

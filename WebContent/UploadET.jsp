@@ -15,11 +15,11 @@
     Tirocinio tirocinio=new Tirocinio();
 	if((Tirocinio)request.getAttribute("tirocinio")==null)
 	{
-		int codTirocinio = Integer.parseInt((String) request.getParameter("codTirocinio"));
+		//int codTirocinio = Integer.parseInt((String) request.getParameter("codTirocinio"));
 	}
 	else
 	{
-		tirocinio=(Tirocinio)request.getAttribute("tirocinio");
+		//tirocinio=(Tirocinio)request.getAttribute("tirocinio");
 	}
 %>
 
