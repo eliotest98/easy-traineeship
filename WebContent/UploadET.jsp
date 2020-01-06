@@ -51,16 +51,16 @@
 										Trascina o premi sull'apposito riquadro per caricare un file.
 										</h2>
 										<div class='dropzoneUploader'>
-											<form action="ServletUploadET" id="myform" name="myform">
+											<form action="ServletUploadET" method="POST" id="myform" name="myform" enctype="multipart/form-data">
 												<input type="file" 
 												style="text-align:center;height:180px;width: 1280px;cursor:pointer;outline:none;" 
 												name="file" required>
 												
 											</form>
 										</div>
-											<div class="form-group">
-													<input type="submit" form="myform" class="btn btn-primary btn-submit" value="Concludi">
-											</div>
+										<div class="form-group">
+												<input type="submit" form="myform" class="btn btn-primary btn-submit" value="Concludi">
+										</div>
 										
 										
 							<!-- <% 
