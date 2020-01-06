@@ -15,6 +15,8 @@
     Tirocinio tirocinio=new Tirocinio();
 	tirocinio=(Tirocinio)request.getAttribute("tirocinio");
 
+	//result="ok" se c'è un tirocinio dopo la query
+	//result="nook" se non c'è un tirocinio dopo la query		
 	String result=null;
 	result=(String)request.getAttribute("result");
 	
@@ -25,9 +27,6 @@
 
     }
 
-
-	
-	
 
 %>
 
@@ -62,7 +61,9 @@
 					<div class="content-side col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="content">
 							<div class="news-block-seven">
+								
 								<%
+								//Se il tirocinio da generare è presente
 								if((tirocinio!=null)&&(result.equals("ok")))
 								{
 								%>
@@ -72,7 +73,7 @@
 										onclick="createPdf()">Genera PDF</button>
 								</div>
 								
-																<h2>
+									<h2>
 									Richiesta N.
 									</h2>
 									<h2>
@@ -83,21 +84,12 @@
 
 										<div class="form-group">
 											<button type="submit" class="btn btn-primary btn-submit"
-												id='aggiungiAllegati'>Concludi</button>
+												id='aggiungiAllegati' disabled>Concludi</button>
 										</div>
 
-								
-								
-								
-								
-								
-								
-								
-								
-								
+													
 								<!--  invio dei dati alla funzione "createPdf()" per -->
 
-							
 								<input type="hidden" id="name" value="<%=tirocinio.getTirocinante().getName() %>" />
 								<input type="hidden" id="surname" value="<%= tirocinio.getTirocinante().getSurname() %>" />
 								<input type="hidden" id="cod" value="<%= tirocinio.getCodTirocinio() %>" />
@@ -161,10 +153,45 @@
 	<!--End pagewrapper-->
 
 	<jsp:include page="/partials/includes.jsp" />
-
-		<script src="<%= request.getContextPath() %>/js/progettoFormativo.js"></script>
-
-
+	<!-- Script che genera il progetto formativo -->>
+	<script src="<%= request.getContextPath() %>/js/progettoFormativo.js"></script>
 	
+	<script src="<%= request.getContextPath() %>/js/pages/scripts_uploadET.js"></script>
+	<script src="<%= request.getContextPath() %>/js/filesystem_dropzone.js"></script>
+	
+		<script>
+			$( document ).ready(function() {	
+				$(".dropzoneUploader").dropzone({
+					  maxFiles: 1,
+					  acceptedFiles: ".pdf",
+					  accept: function(file, done){
+					    done();
+					  },
+					  init: function() {		
+					      this.on("maxfilesexceeded", function(file, errorMessage){
+					    	  this.removeFile(file);
+					    	  showAlert(1, errorMessage);		    	  
+					      });
+	                      
+					      this.on("error", function(file, errorMessage) {
+					    	  this.removeFile(file);
+					    	  showAlert(1, errorMessage);
+	                      });
+	                    
+						  this.on("success", function(file, response) {
+							  var msg = jQuery.parseJSON(response);
+						  	  if(!msg.result){
+						  		showAlert(1, msg.error);
+						  	  }	            		    
+						  	  else{
+						  		file.previewElement.querySelector("[data-dz-name]").innerHTML = msg.content;
+						  	  }
+						  });
+					  }		  						
+				});					
+			});
+		</script>
+	
+		
 </body>
 </html>
