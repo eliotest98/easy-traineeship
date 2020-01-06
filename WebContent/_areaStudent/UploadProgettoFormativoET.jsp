@@ -79,12 +79,12 @@
 									<h2>
 										Trascina o premi sull'apposito riquadro per caricare un file
 										</h2>
-										<div action='<%= request.getContextPath() + "/Uploader" %>'
+										<div action='<%= request.getContextPath() + "/ServletUploadET" %>'
 											class='dropzoneUploader'></div>
 
 										<div class="form-group">
 											<button type="submit" class="btn btn-primary btn-submit"
-												id='aggiungiAllegati' disabled>Concludi</button>
+												id='aggiungiAllegati' >Concludi</button>
 										</div>
 
 													
@@ -157,7 +157,7 @@
 	<script src="<%= request.getContextPath() %>/js/progettoFormativo.js"></script>
 	
 	<script src="<%= request.getContextPath() %>/js/pages/scripts_uploadET.js"></script>
-	<script src="<%= request.getContextPath() %>/js/filesystem_dropzone.js"></script>
+
 	
 		<script>
 			$( document ).ready(function() {	
