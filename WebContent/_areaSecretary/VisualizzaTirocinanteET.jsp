@@ -186,9 +186,9 @@
 								    <span class="close"></span>
 								    <p>Sei sicuro di voler accettare la richiesta di Tirocinio?</p>
 								  		<table>
-								  		<tr><td><form id="modalAccettaForm" action="../ServletGestioneRichiesteSegreteriaET" method="post">
+								  		<tr><td>
 								  		  <%request.setAttribute("matricola", matricola);%>
-								  		  <button onclick="accetta()"id="modalAccettaButton" name="flag" value="2<%=matricola %>" type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Accetta Richiesta">Si</button> </form></td>
+								  		  <button onclick="return accetta()" id="accetta"  value="<%=matricola %>" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Accetta Richiesta">Si</button> </td>
 										 <td><button onclick="notaccetta()"id="close" name="nonAccetta" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button></td></tr>
 										</table>
 										
@@ -202,12 +202,10 @@
 								 <div class="modal-content">
 								    <span class="close"></span>
 								    <p>Sei sicuro di voler rifiutare la richiesta di Tirocinio?</p>
-								    <form id="modalRifiutoForm" action="../ServletGestioneRichiesteSegreteriaET" method="post">
 											<label for="nome">Inserisci Motivazione</label> 
 											<input type="text" class="form-control" id="motivazione" name="motivazione" placeholder="Motivazione del Rifiuto" minlength="1" maxlength="256" required>
-											<button onclick="rifiuta()"id="rifiuta" name="flag"  value="3<%=matricola %>" type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Rifiuta Richiesta">Si</button>
-											<button onclick="notrifiuta()"id="close" name="nonRifiuta"  type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button>
-									</form>
+											<button onclick="return rifiuta()"id="rifiuta"  value="<%=matricola %>" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Rifiuta Richiesta">Si</button>
+											<button onclick="notrifiuta()"id="close" name="nonRifiuta"  class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button>
 									</div>
 								</div>
 								</div>
@@ -315,22 +313,59 @@
 		<script>
 		function accetta()
 		{
-			showAlert();
-			toastr.success("Accettazione effettuata con successo");
-			document.getElementById("i").value=" ";
-		}
-		</script>
-		<script>
-		function notaccetta()
-		{
-			modalAccettazione.style.display = "none";
-			toastr.error("Accettazione non effettuata");
+		var matricola = document.getElementById("accetta").value;
+	
+			$.ajax({
+				  type: "POST",
+				  url: absolutePath+ "/ServletGestioneRichiesteSegreteriaET",
+				  async:true,
+				  data: {"matricola": matricola, "flag": 2},
+				  success: function(resp){
+					  console.log(resp)
+					  if(resp){
+							showAlert();
+							toastr.success("Accettazione effettuata con successo");
+				    modal.style.display = "none";
+					return true;
+				  }
+					  else{
+							showAlert();
+							toastr.success("Accettazione non effettuata");
+						    modal.style.display = "none";
+							return false;
+					  }
+						  
+				  }
+				});
 		}
 		</script>
 		<script>
 		function rifiuta()
 		{
-			toastr.success("Rifiuto effettuato con successo");
+			var matricola = document.getElementById("rifiuta").value;
+			console.log(rifiuta)
+			$.ajax({
+				  type: "POST",
+				  url: absolutePath+ "/ServletGestioneRichiesteSegreteriaET",
+				  async:true,
+				  data: {"matricola": matricola, "flag": 1},
+				  success: function(resp){
+					  console.log(resp)
+					  if(resp){
+					showAlert();
+					toastr.success("Rifiuto effettuato con successo");
+				    modal.style.display = "none";
+					return true;
+				  }
+					  else{
+							showAlert();
+							toastr.success("Rifiuto non effettuato");
+						    modal.style.display = "none";
+							return false;
+					  }
+						  
+				  }
+				});
 		}
 		</script>
 		<script>
