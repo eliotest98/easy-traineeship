@@ -11,7 +11,7 @@
 	Tirocinante tirocinante = (Tirocinante) request.getSession().getAttribute("Tirocinante");
 	//Per completare i campi di tirocinio
 	Tirocinio tirocinio = (Tirocinio) request.getSession().getAttribute("Tirocinio");
-	//Per vedere chi ï¿½ in sessione.
+	//Per vedere chi è in sessione.
 	int resp = Integer.parseInt((String) request.getSession().getAttribute("userET"));
 %>
 <!DOCTYPE html>
@@ -66,11 +66,8 @@
 												<button class="buttonET dow" disabled >
 													<p> DOWNLOAD </p>
 												</button>
-											<%} %>
-											<%if(lista.get(0).getStatoTirocinio().equalsIgnoreCase("Accettato e in attesa di firma")) {%>
-												<button class="buttonET dow" >
-													<a href="_areaStudent/UploadProgettoFormativoET.jsp"><p> GENERA DOCUMENTO/ UPLOAD </p> </a>
-													
+												<button class="buttonET dow" disabled>
+													<p> UPLOAD </p>
 												</button>
 											<%} %>
 										</p>
