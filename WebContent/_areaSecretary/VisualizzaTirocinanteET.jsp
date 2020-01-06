@@ -325,16 +325,19 @@
 					  if(resp){
 							showAlert();
 							toastr.success("Accettazione effettuata con successo");
-				    modal.style.display = "none";
-					return true;
+						    modalAccettazione.style.display = "none";
+						      setTimeout(function(){// wait for 5 secs(2)
+						           location.reload(); // then reload the page.(3)
+						      }, 3000); 
 				  }
 					  else{
 							showAlert();
 							toastr.success("Accettazione non effettuata");
-						    modal.style.display = "none";
-							return false;
-					  }
-						  
+						    modalAccettazione.style.display = "none";
+						     setTimeout(function(){// wait for 5 secs(2)
+						           location.reload(); // then reload the page.(3)
+						      }, 3000); 
+						     }
 				  }
 				});
 		}
@@ -354,16 +357,19 @@
 					  if(resp){
 					showAlert();
 					toastr.success("Rifiuto effettuato con successo");
-				    modal.style.display = "none";
-					return true;
-				  }
+				    modalRifiuto.style.display = "none";
+				     setTimeout(function(){// wait for 5 secs(2)
+				           location.reload(); // then reload the page.(3)
+				      }, 3000); 
+				     }
 					  else{
 							showAlert();
 							toastr.success("Rifiuto non effettuato");
-						    modal.style.display = "none";
-							return false;
-					  }
-						  
+						    modalRifiuto.style.display = "none";
+						     setTimeout(function(){// wait for 5 secs(2)
+						           location.reload(); // then reload the page.(3)
+						      }, 3000); 
+						     }
 				  }
 				});
 		}
