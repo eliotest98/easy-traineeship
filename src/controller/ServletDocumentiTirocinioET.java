@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -10,7 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import interfacce.UserInterface;
 import model.Tirocinio;
+import model.DAO.EnteConvenzionatoDAO;
+import model.DAO.TirocinanteDAO;
 import model.DAO.TirocinioDAO;
 
 /**
@@ -20,6 +24,8 @@ import model.DAO.TirocinioDAO;
 public class ServletDocumentiTirocinioET extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final TirocinioDAO tirocinioDAO = new TirocinioDAO(); 
+	private final TirocinanteDAO tirocinanteDAO = new TirocinanteDAO();
+	private final EnteConvenzionatoDAO enteconvenzionatoDAO = new EnteConvenzionatoDAO();
 	public ServletDocumentiTirocinioET()
 	{
 		super();
@@ -54,7 +60,14 @@ public class ServletDocumentiTirocinioET extends HttpServlet {
 		else if(userET.equals("3"))
 		{
 			statoTirocinio="Accettato e in attesa di firma";
-			String partitaIva = (String) request.getSession().getAttribute("partitaIva");
+			UserInterface user = (UserInterface) request.getSession().getAttribute("user");
+			String email = user.getEmail();
+			String partitaIva ="";
+			try {
+				partitaIva = (enteconvenzionatoDAO.ricercaEnteByEmail(email)).getPartitaIva();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			listaTirocinio=tirocinioDAO.allDocumentiDaFirmareByEnte(partitaIva, statoTirocinio);
 			statoTirocinio="Accettato e in attesa di firma dall'Ente e Admin";
 			listaTirocinio.addAll(tirocinioDAO.allDocumentiDaFirmareByEnte(partitaIva, statoTirocinio));
@@ -62,7 +75,9 @@ public class ServletDocumentiTirocinioET extends HttpServlet {
 		else if(userET.equals("0"))
 		{
 			statoTirocinio="Accettato e in attesa di firma";
-			int matricola = (int) request.getSession().getAttribute("matricola");
+			UserInterface user = (UserInterface) request.getSession().getAttribute("user");
+			String email = user.getEmail();
+			int matricola = (int) (tirocinanteDAO.ricercaTirocinanteByEmail(email)).getMatricola();
 			listaTirocinio= tirocinioDAO.allDocumentiDaFirmareByStudente(matricola, statoTirocinio);
 		}
 		request.setAttribute("listaTirocinio", listaTirocinio);
