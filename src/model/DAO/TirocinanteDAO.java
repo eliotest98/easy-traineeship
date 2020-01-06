@@ -72,8 +72,8 @@ public class TirocinanteDAO {
         return tirocinante;
     }
     
-    public Tirocinante ricercaTirocinanteByEmail(String email) {
-        Tirocinante tirocinante = null;
+    public synchronized Tirocinante ricercaTirocinanteByEmail(String email) {
+        Tirocinante tirocinante = new Tirocinante();
         Connection conn = null;
         PreparedStatement ps = null;
 
@@ -86,7 +86,7 @@ public class TirocinanteDAO {
             ResultSet rs = ps.getResultSet();
 
             if (rs.next()) {
-                tirocinante = new Tirocinante();
+                
                 DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
                 tirocinante.setEmail(rs.getString("EMAIL"));
                 tirocinante.setName(rs.getString("NAME"));
