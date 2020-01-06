@@ -6,6 +6,11 @@
 			mm = data.getMonth() + 1 + "/";
 			aaaa = data.getFullYear();
 			
+			var dataT=$("#dataNascitaTirocinante").val()
+			aaaaT=dataT.substr(0, 4);
+			mmT=dataT.substr(5, 2) + "/";
+			ggT=dataT.substr(8, 2) + "/";
+			
 			var doc = new jsPDF();
 
 
@@ -49,7 +54,7 @@
 		    doc.fromHTML('<b>TIROCIANTE</b> ', 9, 204);
 
 	        doc.fromHTML('Cognome e nome del tirocinante;', 9, 211);
-	        doc.fromHTML('Data e luogo di nascita <em><b>' + $("#dataNascitaTirocinante").val()  + ' ' + $("#luogoNascitaTirocinante").val()  + '</b></em> ', 9, 218);
+	        doc.fromHTML('Data e luogo di nascita <em><b>'  +  ggT + mmT + aaaaT + ' ' + $("#luogoNascitaTirocinante").val()  + '</b></em> ', 9, 218);
 	        doc.fromHTML('Cittadinanza <em><b>' + $("#cittadinanza").val()  + '</b></em> ', 9, 225);
 	        doc.fromHTML('Residenza <em><b>' + $("#residenza").val()  + '</b></em> ', 9, 232);
 	        
@@ -78,11 +83,13 @@
 		    
 			doc.setFontStyle("bold");
 		    doc.fromHTML('<b>INDICAZIONE LE COMPETENZE DA ACQUISIRE    </b>', 9, 146);
+		    doc.setFontStyle("italic");
 		    var obiettivi=$("#competenze").val();
 		    var splitTesto = doc.splitTextToSize(obiettivi, 180);
 		    doc.text(10, 158,splitTesto);
 		    
 		    doc.fromHTML('<b>INDICAZIONE DELLE ATTIVITÀ FORMATIVE PREVISTE   </b>', 9, 186);
+		    doc.setFontStyle("italic");
 		    var obiettivi=$("#attivitaPreviste").val();
 		    var splitTesto = doc.splitTextToSize(obiettivi, 180);
 		    doc.text(10, 198,splitTesto);
@@ -103,8 +110,16 @@
 		    doc.fromHTML("Posizione assicurativa INAIL: Gestione per conto dello Stato", 9, 83);
 		    doc.fromHTML("Polizza assicurativa RC ________________________________________________________", 9, 90);
 		    doc.fromHTML("Polizza assicurativa Infortuni  ________________________________________________", 9, 97);
-		    var testo="Ai sensi dell’art.5 della convenzione Rep.n.___________, a cui fa riferimento il presente progetto formativo, il Soggetto ospitante, in caso di infortunio del tirocinante durante lo svolgimento del tirocinio,  si impegna a segnalare tempestivamente l’evento al Dipartimento di Informatica e al Responsabile dell’Ufficio Stato Giuridico e Formazione dell’Università, al fine di consentire a quest’ultimo di trasmettere la denuncia di infortunio all'INAIL in via telematica entro i tempi previsti dalla normativa vigente (48 ore). Il Responsabile pro tempore dell’Ufficio Stato Giuridico e Formazione dell’Ateneo è il dott. Pasquale Talarico, di cui si indicano di seguito il recapito telefonico e gli indirizzi e-mail a cui far pervenire la segnalazione dell’infortunio con copia della convenzione e del progetto formativo.  Inoltre all’Ufficio Stato Giuridico e Formazione vanno trasmessi, a cura del tirocinante, una copia del certificato medico di infortunio lavorativo e una relazione scritta sulle modalità in cui è avvenuto l’infortunio (orario dell’infortunio, data e ora di abbandono del posto del di lavoro, attività svolta in occasione dell’infortunio e cause dello stesso). Tale documentazione deve essere trasmessa con la massima tempestività per le vie brevi oppure tramite e-mail.";
-		   
+		    var testo="Ai sensi dell’art.5 della convenzione Rep.n.___________, a cui fa riferimento il presente progetto formativo, il Soggetto ospitante, in caso di infortunio del" +
+		    		" tirocinante durante lo svolgimento del tirocinio,  si impegna a segnalare tempestivamente l’evento al Dipartimento di Informatica e al Responsabile dell’Ufficio Stato" +
+		    		" Giuridico e Formazione dell’Università, al fine di consentire a quest’ultimo di trasmettere la denuncia di infortunio all'INAIL in via telematica entro i tempi previsti" +
+		    		" dalla normativa vigente (48 ore). Il Responsabile pro tempore dell’Ufficio Stato Giuridico e Formazione dell’Ateneo è il dott. Pasquale Talarico, di cui si indicano di" +
+		    		" seguito il recapito telefonico e gli indirizzi e-mail a cui far pervenire la segnalazione dell’infortunio con copia della convenzione e del progetto formativo.  Inoltre " +
+		    		"all’Ufficio Stato Giuridico e Formazione vanno trasmessi, a cura del tirocinante, una copia del certificato medico di infortunio lavorativo e una relazione scritta sulle " +
+		    		"modalità in cui è avvenuto l’infortunio (orario dell’infortunio, data e ora di abbandono del posto del di lavoro, attività svolta in occasione dell’infortunio e cause dello " +
+		    		"stesso). Tale documentazione deve essere trasmessa con la massima tempestività per le vie brevi oppure tramite e-mail.";
+		    
+		    doc.setFontStyle("normal");
 		    var splitTesto = doc.splitTextToSize(testo, 180);
 		    doc.text(10, 115,splitTesto);
 		    	
@@ -128,6 +143,7 @@
 			doc.addPage();
 			
 			doc.fromHTML('<b>OBBLIGHI DEL TIROCINANTE </b>', 9, 20);
+			doc.setFontStyle("normal");
 			doc.text("- Svolgere le attività previste dal presente progetto formativo e di orientamento, rispettando l’ambiente di lavoro; ", 10, 34);
 			doc.text("- seguire le indicazioni dei tutori e fare riferimento ad essi per qualsiasi esigenza di tipo organizzativo o altre",10, 41);
 			doc.text("altre evenienze;",10,48 );
