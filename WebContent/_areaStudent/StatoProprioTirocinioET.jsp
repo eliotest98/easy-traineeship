@@ -62,12 +62,15 @@
 										</button><br>
 										<p id="qui" style="display: none;">
 											<b><%=tirocinio.getStatoTirocinio().toUpperCase()%></b><br>
-											<%if(tirocinio.getStatoTirocinio().equalsIgnoreCase("Accettato e in attesa di firma")) {%>
+											<%if(tirocinio.getStatoTirocinio().equalsIgnoreCase("Accettato e in attesa di firma della Segreteria, Ente e Admin") ||
+													tirocinio.getStatoTirocinio().equalsIgnoreCase("Accettato e in attesa di firma dell' Ente e Admin") ||
+													tirocinio.getStatoTirocinio().equalsIgnoreCase("Accettato e in attesa di firma dell' Admin") ||
+													tirocinio.getStatoTirocinio().equalsIgnoreCase("Completo") ) {%>
 												<button class="buttonET dow" disabled >
 													<p> DOWNLOAD </p>
 												</button>
 											<%}if(tirocinio.getStatoTirocinio().equalsIgnoreCase("Accettato e in attesa di firma")) {%>
-												<button class="buttonET dow" disabled>
+												<button class="buttonET dow" >
 													 <a href="_areaStudent/UploadProgettoFormativoET.jsp"><p> UPLOAD </p></a>
 												</button>
 											<%} %>
