@@ -1,15 +1,12 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import model.Tirocinante;
 import model.Tirocinio;
 import model.DAO.TirocinanteDAO;
@@ -109,13 +106,6 @@ public class ServletSceltaEnteET extends HttpServlet {
         {
           throw new IllegalArgumentException("La query di invio richiesta non � andata a buon fine.");
         }
-		//Setto lo stato, se non va bene c'� l'eccezione
-		risp = tirocinioDAO.modificaStatoTirocinio(tirocinio.getCodTirocinio(), "Accettato e in attesa di firma (tutti)");
-		if(risp==false)
-		{
-		  throw new IllegalArgumentException("La query di modifica non � andata a buon fine.");
-		}
-		
 		//Riprendo il tirocinio appena cambiato
 		tirocinio = tirocinioDAO.tirocinioAttivo(tirocinante.getMatricola());
 		
