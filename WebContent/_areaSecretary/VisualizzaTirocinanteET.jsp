@@ -348,7 +348,7 @@
 				  type: "POST",
 				  url: absolutePath+ "/ServletGestioneRichiesteSegreteriaET",
 				  async:true,
-				  data: {"matricola": matricola, "flag": 1},
+				  data: {"matricola": matricola, "flag": 3},
 				  success: function(resp){
 					  console.log(resp)
 					  if(resp){
