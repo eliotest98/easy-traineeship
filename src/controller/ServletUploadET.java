@@ -44,9 +44,12 @@ public class ServletUploadET extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	  {
 	    //Prendo il file dalla form
+		System.out.println("SonoQui");
         javax.servlet.http.Part filePart = request.getPart("file");
+        System.out.println(request.getPart("file"));
         InputStream fileContent = filePart.getInputStream();
         String fileName = filePart.getSubmittedFileName();
+        System.out.println("file"+fileName);
         String tomcatRoot = getServletContext().getRealPath("/");
         
         //Crea una stringa da aggiungere al nome del file, per impedire sovrascritture dovute a nomi duplicati
@@ -63,7 +66,7 @@ public class ServletUploadET extends HttpServlet {
         //Path del file
         String pdfPath =  "pdf" + builder.toString() + fileName;
         
-        String filePath = tomcatRoot + pdfPath;
+        String filePath = "C:\\Users\\Barisano\\Desktop\\easy-traineeship\\ProgettoFormativo\\"+pdfPath;
                
         OutputStream os = null;
         
@@ -107,7 +110,7 @@ public class ServletUploadET extends HttpServlet {
 	          }
 	          
 	          //Lo setto all'interno del database
-	          if(tirocinioDAO.uploadProgettoFormativo(tirocinio.getCodTirocinio(), filePath)==false)
+	          if(tirocinioDAO.uploadProgettoFormativo(tirocinio.getCodTirocinio(), fileName)==false)
 	          {
 	            throw new IllegalArgumentException("Query upload non andata a buon fine");
 	          }
@@ -151,7 +154,7 @@ public class ServletUploadET extends HttpServlet {
 	      {
 	        throw new IllegalArgumentException("Errore.");
 	      }
-	      
+
 	      if(tirocinioDAO.modificaStatoTirocinio(codTirocinio, "Accettato e in attesa di firma della Segreteria, Ente e Admin")==false)
 	      {
 	        throw new IllegalArgumentException("Query modifica stato non andata a buon fine");
