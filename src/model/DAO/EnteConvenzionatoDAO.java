@@ -78,6 +78,68 @@ public class EnteConvenzionatoDAO {
 		return listaEnti;	
 	}
 	
+	
+	/*
+	 * Metodo che interroga il DB e restituisce l' 'EntiConvenzionato' 
+	 * persento all' interono tramite l'email
+	 * 
+	 * @return purchase
+	 * */
+	public synchronized EnteConvenzionato ricercaEnteByEmail(String email) throws SQLException
+	{
+		
+		Connection con = null; //variabile per la connesione del DB
+		PreparedStatement ps = null;// Creazione oggetto Statement
+		//ArrayLista di tipo EnteConvenzionato
+		EnteConvenzionato purchase= new EnteConvenzionato();
+		try 
+		{
+			//Connessione con il DB
+			con= new DbConnection().getInstance().getConn();
+			//Query Sql per prelevare gli 'EntiConvenzionati'
+			ps= con.prepareStatement("SELECT * "
+									+ "FROM ENTECONVENZIONATO, USER "
+									+ "WHERE ENTECONVENZIONATO.EMAIL=USER.EMAIL");
+			ResultSet res = ps.executeQuery();
+			
+			if(res.next())
+			{
+				purchase.setEmail(res.getString("EMAIL"));
+				purchase.setName(res.getString("NAME"));
+				purchase.setSurname("NA");
+				purchase.setSex('N');
+				purchase.setPassword(" ");
+				purchase.setUserType(3);
+				purchase.setDataDiNascita(res.getString("DATANASCITA"));
+				purchase.setPartitaIva(res.getString("PARTITAIVA"));
+				purchase.setSede(res.getString("SEDE"));
+				purchase.setRappresentante(res.getString("RAPPRESENTANTE"));
+				purchase.setReferente(res.getString("REFERENTE"));
+				purchase.setTelefono(res.getString("TELEFONO"));
+				purchase.setDipendenti(res.getShort("DIPENDENTI"));
+				purchase.setDotRiferimento(res.getString("DOTRIFERIMENTO"));
+				purchase.setTipoTirocinio("TE");
+				purchase.setDescrizioneAttivita(res.getString("DESCRIZIONEATTIVITA"));
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+			try 
+			{
+				ps.close();// Chiusura oggetto Statement 
+			} 
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		return purchase;	
+	}
+	
 	/*
 	 * Metodo che interagisce con il DB e inserisce in esso l' 'EnteConvenzionato' 
 	 * passato come parametro
@@ -146,7 +208,7 @@ public class EnteConvenzionatoDAO {
 				e.printStackTrace();
 			}
 		}
-		//Ritorna false se l'insert non è andato a buon fine 
+		//Ritorna false se l'insert non ï¿½ andato a buon fine 
 		return false;	
 	}
 	
@@ -169,8 +231,8 @@ public class EnteConvenzionatoDAO {
 			con= new DbConnection().getInstance().getConn();
 			//inserimento di un EnteConvenzionato
 			boolean update = inserisciEnte(enteConvenzionato);
-			//se l'operazione di inserimento non è andata a buon fine
-			//faccio la modifica perchè l' 'EnteConvenzionato' esiste
+			//se l'operazione di inserimento non ï¿½ andata a buon fine
+			//faccio la modifica perchï¿½ l' 'EnteConvenzionato' esiste
 			if(update==false)	
 			{
 				//Update per la modifica in 'User' dei dati parziali di 'EnteConvenzionato'
@@ -227,7 +289,7 @@ public class EnteConvenzionatoDAO {
 		{
 			e.printStackTrace();
 		}
-		//Ritorna false se la modifica non è andata a buon fine 
+		//Ritorna false se la modifica non ï¿½ andata a buon fine 
 		return false;	
 	}
 	
@@ -306,7 +368,7 @@ public class EnteConvenzionatoDAO {
 				e.printStackTrace();
 			}
 		}
-		//Ritorna false se la modifica non è andata a buon fine 
+		//Ritorna false se la modifica non ï¿½ andata a buon fine 
 		return false;	
 	}
 }

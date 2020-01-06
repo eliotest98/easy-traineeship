@@ -8,14 +8,7 @@
 	CheckSession ck = new CheckSession(pageFolder, pageName, request.getSession());	
 	
 	ArrayList<Tirocinio> listaTirocinio=new ArrayList<Tirocinio>();
-	listaTirocinio=(ArrayList<Tirocinio>)request.getAttribute("listaTirocinio");
-	
-/*  	if(listaTirocinio==null)
-	{
-        RequestDispatcher dispatcher = request.getRequestDispatcher("ServletDocumentiTirocinioET");
-        dispatcher.forward(request, response);
-    } */  
-
+	listaTirocinio=(ArrayList<Tirocinio>)request.getAttribute("listaTirocinio"); 
 %>
 <!DOCTYPE html>
 <html>
