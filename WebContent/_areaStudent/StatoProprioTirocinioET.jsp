@@ -66,8 +66,8 @@
 													tirocinio.getStatoTirocinio().equalsIgnoreCase("Accettato e in attesa di firma dell' Ente e Admin") ||
 													tirocinio.getStatoTirocinio().equalsIgnoreCase("Accettato e in attesa di firma dell' Admin") ||
 													tirocinio.getStatoTirocinio().equalsIgnoreCase("Completo") ) {%>
-												<button class="buttonET dow" action="ServletDownload">
-													<p> DOWNLOAD </p>
+												<button class="buttonET dow">
+													<a href="ServletDownload"><p> DOWNLOAD </p></a>
 												</button>
 											<%}if(tirocinio.getStatoTirocinio().equalsIgnoreCase("Accettato e in attesa di firma")) {%>
 												<button class="buttonET dow" >

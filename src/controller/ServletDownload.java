@@ -50,7 +50,10 @@ public class ServletDownload extends HttpServlet {
 
     //Prelevo il tirocinio dalla sessione
     Tirocinio tirocinio = (Tirocinio) request.getSession().getAttribute("Tirocinio");
-    
+    if(tirocinio==null)
+    {
+      throw new IllegalArgumentException("Tirocinio inesistente.");
+    }
     String filePath = "C:\\Users\\simon\\Documents\\GitHub\\easy-traineeship\\ProgettoFormativo\\";
 
     try {
