@@ -57,7 +57,7 @@
     	      menu +="<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
       }else if (pageName.equals("VisualizzaTirocinanteET.jsp"))//se ci troviamo in VisualizzaTirocinanteET.jsp
       {
-    	  menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
+    	  menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
           + "/VisualizzaTirocinanteET.jsp\">Informazioni Tirocinante</a></li> <li ><a href=javascript:history.go(-1);>Indietro</a></li> ";
       }	
 	} else if (pageFolder.equals("_areaStudent")) { //se stiamo in una pagina dell'area studente
