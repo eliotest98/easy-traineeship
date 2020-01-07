@@ -65,15 +65,8 @@ public class ServletUploadET extends HttpServlet {
         }
         //Path del file
         String pdfPath =  "pdf" + builder.toString() + fileName;
-      /*  File a= new File("\\easy-traineeship\\ProgettoFormativo");
-        String filePath = a.getAbsolutePath()+"\\"+pdfPath;*/
-        String absolute = new File("pdf1O9EKH9GRB6 (8).pdf").getAbsolutePath();
-        System.out.println(absolute+"----"+pdfPath);
-        String filePath = absolute+"\\easy-traineeship\\ProgettoFormativo"+"\\"+ pdfPath;
-        System.out.println(filePath);
+        String filePath = "C:\\Users\\Barisano\\Desktop\\easy-traineeship\\ProgettoFormativo\\"+pdfPath;
         
-       // String filePath1=System.getProperty("user.dir");
-       //  System.out.println("filePath "+"\\easy-traineeship\\ProgettoFormativo"+filePath1);      
         OutputStream os = null;
         
         try {
