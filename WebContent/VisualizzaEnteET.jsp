@@ -127,7 +127,7 @@
 													<td class='text-center'><%=listaEnti.get(i).getTelefono()%></td>
 													<td class="text-center" align="center">
 														<a href='_areaSecretary/ModificaEnteET.jsp?ente=<%=i%>' class="btn btn-primary btn-action modificaEnte" title="Modifica Ente" data-idrequest="35"><i class="fa fa-edit"></i></a>
-														<button id=<%=listaEnti.get(i).getEmail()%> name="enteEmail"  class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Elimina Ente"><i class="fa fa-times"></i></button>												
+														<button id="<%=listaEnti.get(i).getEmail()%>"  name="enteEmail" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Elimina Ente"><i class="fa fa-times"></i></button>												
 													</td>
 													<%
 													//Se è in sessione la segreteria mostro le azioni
@@ -208,15 +208,13 @@
 			var modal = document.getElementById("myModal");
 
 			// Get the button that opens the modal
-			var btn = document.getElementsByName("enteEmail")[0];
-
-			// Get the <span> element that closes the modal
-			var span = document.getElementsByClassName("close")[0];
-
-			// When the user clicks the button, open the modal 
-			btn.onclick = function() {
-			  modal.style.display = "block";
-				var email = document.getElementsByName("enteEmail")[0].id;
+			
+			var email = "";
+			
+			$('button[name ="enteEmail"]').click(function() {
+				modal.style.display = "block";
+				var btn =	$(this).attr("id");
+				email = $(this).attr("id");
 				console.log(email)
 			  if(btn == email)
 				{	
@@ -228,7 +226,16 @@
 					showAlert();
 					return false;
 				}
-			}
+			});
+
+			// Get the <span> element that closes the modal
+			var span = document.getElementsByClassName("close");
+			
+			
+			// When the user clicks the button, open the modal 
+			//btn[i].onclick = function() {
+			  
+			//}
 
 			// When the user clicks on <span> (x), close the modal
 			span.onclick = function() {
@@ -245,41 +252,44 @@
 			    toastr.error("Eliminazione non effettuata");
 			  }
 			}
-		</script>
-		<script>
-		function elimina()
-		{
-			var email = document.getElementsByName("enteEmail")[0].id;
-			$.ajax({
-				  type: "POST",
-				  url: absolutePath+ "/ServletEliminaEnteET",
-				  async:true,
-				  data: {"enteEmail": email},
-				  success: function(resp){
-					  console.log(resp)
-					  if(resp){
-					showAlert();
-					toastr.success("Eliminazione effettuata con successo");
-				    modal.style.display = "none";
-					return true;
-				  }
-					  else{
-							showAlert();
-							toastr.success("Eliminazione non riuscita");
-						    modal.style.display = "none";
-							return false;
+			
+			function elimina()
+			{
+				console.log("Sto eliminando " + email);
+				$.ajax({
+					  type: "POST",
+					  url: absolutePath+ "/ServletEliminaEnteET",
+					  async:true,
+					  data: {"enteEmail": email},
+					  success: function(resp){
+						  console.log(resp)
+						  if(resp){
+						showAlert();
+						toastr.success("Eliminazione effettuata con successo");
+					    modal.style.display = "none";
+					    window.location.reload();
+						return true;
 					  }
-						  
-				  }
-				});
-		}
+						  else{
+								showAlert();
+								toastr.success("Eliminazione non riuscita");
+							    modal.style.display = "none";
+								return false;
+						  }
+							  
+					  }
+					});
+			}
+			</script>
+			<script>
+			function notelimina()
+			{
+				showAlert();
+				toastr.error("Eliminazione non effettuata");
+			}
 		</script>
 		<script>
-		function notelimina()
-		{
-			showAlert();
-			toastr.error("Eliminazione non effettuata");
-		}
+		
 		</script>
 </body>
 </html>
