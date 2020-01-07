@@ -10,12 +10,23 @@
 	String EnteConvenzionato=" ";
 	EnteConvenzionato = (String) session.getAttribute("EnteConvenzionato");
 	
-	//Prelevo la matricola e istanzio un tirocinante
-	long matricola = Long.valueOf(request.getParameter("matricola"));
 	Tirocinante tirocinante=new Tirocinante();
-	tirocinante=(Tirocinante)request.getAttribute("tirocinante");
+	tirocinante=(Tirocinante)request.getSession().getAttribute("tirocinante");
 	Tirocinio tirocinio=new Tirocinio();
-	tirocinio = (Tirocinio)request.getAttribute("tirocinio");
+	tirocinio = (Tirocinio)request.getSession().getAttribute("tirocinio");
+	
+	//Prelevo la matricola e istanzio un tirocinante
+	long matricola = 0;
+	if (request.getParameter("matricola")==null) {
+		matricola = tirocinante.getMatricola();
+	}
+	else {
+		matricola = Long.valueOf(request.getParameter("matricola"));
+	}
+	
+	
+
+	
 	
 	if(tirocinante==null)
 	{	
@@ -327,15 +338,15 @@
 							toastr.success("Accettazione effettuata con successo");
 						    modalAccettazione.style.display = "none";
 						      setTimeout(function(){// wait for 5 secs(2)
-						           location.reload(); // then reload the page.(3)
-						      }, 3000); 
+						           window.location.replace(absolutePath+"/_areaSecretary/VisualizzaRichiestaET.jsp"); // then reload the page.(3)
+						      }, 1000); 
 				  }
 					  else{
 							showAlert();
 							toastr.success("Accettazione non effettuata");
 						    modalAccettazione.style.display = "none";
 						     setTimeout(function(){// wait for 5 secs(2)
-						           location.reload(); // then reload the page.(3)
+						           location.replace="VisualizzaTirocinanteET.jsp"; // then reload the page.(3)
 						      }, 3000); 
 						     }
 				  }
