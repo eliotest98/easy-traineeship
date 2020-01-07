@@ -42,7 +42,7 @@ public class ServletUploadET extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	  {
+	{
 	    //Prendo il file dalla form
 		System.out.println("SonoQui");
         javax.servlet.http.Part filePart = request.getPart("file");
@@ -50,7 +50,7 @@ public class ServletUploadET extends HttpServlet {
         InputStream fileContent = filePart.getInputStream();
         String fileName = filePart.getSubmittedFileName();
         System.out.println("file"+fileName);
-        String tomcatRoot = getServletContext().getRealPath("/");
+       
         
         //Crea una stringa da aggiungere al nome del file, per impedire sovrascritture dovute a nomi duplicati
         String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -65,9 +65,15 @@ public class ServletUploadET extends HttpServlet {
         }
         //Path del file
         String pdfPath =  "pdf" + builder.toString() + fileName;
+      /*  File a= new File("\\easy-traineeship\\ProgettoFormativo");
+        String filePath = a.getAbsolutePath()+"\\"+pdfPath;*/
+        String absolute = new File("pdf1O9EKH9GRB6 (8).pdf").getAbsolutePath();
+        System.out.println(absolute+"----"+pdfPath);
+        String filePath = absolute+"\\easy-traineeship\\ProgettoFormativo"+"\\"+ pdfPath;
+        System.out.println(filePath);
         
-        String filePath = "C:\\Users\\Barisano\\Desktop\\easy-traineeship\\ProgettoFormativo\\"+pdfPath;
-               
+       // String filePath1=System.getProperty("user.dir");
+       //  System.out.println("filePath "+"\\easy-traineeship\\ProgettoFormativo"+filePath1);      
         OutputStream os = null;
         
         try {
@@ -124,6 +130,7 @@ public class ServletUploadET extends HttpServlet {
 	          disp.forward(request, response);
 	      }
 	      //Prelevo  il codice dall'id della tabella
+	      else {
 	      int codTirocinio = Integer.parseInt((String) request.getParameter("codTirocinio"));
 	      if((String) request.getParameter("codTirocinio")==null)
 	      {
@@ -163,6 +170,7 @@ public class ServletUploadET extends HttpServlet {
 	      RequestDispatcher disp = request.getRequestDispatcher("DocumentiET.jsp");
 	      disp.forward(request, response);
 	    }
+	  }
 	}
 
 }

@@ -1,60 +1,19 @@
-$(document)
-		.ready(
-				function() {
 
-					$(document)
-							.on(
-									'click',
-									'#aggiungiAllegati',
-									function(e) {
-
-										var filenames = [];
-										$(".dz-filename").each(
-												function(index, element) {
-													filenames.push($(this)
-															.text());
-												});
-
-										if (filenames.length == 1) {
-											$(".preloader").show();
-											$
-													.ajax({
-														url : absolutePath
-																+ "/ServletUploadET",
-														type : "POST",
-														dataType : 'JSON',
-														async : false,
-														data : {
-															"filenames" : filenames,
-														},
-														success : function(msg) {
-															if (!msg.result) {
-																showAlert(
-																		1,
-																		msg.error);
-															} else {
-																showAlert(
-																		0,
-																		msg.content);
-																setTimeout(
-																		function() {
-																			window.location.href = msg.redirect;
-																		}, 2000);
-															}
-														},
-														error : function(msg) {
-															showAlert(1,
-																	"Impossibile Recuperare i dati.");
-														}
-													});
-
-											$(".preloader").hide();
-										} else {
-											showAlert(1,
-													"Controllare di aver inserito tutti gli allegati richiesti.");
-										}
-
-										return false;
-									});
-
-				});
+	/*Funzione ch erestituisce il successo della pagina.*/
+	function concludi()
+	{
+		var con = document.getElementById("concludi");
+		if(true)
+		{	
+			showAlert();
+			toastr.success("PDF caricato con successo.");
+			window.setTimeout('redirect()',3000);
+			return true;
+		}
+		return false
+	}
+	
+	function redirect()
+	{
+		location.href = '../_areaStudent/StatoProprioTirocinioET.jsp';
+	}
