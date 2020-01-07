@@ -152,10 +152,10 @@
 								
 								  <!-- Modal content -->
 								  <div class="modal-content">
-								    <span class="close">&times;</span>
+								    <span class="close"></span>
 								    <p>Sei sicuro di voler eliminare l'Ente?</p>
-											<button onclick="return elimina()" id="email"  class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Elimina Ente">Si</button>
-											<button onclick="notelimina()"id="close"   type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button>
+											<button onclick="return elimina()" id="email"  class="btn btn-primary btn-action eliminaEnte refuse" data-type="2" data-idrequest="35" title="Elimina Ente">Si</button>
+											<button onclick="notelimina()"id="close"   type="submit" class="btn btn-primary btn-action eliminaEnte refuse" data-type="2" data-idrequest="35" title="Annulla">No</button>
 									</div>
 								
 								</div>
