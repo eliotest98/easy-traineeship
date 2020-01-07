@@ -3,7 +3,7 @@
 <%@ page import="java.util.*,controller.ServletVisualizzaTirocinanteET, model.Tirocinante, model.Tirocinio, controller.CheckSession" %>
 <%
 	String pageName = "VisualizzaTirocinanteET.jsp";
-	String pageFolder = "_areaEnteET";
+	String pageFolder = "_areaSecretary";
 
 	CheckSession ck = new CheckSession(pageFolder, pageName, request.getSession());
 	//Prelevo dalla sessione l' EnteConvenzionato
