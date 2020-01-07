@@ -125,18 +125,16 @@
 													<td class='text-center'><%=listaEnti.get(i).getReferente()%></td>
 													<td class='text-center'><%=listaEnti.get(i).getEmail()%></td>
 													<td class='text-center'><%=listaEnti.get(i).getTelefono()%></td>
-													<td class="text-center" align="center">
-														<a href='_areaSecretary/ModificaEnteET.jsp?ente=<%=i%>' class="btn btn-primary btn-action modificaEnte" title="Modifica Ente" data-idrequest="35"><i class="fa fa-edit"></i></a>
-														<button id="<%=listaEnti.get(i).getEmail()%>"  name="enteEmail" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Elimina Ente"><i class="fa fa-times"></i></button>												
-													</td>
 													<%
 													//Se è in sessione la segreteria mostro le azioni
 													if(Segreteria!=null)
 													{
 														//email = listaEnti.get(i).getEmail();
 														%>
-														
-										
+														<td class="text-center" align="center">
+															<a href='_areaSecretary/ModificaEnteET.jsp?ente=<%=i%>' class="btn btn-primary btn-action modificaEnte" title="Modifica Ente" data-idrequest="35"><i class="fa fa-edit"></i></a>
+															<button id="<%=listaEnti.get(i).getEmail()%>"  name="enteEmail" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Elimina Ente"><i class="fa fa-times"></i></button>												
+														</td>
 														<%
 													}
 													%>
