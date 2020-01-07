@@ -52,7 +52,7 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
 			listaRichiesteEnte=tirocinioDAO.allTirocinioByEnte(user.getEmail());
 			if(listaRichiesteEnte!=null) {
 				for (int i=0; i<listaRichiesteEnte.size(); i++) {
-					if (listaRichiesteEnte.get(i).getStatoTirocinio().equals("In attesa dell Ente")) {
+					if (listaRichiesteEnte.get(i).getStatoTirocinio().equals("In attesa Ente")) {
 						listaRichiesteEnteInAttesa.add(listaRichiesteEnte.get(i));	
 					}
 				}

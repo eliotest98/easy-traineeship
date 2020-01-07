@@ -56,7 +56,7 @@ class ServletGestioneRichiesteEnteETTest {
 	    	stmtSelect.executeUpdate(sql5);
 	    	String sql3 = ("INSERT INTO enteconvenzionato VALUES('11111111111','Avellino','Salvatore Totti','0825519149','100','Michele Persico','Michele Porto','08/01/1977','esperti in siti web','test@test.test');");
 	    	stmtSelect.executeUpdate(sql3);
-	    	String sql1 = ("INSERT INTO tirocinio VALUES('999','"+modifiedDate+"','11','informatica','javascript','Java','Bene','In attesa dell Ente','progettoformativa.pdf','ragazzo valido','4859','11111111111');");
+	    	String sql1 = ("INSERT INTO tirocinio VALUES('999','"+modifiedDate+"','11','informatica','javascript','Java','Bene','In attesa Ente','progettoformativa.pdf','ragazzo valido','4859','11111111111');");
 	    	stmtSelect.executeUpdate(sql1);
 	    	conn.commit();
 	    }
@@ -67,7 +67,7 @@ class ServletGestioneRichiesteEnteETTest {
 		tirocinio.setCodTirocinio(999);
 		/*tirocinio.setDataInizioTirocinio("1950-12-12");
 		tirocinio.setCfuPrevisti((short) 120);
-		tirocinio.setStatoTirocinio("In attesa dell Ente");
+		tirocinio.setStatoTirocinio("In attesa Ente");
 		tirocinio.setSvolgimentoTirocinio("test");
 		tirocinio.setAttivitaPreviste("test");
 		tirocinio.setCompetenze("Test");

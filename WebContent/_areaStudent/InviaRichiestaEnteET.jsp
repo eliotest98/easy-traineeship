@@ -48,7 +48,7 @@
                                 <%
                                 	Tirocinio tirocinio = (Tirocinio)request.getSession().getAttribute("Tirocinio");
                                 	if (tirocinio!=null) {
-                                		if (tirocinio.getStatoTirocinio().equalsIgnoreCase("In attesa dell ente")) {
+                                		if (tirocinio.getStatoTirocinio().equalsIgnoreCase("In attesa Ente")) {
                                 %>
 									<h2 class="text-center">Invio Richiesta di Tirocinio
 											all'Ente Convenzionato</h2>
@@ -118,7 +118,7 @@
 								</form>
 								<%
                                 		}
-                                	else if ((!tirocinio.getStatoTirocinio().equalsIgnoreCase("In attesa dell Ente"))) {
+                                	else if ((!tirocinio.getStatoTirocinio().equalsIgnoreCase("In attesa Ente"))) {
 									%>
 										<h3 style="text-align: center;">
 										Impossibile accedere alla pagina di richiesta ente: <br>

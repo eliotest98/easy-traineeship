@@ -101,7 +101,7 @@ class TirocinioDAOTest {
 		    	stmtSelect.executeUpdate(sql5);
 		    	String sql3 = ("INSERT INTO enteconvenzionato VALUES('11111111111','Avellino','Salvatore Totti','0825519149','100','Michele Persico','Michele Porto','08/01/1977','esperti in siti web','green@gmail.com');");
 		    	stmtSelect.executeUpdate(sql3);
-		    	String sql1 = ("INSERT INTO tirocinio VALUES('1','"+modifiedDate+"','11','informatica','javascript','Java','Bene','In attesa dell Ente','progettoformativa.pdf','ragazzo valido','4859','11111111111');");
+		    	String sql1 = ("INSERT INTO tirocinio VALUES('1','"+modifiedDate+"','11','informatica','javascript','Java','Bene','In attesa Ente','progettoformativa.pdf','ragazzo valido','4859','11111111111');");
 		    	stmtSelect.executeUpdate(sql1);
 		    	conn.commit();
 		    	

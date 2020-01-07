@@ -62,7 +62,12 @@
 												{ %>
 													<tr role='row' >
 														<td class='text-center'><%=listaTirocini.get(i).getCodTirocinio()%></td>
-														<td class='text-center'><%=listaTirocini.get(i).getStatoTirocinio()%></td>
+														<td class='text-center'><%=listaTirocini.get(i).getStatoTirocinio()%>
+														<%if(listaTirocini.get(i).getStatoTirocinio().equalsIgnoreCase("In attesa Ente"))
+														{%>
+															<button id="Accetta" type="submit" class="btn btn-primary btn-submit" title="Accetta" data-idrequest="35">Annulla Richiesta</button>
+														<%}%>
+														</td>
 														<td class='text-center'><%=listaTirocini.get(i).getCompetenze()%></td>
 														<td class='text-center'><%=listaTirocini.get(i).getCompetenzeAcquisire()%></td>
 														<%if(listaTirocini.get(i).getEnteConvenzionato()==null)

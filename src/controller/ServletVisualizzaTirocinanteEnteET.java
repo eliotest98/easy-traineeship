@@ -53,7 +53,7 @@ public class ServletVisualizzaTirocinanteEnteET extends HttpServlet {
 	      int size = listaRichiesteEnte.size();
 	      for (int j = 0; j < size; j++) {
 	    	  tempTirocinio = listaRichiesteEnte.get(j);
-	    	  if (tempTirocinio.getStatoTirocinio().equals("In attesa dell Ente")) {
+	    	  if (tempTirocinio.getStatoTirocinio().equals("In attesa Ente")) {
 	    		  tirocinio=tempTirocinio;
 	    		  System.out.println(tirocinio.toString());
 	    	  }
