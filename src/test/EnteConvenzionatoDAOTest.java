@@ -63,6 +63,33 @@ class EnteConvenzionatoDAOTest {
 		assertEquals(inserito,true);
 	}
 	
+	//Test del metodo allEnte di EnteConvenzionatoDAO 
+		@Test
+		void testRicercaEnteByPartitaIva() throws SQLException 
+		{
+			boolean trovato = false;
+			
+			try 
+			{
+		    	Statement stmtSelect = conn.createStatement();
+		    	String sql1 = ("INSERT INTO User VALUES('azienda@email.it','Cap Gemini','NA','N','password','3');");
+		    	stmtSelect.executeUpdate(sql1);
+		    	String sql2 = ("INSERT INTO EnteConvenzionato VALUES('99999999999','Salerno','Giacomo','3490000141','100','Carmine','Francesco','12/10/1980','Molto interessante','azienda@email.it');");
+		    	stmtSelect.executeUpdate(sql2);
+		    	conn.commit();
+		    }
+		    catch (Exception e) {
+		    	e.printStackTrace();
+		    }
+			
+			EnteConvenzionato ente = enteConDao.ricercaEnteByPartitaIva("99999999999");
+			if (("azienda@email.it").equals(ente.getEmail()) && ("99999999999").equals(ente.getPartitaIva())) {
+				trovato = true;
+			}
+				
+			assertEquals(trovato,true);
+		}
+	
 	//Test del metodo InserisciEnte di EnteConvenzionatoDAO
 	@Test
 	void testInserisciEnte() throws SQLException
