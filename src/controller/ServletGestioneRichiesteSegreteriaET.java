@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -79,14 +80,13 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
       return;
     }
     
-    String numeri = request.getParameter("flag");
-    int flag = Integer.parseInt(numeri.substring(0,1));
-    long matricola = Long.parseLong(numeri.substring(1));
+    int flag = Integer.parseInt(request.getParameter("flag"));
+    long matricola = Long.parseLong(request.getParameter("matricola"));
+    // boolean che controlla se la modifica � stata fatta
+    boolean set = false;
     // <----------- Accetta Richiesta ----------->
     if (flag == 2) {
       TirocinioDAO tirocinio = new TirocinioDAO();
-      // boolean che controlla se la modifica � stata fatta
-      boolean set = false;
       // Array list di Tirocini
       ArrayList<Tirocinio> listaTirocini = new ArrayList<Tirocinio>();
       // Ricerco tutti gli 'EntiConvenzionati' e li inserisco nella listaTirocini
@@ -108,17 +108,23 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
         e.printStackTrace();
       }
       if (set) {
-        // Setto la pagina di redirect
-        String pag = "_areaSecretary/VisualizzaRichiestaET.jsp";
-        RequestDispatcher dispatcher = request.getRequestDispatcher(pag);
-        dispatcher.forward(request, response);
+    		response.setStatus(HttpServletResponse.SC_OK);
+			PrintWriter out = response.getWriter();
+		    out.println(true);
+		    out.close();
+		    return;
       }
+     else {
+    		response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
+			PrintWriter out = response.getWriter();
+		    out.println(false);
+		    out.close();
+		    return;
+     }
     }
     // <--------- Rifiuta Richiesta --------->
     if (flag == 3) {
       TirocinioDAO tirocinio3 = new TirocinioDAO();
-      // boolean che controlla se la modifica � stata fatta
-      boolean set2 = false;
       // Array list di Tirocini
       ArrayList<Tirocinio> listaTirocini3 = new ArrayList<Tirocinio>();
       // Ricerco tutti gli 'EntiConvenzionati' e li inserisco nella listaTirocini
@@ -132,7 +138,7 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
           if (listaTirocini3.get(i).getStatoTirocinio()
               .equalsIgnoreCase("In attesa della Segreteria")) {
             // Modifico lo stato in caso lo trovo
-            set2 = tirocinio3.modificaStatoTirocinio(listaTirocini3.get(i).getCodTirocinio(),
+            set = tirocinio3.modificaStatoTirocinio(listaTirocini3.get(i).getCodTirocinio(),
                 "Annullato");
             System.out.println(motivazione);
           }
@@ -140,12 +146,20 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
       } catch (Exception e) {
         e.printStackTrace();
       }
-      if (set2) {
-        // Setto la pagina di redirect
-        String pag = "_areaSecretary/VisualizzaRichiestaET.jsp";
-        RequestDispatcher dispatcher = request.getRequestDispatcher(pag);
-        dispatcher.forward(request, response);
-      }
+      if (set) {
+  		response.setStatus(HttpServletResponse.SC_OK);
+			PrintWriter out = response.getWriter();
+		    out.println(true);
+		    out.close();
+		    return;
+    }
+   else {
+  		response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
+			PrintWriter out = response.getWriter();
+		    out.println(false);
+		    out.close();
+		    return;
+   }
     }
   }
 }
