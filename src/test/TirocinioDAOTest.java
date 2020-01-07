@@ -463,7 +463,7 @@ class TirocinioDAOTest {
 	        assertEquals(trovato,true);
 		}
 
-	//Test del metodo allTirocinioByStato di TirocinioDAO 
+	//Test del metodo TirocinioByCodTirocinio di TirocinioDAO 
 	@Test
 	void allTirocinioByCodTirocinio() 
 	{
