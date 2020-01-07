@@ -101,7 +101,7 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
               .equalsIgnoreCase("In attesa della Segreteria")) {
             // modifico lo stato se lo trovo
             set = tirocinio.modificaStatoTirocinio(listaTirocini.get(i).getCodTirocinio(),
-                "In attesa dell Ente");
+                "In attesa Ente");
           }
         }
       } catch (Exception e) {
