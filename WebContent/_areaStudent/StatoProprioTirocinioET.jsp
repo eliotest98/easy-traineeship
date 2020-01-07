@@ -66,7 +66,7 @@
 													tirocinio.getStatoTirocinio().equalsIgnoreCase("Accettato e in attesa di firma dell' Ente e Admin") ||
 													tirocinio.getStatoTirocinio().equalsIgnoreCase("Accettato e in attesa di firma dell' Admin") ||
 													tirocinio.getStatoTirocinio().equalsIgnoreCase("Completo") ) {%>
-												<button class="buttonET dow" disabled >
+												<button class="buttonET dow" action="ServletDownload">
 													<p> DOWNLOAD </p>
 												</button>
 											<%}if(tirocinio.getStatoTirocinio().equalsIgnoreCase("Accettato e in attesa di firma")) {%>
@@ -107,6 +107,8 @@
 	</div>
 	<!--End pagewrapper-->
 	<jsp:include page="/partials/includes.jsp" />
+	<!-- Script che genera il progetto formativo -->>
+	<script src="<%= request.getContextPath() %>/js/progettoFormativo.js"></script>
 	<script type="text/javascript">
 		var mostrato = false;
 

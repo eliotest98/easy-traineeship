@@ -65,7 +65,7 @@ public class ServletUploadET extends HttpServlet {
         }
         //Path del file
         String pdfPath =  "pdf" + builder.toString() + fileName;
-        String filePath = "C:\\Users\\Barisano\\Desktop\\easy-traineeship\\ProgettoFormativo\\"+pdfPath;
+        String filePath = "C:\\Users\\simon\\Documents\\GitHub\\easy-traineeship\\ProgettoFormativo\\"+pdfPath;
         
         OutputStream os = null;
         

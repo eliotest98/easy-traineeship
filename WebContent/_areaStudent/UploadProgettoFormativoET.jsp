@@ -33,11 +33,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/partials/head.jsp" />
-<link href="<%=request.getContextPath()%>/css/styleET.css"
-	rel="stylesheet">
-	    <style type="text/css">
-    	/*Non togliete, esterno non funziona*/
+	<jsp:include page="/partials/head.jsp" />
+	<script src="<%= request.getContextPath() %>/js/pages/scripts_uploadET.js"></script>	
+	<link href="<%=request.getContextPath()%>/css/styleET.css" rel="stylesheet">
+	<style type="text/css">
+	 /*Non togliete, esterno non funziona*/
 	    .toast 
 	    {
 	    	opacity: 0,8 !important;
@@ -162,9 +162,10 @@
 	<jsp:include page="/partials/includes.jsp" />
 	<!-- Script che genera il progetto formativo -->>
 	<script src="<%= request.getContextPath() %>/js/progettoFormativo.js"></script>
-	
-	<script src="<%= request.getContextPath() %>/js/pages/scripts_uploadET.js"></script>
+	<!-- Script EV -->
 	<script src="<%= request.getContextPath() %>/js/filesystem_dropzone.js"></script>
+	
+
 	
 		<script>
 			$( document ).ready(function() {	

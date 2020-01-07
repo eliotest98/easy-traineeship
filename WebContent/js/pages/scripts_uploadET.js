@@ -1,5 +1,4 @@
-
-	/*Funzione ch erestituisce il successo della pagina.*/
+/*Funzione ch erestituisce il successo della pagina.*/
 	function concludi()
 	{
 		var con = document.getElementById("concludi");
