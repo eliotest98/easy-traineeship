@@ -125,17 +125,18 @@
 													<td class='text-center'><%=listaEnti.get(i).getReferente()%></td>
 													<td class='text-center'><%=listaEnti.get(i).getEmail()%></td>
 													<td class='text-center'><%=listaEnti.get(i).getTelefono()%></td>
+													<td class="text-center" align="center">
+														<a href='_areaSecretary/ModificaEnteET.jsp?ente=<%=i%>' class="btn btn-primary btn-action modificaEnte" title="Modifica Ente" data-idrequest="35"><i class="fa fa-edit"></i></a>
+														<button id="<%=listaEnti.get(i).getEmail()%>"  name="enteEmail" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Elimina Ente"><i class="fa fa-times"></i></button>												
+													</td>
 													<%
 													//Se è in sessione la segreteria mostro le azioni
 													if(Segreteria!=null)
 													{
-														email = listaEnti.get(i).getEmail();
+														//email = listaEnti.get(i).getEmail();
 														%>
 														
-														<td class="text-center" align="center">
-															<a href='_areaSecretary/ModificaEnteET.jsp?ente=<%=i%>' class="btn btn-primary btn-action modificaEnte" title="Modifica Ente" data-idrequest="35"><i class="fa fa-edit"></i></a>
-															<button id="email" name="enteEmail"  type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Elimina Ente"><i class="fa fa-times"></i></button>												
-														</td>
+										
 														<%
 													}
 													%>
@@ -153,10 +154,8 @@
 								  <div class="modal-content">
 								    <span class="close">&times;</span>
 								    <p>Sei sicuro di voler eliminare l'Ente?</p>
-								    <form id="signUp" action="./ServletEliminaEnteET" method="post">
-											<button onclick="elimina()"id="email" name="enteEmail"  value=<%=email %> type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Elimina Ente">Si</button>
-											<button onclick="notelimina()"id="close" name="enteEmail"  type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button>
-									</form>
+											<button onclick="return elimina()" id="email"  class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Elimina Ente">Si</button>
+											<button onclick="notelimina()"id="close"   type="submit" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button>
 									</div>
 								
 								</div>
@@ -209,14 +208,14 @@
 			var modal = document.getElementById("myModal");
 
 			// Get the button that opens the modal
-			var btn = document.getElementById("email");
-
-			// Get the <span> element that closes the modal
-			var span = document.getElementsByClassName("close")[0];
-
-			// When the user clicks the button, open the modal 
-			btn.onclick = function() {
-			  modal.style.display = "block";
+			
+			var email = "";
+			
+			$('button[name ="enteEmail"]').click(function() {
+				modal.style.display = "block";
+				var btn =	$(this).attr("id");
+				email = $(this).attr("id");
+				console.log(email)
 			  if(btn == email)
 				{	
 					showAlert();
@@ -227,7 +226,16 @@
 					showAlert();
 					return false;
 				}
-			}
+			});
+
+			// Get the <span> element that closes the modal
+			var span = document.getElementsByClassName("close");
+			
+			
+			// When the user clicks the button, open the modal 
+			//btn[i].onclick = function() {
+			  
+			//}
 
 			// When the user clicks on <span> (x), close the modal
 			span.onclick = function() {
@@ -244,20 +252,46 @@
 			    toastr.error("Eliminazione non effettuata");
 			  }
 			}
+			
+			function elimina()
+			{
+				console.log("Sto eliminando " + email);
+				$.ajax({
+					  type: "POST",
+					  url: absolutePath+ "/ServletEliminaEnteET",
+					  async:true,
+					  data: {"enteEmail": email},
+					  success: function(resp){
+						  console.log(resp)
+						  if(resp){
+						showAlert();
+						toastr.success("Eliminazione effettuata con successo");
+					    modal.style.display = "none";
+					    setTimeout(function(){// wait for 5 secs(2)
+					           location.reload(); // then reload the page.(3)
+					      }, 3000);
+						return true;
+					  }
+						  else{
+								showAlert();
+								toastr.success("Eliminazione non riuscita");
+							    modal.style.display = "none";
+								return false;
+						  }
+							  
+					  }
+					});
+			}
+			</script>
+			<script>
+			function notelimina()
+			{
+				showAlert();
+				toastr.error("Eliminazione non effettuata");
+			}
 		</script>
 		<script>
-		function elimina()
-		{
-			showAlert();
-			toastr.success("Eliminazione effettuata con successo");
-		}
-		</script>
-		<script>
-		function notelimina()
-		{
-			showAlert();
-			toastr.error("Eliminazione non effettuata");
-		}
+		
 		</script>
 </body>
 </html>
