@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -15,7 +16,7 @@ import model.DAO.EnteConvenzionatoDAO;
 /**
  * Servlet implementation class ServletEliminaEnteET
  * 
- * Questa Servlet implementa la funzionalità di eliminazione di un ente in base alla sua email.
+ * Questa Servlet implementa la funzionalitï¿½ di eliminazione di un ente in base alla sua email.
  */
 @WebServlet("/ServletEliminaEnteET")
 public class ServletEliminaEnteET extends HttpServlet {
@@ -44,16 +45,26 @@ public class ServletEliminaEnteET extends HttpServlet {
 		
 		/*Controllo che il parametro non sia vuoto*/
 		if(!request.getParameter("enteEmail").isEmpty()) {
-		String emailEnte = request.getParameter("enteEmail");
+			String emailEnte = request.getParameter("enteEmail");
 		/*Se non ci sono stati problemi*/
 		if(emailEnte!=null) {
 			try {
 				EnteConvenzionatoDAO enteDao = new EnteConvenzionatoDAO();
 				boolean res = enteDao.eliminaEnte(emailEnte);
-				request.setAttribute("result", res);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("VisualizzaEnteET.jsp");
-				dispatcher.forward(request, response);
+				if(res) {
+					response.setStatus(HttpServletResponse.SC_OK);
+					PrintWriter out = response.getWriter();
+				    out.println(true);
+				    out.close();
+				    return;
+				}
+				else {
+					response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
+					PrintWriter out = response.getWriter();
+				    out.println(false);
+				    out.close();
 				return;
+				}
 				} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -61,9 +72,10 @@ public class ServletEliminaEnteET extends HttpServlet {
 
 	}
 		/*Altrimenti segnalo l'errore*/
-		request.setAttribute("result", false);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("VisualizzaEnteET.jsp");
-		dispatcher.forward(request, response);
+		PrintWriter out = response.getWriter();
+		response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
+		out.println(false);
+		out.close();
 		return;
 	}
 }

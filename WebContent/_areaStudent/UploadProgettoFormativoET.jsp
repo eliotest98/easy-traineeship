@@ -36,6 +36,13 @@
 <jsp:include page="/partials/head.jsp" />
 <link href="<%=request.getContextPath()%>/css/styleET.css"
 	rel="stylesheet">
+	    <style type="text/css">
+    	/*Non togliete, esterno non funziona*/
+	    .toast 
+	    {
+	    	opacity: 0,8 !important;
+		}
+    </style>
 </head>
 
 <body>
@@ -74,7 +81,7 @@
 								</div>
 								
 									<h2>
-									Richiesta N.
+									CARICA IL TUO PROGETTO FORMATIVO
 									</h2>
 									<h2>
 										Trascina o premi sull'apposito riquadro per caricare un file
@@ -83,8 +90,8 @@
 											class='dropzoneUploader'></div>
 
 										<div class="form-group">
-											<button type="submit" class="btn btn-primary btn-submit"
-												id='aggiungiAllegati' >Concludi</button>
+											<button type="submit" class="btn btn-primary btn-submit" id="concludi"
+												 onclick="return concludi()">Concludi</button>
 										</div>
 
 													

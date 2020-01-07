@@ -176,5 +176,5 @@
 			doc.text("anche se non è obbligatorio, in modo tale che anch’essi siano a conoscenza sin dall’inizio del contenuto del progetto ",10, 284 );			
 			doc.text("stesso, evitando successive comunicazioni.",10, 288 );
 			
-			doc.save('a4.pdf')
+			doc.save( $("#cod").val()+'.pdf')
 		}

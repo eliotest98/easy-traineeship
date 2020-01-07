@@ -8,7 +8,12 @@
 	CheckSession ck = new CheckSession(pageFolder, pageName, request.getSession());	
 	
 	ArrayList<Tirocinio> listaTirocinio=new ArrayList<Tirocinio>();
-	listaTirocinio=(ArrayList<Tirocinio>)request.getAttribute("listaTirocinio"); 
+	listaTirocinio=(ArrayList<Tirocinio>)request.getAttribute("listaTirocinio");
+	if(listaTirocinio==null)
+	{
+		RequestDispatcher dispatcher = request.getRequestDispatcher("ServletDocumentiTirocinioET");
+        dispatcher.forward(request, response);
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -38,18 +43,14 @@
 	
 										<thead>
 											<tr align="center">
-												<th class="text-center" align="center">Codice Tirocinio</th>
-												<th class="text-center" align="center">Data Inizio</th>
-												<th class="text-center" align="center">CFU Previsti</th>
+												<th class="text-center" align="center">Matricola</th>
+												<th class="text-center" align="center">Nome</th>
+												<th class="text-center" align="center">Cognome</th>
 												<th class="text-center" align="center">Competenze</th>
 												<th class="text-center" align="center">Competenze Acquisite</th>
 												<th class="text-center" align="center">Attivit&agrave; Previste</th>
 												<th class="text-center" align="center">Svolgimento Tirocinio</th>
-												<th class="text-center" align="center">Stato Tirocinio</th>
-												<th class="text-center" align="center">Progetto Formativo</th>
-												<th class="text-center" align="center">Descrizione Ente</th>
-												<th class="text-center" align="center">Matricola</th>
-												<th class="text-center" align="center">Partita IVA</th>
+												<th class="text-center" align="center">Nome Ente</th>
 												<th class="text-center" align="center">Azioni</th>		
 											</tr>
 										</thead>
@@ -59,19 +60,19 @@
 											for( int i = 0; i < listaTirocinio.size(); i++)
 											{ %>
 												<tr role='row' >
-													<td class='text-center'><%=listaTirocinio.get(i).getCodTirocinio()%></td>
-													<td class='text-center'><%=listaTirocinio.get(i).getDataInizioTirocinio()%></td>
-													<td class='text-center'><%=listaTirocinio.get(i).getCfuPrevisti()%></td>
+													<td class='text-center'>0<%=listaTirocinio.get(i).getMatricola()%></td>
+													<td class='text-center'><%=listaTirocinio.get(i).getTirocinante().getName()%></td>
+													<td class='text-center'><%=listaTirocinio.get(i).getTirocinante().getSurname()%></td>
 													<td class='text-center'><%=listaTirocinio.get(i).getCompetenze()%></td>
 													<td class='text-center'><%=listaTirocinio.get(i).getCompetenzeAcquisire()%></td>
 													<td class='text-center'><%=listaTirocinio.get(i).getAttivitaPreviste()%></td>
 													<td class='text-center'><%=listaTirocinio.get(i).getSvolgimentoTirocinio()%></td>
-													<td class='text-center'><%=listaTirocinio.get(i).getStatoTirocinio()%></td>
-													<td class='text-center'><%=listaTirocinio.get(i).getProgettoFormativo()%></td>
-													<td class='text-center'><%=listaTirocinio.get(i).getDescrizioneEnte()%></td>
-													<td class='text-center'><%=listaTirocinio.get(i).getMatricola()%></td>
-													<td class='text-center'><%=listaTirocinio.get(i).getPartitaIva()%></td>
-														
+													<% if(listaTirocinio.get(i).getEnteConvenzionato()==null)
+														{%>
+															<td class='text-center'>Non &egrave; stato scelto ancora nessun Ente.</td>
+														<%} else{%>
+															<td class='text-center'><%=listaTirocinio.get(i).getEnteConvenzionato()%></td>
+														<%} %>
 													<td class="text-center" align="center">
 														<form action="./ServletProgettoFormativoET" method="post">
 															<input type ="hidden" name ="codiceTirocinio" value ="<%=listaTirocinio.get(i).getCodTirocinio()%>">

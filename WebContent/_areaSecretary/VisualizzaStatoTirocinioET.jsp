@@ -1,32 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*,controller.ServletVisualizzaTirocinanteET, model.Tirocinante, model.Tirocinio, controller.CheckSession" %>
+<%@ page import="java.util.*,controller.ServletStatoTirocinioET, model.Tirocinante, model.Tirocinio, model.EnteConvenzionato, controller.CheckSession" %>
 <%
-	String pageName = "VisualizzaTirocinanteET.jsp";
+	String pageName = "VisualizzaStatoTirocinioET.jsp";
 	String pageFolder = "_areaSecretary";
 
 	CheckSession ck = new CheckSession(pageFolder, pageName, request.getSession());
-	//Prelevo dalla sessione l' EnteConvenzionato
-	String EnteConvenzionato=" ";
-	EnteConvenzionato = (String) session.getAttribute("EnteConvenzionato");
-	
-	Tirocinante tirocinante=new Tirocinante();
-	tirocinante=(Tirocinante)request.getSession().getAttribute("tirocinante");
-	Tirocinio tirocinio=new Tirocinio();
-	tirocinio = (Tirocinio)request.getSession().getAttribute("tirocinio");
-	
+	 //Controllo autenticazione tramite parametro in sessione (1 = Segreteria).
+	String userET = (String) request.getSession().getAttribute("userET");
+	if ((userET == null) || (!userET.equals("1"))) {
+		response.sendRedirect("login.jsp");
+		return;
+	}
 	//Prelevo la matricola e istanzio un tirocinante
-	long matricola = 0;
-	if (request.getParameter("matricola")==null) {
-		matricola = tirocinante.getMatricola();
-	}
-	else {
-		matricola = Long.valueOf(request.getParameter("matricola"));
-	}
-	
-	
-
-	
+	long matricola = Long.valueOf(request.getParameter("matricola"));
+	Tirocinante tirocinante=new Tirocinante();
+	tirocinante=(Tirocinante)request.getAttribute("tirocinante");
+	Tirocinio tirocinio=new Tirocinio();
+	tirocinio = (Tirocinio)request.getAttribute("tirocinio");
+	EnteConvenzionato enteConvenzionato = new EnteConvenzionato();
+	enteConvenzionato = tirocinio.getEnteConvenzionato();
 	
 	if(tirocinante==null)
 	{	
@@ -120,9 +113,6 @@
 									<div class="panel">
 										<h2 class="text-center">Informazioni del Tirocinante</h2>
 									</div>
-									
-								<!-- 	<form id="signUp"  name="modificaEnte"  action="../ServletGestioneRichiesteEnteET"
-										method="post"> -->
 										<!-- Campo Matricola -->
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 									    	<strong>Matricola </strong>  <% out.println( "<br>" + "0" +tirocinante.getMatricola()); %>
@@ -175,49 +165,67 @@
 									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 									    	<strong>CFU Conseguiti </strong>  <% out.println( "<br>"+ tirocinio.getCfuPrevisti()); %>
 									    </div>
-									    <!--  Campo Data Inizio Tirocinio -->
+									    <%if (tirocinio.getPartitaIva()!= null) { %>
+									      <!-- Campo Nome Ente -->
+									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									    	<strong>Ente Ospitante </strong>  <% out.println( "<br>"+ enteConvenzionato.getName()); %>
+									    </div>
+									    <%} %>
+									    <!-- Campo Competenze Possedute -->
+									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									    	<strong>Competenze Possedute </strong>  <% out.println( "<br>"+ tirocinio.getCompetenze()); %>
+									    </div>
+									    <!-- Campo Competenze da Acquisire -->
+									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									    	<strong>Competenze da Acquisire </strong>  <% out.println( "<br>"+ tirocinio.getCompetenze()); %>
+									    </div>
+									    <!--  Campo modalità svolgimento tirocinio -->
+									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									    	<strong>Modalit&agrave; svolgimento Tirocinio </strong>  <% out.println( "<br>"+ tirocinio.getSvolgimentoTirocinio()); %>
+									    </div>
+									    <!--  Campo attività previste -->
+									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									    	<strong>Attivit&agrave; previste </strong>  <% out.println( "<br>"+ tirocinio.getAttivitaPreviste()); %>
+									    </div>
+									    <!-- Campo Descrizione -->
+									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									    	<strong>Descrizione </strong>  <% out.println( "<br>"+ tirocinio.getDescrizioneEnte()); %>
+									    </div>
+										<!-- Campo Stato del tirocinio -->
+										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+									    	<strong>Stato del Tirocinio </strong>  <% out.println( "<br>" + tirocinio.getStatoTirocinio()); %>
+									    </div>
+									    <%if (tirocinio.getStatoTirocinio().equals("Completo")){ %>
+										<!--  Campo Data Inizio Tirocinio -->
 									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 									    	<strong>Data Inizio Tirocinio </strong>  <% out.println( "<br>"+ datainiziotirocinio); %>
 									    </div>
-										<!-- Tasti Accetta / Rifuta -->
+									    <%} %>
+										<!-- Tasto Annulla -->
 										<div
 											class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-											<button id="Accetta" type="submit" class="btn btn-primary btn-submit" title="Accetta" data-idrequest="35">Accetta</button>
-											<button id="Rifiuta" type="submit" class="btn btn-primary btn-submit" title="Rifiuta" data-idrequest="35">Rifiuta</button>														
+											<button id="Annulla" type="submit" class="btn btn-primary btn-submit" title="Annulla" data-idrequest="35">Annulla Tirocinio</button>												
 										</div>
 										<div class="clearfix"></div>
-								<!-- 	</form> -->
+								
 								<%}%>
 								
-								<!-- Modal Accettazione -->
-								<div id="myModalAccettazione" class="modal">
+								<!-- Modal Annullamento -->
+								<div id="myModalAnnullamento" class="modal">
 								
 								  <!-- Modal content -->
 								  <div class="modal-content">
 								    <span class="close"></span>
-								    <p>Sei sicuro di voler accettare la richiesta di Tirocinio?</p>
+								    <p>Sei sicuro di voler annullare il Tirocinio?</p>
 								  		<table>
-								  		<tr><td>
+								  		<tr><td><form id="modalAnnullaForm" action="../ServletGestioneRichiesteSegreteriaET" method="post">
 								  		  <%request.setAttribute("matricola", matricola);%>
-								  		  <button onclick="return accetta()" id="accetta"  value="<%=matricola %>" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Accetta Richiesta">Si</button> </td>
-										 <td><button onclick="notaccetta()"id="close" name="nonAccetta" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button></td></tr>
+								  		  <button onclick="annulla()"id="modalAnnullaButton" name="flag" value="2<%=matricola %>" type="submit" class="btn btn-primary btn-action eliminaEnte refuse"  data-type="2" data-idrequest="35" title="Annulla Richiesta">Si</button> </form></td>
+										 <td><button onclick="notaccetta()"id="close" name="nonAccetta" class="btn btn-primary btn-action eliminaEnte refuse"  data-type="2" data-idrequest="35" title="Annulla">No</button></td></tr>
 										</table>
 										
 									</div>
 								</div>
-								
-								<!-- The Modal Rifiuto -->
-								<div id="myModalRifiuto" class="modal">
-								
-								 <!-- Modal content -->
-								 <div class="modal-content">
-								    <span class="close"></span>
-								    <p>Sei sicuro di voler rifiutare la richiesta di Tirocinio?</p>
-											<label for="nome">Inserisci Motivazione</label> 
-											<input type="text" class="form-control" id="motivazione" name="motivazione" placeholder="Motivazione del Rifiuto" minlength="1" maxlength="256" required>
-											<button onclick="return rifiuta()"id="rifiuta"  value="<%=matricola %>" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Rifiuta Richiesta">Si</button>
-											<button onclick="notrifiuta()"id="close" name="nonRifiuta"  class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button>
-									</div>
 								</div>
 								</div>
 							</div>
@@ -266,17 +274,15 @@
 			    } );
 			}); 
 			// Get the modal
-			var modalAccettazione = document.getElementById("myModalAccettazione");
-			var modalRifiuto = document.getElementById("myModalRifiuto");
+			var modalAnnullamento = document.getElementById("myModalAnnullamento");
 			// Get the button that opens the modal
-			var btnAccettazione = document.getElementById("Accetta");
-			var btnRifiuto = document.getElementById("Rifiuta");
+			var btnAnnullamento = document.getElementById("Annulla");
 			// Get the <span> element that closes the modal
 			var span = document.getElementsByClassName("close")[0];
 		
 			// When the user clicks the button, open the modal 
-			btnAccettazione.onclick = function() {
-			  modalAccettazione.style.display = "block";
+			btnAnnullamento.onclick = function() {
+			  modalAnnullamento.style.display = "block";
 			 /* if(btn == email)
 				{	
 					showAlert();
@@ -304,49 +310,45 @@
 			}
 			// When the user clicks on <span> (x), close the modal
 			span.onclick = function() {
-			  modalAccettazione.style.display = "none";
+			  modalAnnullamento.style.display = "none";
 			  toastr.error("Operazione non effettuata");
 			}
 			
 			// When the user clicks anywhere outside of the modal, close it
 			window.onclick = function(event) {
-			  if (event.target == modalAccettazione) {
-			    modalAccettazione.style.display = "none";
-			    toastr.error("Accettazione non effettuata");
+			  if (event.target == modalAnnullamento) {
+			    modalAnnullamento.style.display = "none";
+			    toastr.error("Annullamento non effettuato");
 			  }
-			  if (event.target == modalRifiuto) {
-			    modalRifiuto.style.display = "none";
-			    toastr.error("Rifiuto non effettuato");
-			}
 
 		}
 		</script>
 		<script>
-		function accetta()
+		function annulla()
 		{
-		var matricola = document.getElementById("accetta").value;
+		var matricola = document.getElementById("annulla").value;
 	
 			$.ajax({
 				  type: "POST",
-				  url: absolutePath+ "/ServletGestioneRichiesteSegreteriaET",
+				  url: absolutePath+ "/ServletAnnullaTirocinioET",
 				  async:true,
-				  data: {"matricola": matricola, "flag": 2},
+				  data: {"matricola": matricola},
 				  success: function(resp){
 					  console.log(resp)
 					  if(resp){
 							showAlert();
-							toastr.success("Accettazione effettuata con successo");
-						    modalAccettazione.style.display = "none";
+							toastr.success("Annullamento effettuato con successo");
+						    modalAnnullamento.style.display = "none";
 						      setTimeout(function(){// wait for 5 secs(2)
-						           window.location.replace(absolutePath+"/_areaSecretary/VisualizzaRichiestaET.jsp"); // then reload the page.(3)
+						           window.location.replace(absolutePath+"/_areaSecretary/VisualizzaListaTirocinantiET.jsp"); // then reload the page.(3)
 						      }, 1000); 
 				  }
 					  else{
 							showAlert();
-							toastr.success("Accettazione non effettuata");
-						    modalAccettazione.style.display = "none";
+							toastr.success("Annullamento non effettuato");
+						    modalAnnullamento.style.display = "none";
 						     setTimeout(function(){// wait for 5 secs(2)
-						           location.replace="VisualizzaTirocinanteET.jsp"; // then reload the page.(3)
+						           location.replace="VisualizzaStatoTirocinio.jsp"; // then reload the page.(3)
 						      }, 3000); 
 						     }
 				  }
@@ -354,43 +356,10 @@
 		}
 		</script>
 		<script>
-		function rifiuta()
+		function notaccetta()
 		{
-			var matricola = document.getElementById("rifiuta").value;
-			console.log(rifiuta)
-			$.ajax({
-				  type: "POST",
-				  url: absolutePath+ "/ServletGestioneRichiesteSegreteriaET",
-				  async:true,
-				  data: {"matricola": matricola, "flag": 3},
-				  success: function(resp){
-					  console.log(resp)
-					  if(resp){
-					showAlert();
-					toastr.success("Rifiuto effettuato con successo");
-				    modalRifiuto.style.display = "none";
-				     setTimeout(function(){// wait for 5 secs(2)
-				           location.reload(); // then reload the page.(3)
-				      }, 3000); 
-				     }
-					  else{
-							showAlert();
-							toastr.success("Rifiuto non effettuato");
-						    modalRifiuto.style.display = "none";
-						     setTimeout(function(){// wait for 5 secs(2)
-						           location.reload(); // then reload the page.(3)
-						      }, 3000); 
-						     }
-				  }
-				});
-		}
-		</script>
-		<script>
-		function notrifiuta()
-		{
-			modalRifiuto.style.display = "none";
-			toastr.error("Rifiuto non effettuato");
-			
+			modalAnnullamento.style.display = "none";
+			toastr.error("Annullamento non effettuato");
 		}
 		</script>
 </body>

@@ -53,7 +53,7 @@
 											<label for="name">Nome Ente</label> <input type="text"
 												class="form-control" id="name" name="name"
 												placeholder="Nome Ente" minlength="1" maxlength="64"
-												required pattern="[0-9a-zA-Z]{1,64}" title="Formato del nome non corretto.">
+												required pattern="[ 0-9a-zA-Z]{1,64}" title="Formato del nome non corretto.">
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="partitaIva">Partita IVA</label> <input type="tel"

@@ -67,8 +67,8 @@ public class ServletVisualizzaTirocinanteET extends HttpServlet {
 	    if(tirocinante != null)
 	    {
 	      //setto l'attributo tirocinante
-	      request.setAttribute("tirocinante", tirocinante);
-	      request.setAttribute("tirocinio", tirocinio);
+	      request.getSession().setAttribute("tirocinante", tirocinante);
+	      request.getSession().setAttribute("tirocinio", tirocinio);
 	    }
 	    
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("_areaSecretary/VisualizzaTirocinanteET.jsp");
