@@ -267,7 +267,9 @@
 						showAlert();
 						toastr.success("Eliminazione effettuata con successo");
 					    modal.style.display = "none";
-					    window.location.reload();
+					    setTimeout(function(){// wait for 5 secs(2)
+					           location.reload(); // then reload the page.(3)
+					      }, 3000);
 						return true;
 					  }
 						  else{
