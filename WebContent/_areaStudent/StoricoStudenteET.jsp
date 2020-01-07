@@ -65,7 +65,11 @@
 														<td class='text-center'><%=listaTirocini.get(i).getStatoTirocinio()%>
 														<%if(listaTirocini.get(i).getStatoTirocinio().equalsIgnoreCase("In attesa Ente"))
 														{%>
-															<button id="Accetta" type="submit" class="btn btn-primary btn-submit" title="Accetta" data-idrequest="35">Annulla Richiesta</button>
+														<form id="AnnullaEnte" action="ServletAnnullaEnteDaStudenteET" method="post">
+															<input id="codTirocinio"name="codTirocinio"type="hidden"value="<%=listaTirocini.get(i).getCodTirocinio()%>">
+															<input id="matricola"name="matricola"type="hidden"value="<%=listaTirocini.get(i).getMatricola() %>">
+															<button id="Accetta" type="submit" style="background-color:#FF9900;outline:none;border:4px solid #FF9900;border-radius:5px; color:white; margin:2%;" title="Accetta" data-idrequest="35">Annulla Richiesta</button>
+														</form>
 														<%}%>
 														</td>
 														<td class='text-center'><%=listaTirocini.get(i).getCompetenze()%></td>
