@@ -132,9 +132,9 @@
 								  <!-- Modal content -->
 								  <div class="modal-content">
 								    <span class="close"></span>
-								    <p>Sei sicuro di voler eliminare l'Ente?</p>
-											<button onclick="return elimina()" id="email"  class="btn btn-primary btn-action eliminaEnte refuse" data-type="2" data-idrequest="35" title="Elimina Ente">Si</button>
-											<button onclick="notelimina()"id="close"   type="submit" class="btn btn-primary btn-action eliminaEnte refuse" data-type="2" data-idrequest="35" title="Annulla">No</button>
+								    <p>Sei sicuro di voler annulla la richiesta?</p>
+											<button onclick="return elimina()" id="email"  style=" width:30px;background-color:#FF9900;outline:none;border:4px solid #FF9900;border-radius:5px; color:white; margin:2%;" data-type="2" data-idrequest="35" title="Elimina Ente">Si</button>
+											<button onclick="notelimina()"id="close"   type="submit" style="width:30px;background-color:#FF9900;outline:none;border:4px solid #FF9900;border-radius:5px; color:white; margin:2%;" data-type="2" data-idrequest="35" title="Annulla">No</button>
 									</div>
 								
 								</div>
@@ -218,7 +218,7 @@
 			span.onclick = function() {
 			  modal.style.display = "none";
 			  showAlert();
-			  toastr.error("Eliminazione non effettuata");
+			  toastr.error("Annullamento non effettuato");
 			}
 
 			// When the user clicks anywhere outside of the modal, close it
@@ -226,7 +226,7 @@
 			  if (event.target == modal) {
 			    modal.style.display = "none";
 			    showAlert();
-			    toastr.error("Eliminazione non effettuata");
+			    toastr.error("Annullamento non effettuato");
 			  }
 			}
 			
@@ -242,7 +242,7 @@
 						  console.log(resp)
 						  if(resp){
 						showAlert();
-						toastr.success("Eliminazione effettuata con successo");
+						toastr.success("Annullamento effettuato con successo");
 					    modal.style.display = "none";
 					    setTimeout(function(){// wait for 5 secs(2)
 					           location.reload(); // then reload the page.(3)
@@ -251,7 +251,7 @@
 					  }
 						  else{
 								showAlert();
-								toastr.success("Eliminazione non riuscita");
+								toastr.error("Annullamento non effettuato");
 							    modal.style.display = "none";
 								return false;
 						  }
@@ -264,7 +264,7 @@
 			function notelimina()
 			{
 				showAlert();
-				toastr.error("Eliminazione non effettuata");
+				toastr.error("Annullamento non effettuato");
 			}
 		</script>
 </body>
