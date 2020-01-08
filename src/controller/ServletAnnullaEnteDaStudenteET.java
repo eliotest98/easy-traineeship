@@ -48,9 +48,8 @@ public class ServletAnnullaEnteDaStudenteET extends HttpServlet {
       response.sendRedirect("login.jsp");
       return;
     }
-    // recupero il codice tirocinio e la matricola
-    int codTirocinio = Integer.parseInt(request.getParameter("codTirocinio"));
-    long matricola = Long.parseLong(request.getParameter("matricola"));
+    // recupero il codice tirocinio
+    int codTirocinio = Integer.parseInt(request.getParameter("enteEmail"));
     // istanzio un Tirocinio
     Tirocinio tirocinioAttivo = new Tirocinio();
     // istanzio un TirocinioDao
@@ -61,7 +60,7 @@ public class ServletAnnullaEnteDaStudenteET extends HttpServlet {
     boolean ins = false;
     try {
       // recupero il tirocinio prima della modifica
-      tirocinioAttivo = tirocinio.tirocinioAttivo(matricola);
+      tirocinioAttivo = tirocinio.TirocinioByCodTirocinio(codTirocinio);
       // modifico lo stato del tirocinio attuale
       set = tirocinio.modificaStatoTirocinio(codTirocinio, "Rifiutato");
     } catch (Exception e) {
@@ -96,5 +95,4 @@ public class ServletAnnullaEnteDaStudenteET extends HttpServlet {
       System.out.println("cambio dello stato non eseguito con successo");
     }
   }
-
 }
