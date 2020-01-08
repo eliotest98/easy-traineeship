@@ -49,9 +49,8 @@ public class ServletAnnullaEnteDaStudenteET extends HttpServlet {
       return;
     }
     // recupero il codice tirocinio e la matricola
-    String numeri = (request.getParameter("enteEmail"));
-    long matricola = Long.parseLong(numeri.substring(0,10));
-    int codTirocinio = Integer.parseInt(numeri.substring(10));
+    int codTirocinio = Integer.parseInt(request.getParameter("codTirocinio"));
+    long matricola = Long.parseLong(request.getParameter("matricola"));
     // istanzio un Tirocinio
     Tirocinio tirocinioAttivo = new Tirocinio();
     // istanzio un TirocinioDao
