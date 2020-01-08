@@ -32,7 +32,7 @@ public class ServletStatoTirocinioET extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		TirocinioDAO tirocinioDao = new TirocinioDAO();
 		TirocinanteDAO tirocinanteDao = new TirocinanteDAO();
@@ -53,12 +53,13 @@ public class ServletStatoTirocinioET extends HttpServlet {
 			if (tirocinioattivo.getPartitaIva()!=null) {
 				try {
 					ente = enteConDao.ricercaEnteByPartitaIva(tirocinioattivo.getPartitaIva());
+					request.getSession().setAttribute("ente", ente);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 			
-			request.getSession().setAttribute("ente", ente);
+
 			request.getSession().setAttribute("tirocinio", tirocinioattivo);
 			request.getSession().setAttribute("tirocinante", tirocinante);
 			
