@@ -19,6 +19,47 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 25%;
+  text-align: center;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
 <jsp:include page="/partials/head.jsp" />
 </head>
 <body onLoad="showData()">
@@ -65,7 +106,7 @@
 														<td class='text-center'><%=listaTirocini.get(i).getStatoTirocinio()%>
 														<%if(listaTirocini.get(i).getStatoTirocinio().equalsIgnoreCase("In attesa Ente"))
 														{%>
-															<button id="Accetta" type="submit" class="btn btn-primary btn-submit" title="Accetta" data-idrequest="35">Annulla Richiesta</button>
+															<button id="<%=listaTirocini.get(i).getCodTirocinio()%>"  name="enteEmail" style="background-color:#FF9900;outline:none;border:4px solid #FF9900;border-radius:5px; color:white; margin:2%;" data-type="2" data-idrequest="35" title="Annulla Richiesta">Annulla Richiesta</button>												
 														<%}%>
 														</td>
 														<td class='text-center'><%=listaTirocini.get(i).getCompetenze()%></td>
@@ -85,6 +126,18 @@
 									</table>
 								<%}%>
 							</div>
+							<!-- The Modal -->
+								<div id="myModal" class="modal">
+								
+								  <!-- Modal content -->
+								  <div class="modal-content">
+								    <span class="close"></span>
+								    <p>Sei sicuro di voler annulla la richiesta?</p>
+											<button onclick="return elimina()" id="email"  style=" width:30px;background-color:#FF9900;outline:none;border:4px solid #FF9900;border-radius:5px; color:white; margin:2%;" data-type="2" data-idrequest="35" title="Elimina Ente">Si</button>
+											<button onclick="notelimina()"id="close"   type="submit" style="width:30px;background-color:#FF9900;outline:none;border:4px solid #FF9900;border-radius:5px; color:white; margin:2%;" data-type="2" data-idrequest="35" title="Annulla">No</button>
+									</div>
+								
+								</div>
 						</div>
 					</div>
 				</div>
@@ -128,6 +181,91 @@
 			        }        
 			    } );
 			});
+			// Get the modal
+			var modal = document.getElementById("myModal");
+
+			// Get the button that opens the modal
+			
+			var email = "";
+			
+			$('button[name ="enteEmail"]').click(function() {
+				modal.style.display = "block";
+				var btn =	$(this).attr("id");
+				email = $(this).attr("id");
+				console.log(email)
+			  if(btn == email)
+				{	
+					showAlert();
+					return true;
+				}
+				else
+				{
+					showAlert();
+					return false;
+				}
+			});
+
+			// Get the <span> element that closes the modal
+			var span = document.getElementsByClassName("close");
+			
+			
+			// When the user clicks the button, open the modal 
+			//btn[i].onclick = function() {
+			  
+			//}
+
+			// When the user clicks on <span> (x), close the modal
+			span.onclick = function() {
+			  modal.style.display = "none";
+			  showAlert();
+			  toastr.error("Annullamento non effettuato");
+			}
+
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+			  if (event.target == modal) {
+			    modal.style.display = "none";
+			    showAlert();
+			    toastr.error("Annullamento non effettuato");
+			  }
+			}
+			
+			function elimina()
+			{
+				console.log("Sto eliminando " + email);
+				$.ajax({
+					  type: "POST",
+					  url: absolutePath+ "/ServletAnnullaEnteDaStudenteET",
+					  async:true,
+					  data: {"enteEmail": email},
+					  success: function(resp){
+						  console.log(resp)
+						  if(resp){
+						showAlert();
+						toastr.success("Annullamento effettuato con successo");
+					    modal.style.display = "none";
+					    setTimeout(function(){// wait for 5 secs(2)
+					           location.reload(); // then reload the page.(3)
+					      }, 1000);
+						return true;
+					  }
+						  else{
+								showAlert();
+								toastr.error("Annullamento non effettuato");
+							    modal.style.display = "none";
+								return false;
+						  }
+							  
+					  }
+					});
+			}
+			</script>
+			<script>
+			function notelimina()
+			{
+				showAlert();
+				toastr.error("Annullamento non effettuato");
+			}
 		</script>
 </body>
 </html>
