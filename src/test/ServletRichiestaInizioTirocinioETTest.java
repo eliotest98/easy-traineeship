@@ -32,13 +32,26 @@ class ServletRichiestaInizioTirocinioETTest {
 	ServletRichiestaInizioTirocinioET servletSecretaryMock = mock(ServletRichiestaInizioTirocinioET.class);
 	RequestDispatcher dispatcherMock = mock(RequestDispatcher.class);
 	Student s = new Student("a.delpiero10@studenti.unisa.it", "Alessandro", "Del Piero", 'M', "password", 0);
-
+	
 	@BeforeEach
 	public void setUp() {
 		when(requestMock.getSession()).thenReturn(sessionMock);
 		when(sessionMock.getAttribute("user")).thenReturn(s);
 		when(sessionMock.getAttribute("userET")).thenReturn("0");
 	}
+	
+	@AfterEach
+	void tearDown() {
+		try {
+			Statement stmtSelect = conn.createStatement();
+	    	stmtSelect.executeUpdate("DELETE FROM User WHERE EMAIL='a.delpiero10@studenti.unisa.it';");
+	    	conn.commit();
+	    	//stmtSelect.executeUpdate("DELETE FROM Tirocinante WHERE EMAIL='a.delpiero10@studenti.unisa.it';");
+		}
+		catch (Exception e){
+			e.printStackTrace();
+			}
+		}
 	
 	//Test case TC_GR_6.01: Campo Nome vuoto
 	@Test
@@ -602,8 +615,16 @@ class ServletRichiestaInizioTirocinioETTest {
 	//Test case TC_GR_6.45: Richiesta inviata con successo
 	@Test
 	void testInvioRichiestaInizioTirocinioCorretto() throws ServletException, IOException {
+	try {
+		Statement stmtSelect = conn.createStatement();
+		String sql1 = ("INSERT INTO User VALUES('"+s.getEmail()+"','"+s.getName()+"','"+s.getSurname()+"','"+s.getSex()+"','"+s.getPassword()+"','0');");
+		stmtSelect.executeUpdate(sql1);
+	}
+	catch (Exception e) {
+		e.printStackTrace();
+	}
 	when(requestMock.getParameter("matricolaTirocinante")).thenReturn("0512103333");
-	when(requestMock.getParameter("dataDiNascita")).thenReturn("25-10-1999");
+	when(requestMock.getParameter("dataDiNascita")).thenReturn((new Date(0)).toString());
 	when(requestMock.getParameter("luogoDiNascita")).thenReturn("Salerno");
 	when(requestMock.getParameter("cittadinanza")).thenReturn("Italiana");
 	when(requestMock.getParameter("residenza")).thenReturn("Via Armando Diaz 1");
@@ -614,17 +635,11 @@ class ServletRichiestaInizioTirocinioETTest {
 	when(requestMock.getParameter("competenzeDaAcquisire")).thenReturn("Front End");
 	when(requestMock.getParameter("modalitaTirocinio")).thenReturn("Tipologia A");
 	when(requestMock.getParameter("attivitaPreviste")).thenReturn("Programmazione Android");
-	when(requestMock.getRequestDispatcher("/VisualizzaEnteET.jsp")).thenReturn(dispatcherMock);
+	when(requestMock.getRequestDispatcher("/_areaStudent/HomeStudente.jsp")).thenReturn(dispatcherMock);
 	ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
 
 	test.doPost(requestMock, responseMock);
-	try {
-		Statement stmtSelect = conn.createStatement();
-    	stmtSelect.executeUpdate("DELETE FROM User WHERE EMAIL='a.delpiero10@studenti.unisa.it';");
+	
+	verify(dispatcherMock).forward(requestMock,responseMock);
 	}
-	catch (Exception e){
-		e.printStackTrace();
-		}
-	}
-
 }

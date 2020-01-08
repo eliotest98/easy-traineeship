@@ -38,6 +38,7 @@ class ServletGestioneRichiesteEnteETTest {
 	RequestDispatcher dispatcherMock = mock(RequestDispatcher.class);
 	Date data=new Date();
 	String modifiedDate= new SimpleDateFormat("yyyy-MM-dd").format(data);
+	
 	@BeforeEach
 	public void setUp() {
 		EnteConvenzionato user = new EnteConvenzionato();
@@ -76,6 +77,29 @@ class ServletGestioneRichiesteEnteETTest {
 		tirocinioDAO.inserisciTirocinio(tirocinio);*/
 		
 	}
+	
+	@AfterEach
+	public void tearDown() {
+		try 
+		{
+			   Statement stmtSelect = conn.createStatement();
+			    String sql1 = ("DELETE FROM tirocinio WHERE CODTIROCINIO='999';");
+			    stmtSelect.executeUpdate(sql1);
+			    String sql2 = ("DELETE FROM tirocinante WHERE matricola='4859';");
+			    stmtSelect.executeUpdate(sql2);
+			    String sql3 = ("DELETE FROM enteconvenzionato WHERE partitaIva='11111111111';");
+			    stmtSelect.executeUpdate(sql3);
+			    String sql4 = ("DELETE FROM User WHERE email='t.tester@studenti.unisa.it';");
+			    stmtSelect.executeUpdate(sql4);
+			    String sql5 = ("DELETE FROM User WHERE email='test@test.test';");
+		    	stmtSelect.executeUpdate(sql5);
+		    	conn.commit();
+		}
+		catch (Exception e) {
+		    e.printStackTrace();
+		}
+	}	
+	
 	//Test Reindirizzamento (Flag 1)
 	@Test
 	void testReindirizzamento() throws ServletException, IOException {
@@ -107,26 +131,6 @@ class ServletGestioneRichiesteEnteETTest {
 		verify(dispatcherMock).forward(requestMock, responseMock);
 	}
 	
-	@AfterEach
-	public void tearDown() {
-		try 
-		{
-			   Statement stmtSelect = conn.createStatement();
-			    String sql1 = ("DELETE FROM tirocinio WHERE CODTIROCINIO='999';");
-			    stmtSelect.executeUpdate(sql1);
-			    String sql2 = ("DELETE FROM tirocinante WHERE matricola='4859';");
-			    stmtSelect.executeUpdate(sql2);
-			    String sql3 = ("DELETE FROM enteconvenzionato WHERE partitaIva='11111111111';");
-			    stmtSelect.executeUpdate(sql3);
-			    String sql4 = ("DELETE FROM User WHERE email='t.tester@studenti.unisa.it';");
-			    stmtSelect.executeUpdate(sql4);
-			    String sql5 = ("DELETE FROM User WHERE email='test@test.test';");
-		    	stmtSelect.executeUpdate(sql5);
-		    	conn.commit();
-		}
-		catch (Exception e) {
-		    e.printStackTrace();
-		}
-	}
 }
+
 
