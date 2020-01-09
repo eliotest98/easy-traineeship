@@ -1,4 +1,4 @@
-package test.testUnitàET;
+package test.testET;
 
 import static org.junit.jupiter.api.Assertions.*;
 
