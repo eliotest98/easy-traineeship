@@ -41,6 +41,11 @@ public class ServletStatoTirocinanteET extends HttpServlet {
     /* Cerco il tirocinante corrispondente */
     Tirocinante tirocinante = tirocinanteDao.ricercaTirocinanteByEmail(s.getEmail());
     
+    if (tirocinante == null)
+    {
+      throw new IllegalArgumentException("Non esiste alcun Tirocinante.");
+    }
+    
     if(request.getParameter("pagina").equalsIgnoreCase("StatoProprioTirocinioET"))
     {
       if (tirocinante != null) 
@@ -68,6 +73,7 @@ public class ServletStatoTirocinanteET extends HttpServlet {
         tirocinante.setFacolta("Informatica");
         //Cerco il tiocinio attivo del tirocinante
         ArrayList<Tirocinio> listaTirocini = (ArrayList<Tirocinio>) tirocinioDao.allTirocinioTirocinante(tirocinante.getMatricola());
+        System.out.println(listaTirocini);
         //Metto la lisat dei tirocini in sessione
         request.getSession().setAttribute("listaTirocini", listaTirocini);
       }
