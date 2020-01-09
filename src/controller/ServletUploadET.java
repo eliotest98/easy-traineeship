@@ -65,7 +65,7 @@ public class ServletUploadET extends HttpServlet {
         }
         //Path del file
         String pdfPath =  "pdf" + builder.toString() + fileName;
-        String filePath = "C:\\Users\\Barisano\\Desktop\\easy-traineeship\\ProgettoFormativo\\"+pdfPath;
+        String filePath = "C:\\Users\\simon\\Documents\\GitHub\\easy-traineeship\\ProgettoFormativo\\"+pdfPath;
         
         OutputStream os = null;
         
@@ -109,18 +109,18 @@ public class ServletUploadET extends HttpServlet {
 	          }
 	          
 	          //Lo setto all'interno del database
-	          if(tirocinioDAO.uploadProgettoFormativo(tirocinio.getCodTirocinio(), fileName)==false)
+	          if(tirocinioDAO.uploadProgettoFormativo(tirocinio.getCodTirocinio(), pdfPath)==false)
 	          {
 	            throw new IllegalArgumentException("Query upload non andata a buon fine");
 	          }
 	          
 	          if(tirocinioDAO.modificaStatoTirocinio(tirocinio.getCodTirocinio(), "Accettato e in attesa di firma della Segreteria, Ente e Admin")==false)
-	          {
+	          {    
 	            throw new IllegalArgumentException("Query modifica stato non andata a buon fine");
 	          }
-	          //Reindirizzo alla home di studente
+	          /*//Reindirizzo alla home di studente
 	          RequestDispatcher disp = request.getRequestDispatcher("/_areaStudent/HomeStudente.jsp");
-	          disp.forward(request, response);
+	          disp.forward(request, response);*/
 	      }
 	      //Prelevo  il codice dall'id della tabella
 	      else {
@@ -130,7 +130,7 @@ public class ServletUploadET extends HttpServlet {
 	        throw new IllegalArgumentException("Codice tirocinio non valido.");
 	      }
 	      //Effettuo la query di upload
-	      if(tirocinioDAO.uploadProgettoFormativo(codTirocinio, filePath)==false)
+	      if(tirocinioDAO.uploadProgettoFormativo(codTirocinio, pdfPath)==false)
 	      {
 	        throw new IllegalArgumentException("Query upload 2 non andata a buon fine.");
 	      }
