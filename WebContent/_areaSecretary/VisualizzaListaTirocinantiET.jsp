@@ -1,27 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="java.util.*,controller.ServletListaEnteET, model.Tirocinio, controller.CheckSession" %>
+<%@ page import="java.util.*,controller.ServletListaEnteET, model.Tirocinante, controller.CheckSession" %>
 <%
-	String pageName = "VisualizzaRichiestaET.jsp";
+	String pageName = "VisualizzaListaTirocinantiET.jsp";
 	String pageFolder = "_areaSecretary";	
 	
 	/**
      * Controllo autenticazione tramite parametro in sessione (1 = Segreteria).
-    */ 
+    */
     String userET = (String) request.getSession().getAttribute("userET");
     if ((userET == null) || (!userET.equals("1"))) {
       response.sendRedirect("login.jsp");
       return;
     }
-	
-	ArrayList<Tirocinio> listaTirocini=new ArrayList<Tirocinio>();
-	listaTirocini=(ArrayList<Tirocinio>)request.getAttribute("listaTirocini");
-	
-	if(listaTirocini==null)
-	{
-        RequestDispatcher dispatcher = request.getRequestDispatcher("../ServletGestioneRichiesteSegreteriaET");
-        dispatcher.forward(request, response);
-    }
+    
+    ArrayList<Tirocinante> listaTirocinanti = new ArrayList<Tirocinante>();
+    listaTirocinanti = (ArrayList<Tirocinante>) request.getAttribute("listaTirocinanti");
 	
 %>
 
@@ -44,56 +38,34 @@
 					<div class="content-side col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="content">
 							<div class="news-block-seven">
-							<%
-								//Se la lista non è null mostro la tabella
-								if(listaTirocini!=null)
-								{
-								%>
-									<table id="TabellaRichiestaTable" class="display data-results table table-striped table-hover table-bordered">
+								<table id="TabellaRichiestaTable" class="display data-results table table-striped table-hover table-bordered">
 										<thead>
 											<tr align="center">
 												<th class="text-center" align="center">Matricola</th>
 												<th class="text-center" align="center">Nome</th>
 												<th class="text-center" align="center">Cognome</th>
-												<th class="text-center" align="center">Data Inizio</th>
-												<th class="text-center" align="center">CFU</th>
-												<th class="text-center" align="center">Competenze</th>
-												<th class="text-center" align="center">Competenze Da Acquisire</th>
-												
-												<th class="text-center" align="center">Stato</th>
 												<th class="text-center" align="center">Azioni</th>
 											</tr>
 										</thead>
-										<tbody  >
-											<%
-											//Scorro tutta la listaEnti
-											for( int i = 0; i < listaTirocini.size(); i++)
-											{ 
-												//String format per la Data Inizio Tirocinio
-												String data = listaTirocini.get(i).getDataInizioTirocinio();
-												String anno = data.substring(0,4);
-												String mese = data.substring(4,8);
-												String day = data.substring(8,10);
-												String datainiziotirocinio = day+mese+anno;
-											%>
+										<tbody>
+										<%
+											//Se la lista non è null mostro la tabella
+											if(listaTirocinanti!=null)
+											{
+												for( int i = 0; i < listaTirocinanti.size(); i++)
+												{ %>
 												<tr role='row' >
-													<td class='text-center'><%=listaTirocini.get(i).getMatricola()%></td>
-													<td class='text-center'><%=listaTirocini.get(i).getTirocinante().getName()%></td>
-													<td class='text-center'><%=listaTirocini.get(i).getTirocinante().getSurname()%></td>
-													<td class='text-center'><%=datainiziotirocinio%></td>
-													<td class='text-center'><%=listaTirocini.get(i).getCfuPrevisti()%></td>
-													<td class='text-center'><%=listaTirocini.get(i).getCompetenze()%></td>
-													<td class='text-center'><%=listaTirocini.get(i).getCompetenzeAcquisire()%></td>
-													<td class='text-center'><%=listaTirocini.get(i).getStatoTirocinio()%></td>
+													<td class='text-center'><%=listaTirocinanti.get(i).getMatricola()%></td>
+													<td class='text-center'><%=listaTirocinanti.get(i).getName()%></td>
+													<td class='text-center'><%=listaTirocinanti.get(i).getSurname()%></td>
 													<td class="text-center" align="center">
-														<a href='VisualizzaTirocinanteET.jsp?matricola=<%=listaTirocini.get(i).getMatricola()%>' class="btn btn-primary btn-action modificaEnte" title="Accetta/Rifiuta" data-idrequest="35"><i class="fa fa-eye"></i></a>
+														<a href='VisualizzaStatoTirocinioET.jsp?matricola=<%=listaTirocinanti.get(i).getMatricola()%>' class="btn btn-primary btn-action modificaEnte" title="Accetta/Rifiuta" data-idrequest="35"><i class="fa fa-eye"></i></a>
 													</td>
 												</tr>
 											<%
-											} %>
+											} }%>
 										</tbody>
-									</table>
-								<%}%>
+								</table>
 							</div>
 						</div>
 					</div>
