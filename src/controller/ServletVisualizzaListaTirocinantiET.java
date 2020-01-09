@@ -16,43 +16,46 @@ import model.DAO.TirocinanteDAO;
  */
 @WebServlet("/ServletVisualizzaListaTirocinantiET")
 public class ServletVisualizzaListaTirocinantiET extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ServletVisualizzaListaTirocinantiET() {
-        super();
+  private static final long serialVersionUID = 1L;
+
+  /**
+   * @see HttpServlet#HttpServlet()
+   */
+  public ServletVisualizzaListaTirocinantiET() {
+    super();
+  }
+
+  /**
+   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+   */
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+
+    // Controllo la sessione, se è la segreteria
+    String u = (String) request.getSession().getAttribute("userET");
+
+    if (!u.equalsIgnoreCase("1")) {
+      throw new IllegalArgumentException("Errore nell'utilizzo della pagina");
     }
+    TirocinanteDAO tirocinanteDAO = new TirocinanteDAO();
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	 
-	  //Controllo la sessione, se è la segreteria
-	  String u = (String) request.getSession().getAttribute("userET");
-	 
-	  if(!u.equalsIgnoreCase("1"))
-	  {
-	    throw new IllegalArgumentException("Errore nell'utilizzo della pagina");
-	  }
-	  TirocinanteDAO tirocinanteDAO = new TirocinanteDAO();
+    // Prelevo tutti i tirocinanti
+    ArrayList<Tirocinante> listaTirocinanti = tirocinanteDAO.allTirocinante();
 
-	  //Prelevo tutti i tirocinanti
-	  ArrayList<Tirocinante> listaTirocinanti = tirocinanteDAO.allTirocinante();
+    request.getSession().setAttribute("listaTirocinanti", listaTirocinanti);
 
-	  request.getSession().setAttribute("listaTirocinanti", listaTirocinanti);
-	  //Ritorno alla pagina
-	  RequestDispatcher disp = request.getRequestDispatcher("/_areaSecretary/VisualizzaListaTirocinantiET.jsp");
-	  disp.forward(request, response);
-	}
+    // Ritorno alla pagina
+    RequestDispatcher disp =
+        request.getRequestDispatcher("/_areaSecretary/VisualizzaListaTirocinantiET.jsp");
+    disp.forward(request, response);
+  }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
+  /**
+   * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+   */
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+    doGet(request, response);
+  }
 
 }

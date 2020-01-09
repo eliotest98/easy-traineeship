@@ -55,7 +55,6 @@ public class ServletVisualizzaTirocinanteET extends HttpServlet {
 	    	  tempTirocinio = listaRichiesteEnte.get(j);
 	    	  if (tempTirocinio.getStatoTirocinio().equals("In attesa della Segreteria")) {
 	    		  tirocinio=tempTirocinio;
-	    		  System.out.println(tirocinio.toString());
 	    	  }
 	      }
 	      
