@@ -29,7 +29,7 @@ public class ServletAnnullaEnteDaStudenteET extends HttpServlet {
   /**
    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
    */
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+  public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     // TODO Auto-generated method stub
     doPost(request, response);
@@ -38,7 +38,7 @@ public class ServletAnnullaEnteDaStudenteET extends HttpServlet {
   /**
    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
    */
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+  public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     /**
      * Controllo autenticazione tramite parametro in sessione (0 = Studente).
@@ -54,9 +54,9 @@ public class ServletAnnullaEnteDaStudenteET extends HttpServlet {
     Tirocinio tirocinioAttivo = new Tirocinio();
     // istanzio un TirocinioDao
     TirocinioDAO tirocinio = new TirocinioDAO();
-    // istanzio un booleano per sapere se la modifica è andata a buon fine
+    // istanzio un booleano per sapere se la modifica ï¿½ andata a buon fine
     boolean set = false;
-    // ustanzio un booleano per sapere se l'inserimento è andato a buon fine
+    // ustanzio un booleano per sapere se l'inserimento ï¿½ andato a buon fine
     boolean ins = false;
     try {
       // recupero il tirocinio prima della modifica
@@ -66,7 +66,7 @@ public class ServletAnnullaEnteDaStudenteET extends HttpServlet {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    // controllo se la modifica è andata a buon fine
+    // controllo se la modifica ï¿½ andata a buon fine
     if (set == true) {
       // Creo un nuovo Tirocinio per passarmi solo alcuni dati
       Tirocinio tirocinioTemp = new Tirocinio();
@@ -83,7 +83,7 @@ public class ServletAnnullaEnteDaStudenteET extends HttpServlet {
       } catch (Exception e) {
         e.printStackTrace();
       }
-      // controllo se l'inserimento è andato a buon fine
+      // controllo se l'inserimento ï¿½ andato a buon fine
       if (ins == true) {
         String pag = "_areaStudent/StoricoStudenteET.jsp";
         RequestDispatcher dispatcher = request.getRequestDispatcher(pag);
