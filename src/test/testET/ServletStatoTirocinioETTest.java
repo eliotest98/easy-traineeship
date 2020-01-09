@@ -1,4 +1,4 @@
-package test;
+package test.testET;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -30,7 +30,6 @@ class ServletStatoTirocinioETTest {
 	HttpServletRequest requestMock = mock(HttpServletRequest.class);
 	HttpServletResponse responseMock = mock(HttpServletResponse.class);
 	HttpSession sessionMock = mock(HttpSession.class);
-	ServletGestioneRichiesteEnteET servletSecretaryMock = mock(ServletGestioneRichiesteEnteET.class);
 	RequestDispatcher dispatcherMock = mock(RequestDispatcher.class);
 	ServletStatoTirocinioET test = new ServletStatoTirocinioET();
 	Tirocinio tirocinio = new Tirocinio();
