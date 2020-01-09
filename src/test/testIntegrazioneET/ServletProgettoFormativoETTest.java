@@ -28,6 +28,7 @@ import controller.Uploader;
 import model.EnteConvenzionato;
 import model.Student;
 import model.Tirocinio;
+import model.DAO.TirocinioDAO;
 
 class ServletProgettoFormativoETTest {
 
@@ -39,33 +40,14 @@ class ServletProgettoFormativoETTest {
 	RequestDispatcher dispatcherMock = mock(RequestDispatcher.class);
 	Student user = new Student("t.tester@studenti.unisa.it","Tester","Amendola",'M',"salvo",0);
 	ServletProgettoFormativoET test = new ServletProgettoFormativoET();
-	
-	String sql1 = ("INSERT INTO User VALUES('t.tester@studenti.unisa.it','Tester','Amendola','M','salvo','0');");
-	String sql2 = ("INSERT INTO tirocinante VALUES('4859','"+new Date(0)+"','Salerno','italiana','Salerno','rlaplg98a08i805e','3294475051','t.tester@studenti.unisa.it');");
-	String sql3 = ("INSERT INTO User VALUES('test@test.test','Salvatore','Totti','M','pass98','3');");
-	String sql4 = ("INSERT INTO enteconvenzionato VALUES('11111111111','Avellino','Salvatore Totti','0825519149','100','Michele Persico','Michele Porto','08/01/1977','esperti in siti web','test@test.test');");
-	String sql5 = ("INSERT INTO tirocinio VALUES('999','"+new Date(0)+"','11','informatica','javascript','Java','Bene','In attesa Ente','progettoformativa.pdf','ragazzo valido','4859','11111111111');");
+	TirocinioDAO tirocinioDaoMock = mock(TirocinioDAO.class);
 	
 	//Metodo setUp()
 	@BeforeEach 
 	void setUp() {
-		
 		when(requestMock.getSession()).thenReturn(sessionMock);
 		when(sessionMock.getAttribute("userET")).thenReturn("3");
 		when(sessionMock.getAttribute("user")).thenReturn(user);
-		try {
-			Statement stmtSelect = conn.createStatement();
-			stmtSelect.executeUpdate(sql1);
-	    	stmtSelect.executeUpdate(sql2);
-	    	stmtSelect.executeUpdate(sql3);
-	    	stmtSelect.executeUpdate(sql4);
-	    	stmtSelect.executeUpdate(sql5);
-	    	conn.commit();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-    	
 	}
 	
 	//Metodo tearDown()
@@ -73,19 +55,18 @@ class ServletProgettoFormativoETTest {
 	public void tearDown() {
 		try 
 		{
-
-				Statement stmtSelect = conn.createStatement();
-			    String sql1 = ("DELETE FROM tirocinio WHERE CODTIROCINIO='999';");
-			    stmtSelect.executeUpdate(sql1);
-			    String sql2 = ("DELETE FROM tirocinante WHERE matricola='4859';");
-			    stmtSelect.executeUpdate(sql2);
-			    String sql3 = ("DELETE FROM enteconvenzionato WHERE partitaIva='11111111111';");
-			    stmtSelect.executeUpdate(sql3);
-			    String sql4 = ("DELETE FROM User WHERE email='t.tester@studenti.unisa.it';");
-			    stmtSelect.executeUpdate(sql4);
-			    String sql5 = ("DELETE FROM User WHERE email='test@test.test';");
-		    	stmtSelect.executeUpdate(sql5);
-		    	conn.commit();
+			Statement stmtSelect = conn.createStatement();
+		    String sql1 = ("DELETE FROM tirocinio WHERE CODTIROCINIO='999';");
+		    stmtSelect.executeUpdate(sql1);
+		    String sql2 = ("DELETE FROM tirocinante WHERE matricola='4859';");
+		    stmtSelect.executeUpdate(sql2);
+		    String sql3 = ("DELETE FROM enteconvenzionato WHERE partitaIva='11111111111';");
+		    stmtSelect.executeUpdate(sql3);
+		    String sql4 = ("DELETE FROM User WHERE email='t.tester@studenti.unisa.it';");
+		    stmtSelect.executeUpdate(sql4);
+		    String sql5 = ("DELETE FROM User WHERE email='test@test.test';");
+	    	stmtSelect.executeUpdate(sql5);
+	    	conn.commit();
 		}
 		catch (Exception e) {
 		    e.printStackTrace();
@@ -93,7 +74,27 @@ class ServletProgettoFormativoETTest {
 	}
 	
 	@Test
-	void testProgettoFormativo() {
+	void testProgettoFormativoCorretto() {
+		try {
+			Statement stmtSelect = conn.createStatement();
+			stmtSelect.executeUpdate("INSERT INTO User VALUES('t.tester@studenti.unisa.it','Tester','Amendola','M','salvo','0');");
+		    stmtSelect.executeUpdate("INSERT INTO tirocinante VALUES('4859','"+new Date(0)+"','Salerno','italiana','Salerno','rlaplg98a08i805e','3294475051','t.tester@studenti.unisa.it');");
+		    stmtSelect.executeUpdate("INSERT INTO User VALUES('test@test.test','Salvatore','Totti','M','pass98','3');");
+		    stmtSelect.executeUpdate("INSERT INTO enteconvenzionato VALUES('11111111111','Avellino','Salvatore Totti','0825519149','100','Michele Persico','Michele Porto','08/01/1977','esperti in siti web','test@test.test');");
+		    stmtSelect.executeUpdate("INSERT INTO tirocinio VALUES('999','"+new Date(0)+"','11','informatica','javascript','Java','Bene','Accettato e in attesa di firma','progettoformativa.pdf','ragazzo valido','4859','11111111111');");
+		    conn.commit();
+		    
+		    when(requestMock.getRequestDispatcher("_areaStudent/UploadProgettoFormativoET.jsp")).thenReturn(dispatcherMock);
+			test.doPost(requestMock, responseMock);
+			verify(dispatcherMock).forward(requestMock, responseMock);
+		    
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+	}
+	
+	@Test
+	void testProgettoFormativoTirocinioNull() {
 		try {
 			when(requestMock.getRequestDispatcher("_areaStudent/UploadProgettoFormativoET.jsp")).thenReturn(dispatcherMock);
 			test.doPost(requestMock, responseMock);
