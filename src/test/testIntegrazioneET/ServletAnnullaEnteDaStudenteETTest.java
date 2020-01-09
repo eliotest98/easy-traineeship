@@ -1,10 +1,13 @@
-package test;
+package test.testIntegrazioneET;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import java.io.*;
-import java.sql.*;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -14,22 +17,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.jupiter.api.*;
-import org.mockito.InjectMocks;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import controller.DbConnection;
+import controller.ServletAnnullaEnteDaStudenteET;
 import controller.ServletGestioneRichiesteSegreteriaET;
 
-class ServletGestioneRichiesteSegreteriaETTest {
-	
+class ServletAnnullaEnteDaStudenteETTest {
 	Connection conn = new DbConnection().getInstance().getConn();
 	//Creazione mock	
 	HttpServletRequest requestMock = mock(HttpServletRequest.class);
 	HttpServletResponse responseMock = mock(HttpServletResponse.class);
 	HttpSession sessionMock = mock(HttpSession.class);
-	ServletGestioneRichiesteSegreteriaET servletSecretaryMock = mock(ServletGestioneRichiesteSegreteriaET.class);
+	ServletAnnullaEnteDaStudenteET servletSecretaryMock = mock(ServletAnnullaEnteDaStudenteET.class);
 	RequestDispatcher dispatcherMock = mock(RequestDispatcher.class);
 	Date data=new Date();
 	String modifiedDate= new SimpleDateFormat("yyyy-MM-dd").format(data);
@@ -81,21 +83,17 @@ class ServletGestioneRichiesteSegreteriaETTest {
 	}	
 	
 	@Test
-	void testReindirizzamento() throws ServletException, IOException {
-		when(requestMock.getRequestDispatcher("_areaSecretary/VisualizzaRichiestaET.jsp")).thenReturn(dispatcherMock);
-		ServletGestioneRichiesteSegreteriaET test = new ServletGestioneRichiesteSegreteriaET();
-		test.doGet(requestMock, responseMock);
-		verify(dispatcherMock).forward(requestMock, responseMock);
-
+	void annullamentoTirocinioSuccess() throws ServletException, IOException {
+		when(requestMock.getParameter("enteEmail")).thenReturn("999");
+		ServletAnnullaEnteDaStudenteET test = new ServletAnnullaEnteDaStudenteET();
+		test.doPost(requestMock,responseMock);
+		verify(dispatcherMock).forward(requestMock,responseMock);
 	}
 	@Test
-	void testAccettaRichiesta() throws ServletException, IOException {
-		when(requestMock.getParameter("flag")).thenReturn("2");
-		when(requestMock.getParameter("matricola")).thenReturn("4859");
-	//	when(requestMock.getRequestDispatcher("_areaSecretary/VisualizzaTirocinanteET.jsp")).thenReturn(dispatcherMock);
-		ServletGestioneRichiesteSegreteriaET test = new ServletGestioneRichiesteSegreteriaET();
-		test.doPost(requestMock, responseMock);
-		assertEquals(true,responseMock);
+	void annullamentoTirocinioFail() throws ServletException, IOException {
+		when(requestMock.getParameter("enteEmail")).thenReturn("9929");
+		ServletAnnullaEnteDaStudenteET test = new ServletAnnullaEnteDaStudenteET();
+		test.doPost(requestMock,responseMock);
+		verify(dispatcherMock).forward(requestMock,responseMock);
 	}
 }
-

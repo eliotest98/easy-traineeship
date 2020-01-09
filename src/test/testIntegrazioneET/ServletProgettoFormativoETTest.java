@@ -1,9 +1,11 @@
-package test;
+package test.testIntegrazioneET;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
@@ -15,40 +17,58 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import controller.DbConnection;
-import controller.ServletGestioneRichiesteEnteET;
-import controller.ServletStatoTirocinioET;
+import controller.ServletProgettoFormativoET;
+import controller.Uploader;
+import model.EnteConvenzionato;
+import model.Student;
 import model.Tirocinio;
 
-class ServletStatoTirocinioETTest {
+class ServletProgettoFormativoETTest {
+
 	Connection conn = new DbConnection().getInstance().getConn();
 	//Creazione mock	
 	HttpServletRequest requestMock = mock(HttpServletRequest.class);
 	HttpServletResponse responseMock = mock(HttpServletResponse.class);
 	HttpSession sessionMock = mock(HttpSession.class);
-	ServletGestioneRichiesteEnteET servletSecretaryMock = mock(ServletGestioneRichiesteEnteET.class);
 	RequestDispatcher dispatcherMock = mock(RequestDispatcher.class);
-	ServletStatoTirocinioET test = new ServletStatoTirocinioET();
-	Tirocinio tirocinio = new Tirocinio();
+	Student user = new Student("t.tester@studenti.unisa.it","Tester","Amendola",'M',"salvo",0);
+	ServletProgettoFormativoET test = new ServletProgettoFormativoET();
 	
 	String sql1 = ("INSERT INTO User VALUES('t.tester@studenti.unisa.it','Tester','Amendola','M','salvo','0');");
 	String sql2 = ("INSERT INTO tirocinante VALUES('4859','"+new Date(0)+"','Salerno','italiana','Salerno','rlaplg98a08i805e','3294475051','t.tester@studenti.unisa.it');");
 	String sql3 = ("INSERT INTO User VALUES('test@test.test','Salvatore','Totti','M','pass98','3');");
 	String sql4 = ("INSERT INTO enteconvenzionato VALUES('11111111111','Avellino','Salvatore Totti','0825519149','100','Michele Persico','Michele Porto','08/01/1977','esperti in siti web','test@test.test');");
-
-
-	@BeforeEach
+	String sql5 = ("INSERT INTO tirocinio VALUES('999','"+new Date(0)+"','11','informatica','javascript','Java','Bene','In attesa Ente','progettoformativa.pdf','ragazzo valido','4859','11111111111');");
+	
+	//Metodo setUp()
+	@BeforeEach 
 	void setUp() {
+		
 		when(requestMock.getSession()).thenReturn(sessionMock);
-		when(requestMock.getParameter("matricola")).thenReturn("4859");
-		when(requestMock.getRequestDispatcher("/_areaSecretary/VisualizzaStatoTirocinioET.jsp")).thenReturn(dispatcherMock);
+		when(sessionMock.getAttribute("userET")).thenReturn("3");
+		when(sessionMock.getAttribute("user")).thenReturn(user);
+		try {
+			Statement stmtSelect = conn.createStatement();
+			stmtSelect.executeUpdate(sql1);
+	    	stmtSelect.executeUpdate(sql2);
+	    	stmtSelect.executeUpdate(sql3);
+	    	stmtSelect.executeUpdate(sql4);
+	    	stmtSelect.executeUpdate(sql5);
+	    	conn.commit();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+    	
 	}
 	
-	
+	//Metodo tearDown()
 	@AfterEach
 	public void tearDown() {
 		try 
@@ -72,50 +92,15 @@ class ServletStatoTirocinioETTest {
 		}
 	}
 	
-	//Test ServletStatoTirocinioET se lo studente non ha ancora selezionato un ente
 	@Test
-	void testReindirizzamentoSenzaEnte() throws ServletException, IOException {
-		
-		try 
-		{
-			Statement stmtSelect = conn.createStatement();
-	    	stmtSelect.executeUpdate(sql1);
-	    	stmtSelect.executeUpdate(sql2);
-	    	stmtSelect.executeUpdate(sql3);
-	    	stmtSelect.executeUpdate(sql4);
-	    	String sql5 = ("INSERT INTO tirocinio VALUES('999','"+new Date(0)+"','11','informatica','javascript','Java','Bene','In attesa Ente','progettoformativa.pdf','ragazzo valido','4859',"+tirocinio.getPartitaIva()+");");
-	    	stmtSelect.executeUpdate(sql5);
-	    	conn.commit();
-	    }
-	    catch (Exception e) {
-	    	e.printStackTrace();
-	    }
-		
-		test.doGet(requestMock, responseMock);
-		verify(dispatcherMock).forward(requestMock, responseMock);
+	void testProgettoFormativo() {
+		try {
+			when(requestMock.getRequestDispatcher("_areaStudent/UploadProgettoFormativoET.jsp")).thenReturn(dispatcherMock);
+			test.doPost(requestMock, responseMock);
+			verify(dispatcherMock).forward(requestMock, responseMock);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	
-	//Test ServletStatoTirocinioET se lo studente ha selezionato un ente
-	@Test
-	void testReindirizzamentoConEnte() throws ServletException, IOException {
-		
-		try 
-		{
-			Statement stmtSelect = conn.createStatement();
-	    	stmtSelect.executeUpdate(sql1);
-	    	stmtSelect.executeUpdate(sql2);
-	    	stmtSelect.executeUpdate(sql3);
-	    	stmtSelect.executeUpdate(sql4);
-	    	String sql5 = ("INSERT INTO tirocinio VALUES('999','"+new Date(0)+"','11','informatica','javascript','Java','Bene','In attesa Ente','progettoformativa.pdf','ragazzo valido','4859','11111111111');");
-	    	stmtSelect.executeUpdate(sql5);
-	    	conn.commit();
-	    }
-	    catch (Exception e) {
-	    	e.printStackTrace();
-	    }
-		
-		test.doGet(requestMock, responseMock);
-		verify(dispatcherMock).forward(requestMock, responseMock);
-	}
-	
+
 }
