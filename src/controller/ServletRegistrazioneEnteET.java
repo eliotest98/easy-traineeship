@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -143,11 +145,20 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
      * Inserimento nel DB.
      */
     try {
-    	enteConDao.inserisciEnte(enteCon);
+    	boolean res = enteConDao.inserisciEnte(enteCon);
+    	if(res) {
     	request.setAttribute("La registrazione &egrave avvenuta con successo", mess);
-        // Controlla jsp
-        RequestDispatcher dispatcher = request.getRequestDispatcher("VisualizzaEnteET.jsp"); 
-        dispatcher.forward(request, response);
+    	response.setStatus(HttpServletResponse.SC_OK);
+		PrintWriter out = response.getWriter();
+	    out.println("La registrazione è avvenuta con successo");
+	    out.close();
+    	}
+    	else {
+      		response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
+        	PrintWriter out = response.getWriter();
+    	    out.println("Registrazione non effettuata");
+    	    out.close();
+    	}
     } catch (Exception e) {
     	e.printStackTrace();
     }
