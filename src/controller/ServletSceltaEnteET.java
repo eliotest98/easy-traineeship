@@ -119,8 +119,9 @@ public class ServletSceltaEnteET extends HttpServlet {
     request.getSession().setAttribute("Tirocinio", tirocinio);
 
     // Request dispatcher alla pagina
-    RequestDispatcher dispatcher = request.getRequestDispatcher("/_areaStudent/HomeStudente.jsp");
-    dispatcher.forward(request, response);
+    //RequestDispatcher dispatcher = request.getRequestDispatcher("/_areaStudent/HomeStudente.jsp");
+    //dispatcher.forward(request, response);
+    response.sendRedirect(request.getContextPath()+"/_areaStudent/HomeStudente.jsp");
   }
 }
 
