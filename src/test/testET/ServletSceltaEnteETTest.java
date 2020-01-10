@@ -24,6 +24,8 @@ import controller.DbConnection;
 import controller.ServletRichiestaInizioTirocinioET;
 import controller.ServletSceltaEnteET;
 import model.Student;
+import model.Tirocinante;
+import model.Tirocinio;
 
 class ServletSceltaEnteETTest {
 	
@@ -39,7 +41,8 @@ class ServletSceltaEnteETTest {
 		ServletSceltaEnteET servletSecretaryMock = mock(ServletSceltaEnteET.class);
 		RequestDispatcher dispatcherSpy = spy(RequestDispatcher.class);
 		Student student=new Student("p.aurilia@studenti.unisa.it","Pellegrino","Aurilia",'M',"pel98",0);
-		
+		Tirocinante tirocinante = new Tirocinante();
+		Tirocinio tirocinio = new Tirocinio();
 		
 		@BeforeEach
 		public void setUp() {
@@ -51,7 +54,7 @@ class ServletSceltaEnteETTest {
 		//TC_GR_7.01:Campo ente vuoto
 	@Test
 	void testCampoEnteVuoto(){
-		when(requestMock.getParameter("ente")).thenReturn("11111111111");
+		when(requestMock.getParameter("ente")).thenReturn("");
 		ServletSceltaEnteET test = new ServletSceltaEnteET();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 		assertEquals("Il campo Ente e' vuoto",e.getMessage());
@@ -60,16 +63,16 @@ class ServletSceltaEnteETTest {
 	//TC_GR_7.02:Campo ente troppo lungo
 		@Test
 		void testCampoEnteTroppoLungo(){
-			when(requestMock.getParameter("ente")).thenReturn("11111111111Carlo SRLSRLSRLSRLSRLSRLSRLSRLSRLSRLSRLSRLSRLSRLSRLSRLSRLSRLSRLSR");
+			when(requestMock.getParameter("ente")).thenReturn("Carlo SRLSRLSRLSRLSRLSRLSRLSRLSRLSRLSRLSRLSRLSRLSRLSRLSRLSRLSRLSR");
 			ServletSceltaEnteET test = new ServletSceltaEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-			assertEquals("Il campo Ente supera la lunghezza consentita",e.getMessage());
+			assertEquals("Il campo Ente non e' di 11 cifre",e.getMessage());
 		}
 		
 	//TC_GR_7.03:Campo ente non rispetta il formato
 	@Test
 	void testCampoEnteNonRispettaFormato(){
-		when(requestMock.getParameter("ente")).thenReturn("11111111111Carlo %20%  SRL2310");
+		when(requestMock.getParameter("ente")).thenReturn("CarloSRL231");
 		ServletSceltaEnteET test = new ServletSceltaEnteET();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 		assertEquals("Il campo Ente non rispetta il formato",e.getMessage());
@@ -78,7 +81,7 @@ class ServletSceltaEnteETTest {
 	//TC_GR_7.04:Campo nome vuoto
 	@Test
 	void testCampoNomeVuoto(){
-		when(requestMock.getParameter("ente")).thenReturn("11111111111Carlo SRL");
+		when(requestMock.getParameter("ente")).thenReturn("11111111111");
 		when(requestMock.getParameter("nome")).thenReturn("");
 		ServletSceltaEnteET test = new ServletSceltaEnteET();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
@@ -88,7 +91,7 @@ class ServletSceltaEnteETTest {
 	//TC_GR_7.05:Campo nome è troppo lungo
 	@Test
 	void testCampoNomeTroppoLungo(){
-		when(requestMock.getParameter("ente")).thenReturn("11111111111Carlo SRL");
+		when(requestMock.getParameter("ente")).thenReturn("11111111111");
 		when(requestMock.getParameter("nome")).thenReturn("MarioMarioMarioMarioMarioMarioMarioMarioMarioMarioMarioMario");
 		ServletSceltaEnteET test = new ServletSceltaEnteET();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
@@ -98,7 +101,7 @@ class ServletSceltaEnteETTest {
 	//TC_GR_7.06:Campo nome non rispetta il formato
 	@Test
 	void testCampoNomeNonRispettaFormato(){
-		when(requestMock.getParameter("ente")).thenReturn("11111111111Carlo SRL");
+		when(requestMock.getParameter("ente")).thenReturn("11111111111");
 		when(requestMock.getParameter("nome")).thenReturn("Mario2310");
 		ServletSceltaEnteET test = new ServletSceltaEnteET();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
@@ -108,7 +111,7 @@ class ServletSceltaEnteETTest {
 	//TC_GR_7.07:Campo cognome è vuoto
 	@Test
 	void testCampoCognomeVuoto(){
-		when(requestMock.getParameter("ente")).thenReturn("11111111111Carlo SRL");
+		when(requestMock.getParameter("ente")).thenReturn("11111111111");
 		when(requestMock.getParameter("nome")).thenReturn("Mario");
 		when(requestMock.getParameter("cognome")).thenReturn("");
 		ServletSceltaEnteET test = new ServletSceltaEnteET();
@@ -119,7 +122,7 @@ class ServletSceltaEnteETTest {
 	//TC_GR_7.08:Campo cognome è troppo lungo
 	@Test
 	void testCampoCognomeTroppoLungo(){
-		when(requestMock.getParameter("ente")).thenReturn("11111111111Carlo SRL");
+		when(requestMock.getParameter("ente")).thenReturn("11111111111");
 		when(requestMock.getParameter("nome")).thenReturn("Mario");
 		when(requestMock.getParameter("cognome")).thenReturn("RossiRossiRossiRossiRossiRossiRossiRossiRossiRossiRossiRossi");
 		ServletSceltaEnteET test = new ServletSceltaEnteET();
@@ -130,7 +133,7 @@ class ServletSceltaEnteETTest {
 	//TC_GR_7.09:Campo cognome non rispetta il formato
 	@Test
 	void testCampoCognomeNonRispettaFormato(){
-		when(requestMock.getParameter("ente")).thenReturn("11111111111Carlo SRL");
+		when(requestMock.getParameter("ente")).thenReturn("11111111111");
 		when(requestMock.getParameter("nome")).thenReturn("Mario");
 		when(requestMock.getParameter("cognome")).thenReturn("Rossi2310");
 		ServletSceltaEnteET test = new ServletSceltaEnteET();
@@ -141,7 +144,7 @@ class ServletSceltaEnteETTest {
 	//TC_GR_7.10:Campo facoltà vuoto
 	@Test
 	void testCampoFacoltaVuoto(){
-		when(requestMock.getParameter("ente")).thenReturn("11111111111Carlo SRL");
+		when(requestMock.getParameter("ente")).thenReturn("11111111111");
 		when(requestMock.getParameter("nome")).thenReturn("Mario");
 		when(requestMock.getParameter("cognome")).thenReturn("Rossi");
 		when(requestMock.getParameter("facolta")).thenReturn("");
@@ -153,7 +156,7 @@ class ServletSceltaEnteETTest {
 	//TC_GR_7.11:Campo facoltà supera la lunghezza massima
 	@Test
 	void testCampoFacoltaTroppoLunga(){
-		when(requestMock.getParameter("ente")).thenReturn("11111111111Carlo SRL");
+		when(requestMock.getParameter("ente")).thenReturn("11111111111");
 		when(requestMock.getParameter("nome")).thenReturn("Mario");
 		when(requestMock.getParameter("cognome")).thenReturn("Rossi");
 		when(requestMock.getParameter("facolta")).thenReturn("InformaticaInformaticaInformaticaInformaticaInformatica");
@@ -165,7 +168,7 @@ class ServletSceltaEnteETTest {
 	//TC_GR_7.12:Campo facoltà non rispetta formato
 	@Test
 	void testCampoFacoltaNonRispettaFormato(){
-		when(requestMock.getParameter("ente")).thenReturn("11111111111Carlo SRL");
+		when(requestMock.getParameter("ente")).thenReturn("11111111111");
 		when(requestMock.getParameter("nome")).thenReturn("Mario");
 		when(requestMock.getParameter("cognome")).thenReturn("Rossi");
 		when(requestMock.getParameter("facolta")).thenReturn("Informatica2310");
@@ -177,7 +180,7 @@ class ServletSceltaEnteETTest {
 	//TC_GR_7.13:Campo descrizione è vuoto
 	@Test
 	void testCampoDescrizioneVuoto(){
-		when(requestMock.getParameter("ente")).thenReturn("11111111111Carlo SRL");
+		when(requestMock.getParameter("ente")).thenReturn("11111111111");
 		when(requestMock.getParameter("nome")).thenReturn("Mario");
 		when(requestMock.getParameter("cognome")).thenReturn("Rossi");
 		when(requestMock.getParameter("facolta")).thenReturn("Informatica");
@@ -190,7 +193,7 @@ class ServletSceltaEnteETTest {
 	//TC_GR_7.14:Campo descrizione troppo lungo
 	@Test
 	void testCampoDescrizioneTroppoLungo(){
-		when(requestMock.getParameter("ente")).thenReturn("11111111111Carlo SRL");
+		when(requestMock.getParameter("ente")).thenReturn("11111111111");
 		when(requestMock.getParameter("nome")).thenReturn("Mario");
 		when(requestMock.getParameter("cognome")).thenReturn("Rossi");
 		when(requestMock.getParameter("facolta")).thenReturn("Informatica");
@@ -237,12 +240,13 @@ class ServletSceltaEnteETTest {
 	    	String sql1 = ("INSERT INTO tirocinio VALUES('1','"+modifiedDate+"','11','informatica','javascript','Java','Bene','Accettato','progettoformativa.pdf','ragazzo valido','4859',NULL);");
 	    	stmtSelect.executeUpdate(sql1);
 	    	conn.commit();
-			when(requestMock.getParameter("ente")).thenReturn("11111111111Carlo SRL");
+			when(requestMock.getParameter("ente")).thenReturn("11111111111");
 			when(requestMock.getParameter("nome")).thenReturn("Mario");
 			when(requestMock.getParameter("cognome")).thenReturn("Rossi");
 			when(requestMock.getParameter("facolta")).thenReturn("Informatica");
-			when(requestMock.getParameter("descrizione")).thenReturn("La comprensione, nella pratica, di quali sono i contenuti e le logiche di un sistema di controllo di gestione: il sistema direzionale, l’efficacia, l’efficienza, nonché gli attori in gioco e utilità che reca tale funzione all azienda nel suo complesso.");
-			when(requestMock.getRequestDispatcher("/_areaStudent/viewRequest.jsp")).thenReturn(dispatcherSpy);
+			when(requestMock.getParameter("descrizione")).thenReturn("Molto interessante");
+			tirocinante.setMatricola(4859);
+			when(sessionMock.getAttribute("Tirocinante")).thenReturn(tirocinante);
 			ServletSceltaEnteET test = new ServletSceltaEnteET();
 			test.doPost(requestMock, responseMock);
 			
@@ -251,9 +255,7 @@ class ServletSceltaEnteETTest {
 			e.printStackTrace();
 		}
 		
-		verify(dispatcherSpy).forward(requestMock,responseMock);
-		String mess = null;
-		verify(requestMock).setAttribute("L'invio della richiesta e' avvenuto con successo", mess);
+		responseMock.sendRedirect(requestMock.getContextPath()+"/_areaStudent/HomeStudente.jsp");
 		
 		try 
 		{

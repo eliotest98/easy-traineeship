@@ -45,10 +45,10 @@ public class ServletSceltaEnteET extends HttpServlet {
     // iva)
     String ente = request.getParameter("ente");
 
-    if (ente == null) {
-      throw new IllegalArgumentException("Il campo Ente � vuoto");
+    if (ente.length()==0) {
+      throw new IllegalArgumentException("Il campo Ente e' vuoto");
     } else if (ente.length() != 11) {
-      throw new IllegalArgumentException("Il campo Ente non � di 11 cifre");
+      throw new IllegalArgumentException("Il campo Ente non e' di 11 cifre");
     } else if (!ente.matches("^[0-9]+$")) {
       throw new IllegalArgumentException("Il campo Ente non rispetta il formato");
     }
