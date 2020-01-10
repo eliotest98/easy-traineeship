@@ -105,7 +105,6 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
 					tirocinio2.setMatricola(tirocinio.getMatricola());
 	    			tirocinio2.setTirocinante(tirocinio.getTirocinante());
 	    			tirocinioDAO.inserisciTirocinio(tirocinio2);
-	    			System.out.println(motivazione);
 	    		}
 	    		catch (Exception e) {
 	    			e.printStackTrace();

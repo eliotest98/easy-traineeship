@@ -44,13 +44,9 @@ public class ServletUploadET extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	{
 	    //Prendo il file dalla form
-		System.out.println("SonoQui");
         javax.servlet.http.Part filePart = request.getPart("file");
-        System.out.println(request.getPart("file"));
         InputStream fileContent = filePart.getInputStream();
         String fileName = filePart.getSubmittedFileName();
-        System.out.println("file"+fileName);
-       
         
         //Crea una stringa da aggiungere al nome del file, per impedire sovrascritture dovute a nomi duplicati
         String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
