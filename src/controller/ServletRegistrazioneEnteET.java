@@ -150,7 +150,7 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
     	request.setAttribute("La registrazione &egrave avvenuta con successo", mess);
     	response.setStatus(HttpServletResponse.SC_OK);
 		PrintWriter out = response.getWriter();
-	    out.println("La registrazione è avvenuta con successo");
+	    out.println("La registrazione &egrave avvenuta con successo");
 	    out.close();
     	}
     	else {
