@@ -4,11 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
 import java.sql.Connection;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
@@ -17,17 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import controller.DbConnection;
 import controller.ServletProgettoFormativoET;
-import controller.Uploader;
-import model.EnteConvenzionato;
+
 import model.Student;
-import model.Tirocinio;
 import model.DAO.TirocinioDAO;
 
 class ServletProgettoFormativoETTest {

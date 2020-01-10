@@ -24,7 +24,7 @@ import org.json.simple.JSONObject;
  * Servlet implementation class Downloader.
  */
 @WebServlet("/ServletDownload")
-public class ServletDownload extends HttpServlet {
+public class ServletDownloadET extends HttpServlet {
   private static final long serialVersionUID = 1L;
   @SuppressWarnings("unused")
   private File file;
@@ -34,7 +34,7 @@ public class ServletDownload extends HttpServlet {
    * 
    * @see HttpServlet#HttpServlet()
    */
-  public ServletDownload() {
+  public ServletDownloadET() {
     super();
   }
 
@@ -54,7 +54,7 @@ public class ServletDownload extends HttpServlet {
     {
       throw new IllegalArgumentException("Tirocinio inesistente.");
     }
-    String filePath = "C:\\Users\\simon\\Documents\\GitHub\\easy-traineeship\\ProgettoFormativo\\";
+    String filePath = "C:\\Users\\alex8\\Documents\\GitHub\\easy-traineeship\\ProgettoFormativo\\";
 
     try {
       in = new FileInputStream(filePath + tirocinio.getProgettoFormativo());
