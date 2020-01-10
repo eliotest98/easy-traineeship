@@ -35,9 +35,9 @@
       menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
           + "/VisualizzaRichiestaET.jsp\">Richieste Tirocinio</a></li>";
       menu += "<li><a href=\"" + request.getContextPath() + "/VisualizzaEnteET.jsp\">Lista Ente</a></li>";
-      menu += "<li><a href=\"" + request.getContextPath() + "/_areaSecretary/VisualizzaListaTirocinantiET.jsp\">Lista Tirocinanti</a></li> ";
       menu += "<li><a href=\"" + request.getContextPath() + "/_areaSecretary/RegistrazioneEnteET.jsp\">Registra Ente</a></li> ";
       menu += "<li><a href=\"" + request.getContextPath() + "/DocumentiET.jsp\">Documenti da Firmare</a></li> ";
+      menu += "<li><a href=\"" + request.getContextPath() + "/_areaSecretary/VisualizzaListaTirocinantiET.jsp\">Lista Tirocinanti</a></li> ";
       menu +="<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
     }
     if (pageName.equals("VisualizzaListaTirocinantiET.jsp")) {
@@ -46,9 +46,9 @@
         menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
             + "/VisualizzaRichiestaET.jsp\">Richieste Tirocinio</a></li>";
         menu += "<li><a href=\"" + request.getContextPath() + "/VisualizzaEnteET.jsp\">Lista Ente</a></li>";
-        menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/_areaSecretary/VisualizzaListaTirocinantiET.jsp\">Lista Tirocinanti</a></li> ";
         menu += "<li><a href=\"" + request.getContextPath() + "/_areaSecretary/RegistrazioneEnteET.jsp\">Registra Ente</a></li> ";
         menu += "<li><a href=\"" + request.getContextPath() + "/DocumentiET.jsp\">Documenti da Firmare</a></li> ";
+        menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/_areaSecretary/VisualizzaListaTirocinantiET.jsp\">Lista Tirocinanti</a></li> ";
         menu +="<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
       }
     if (pageName.equals("VisualizzaRichiestaET.jsp")) {
@@ -57,9 +57,9 @@
             menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
                 + "/VisualizzaRichiestaET.jsp\">Richieste Tirocinio</a></li>";
             menu += "<li><a href=\"" + request.getContextPath() + "/VisualizzaEnteET.jsp\">Lista Ente</a></li>";
-            menu += "<li><a href=\"" + request.getContextPath() + "/_areaSecretary/VisualizzaListaTirocinantiET.jsp\">Lista Tirocinanti</a></li> ";
             menu += "<li><a href=\"" + request.getContextPath() + "/_areaSecretary/RegistrazioneEnteET.jsp\">Registra Ente</a></li> ";
             menu += "<li><a href=\"" + request.getContextPath() + "/DocumentiET.jsp\">Documenti da Firmare</a></li> ";
+            menu += "<li><a href=\"" + request.getContextPath() + "/_areaSecretary/VisualizzaListaTirocinantiET.jsp\">Lista Tirocinanti</a></li> ";
             menu +="<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
     }else if (pageName.equals("ModificaEnteET.jsp")) { //se ci troviamo in ModificaEnteET.jsp
         menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
@@ -70,9 +70,9 @@
     	      menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
     	          + "/VisualizzaRichiestaET.jsp\">Richieste Tirocinio</a></li>";
     	      menu += "<li><a href=\"" + request.getContextPath() + "/VisualizzaEnteET.jsp\">Lista Ente</a></li>";
-    	      menu += "<li><a href=\"" + request.getContextPath() + "/_areaSecretary/VisualizzaListaTirocinantiET.jsp\">Lista Tirocinanti</a></li> ";
     	      menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/_areaSecretary/RegistrazioneEnteET.jsp\">Registra Ente</a></li> ";
     	      menu += "<li><a href=\"" + request.getContextPath() + "/DocumentiET.jsp\">Documenti da Firmare</a></li> ";
+    	      menu += "<li><a href=\"" + request.getContextPath() + "/_areaSecretary/VisualizzaListaTirocinantiET.jsp\">Lista Tirocinanti</a></li> ";
     	      menu +="<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
       }else if (pageName.equals("VisualizzaTirocinanteET.jsp"))//se ci troviamo in VisualizzaTirocinanteET.jsp
       {
@@ -225,6 +225,7 @@
 				 menu += "<li><a href=\"" + request.getContextPath() + "/VisualizzaEnteET.jsp\">Lista Ente</a></li>";
 				 menu += "<li><a href=\"" + request.getContextPath() + "/_areaSecretary/RegistrazioneEnteET.jsp\">Registra Ente</a></li> ";
 				 menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/DocumentiET.jsp\">Documenti da Firmare</a></li> ";
+	    	     menu += "<li><a href=\"" + request.getContextPath() + "/_areaSecretary/VisualizzaListaTirocinantiET.jsp\">Lista Tirocinanti</a></li> ";
 				 menu +="<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
 			}else if(UserET.equals("3")){//Ente
 				logoRedirect = request.getContextPath() + "/_areaEnteET/VisualizzaRichiestaEnteET.jsp";
@@ -257,10 +258,10 @@
 							+ "/_areaSecretary/VisualizzaRichiestaET.jsp\">Richieste Tirocinio</a></li>";
 					menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
 							+ "/VisualizzaEnteET.jsp\">Lista Ente</a></li>";
-					menu += "<li><a href=\"" + request.getContextPath() + "/_areaSecretary/VisualizzaListaTirocinantiET.jsp\">Lista Tirocinanti</a></li> ";
 					menu += "<li><a href=\"" + request.getContextPath()
 							+ "/_areaSecretary/RegistrazioneEnteET.jsp\">Registra Ente</a></li> ";
 					menu += "<li><a href=\"" + request.getContextPath() + "/DocumentiET.jsp\">Documenti da Firmare</a></li> ";
+					menu += "<li><a href=\"" + request.getContextPath() + "/_areaSecretary/VisualizzaListaTirocinantiET.jsp\">Lista Tirocinanti</a></li> ";
 					menu += "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
 				}else if(UserET !=null){
 					logoRedirect = request.getContextPath() + "/_areaStudent/HomeStudente.jsp";
