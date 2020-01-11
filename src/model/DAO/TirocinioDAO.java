@@ -781,7 +781,7 @@ public class TirocinioDAO {
 			//Inserimento in 'Tirocinio' del path del 'progetto formativo'
 			psTirocinio= con.prepareStatement("UPDATE TIROCINIO " 
 											+ "SET PROGETTOFORMATIVO ='"+progettoFormativo+"' " 
-											+ "WHERE CODTIROCINIO ="+codTirocinio+"; ");
+											+ "WHERE CODTIROCINIO ='"+codTirocinio+"'; ");
 			//Se la modifica va a buon fine restituisce true
 			if(psTirocinio.executeUpdate()==1)
 			{

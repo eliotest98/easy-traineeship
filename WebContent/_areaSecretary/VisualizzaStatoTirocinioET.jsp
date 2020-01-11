@@ -19,13 +19,13 @@
 	Tirocinio tirocinio=new Tirocinio();
 	tirocinio = (Tirocinio)request.getAttribute("tirocinio");
 	EnteConvenzionato enteConvenzionato = new EnteConvenzionato();
-	enteConvenzionato = tirocinio.getEnteConvenzionato();
-	
+	enteConvenzionato = (EnteConvenzionato)request.getAttribute("ente");
+
 	if(tirocinante==null)
 	{	
 		request.setAttribute("matricola", matricola);
         RequestDispatcher dispatcher;
-        dispatcher = request.getRequestDispatcher("../ServletVisualizzaTirocinanteET");
+        dispatcher = request.getRequestDispatcher("../ServletStatoTirocinioET");
         dispatcher.forward(request, response);
     }
 
@@ -165,12 +165,13 @@
 									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 									    	<strong>CFU Conseguiti </strong>  <% out.println( "<br>"+ tirocinio.getCfuPrevisti()); %>
 									    </div>
-									    <%if (tirocinio.getPartitaIva()!= null) { %>
+									    <%if (tirocinio.getPartitaIva() != null) { %> 
 									      <!-- Campo Nome Ente -->
 									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 									    	<strong>Ente Ospitante </strong>  <% out.println( "<br>"+ enteConvenzionato.getName()); %>
 									    </div>
-									    <%} %>
+									    <%} %> 
+									   
 									    <!-- Campo Competenze Possedute -->
 									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 									    	<strong>Competenze Possedute </strong>  <% out.println( "<br>"+ tirocinio.getCompetenze()); %>
