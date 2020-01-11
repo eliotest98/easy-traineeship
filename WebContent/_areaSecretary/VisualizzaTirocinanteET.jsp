@@ -370,7 +370,7 @@
 					toastr.success("Rifiuto effettuato con successo");
 				    modalRifiuto.style.display = "none";
 				     setTimeout(function(){// wait for 5 secs(2)
-				           location.reload(); // then reload the page.(3)
+				    	 window.location.replace(absolutePath+"/_areaSecretary/VisualizzaRichiestaET.jsp"); // then reload the page.(3)
 				      }, 3000); 
 				     }
 					  else{
