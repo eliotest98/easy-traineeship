@@ -147,17 +147,19 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
     try {
     	boolean res = enteConDao.inserisciEnte(enteCon);
     	if(res) {
-    	request.setAttribute("La registrazione &egrave avvenuta con successo", mess);
+    	request.setAttribute("La registrazione e' avvenuta con successo", mess);
     	response.setStatus(HttpServletResponse.SC_OK);
 		PrintWriter out = response.getWriter();
-	    out.println("La registrazione &egrave avvenuta con successo");
+	    out.println("La registrazione e' avvenuta con successo");
 	    out.close();
+	    return;
     	}
     	else {
       		response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
         	PrintWriter out = response.getWriter();
     	    out.println("Registrazione non effettuata");
     	    out.close();
+    	    return;
     	}
     } catch (Exception e) {
     	e.printStackTrace();
