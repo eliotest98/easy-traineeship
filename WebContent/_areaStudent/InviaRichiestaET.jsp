@@ -52,11 +52,10 @@
                                     <h2 class="text-center">Invio Richiesta Tirocinio:</h2>
                                     <p class="text-center">Compilare i campi per l'invio della richiesta di inizio Tirocinio.</p>
                                 </div>
-                                <!-- Form per l'invio della richiesta. 
+                                <!-- Form per l'invio della richiesta.
                                 	 NB: javascrip è relativo, essendo state inserite le espressioni regolari
                                 	 all'interno dell'input type, nell'attributo PATTERN. -->
-                                <form action="../ServletRichiestaInizioTirocinioET" method="post" 
-                                	  id="invioRichiestaTirocinio" onsubmit="return check()">
+                                <form id="invioRichiestaTirocinio" onsubmit="sendRequest()">
                                 	<!-- Campo nome tirocinante, lunghezza fra 1 e 50, formato solo lettere. -->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="nomeTirocinante">Nome</label>
@@ -191,7 +190,8 @@
                                         </button>
                                     </div>
                                     <div class="clearfix"></div>
-                                </form>
+                                   </form>
+                                    
                                   <%
                                   	}
                                 	//	
@@ -226,45 +226,35 @@
     </div>
     <jsp:include page="/partials/footer.jsp" />
 </div>
+<jsp:include page="/partials/includes.jsp" />
 <script>
-	/*Controllo se la matricola inizia con 051210, informatica*/
-	function checkMatricola()
-	{
-		 var matricola = document.getElementById("matricolaTirocinante").value;
-		 var mat = matricola.substring(0, 6);
-		 /*vede se matcha*/
-		 if(mat == "051210")
-		 {
-			 console.log("si");
-			 showAlert();
-			 toastr.success("Matricola corretta.");
-			 return true;
-		 }
-		 else
-		 {
-			 showAlert();
-			 toastr.warning("Matricola non rilevata.");
-			 return false;
-		 }
-	}
-	/*Funzione che consente la sottomissione dei campi alla richiesta.*/
-	function check()
-	{
-		if(checkMatricola())
-		{	
+function sendRequest(){
+	var matricola = document.getElementById("matricolaTirocinante");
+$.ajax({
+	  type: "POST",
+	  url: absolutePath+ "/ServletRichiestaInizioTirocinioET",
+	  async:true,
+	  data: {
+	"matricolaTirocinante":matricola
+		  },
+	  success: function(msg){
+		  console.log(msg)
+		showAlert();
+		toastr.success(msg);
+	     setTimeout(function(){// wait for 5 secs(2)
+	           location.href=absolutePath+"/_areaStudent/HomeStudente.jsp" // then reload the page.(3)
+	      }, 3000); 
+	     },
+	   error: function(msg){
 			showAlert();
-			toastr.success("Invio richiesta Tirocinio completato con successo.");
-			return true;
-		}
-		else
-		{
-			showAlert();
-			toastr.error("Invio non riuscito.");
-			return false;
-		}
+			toastr.success(msg);
+		     setTimeout(function(){// wait for 5 secs(2)
+		           location.href=absolutePath+"/_areaStudent/HomeStudente.jsp" // then reload the page.(3)
+		      }, 3000); 
+	   }
+	  })
 	}
 </script>
-<!--End pagewrapper
-<jsp:include page="/partials/includes.jsp" />-->
+
 </body>
 </html>
