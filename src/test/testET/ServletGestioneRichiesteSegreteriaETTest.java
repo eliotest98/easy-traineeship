@@ -18,6 +18,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
+import org.springframework.mock.web.MockHttpServletResponse;
 
 import controller.DbConnection;
 import controller.ServletGestioneRichiesteSegreteriaET;
@@ -27,7 +28,7 @@ class ServletGestioneRichiesteSegreteriaETTest {
 	Connection conn = new DbConnection().getInstance().getConn();
 	//Creazione mock	
 	HttpServletRequest requestMock = mock(HttpServletRequest.class);
-	HttpServletResponse responseMock = mock(HttpServletResponse.class);
+	MockHttpServletResponse responseMock = new MockHttpServletResponse();
 	HttpSession sessionMock = mock(HttpSession.class);
 	ServletGestioneRichiesteSegreteriaET servletSecretaryMock = mock(ServletGestioneRichiesteSegreteriaET.class);
 	RequestDispatcher dispatcherMock = mock(RequestDispatcher.class);
@@ -86,16 +87,25 @@ class ServletGestioneRichiesteSegreteriaETTest {
 		ServletGestioneRichiesteSegreteriaET test = new ServletGestioneRichiesteSegreteriaET();
 		test.doGet(requestMock, responseMock);
 		verify(dispatcherMock).forward(requestMock, responseMock);
-
 	}
+	
 	@Test
 	void testAccettaRichiesta() throws ServletException, IOException {
 		when(requestMock.getParameter("flag")).thenReturn("2");
 		when(requestMock.getParameter("matricola")).thenReturn("4859");
-	//	when(requestMock.getRequestDispatcher("_areaSecretary/VisualizzaTirocinanteET.jsp")).thenReturn(dispatcherMock);
 		ServletGestioneRichiesteSegreteriaET test = new ServletGestioneRichiesteSegreteriaET();
 		test.doPost(requestMock, responseMock);
-		assertEquals(true,responseMock);
+		assertEquals(responseMock.getStatus(), HttpServletResponse.SC_OK);
 	}
+	@Test
+	void testRifiutaRichiesta() throws ServletException, IOException {
+		when(requestMock.getParameter("flag")).thenReturn("3");
+		when(requestMock.getParameter("matricola")).thenReturn("4859");
+		when(requestMock.getParameter("motivazione")).thenReturn("Rifiuto TEST");
+		ServletGestioneRichiesteSegreteriaET test = new ServletGestioneRichiesteSegreteriaET();
+		test.doPost(requestMock, responseMock);
+		assertEquals(responseMock.getStatus(), HttpServletResponse.SC_OK);
+	}
+	
 }
 
