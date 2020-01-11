@@ -47,6 +47,7 @@
 										<p class="text-center">Compila tutti i campi per
 											registrare un nuovo ente.</p>
 									</div>
+									<form id="signUp"  onsubmit="return sendRequest()">
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="name">Nome Ente</label> <input type="text"
 												class="form-control" id="name" name="name"
@@ -116,10 +117,11 @@
 										</div>
 										<div
 											class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-											<button class="btn btn-primary btn-submit" onclick="sendRequest()">Registra
+											<button class="btn btn-primary btn-submit" >Registra
 												Ente</button>
 										</div>
 										<div class="clearfix"></div>
+							</form>
 								</div>
 							</div>
 						</div>
@@ -136,6 +138,7 @@
 	
 <script>
 	function sendRequest(){
+	    event.preventDefault();
 	/*Form Input Values*/
 			var form = document.forms["modificaEnte"];
 			var name = document.getElementById("name").value;
@@ -152,7 +155,7 @@
 			$.ajax({
 				  type: "POST",
 				  url: absolutePath+ "/ServletRegistrazioneEnteET",
-				  async:true,
+				  async:false,
 				  data: {
 					  "name": name, 
 					  "partitaIva": partitaIva,
