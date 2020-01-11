@@ -1109,5 +1109,45 @@ public class TirocinioDAO {
 			  }
 			  return tirocinio; 
 			 }
+			 
+				public synchronized boolean modificaDescrizioneEnteTirocinio(int codTirocinio, String descrizioneEnte)
+				{
+					
+					Connection con = null; //variabile per la connessione al DB
+					PreparedStatement psTirocinio = null;// Creazione oggetto Statement per il 'Tirocinio
+					try 
+					{
+						//Connessione con il DB
+						con= new DbConnection().getInstance().getConn();
+						
+						//Insert per l'inserimento in 'Tirocinio' dei dati parziali del 'Tirocinio'
+						psTirocinio=con.prepareStatement("UPDATE TIROCINIO SET DESCRIZIONEENTE='"+descrizioneEnte+"' WHERE CODTIROCINIO='"+codTirocinio+"';");
+						
+						//Se la modifica va a buon fine restituisce true
+						if(psTirocinio.executeUpdate()==1)
+						{
+							con.commit();
+							return true;
+						}
+						
+					} 
+					catch (SQLException e) 
+					{
+						e.printStackTrace();
+					}
+					finally
+					{
+						try 
+						{
+							psTirocinio.close();// Chiusura oggetto Statement dell' 'Tirocinio'
+						} 
+						catch (SQLException e)
+						{
+							e.printStackTrace();
+						}
+					}
+					//Ritorna false se la modifica non � andata a buon fine 
+					return false;	
+				}
 }	
 	

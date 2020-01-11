@@ -491,5 +491,28 @@ class TirocinioDAOTest {
 		}
 		assertEquals(trovato,true);
 	}
+		//Test del metodo modificaDescrizioneEnteTirocinio di TirocinioDAO 
+		@Test
+		void modificaDescrizioneEnteTirocinio() 
+		{
+			
+			try 
+			{
+				
+				Statement stmtSelect = conn.createStatement();
+		    	stmtSelect.executeUpdate(sql1);
+		    	stmtSelect.executeUpdate(sql2);
+		    	stmtSelect.executeUpdate(sql3);
+		    	stmtSelect.executeUpdate(sql4);
+		    	stmtSelect.executeUpdate(sql5);
+		    	conn.commit();
+		    	
+		    }
+		    catch (Exception e) {
+		    	e.printStackTrace();
+		    }
+			
+			assertEquals(tirocinioDao.modificaDescrizioneEnteTirocinio(1,"Bloccato"),true);
+		}
 	
 }

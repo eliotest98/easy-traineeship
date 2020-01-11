@@ -357,12 +357,13 @@
 		function rifiuta()
 		{
 			var matricola = document.getElementById("rifiuta").value;
+			var motivazione = document.getElementById("motivazione").value;
 			console.log(rifiuta)
 			$.ajax({
 				  type: "POST",
 				  url: absolutePath+ "/ServletGestioneRichiesteSegreteriaET",
 				  async:true,
-				  data: {"matricola": matricola, "flag": 3},
+				  data: {"matricola": matricola, "motivazione": motivazione, "flag": 3},
 				  success: function(resp){
 					  console.log(resp)
 					  if(resp){
