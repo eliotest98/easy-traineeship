@@ -168,7 +168,7 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
       throw new IllegalArgumentException("Il campo 'Residenza' non rispetta il formato");
     }
     // Controllo codice fiscale
-    tirocinante.setCodiceFiscale(request.getParameter("codiceFiscale"));
+    tirocinante.setCodiceFiscale(request.getParameter("codiceFiscale").toUpperCase());
     if (tirocinante.getCodiceFiscale() == null || tirocinante.getCodiceFiscale().length() == 0) {
       throw new IllegalArgumentException("Il campo 'Codice Fiscale' &egrave vuoto");
     }
