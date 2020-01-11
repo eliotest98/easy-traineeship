@@ -213,7 +213,7 @@
 								    <p>Sei sicuro di voler rifiutare la richiesta di Tirocinio?</p>
 								    <form id="modalRifiutoForm" action="../ServletGestioneRichiesteEnteET?flag=3" method="post">
 											<label for="nome">Inserisci Motivazione</label> 
-											<input type="text" class="form-control" id="motivazione" name="motivazione" placeholder="Motivazione del Rifiuto" minlength="1" maxlength="256" required>
+											<input type="text" class="form-control" id="motivazione" name="motivazione" placeholder="Motivazione del Rifiuto" minlength="1" maxlength="256" required pattern="[ 0-9a-zA-Z/./,]{1,256}">
 											<input type="hidden" name="codice" value="<%=(String)request.getParameter("codice") %>">	
 											<button onclick="rifiuta()"id="rifiuta" name="rifiutaRichiesta"  value="niente per il momento" type="submit" class="btn btn-primary btn-action eliminaEnte refuse" data-type="2" data-idrequest="35" title="Rifiuta Richiesta">Si</button>
 											<button onclick="notrifiuta()"id="close" name="nonRifiuta"  type="submit" class="btn btn-primary btn-action eliminaEnte refuse" data-type="2" data-idrequest="35" title="Annulla">No</button>
