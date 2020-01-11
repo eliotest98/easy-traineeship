@@ -133,7 +133,7 @@ public class TirocinioDAO {
 									+ "TIROCINANTE.EMAIL=USER.EMAIL && "
 									+ "TIROCINIO.STATOTIROCINIO!='Annullato' && "
 									+ "TIROCINIO.STATOTIROCINIO!='Rifiutato' && "
-									+ "TIROCINANTE.MATRICOLA="+matricola+"; ");
+									+ "TIROCINANTE.MATRICOLA='"+matricola+"'; ");
 			ResultSet res = ps.executeQuery();
 			//Ciclo che inserisce all' interno della lista i 'Tirocini'
 			//restituiti dalla query

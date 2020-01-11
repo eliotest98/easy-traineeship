@@ -61,7 +61,7 @@ class ServletUploadETTest {
 	String sql2 = ("INSERT INTO tirocinante VALUES('4859','"+new Date(0)+"','Salerno','italiana','Salerno','rlaplg98a08i805e','3294475051','p.aurilia@studenti.unisa.it');");
 	String sql3 = ("INSERT INTO User VALUES('green@gmail.com','Salvatore','Totti','M','pass98','3');");
 	String sql4 = ("INSERT INTO enteconvenzionato VALUES('11111111111','Avellino','Salvatore Totti','0825519149','100','Michele Persico','Michele Porto','08/01/1977','esperti in siti web','green@gmail.com');");
-	String sql5 = ("INSERT INTO tirocinio VALUES('1','"+ new Date(0)+"','11','informatica','javascript','Java','Bene','In attesa dell Ente','','ragazzo valido','4859','11111111111');");
+	String sql5 = ("INSERT INTO tirocinio VALUES('999','"+ new Date(0)+"','11','informatica','javascript','Java','Bene','In attesa dell Ente','','ragazzo valido','4859','11111111111');");
 
 	
 	@BeforeEach
@@ -87,7 +87,7 @@ class ServletUploadETTest {
 		try 
 		{
 		    Statement stmtSelect = conn.createStatement();
-		    String sql1 = ("DELETE FROM tirocinio WHERE CODTIROCINIO='1';");
+		    String sql1 = ("DELETE FROM tirocinio WHERE CODTIROCINIO='999';");
 		    stmtSelect.executeUpdate(sql1);
 		    String sql2 = ("DELETE FROM tirocinante WHERE matricola='4859';");
 		    stmtSelect.executeUpdate(sql2);
@@ -108,7 +108,7 @@ class ServletUploadETTest {
 	void testUploadStudente() {
 		
 		Tirocinio test1=new Tirocinio();
-		test1.setCodTirocinio(1);
+		test1.setCodTirocinio(999);
 		test1.setDataInizioTirocinio("1999-12-12");                  
 		test1.setCfuPrevisti((short) 11);
 		test1.setStatoTirocinio("In attesa Ente");
@@ -140,7 +140,7 @@ class ServletUploadETTest {
 	void testUploadAdmin() {
 		
 		Tirocinio test1=new Tirocinio();
-		test1.setCodTirocinio(1);
+		test1.setCodTirocinio(999);
 		test1.setDataInizioTirocinio("1999-12-12");                  
 		test1.setCfuPrevisti((short) 11);
 		test1.setStatoTirocinio("In attesa Ente");
@@ -155,7 +155,7 @@ class ServletUploadETTest {
 		
 		try {
 			
-			requestMock.addParameter("codTirocinio", "1");
+			requestMock.addParameter("codTirocinio", "999");
 			when(sessionMock.getAttribute("Tirocinio")).thenReturn(test1);
 			requestMock.setSession(sessionMock);
 			when(sessionMock.getAttribute("userET")).thenReturn("2");
@@ -173,7 +173,7 @@ class ServletUploadETTest {
 	void testUploadSegreteria() {
 		
 		Tirocinio test1=new Tirocinio();
-		test1.setCodTirocinio(1);
+		test1.setCodTirocinio(999);
 		test1.setDataInizioTirocinio("1999-12-12");                  
 		test1.setCfuPrevisti((short) 11);
 		test1.setStatoTirocinio("In attesa Ente");
@@ -188,9 +188,9 @@ class ServletUploadETTest {
 		
 		try {
 			
-			requestMock.addParameter("codTirocinio", "1");
-			when(sessionMock.getAttribute("Tirocinio")).thenReturn(test1);
+			requestMock.addParameter("codTirocinio", "999");
 			requestMock.setSession(sessionMock);
+			when(sessionMock.getAttribute("Tirocinio")).thenReturn(test1);
 			when(sessionMock.getAttribute("userET")).thenReturn("1");
 			requestMock.addPart(partMock);
 			
@@ -206,7 +206,7 @@ class ServletUploadETTest {
 	void testUploadEnte() {
 		
 		Tirocinio test1=new Tirocinio();
-		test1.setCodTirocinio(1);
+		test1.setCodTirocinio(999);
 		test1.setDataInizioTirocinio("1999-12-12");                  
 		test1.setCfuPrevisti((short) 11);
 		test1.setStatoTirocinio("In attesa Ente");
@@ -221,7 +221,7 @@ class ServletUploadETTest {
 		
 		try {
 
-			requestMock.addParameter("codTirocinio", "1");
+			requestMock.addParameter("codTirocinio", "999");
 			when(sessionMock.getAttribute("Tirocinio")).thenReturn(test1);
 			requestMock.setSession(sessionMock);
 			when(sessionMock.getAttribute("userET")).thenReturn("3");

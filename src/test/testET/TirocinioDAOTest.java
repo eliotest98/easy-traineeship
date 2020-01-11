@@ -23,10 +23,10 @@ class TirocinioDAOTest {
 	String modifiedDate= new SimpleDateFormat("yyyy-MM-dd").format(data);
 	
 	String sql1 = ("INSERT INTO User VALUES('p.aurilia@studenti.unisa.it','Pellegrino','Aurilia','M','pelle','0');");
-	String sql2 = ("INSERT INTO tirocinante VALUES('4859','"+modifiedDate+"','Salerno','italiana','Salerno','rlaplg98a08i805e','3294475051','p.aurilia@studenti.unisa.it');");
+	String sql2 = ("INSERT INTO tirocinante VALUES('4859','"+new Date(0)+"','Salerno','italiana','Salerno','rlaplg98a08i805e','3294475051','p.aurilia@studenti.unisa.it');");
 	String sql3 = ("INSERT INTO User VALUES('green@gmail.com','Salvatore','Totti','M','pass98','3');");
 	String sql4 = ("INSERT INTO enteconvenzionato VALUES('11111111111','Avellino','Salvatore Totti','0825519149','100','Michele Persico','Michele Porto','08/01/1977','esperti in siti web','green@gmail.com');");
-	String sql5 = ("INSERT INTO tirocinio VALUES('1','"+modifiedDate+"','11','informatica','javascript','Java','Bene','In attesa dell Ente','progettoformativa.pdf','ragazzo valido','4859','11111111111');");
+	String sql5 = ("INSERT INTO tirocinio VALUES('1','"+new Date(0)+"','11','informatica','javascript','Java','Bene','In attesa dell Ente','progettoformativa.pdf','ragazzo valido','4859','11111111111');");
 	
 	//metodo tearDown per rimuovere i campi inseriti durante i test
 	@AfterEach
