@@ -1,11 +1,13 @@
 package test.testET;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import java.io.*;
-import java.sql.*;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -15,20 +17,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.jupiter.api.*;
-import org.mockito.InjectMocks;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import controller.DbConnection;
 import controller.ServletGestioneRichiesteEnteET;
-import model.EnteConvenzionato;
-import model.Tirocinante;
-import model.Tirocinio;
-import model.DAO.TirocinioDAO;
+import controller.ServletVisualizzaTirocinanteET;
+import controller.ServletVisualizzaTirocinanteEnteET;
+import model.Secretary;
 
-class ServletGestioneRichiesteEnteETTest {
-	
+class ServletVisualizzaTirocinanteEnteETTest {
 	Connection conn = new DbConnection().getInstance().getConn();
 	//Creazione mock	
 	HttpServletRequest requestMock = mock(HttpServletRequest.class);
@@ -39,12 +38,13 @@ class ServletGestioneRichiesteEnteETTest {
 	Date data=new Date();
 	String modifiedDate= new SimpleDateFormat("yyyy-MM-dd").format(data);
 	
+	
 	@BeforeEach
 	public void setUp() {
-		EnteConvenzionato user = new EnteConvenzionato();
-		user.setEmail("test@test.test");
+		Secretary user = new Secretary();
+		user.setEmail("segreteria@unisa.it");
 		when(requestMock.getSession()).thenReturn(sessionMock);
-		when(sessionMock.getAttribute("userET")).thenReturn("3");
+		when(sessionMock.getAttribute("userET")).thenReturn("1");
 		when(sessionMock.getAttribute("user")).thenReturn(user);
 		try 
 		{
@@ -64,10 +64,6 @@ class ServletGestioneRichiesteEnteETTest {
 	    catch (Exception e) {
 	    	e.printStackTrace();
 	    }
-		Tirocinio tirocinio = new Tirocinio();
-		tirocinio.setCodTirocinio(999);
-
-		
 	}
 	
 	@AfterEach
@@ -91,38 +87,14 @@ class ServletGestioneRichiesteEnteETTest {
 		    e.printStackTrace();
 		}
 	}	
-	
-	//Test Reindirizzamento (Flag 1)
+
 	@Test
-	void testReindirizzamento() throws ServletException, IOException {
-		when(requestMock.getParameter("flag")).thenReturn("1");
-		when(requestMock.getRequestDispatcher("_areaEnteET/VisualizzaRichiestaEnteET.jsp")).thenReturn(dispatcherMock);
-		ServletGestioneRichiesteEnteET test = new ServletGestioneRichiesteEnteET();
-		test.doGet(requestMock, responseMock);
+	void testVisualizzaTirocinanteEnte() throws ServletException, IOException {
+		when(requestMock.getParameter("matricola")).thenReturn("4859");
+		when(requestMock.getRequestDispatcher("_areaEnteET/VisualizzaTirocinanteEnteET.jsp")).thenReturn(dispatcherMock);
+		ServletVisualizzaTirocinanteEnteET test = new ServletVisualizzaTirocinanteEnteET();
+		test.doPost(requestMock, responseMock);
 		verify(dispatcherMock).forward(requestMock, responseMock);
 	}
-	//Test Accettazione (flag 2)
-	@Test
-	void testAccettazione() throws ServletException, IOException {
-		when(requestMock.getParameter("flag")).thenReturn("2");
-		when(requestMock.getParameter("codice")).thenReturn("999");
-		when(requestMock.getRequestDispatcher("_areaEnteET/VisualizzaRichiestaEnteET.jsp")).thenReturn(dispatcherMock);
-		ServletGestioneRichiesteEnteET test = new ServletGestioneRichiesteEnteET();
-		test.doGet(requestMock, responseMock);
-		verify(dispatcherMock).forward(requestMock, responseMock);
-	}
-	//Test Rifiuto (flag 3)
-	@Test
-	void testRifiuto() throws ServletException, IOException {
-		when(requestMock.getParameter("flag")).thenReturn("3");
-		when(requestMock.getParameter("codice")).thenReturn("999");
-		when(requestMock.getParameter("Motivazione")).thenReturn("Hai scritto male");
-		when(requestMock.getRequestDispatcher("_areaEnteET/VisualizzaRichiestaEnteET.jsp")).thenReturn(dispatcherMock);
-		ServletGestioneRichiesteEnteET test = new ServletGestioneRichiesteEnteET();
-		test.doGet(requestMock, responseMock);
-		verify(dispatcherMock).forward(requestMock, responseMock);
-	}
-	
+
 }
-
-
