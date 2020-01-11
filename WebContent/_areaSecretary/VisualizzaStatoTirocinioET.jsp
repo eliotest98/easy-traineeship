@@ -20,7 +20,6 @@
 	tirocinio = (Tirocinio)request.getAttribute("tirocinio");
 	EnteConvenzionato enteConvenzionato = new EnteConvenzionato();
 	enteConvenzionato = (EnteConvenzionato)request.getAttribute("ente");
-
 	if(tirocinante==null)
 	{	
 		request.setAttribute("matricola", matricola);
@@ -94,7 +93,7 @@
 									class="col-lg-6 col-md-6 col-sm-12 col-xs-12 signUp-container">
 								<%
 								//Se la listaEnti non è null mostro la tabella
-								if(tirocinante!=null)
+								if(tirocinante!=null && tirocinio!=null)
 								{
 									//String format data di nascita
 									Date giorno = tirocinante.getDataNascita();
@@ -209,8 +208,16 @@
 										</div>
 										<div class="clearfix"></div>
 								
-								<%}%>
-								
+								<%} else if(tirocinio==null) {%>
+								<% tirocinante = (Tirocinante)request.getAttribute("tirocinante");%>
+									<div>
+									 <h3 style="text-align: center;"> 
+										Il Tirocinante <% out.println(tirocinante.getName() + " " + tirocinante.getSurname()+ " con Matricola n. : 0"+tirocinante.getMatricola()); %> <br>
+										non possiede alcuna richiesta di tirocinio attiva. <br>
+										Clicca <a href="../_areaSecretary/VisualizzaListaTirocinantiET.jsp"> qui </a> per tornare alla pagina precedente. <br>
+									 </h3> 
+									</div>
+								<%} %>
 								<!-- Modal Annullamento -->
 								<div id="myModalAnnullamento" class="modal">
 								
@@ -234,7 +241,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
 		<jsp:include page="/partials/footer.jsp" />
 	</div>
 	<!--End pagewrapper-->

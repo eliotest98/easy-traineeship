@@ -67,7 +67,10 @@ public class ServletStatoTirocinioET extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 		else {
-			response.sendRedirect("/_areaSecretary/viewRequest.jsp");
+			request.setAttribute("tirocinante", tirocinante);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/_areaSecretary/VisualizzaStatoTirocinioET.jsp");
+			dispatcher.forward(request, response);
+			//response.sendRedirect("../_areaSecretary/viewRequest.jsp");
 		}
 	}
 
