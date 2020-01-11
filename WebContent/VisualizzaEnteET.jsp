@@ -49,6 +49,7 @@
   padding: 20px;
   border: 1px solid #888;
   width: 25%;
+  text-align: center;
 }
 
 /* The Close Button */
@@ -153,8 +154,8 @@
 								  <div class="modal-content">
 								    <span class="close"></span>
 								    <p>Sei sicuro di voler eliminare l'Ente?</p>
-											<button onclick="return elimina()" id="email"  class="btn btn-primary btn-action eliminaEnte refuse" data-type="2" data-idrequest="35" title="Elimina Ente">Si</button>
-											<button onclick="notelimina()"id="close"   type="submit" class="btn btn-primary btn-action eliminaEnte refuse" data-type="2" data-idrequest="35" title="Annulla">No</button>
+											<button onclick="return elimina()" id="email"  style=" width:30px;background-color:#FF9900;outline:none;border:4px solid #FF9900;border-radius:5px; color:white; margin:2%;" data-type="2" data-idrequest="35" title="Elimina Ente">Si</button>
+											<button onclick="notelimina()"id="close"   type="submit" style=" width:30px;background-color:#FF9900;outline:none;border:4px solid #FF9900;border-radius:5px; color:white; margin:2%;" data-type="2" data-idrequest="35" title="Annulla">No</button>
 									</div>
 								
 								</div>
@@ -285,6 +286,7 @@
 			<script>
 			function notelimina()
 			{
+				modal.style.display = "none";
 				showAlert();
 				toastr.error("Eliminazione non effettuata");
 			}

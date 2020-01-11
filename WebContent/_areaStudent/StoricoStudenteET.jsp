@@ -263,6 +263,7 @@
 			<script>
 			function notelimina()
 			{
+				modal.style.display = "none";
 				showAlert();
 				toastr.error("Annullamento non effettuato");
 			}

@@ -199,8 +199,8 @@
 								  		<table>
 								  		<tr><td>
 								  		  <%request.setAttribute("matricola", matricola);%>
-								  		  <button onclick="return accetta()" id="accetta"  value="<%=matricola %>" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Accetta Richiesta">Si</button> </td>
-										 <td><button onclick="notaccetta()"id="close" name="nonAccetta" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button></td></tr>
+								  		  <button onclick="return accetta()" id="accetta"  value="<%=matricola %>" class="btn btn-primary btn-action eliminaEnte refuse" data-type="2" data-idrequest="35" title="Accetta Richiesta">Si</button> </td>
+										 <td><button onclick="notaccetta()"id="close" name="nonAccetta" class="btn btn-primary btn-action eliminaEnte refuse" data-type="2" data-idrequest="35" title="Annulla">No</button></td></tr>
 										</table>
 										
 									</div>
@@ -215,8 +215,8 @@
 								    <p>Sei sicuro di voler rifiutare la richiesta di Tirocinio?</p>
 											<label for="nome">Inserisci Motivazione</label> 
 											<input type="text" class="form-control" id="motivazione" name="motivazione" placeholder="Motivazione del Rifiuto" minlength="1" maxlength="256" required>
-											<button onclick="return rifiuta()"id="rifiuta"  value="<%=matricola %>" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Rifiuta Richiesta">Si</button>
-											<button onclick="notrifiuta()"id="close" name="nonRifiuta"  class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button>
+											<button onclick="return rifiuta()"id="rifiuta"  value="<%=matricola %>" class="btn btn-primary btn-action eliminaEnte refuse"  data-type="2" data-idrequest="35" title="Rifiuta Richiesta">Si</button>
+											<button onclick="notrifiuta()"id="close" name="nonRifiuta"  class="btn btn-primary btn-action eliminaEnte refuse"  data-type="2" data-idrequest="35" title="Annulla">No</button>
 									</div>
 								</div>
 								</div>

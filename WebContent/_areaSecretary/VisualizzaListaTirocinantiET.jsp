@@ -65,7 +65,7 @@
 													<td class='text-center'><%=listaTirocinanti.get(i).getName()%></td>
 													<td class='text-center'><%=listaTirocinanti.get(i).getSurname()%></td>
 													<td class="text-center" align="center">
-														<a href='VisualizzaStatoTirocinioET.jsp?matricola=<%=listaTirocinanti.get(i).getMatricola()%>' class="btn btn-primary btn-action modificaEnte" title="Accetta/Rifiuta" data-idrequest="35"><i class="fa fa-eye"></i></a>
+														<a href='VisualizzaStatoTirocinioET.jsp?matricola=<%=listaTirocinanti.get(i).getMatricola()%>' class="btn btn-primary btn-action modificaEnte" title="Visualizza Stato" data-idrequest="35"><i class="fa fa-eye"></i></a>
 													</td>
 												</tr>
 											<%
