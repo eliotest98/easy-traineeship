@@ -37,9 +37,10 @@ class ServletVisualizzaListaTirocinantiETTest {
 	}
 	@Test
 	void testReindirizzamentoVisualizzaListaTirocinanti() throws ServletException, IOException {
-		when(requestMock.getRequestDispatcher("VisualizzaListaTirocinantiET.jsp")).thenReturn(dispatcherMock);
+		when(requestMock.getRequestDispatcher("/_areaSecretary/VisualizzaListaTirocinantiET.jsp")).thenReturn(dispatcherMock);
 		ServletVisualizzaListaTirocinantiET test = new ServletVisualizzaListaTirocinantiET();
 		test.doGet(requestMock, responseMock);
+		verify(dispatcherMock).forward(requestMock, responseMock);
 	}
 	
 }
