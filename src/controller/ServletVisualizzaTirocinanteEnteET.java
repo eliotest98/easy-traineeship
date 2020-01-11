@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Tirocinante;
 import model.Tirocinio;
-import model.DAO.EnteConvenzionatoDAO;
 import model.DAO.TirocinanteDAO;
 import model.DAO.TirocinioDAO;
 

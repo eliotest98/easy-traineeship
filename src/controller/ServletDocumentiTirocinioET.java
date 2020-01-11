@@ -22,7 +22,6 @@ import model.DAO.TirocinioDAO;
 public class ServletDocumentiTirocinioET extends HttpServlet {
   private static final long serialVersionUID = 1L;
   private final TirocinioDAO tirocinioDAO = new TirocinioDAO();
-  private final TirocinanteDAO tirocinanteDAO = new TirocinanteDAO();
   private final EnteConvenzionatoDAO enteconvenzionatoDAO = new EnteConvenzionatoDAO();
 
   public ServletDocumentiTirocinioET() {
