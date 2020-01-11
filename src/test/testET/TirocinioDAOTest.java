@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
 import java.util.*;
-import java.util.Date;
+import java.sql.Date;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 
@@ -19,8 +19,6 @@ class TirocinioDAOTest {
 
 	Connection conn = new DbConnection().getInstance().getConn();
 	TirocinioDAO tirocinioDao = new TirocinioDAO();
-	Date data=new Date();
-	String modifiedDate= new SimpleDateFormat("yyyy-MM-dd").format(data);
 	
 	String sql1 = ("INSERT INTO User VALUES('p.aurilia@studenti.unisa.it','Pellegrino','Aurilia','M','pelle','0');");
 	String sql2 = ("INSERT INTO tirocinante VALUES('4859','"+new Date(0)+"','Salerno','italiana','Salerno','rlaplg98a08i805e','3294475051','p.aurilia@studenti.unisa.it');");
@@ -250,7 +248,7 @@ class TirocinioDAOTest {
     	conn.commit();
 		Tirocinio test1=new Tirocinio();
 		test1.setCodTirocinio(1);
-		test1.setDataInizioTirocinio(modifiedDate);                  
+		test1.setDataInizioTirocinio(""+new Date(0));                  
 		test1.setCfuPrevisti((short) 11);
 		test1.setCompetenze("reti");
 		test1.setCompetenzeAcquisire("javaScript");
@@ -324,7 +322,7 @@ class TirocinioDAOTest {
 		
 		Tirocinio nuovo=new Tirocinio();
 		nuovo.setCodTirocinio(1);
-		nuovo.setDataInizioTirocinio(modifiedDate);
+		nuovo.setDataInizioTirocinio(""+new Date(0));
 		nuovo.setCfuPrevisti((short)8);
 		nuovo.setCompetenze("java");
 		nuovo.setCompetenzeAcquisire("javascript");
