@@ -228,7 +228,7 @@
 								  		<table>
 								  		<tr><td><form id="modalAnnullaForm" action="../ServletGestioneRichiesteSegreteriaET" method="post">
 								  		  <%request.setAttribute("matricola", matricola);%>
-								  		  <button onclick="annulla()"id="modalAnnullaButton" name="flag" value="2<%=matricola %>" type="submit" class="btn btn-primary btn-action eliminaEnte refuse"  data-type="2" data-idrequest="35" title="Annulla Richiesta">Si</button> </form></td>
+								  		  <button onclick="annulla()"id="modalAnnullaButton" name="flag" value="<%=matricola %>" type="submit" class="btn btn-primary btn-action eliminaEnte refuse"  data-type="2" data-idrequest="35" title="Annulla Richiesta">Si</button> </form></td>
 										 <td><button onclick="notaccetta()"id="close" name="nonAccetta" class="btn btn-primary btn-action eliminaEnte refuse"  data-type="2" data-idrequest="35" title="Annulla">No</button></td></tr>
 										</table>
 										
@@ -301,20 +301,7 @@
 					return false;
 				}*/
 			}
-			//Quando l'utente clicca sul tasto2 apri il modal
-			btnRifiuto.onclick = function() {
-			  modalRifiuto.style.display = "block";
-			 /* if(btn == email)
-				{	
-					showAlert();
-					return true;
-				}
-				else
-				{
-					showAlert();
-					return false;
-				}*/
-			}
+			
 			// When the user clicks on <span> (x), close the modal
 			span.onclick = function() {
 			  modalAnnullamento.style.display = "none";
@@ -324,11 +311,10 @@
 			// When the user clicks anywhere outside of the modal, close it
 			window.onclick = function(event) {
 			  if (event.target == modalAnnullamento) {
-			    modalAnnullamento.style.display = "none";
+				modalAnnullamento.style.display = "none";
 			    toastr.error("Annullamento non effettuato");
 			  }
-
-		}
+			}
 		</script>
 		<script>
 		function annulla()
@@ -355,7 +341,7 @@
 							toastr.success("Annullamento non effettuato");
 						    modalAnnullamento.style.display = "none";
 						     setTimeout(function(){// wait for 5 secs(2)
-						           location.replace="VisualizzaStatoTirocinio.jsp"; // then reload the page.(3)
+						           location.replace="VisualizzaStatoTirocinioET.jsp"; // then reload the page.(3)
 						      }, 3000); 
 						     }
 				  }
