@@ -149,12 +149,14 @@ public class ServletModificaEnteET extends HttpServlet {
 		PrintWriter out = response.getWriter();
 	    out.println("La modifica e' avvenuta con successo");
 	    out.close();
+	    return;
     	}
     	else {
       		response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
         	PrintWriter out = response.getWriter();
     	    out.println("Modifica non effettuata");
     	    out.close();
+    	    return;
     	}
     } catch (Exception e) {
       e.printStackTrace();
