@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -85,14 +86,24 @@ public class ServletAnnullaEnteDaStudenteET extends HttpServlet {
       }
       // controllo se l'inserimento � andato a buon fine
       if (ins == true) {
-        String pag = "_areaStudent/StoricoStudenteET.jsp";
-        RequestDispatcher dispatcher = request.getRequestDispatcher(pag);
-        dispatcher.forward(request, response);
+    	 response.setStatus(HttpServletResponse.SC_OK);
+  		PrintWriter out = response.getWriter();
+  	    out.println("L'inserimento e' avvenuta con successo");
+  	    out.close();
+  	    return;
       } else {
-        System.out.println("inserimento non eseguito con successo");
+    	  response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
+    	  PrintWriter out = response.getWriter();
+    	  out.println("L'inserimento e' fallito");
+    	  out.close();
+    	  return;
       }
     } else {
-      System.out.println("cambio dello stato non eseguito con successo");
+    	response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
+  	  	PrintWriter out = response.getWriter();
+  	  	out.println("Errore nel cambio di stato");
+  	  	out.close();
+  	  	return;
     }
   }
 }
