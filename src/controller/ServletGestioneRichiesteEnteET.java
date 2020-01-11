@@ -78,7 +78,7 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
 	    	else if (flag.equals("2")) {
 	    		try {
 	    			String codice = request.getParameter("codice");
-	    			tirocinioDAO.modificaStatoTirocinio(Integer.valueOf(codice), "Accettato e in attesa di firma (tutti)");
+	    			tirocinioDAO.modificaStatoTirocinio(Integer.valueOf(codice), "Accettato e in attesa di firma");
 	    		}
 	    		catch (Exception e) {
 	    			e.printStackTrace();
