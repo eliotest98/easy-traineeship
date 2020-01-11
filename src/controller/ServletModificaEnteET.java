@@ -147,7 +147,7 @@ public class ServletModificaEnteET extends HttpServlet {
     	if(res) {
     	response.setStatus(HttpServletResponse.SC_OK);
 		PrintWriter out = response.getWriter();
-	    out.println("La modifica &egrave avvenuta con successo");
+	    out.println("La modifica e' avvenuta con successo");
 	    out.close();
     	}
     	else {
