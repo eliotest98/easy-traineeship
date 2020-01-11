@@ -56,6 +56,7 @@
 										<p class="text-center">Compila tutti i campi per
 											modificare un nuovo ente.</p>
 									</div>
+									<form id="signUp"  onsubmit="return sendRequest()">
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="name">Nome Ente</label> <input type="text"
 												class="form-control" id="name" name="name"
@@ -129,6 +130,7 @@
 												Ente</button>
 										</div>
 										<div class="clearfix"></div>
+								</form>
 								</div>
 							</div>
 						</div>
@@ -160,7 +162,7 @@
 			$.ajax({
 				  type: "POST",
 				  url: absolutePath+ "/ServletModificaEnteET",
-				  async:true,
+				  async:false,
 				  data: {
 					  "name": name, 
 					  "partitaIva": partitaIva,
