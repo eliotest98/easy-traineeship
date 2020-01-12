@@ -56,6 +56,7 @@
   padding: 20px;
   border: 1px solid #888;
   width: 25%;
+  text-align:center;
 }
 
 /* The Close Button */
@@ -228,8 +229,8 @@
 								  		<table>
 								  		<tr><td><form id="modalAnnullaForm" action="../ServletGestioneRichiesteSegreteriaET" method="post">
 								  		  <%request.setAttribute("matricola", matricola);%>
-								  		  <button onclick="annulla()"id="modalAnnullaButton" name="flag" value="<%=matricola %>" type="submit" class="btn btn-primary btn-action eliminaEnte refuse"  data-type="2" data-idrequest="35" title="Annulla Richiesta">Si</button> </form></td>
-										 <td><button onclick="notaccetta()"id="close" name="nonAccetta" class="btn btn-primary btn-action eliminaEnte refuse"  data-type="2" data-idrequest="35" title="Annulla">No</button></td></tr>
+								  		  <button onclick="annulla()"id="modalAnnullaButton" name="flag" value="<%=matricola %>" type="submit" style=" width:30px;background-color:#FF9900;outline:none;border:4px solid #FF9900;border-radius:5px; color:white; margin:2%;"  data-type="2" data-idrequest="35" title="Annulla Richiesta">Si</button> </form></td>
+										 <td><button onclick="notaccetta()"id="close" name="nonAccetta" style=" width:30px;background-color:#FF9900;outline:none;border:4px solid #FF9900;border-radius:5px; color:white; margin:2%;"  data-type="2" data-idrequest="35" title="Annulla">No</button></td></tr>
 										</table>
 										
 									</div>
