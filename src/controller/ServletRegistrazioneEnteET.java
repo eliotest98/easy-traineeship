@@ -1,11 +1,11 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -153,22 +153,11 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
      * Inserimento nel DB.
      */
     try {
-    	boolean res = enteConDao.inserisciEnte(enteCon);
-    	if(res) {
-    	request.setAttribute("La registrazione e' avvenuta con successo", mess);
-    	response.setStatus(HttpServletResponse.SC_OK);
-		PrintWriter out = response.getWriter();
-	    out.println("La registrazione e' avvenuta con successo");
-	    out.close();
-	    return;
-    	}
-    	else {
-      		response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
-        	PrintWriter out = response.getWriter();
-    	    out.println("Registrazione non effettuata");
-    	    out.close();
-    	    return;
-    	}
+    	enteConDao.inserisciEnte(enteCon);
+    	request.setAttribute("La registrazione &egrave avvenuta con successo", mess);
+        // Controlla jsp
+        RequestDispatcher dispatcher = request.getRequestDispatcher("VisualizzaEnteET.jsp"); 
+        dispatcher.forward(request, response);
     } catch (Exception e) {
     	e.printStackTrace();
     }

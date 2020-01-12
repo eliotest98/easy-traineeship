@@ -1,11 +1,11 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -150,21 +150,14 @@ public class ServletModificaEnteET extends HttpServlet {
      * Modifica nel DB.
      */
     try {
-    	boolean res = enteConDao.modificaEnte(enteCon);
-    	if(res) {
-    	response.setStatus(HttpServletResponse.SC_OK);
-		PrintWriter out = response.getWriter();
-	    out.println("La modifica e' avvenuta con successo");
-	    out.close();
-	    return;
-    	}
-    	else {
-      		response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
-        	PrintWriter out = response.getWriter();
-    	    out.println("Modifica non effettuata");
-    	    out.close();
-    	    return;
-    	}
+      if (!enteConDao.modificaEnte(enteCon)) {
+        throw new IllegalArgumentException("La registrazione non &egrave; stata effettuata");
+      } else {
+        request.setAttribute("La modifica &egrave; avvenuta con successo", mess);
+        //Controlla jsp
+        RequestDispatcher dispatcher = request.getRequestDispatcher("VisualizzaEnteET.jsp");
+        dispatcher.forward(request, response);
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }

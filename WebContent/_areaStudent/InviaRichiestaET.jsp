@@ -52,10 +52,11 @@
                                     <h2 class="text-center">Invio Richiesta Tirocinio:</h2>
                                     <p class="text-center">Compilare i campi per l'invio della richiesta di inizio Tirocinio.</p>
                                 </div>
-                                <!-- Form per l'invio della richiesta.
+                                <!-- Form per l'invio della richiesta. 
                                 	 NB: javascrip è relativo, essendo state inserite le espressioni regolari
                                 	 all'interno dell'input type, nell'attributo PATTERN. -->
-                                <form id="invioRichiestaTirocinio" onsubmit="sendRequest()">
+                                <form action="../ServletRichiestaInizioTirocinioET" method="post" 
+                                	  id="invioRichiestaTirocinio" onsubmit="return check()">
                                 	<!-- Campo nome tirocinante, lunghezza fra 1 e 50, formato solo lettere. -->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="nomeTirocinante">Nome</label>
@@ -190,8 +191,7 @@
                                         </button>
                                     </div>
                                     <div class="clearfix"></div>
-                                   </form>
-                                    
+                                </form>
                                   <%
                                   	}
                                 	//	
@@ -226,35 +226,8 @@
     </div>
     <jsp:include page="/partials/footer.jsp" />
 </div>
-<jsp:include page="/partials/includes.jsp" />
-<script>
-function sendRequest(){
-	var matricola = document.getElementById("matricolaTirocinante");
-$.ajax({
-	  type: "POST",
-	  url: absolutePath+ "/ServletRichiestaInizioTirocinioET",
-	  async:false,
-	  data: {
-	"matricolaTirocinante":matricola
-		  },
-	  success: function(msg){
-		  console.log(msg)
-		showAlert();
-		toastr.success(msg);
-	     setTimeout(function(){// wait for 5 secs(2)
-	           location.href=absolutePath+"/_areaStudent/HomeStudente.jsp" // then reload the page.(3)
-	      }, 3000); 
-	     },
-	   error: function(msg){
-			showAlert();
-			toastr.success(msg);
-		     setTimeout(function(){// wait for 5 secs(2)
-		           location.href=absolutePath+"/_areaStudent/HomeStudente.jsp" // then reload the page.(3)
-		      }, 3000); 
-	   }
-	  })
-	}
-</script>
 
+<!--End pagewrapper
+<jsp:include page="/partials/includes.jsp" />-->
 </body>
 </html>
