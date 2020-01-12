@@ -226,44 +226,7 @@
     </div>
     <jsp:include page="/partials/footer.jsp" />
 </div>
-<script>
-	/*Controllo se la matricola inizia con 051210, informatica*/
-	function checkMatricola()
-	{
-		 var matricola = document.getElementById("matricolaTirocinante").value;
-		 var mat = matricola.substring(0, 6);
-		 /*vede se matcha*/
-		 if(mat == "051210")
-		 {
-			 console.log("si");
-			 showAlert();
-			 toastr.success("Matricola corretta.");
-			 return true;
-		 }
-		 else
-		 {
-			 showAlert();
-			 toastr.warning("Matricola non rilevata.");
-			 return false;
-		 }
-	}
-	/*Funzione che consente la sottomissione dei campi alla richiesta.*/
-	function check()
-	{
-		if(checkMatricola())
-		{	
-			showAlert();
-			toastr.success("Invio richiesta Tirocinio completato con successo.");
-			return true;
-		}
-		else
-		{
-			showAlert();
-			toastr.error("Invio non riuscito.");
-			return false;
-		}
-	}
-</script>
+
 <!--End pagewrapper
 <jsp:include page="/partials/includes.jsp" />-->
 </body>
