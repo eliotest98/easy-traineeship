@@ -24,6 +24,7 @@
 			<jsp:param name="pageName" value="<%=pageName%>" />
 			<jsp:param name="pageFolder" value="<%=pageFolder%>" />
 		</jsp:include>
+		
 		<div class="sidebar-page-container basePage viewRequestStudent">
 			<div class="auto-container">
 				<div class="row clearfix">
@@ -68,5 +69,14 @@
 	</div>
 	<!--End pagewrapper-->
 	<jsp:include page="/partials/includes.jsp" />
+	<%
+		if (request.getParameter("prova").equals("1")) {
+		%>
+		<script>
+		toastr.success("Richiesta effettuata con successo");
+		</script>
+		<%
+		}
+		%>
 </body>
 </html>

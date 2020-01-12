@@ -299,7 +299,7 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
     
     //RequestDispatcher d = request.getRequestDispatcher("/_areaStudent/HomeStudente.jsp");
     //d.forward(request, response);
-    response.sendRedirect(request.getContextPath()+"/_areaStudent/HomeStudente.jsp");
+    response.sendRedirect(request.getContextPath()+"/_areaStudent/HomeStudente.jsp?prova=1");
   }
 
   /**
