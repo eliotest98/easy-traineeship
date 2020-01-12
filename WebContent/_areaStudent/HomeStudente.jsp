@@ -73,6 +73,7 @@
 		if (request.getParameter("prova").equals("1")) {
 		%>
 		<script>
+		showAlert();
 		toastr.success("Richiesta effettuata con successo");
 		</script>
 		<%
