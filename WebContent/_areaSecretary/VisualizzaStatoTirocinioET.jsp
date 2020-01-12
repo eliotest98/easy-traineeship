@@ -244,12 +244,14 @@
 										%>
 									</div>
 									<!-- Campo Descrizione -->
+									<% if (tirocinio.getPartitaIva() != null){ %>
 									<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 										<strong>Descrizione </strong>
 										<%
 											out.println("<br>" + tirocinio.getDescrizioneEnte());
 										%>
 									</div>
+									<%} %>
 									<!-- Campo Stato del tirocinio -->
 									<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 										<strong>Stato del Tirocinio </strong>
@@ -257,9 +259,6 @@
 											out.println("<br>" + tirocinio.getStatoTirocinio());
 										%>
 									</div>
-									<%
-										if (tirocinio.getStatoTirocinio().equals("Completo")) {
-									%>
 									<!--  Campo Data Inizio Tirocinio -->
 									<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 										<strong>Data Inizio Tirocinio </strong>
@@ -267,9 +266,10 @@
 											out.println("<br>" + datainiziotirocinio);
 										%>
 									</div>
-									<%
-										}
-									%>
+									<!-- Campo Codice Tirocinio -->
+									<div>
+									<input type="hidden" class="form-control" id="codice" name="codice" value="<%=tirocinio.getCodTirocinio()%>" required>
+									</div>
 									<!-- Tasto Annulla -->
 									<div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
 										<button id="Annulla" type="submit"
@@ -309,18 +309,13 @@
 											<p>Sei sicuro di voler annullare il Tirocinio?</p>
 											<table>
 												<tr>
-													<td><form id="modalAnnullaForm"
-															action="../ServletGestioneRichiesteSegreteriaET"
-															method="post">
-															<%
-																request.setAttribute("matricola", matricola);
-															%>
-															<button onclick="annulla()" id="modalAnnullaButton"
+													<td><% request.setAttribute("matricola", matricola);%>
+													<button onclick="return annulla()" id="modalAnnullaButton"
 																name="flag" value="<%=matricola%>" type="submit"
 																class="btn btn-primary btn-action eliminaEnte refuse"
 																data-type="2" data-idrequest="35"
 																title="Annulla Richiesta">Si</button>
-														</form></td>
+														</td>
 													<td><button onclick="notaccetta()" id="close"
 															name="nonAccetta"
 															class="btn btn-primary btn-action eliminaEnte refuse"
@@ -390,7 +385,7 @@
 
 		// When the user clicks the button, open the modal 
 		btnAnnullamento.onclick = function() {
-			modalAnnullamento.style.display = "block";
+		modalAnnullamento.style.display = "block";
 			/* if(btn == email)
 			{	
 				showAlert();
@@ -419,37 +414,35 @@
 	</script>
 	<script>
 		function annulla() {
-			var matricola = document.getElementById("annulla").value;
-
-			$
-					.ajax({
-						type : "POST",
-						url : absolutePath + "/ServletAnnullaTirocinioET",
-						async : true,
-						data : {
-							"matricola" : matricola
-						},
-						success : function(resp) {
-							console.log(resp)
-							if (resp) {
-								showAlert();
-								toastr
-										.success("Annullamento effettuato con successo");
-								modalAnnullamento.style.display = "none";
-								setTimeout(
-										function() {// wait for 5 secs(2)
-											window.location
-													.replace(absolutePath
-															+ "/_areaSecretary/VisualizzaListaTirocinantiET.jsp"); // then reload the page.(3)
-										}, 1000);
-							} else {
-								showAlert();
-								toastr.success("Annullamento non effettuato");
-								modalAnnullamento.style.display = "none";
-								setTimeout(
-										function() {// wait for 5 secs(2)
-											location.replace = "VisualizzaStatoTirocinioET.jsp"; // then reload the page.(3)
-										}, 3000);
+			var matricola = document.getElementById("modalAnnullaButton").value;
+			var cod = document.getElementById("codice").value;
+			$.ajax({
+					type : "POST",
+					url : absolutePath + "/ServletAnnullaTirocinioET",
+					async : true,
+					data : { "matricola" : matricola, "cod" : cod
+					},
+					success : function(resp) {
+						console.log(resp)
+						if (resp) {
+							showAlert();
+							toastr
+									.success("Annullamento effettuato con successo");
+							modalAnnullamento.style.display = "none";
+							setTimeout(
+									function() {// wait for 5 secs(2)
+										window.location
+												.replace(absolutePath
+														+ "/_areaSecretary/VisualizzaListaTirocinantiET.jsp"); // then reload the page.(3)
+									}, 1000);
+						} else {
+							showAlert();
+							toastr.success("Annullamento non effettuato");
+							modalAnnullamento.style.display = "none";
+							setTimeout(
+									function() {// wait for 5 secs(2)
+										location.replace = "VisualizzaStatoTirocinioET.jsp"; // then reload the page.(3)
+									}, 3000);
 							}
 						}
 					});
