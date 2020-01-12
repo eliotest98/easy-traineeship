@@ -61,7 +61,7 @@
 												for( int i = 0; i < listaTirocinanti.size(); i++)
 												{ %>
 												<tr role='row' >
-													<td class='text-center'><%=listaTirocinanti.get(i).getMatricola()%></td>
+													<td class='text-center'>0<%=listaTirocinanti.get(i).getMatricola()%></td>
 													<td class='text-center'><%=listaTirocinanti.get(i).getName()%></td>
 													<td class='text-center'><%=listaTirocinanti.get(i).getSurname()%></td>
 													<td class="text-center" align="center">
