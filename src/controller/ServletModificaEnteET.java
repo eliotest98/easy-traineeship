@@ -1,6 +1,11 @@
 package controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -53,10 +58,18 @@ public class ServletModificaEnteET extends HttpServlet {
       throw new IllegalArgumentException("Il campo 'Nome Rappresentante' non rispetta il formato");
     }
     // Controllo Data di nascita rappresentante
-    String dataDiNascita = request.getParameter("dataDiNascita");
-    if (!dataDiNascita.matches("^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}")) {
-      throw new IllegalArgumentException("Il campo 'Data di Nascita' non rispetta il formato");
-    }
+    GregorianCalendar g = new GregorianCalendar();
+    SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
+    String dat = request.getParameter("dataDiNascita");
+    if (dat == null) {
+        throw new IllegalArgumentException("Il campo 'Data di Nascita' &egrave vuoto");
+      }
+    try {
+        g.setTime((Date) formatter1.parseObject(dat));
+        java.sql.Date data = new java.sql.Date(g.getTimeInMillis());
+      } catch (ParseException e) {
+        e.printStackTrace();
+      }
     // Controllo Numero di Dipendenti
     String dipendenti = request.getParameter("dipendenti");
     if (!dipendenti.matches("^[0-9]+$")) {
@@ -71,7 +84,6 @@ public class ServletModificaEnteET extends HttpServlet {
     } else if (!dotRiferimento.matches("^[ a-zA-Z]+$")) {
       throw new IllegalArgumentException("Il campo 'Professore di Riferimento' non rispetta il formato");
     }
-
     // Controllo email
     String email = request.getParameter("email");
     String prefix = "";
@@ -85,9 +97,6 @@ public class ServletModificaEnteET extends HttpServlet {
     }
     if (email.length() > 64) {
     	throw new IllegalArgumentException("Il campo 'E-mail' supera la lunghezza consentita");
-    }
-    else if ((!postfix.matches("@[A-z0-9\\.\\_\\-]+\\.[A-z]{2,6}")) || (prefix.length() < 3)) {
-      throw new IllegalArgumentException("Il campo 'E-mail' non rispetta il formato");
     }
     // Controllo Sede
     String sede = request.getParameter("sede");
@@ -135,7 +144,7 @@ public class ServletModificaEnteET extends HttpServlet {
      * Istanziazione dell'oggetto EnteConvezionato.
      */
     EnteConvenzionato enteCon = new EnteConvenzionato(email, name, "NA", 'N', password, 3,
-        dataDiNascita, partitaIva, sede, rappresentante, referente, telefono,
+        dat, partitaIva, sede, rappresentante, referente, telefono,
         Integer.parseInt(dipendenti), dotRiferimento, "TE", descrizioneAttivita);
     /**
      * Modifica nel DB.
