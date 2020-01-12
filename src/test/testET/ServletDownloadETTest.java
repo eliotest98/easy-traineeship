@@ -57,6 +57,19 @@ class ServletDownloadETTest {
 	}
 	
 	@Test
+	void testDownloadETFail() {
+		try {
+			when(sessionMock.getAttribute("Tirocinio")).thenReturn(null);
+			when(requestMock.getParameter("cod")).thenReturn("1");
+			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
+			assertEquals("Errore nel codice del tirocinio",e.getMessage());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
 	void testDownloadET() {
 		try {
 			Tirocinio test1=new Tirocinio();
