@@ -232,31 +232,27 @@
 			
 			function elimina()
 			{
-				console.log("Sto eliminando " + email);
 				$.ajax({
 					  type: "POST",
 					  url: absolutePath+ "/ServletAnnullaEnteDaStudenteET",
-					  async:true,
+					  async:false,
 					  data: {"enteEmail": email},
-					  success: function(resp){
-						  console.log(resp)
-						  if(resp){
+					  success: function(msg){					
 						showAlert();
-						toastr.success("Annullamento effettuato con successo");
+						toastr.success(msg);
 					    modal.style.display = "none";
 					    setTimeout(function(){// wait for 5 secs(2)
 					           location.reload(); // then reload the page.(3)
 					      }, 1000);
-						return true;
-					  }
-						  else{
-								showAlert();
-								toastr.error("Annullamento non effettuato");
-							    modal.style.display = "none";
-								return false;
-						  }
-							  
-					  }
+					  },
+					error: function(msg){
+						showAlert();
+						toastr.error(msg);
+					    modal.style.display = "none";
+					    setTimeout(function(){// wait for 5 secs(2)
+					           location.reload(); // then reload the page.(3)
+					      }, 1000);
+					}
 					});
 			}
 			</script>
@@ -266,6 +262,7 @@
 				modal.style.display = "none";
 				showAlert();
 				toastr.error("Annullamento non effettuato");
+			    modal.style.display = "none";
 			}
 		</script>
 </body>

@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -277,15 +278,24 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
     TirocinanteDAO t = new TirocinanteDAO();
     if(t.inserisciTirocinante(tirocinante)==false)
     {
-      throw new IllegalArgumentException("La query di inserimentodel Tirocinante non � andata a buon fine");
+      	response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
+		PrintWriter out = response.getWriter();
+	    out.println("Richiesta non effettuata");
+	    out.close();
+	    return;
+	    //throw new IllegalArgumentException("La query di inserimentodel Tirocinante non � andata a buon fine");
     }
-
     //Setto il tirocinio nel database
     TirocinioDAO ti = new TirocinioDAO();
     if(ti.inserisciTirocinio(tirocinio)==false)
     {
-      throw new IllegalArgumentException("La query di inserimento del Tirocinio non � andata a buon fine");
-    }
+    	response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
+		PrintWriter out = response.getWriter();
+	    out.println("Richiesta non effettuata");
+	    out.close();
+	    return;
+	    //throw new IllegalArgumentException("La query di inserimento del Tirocinio non � andata a buon fine");
+  }
     
     //Mi setto il tirocininante nel TIROCINIO
     tirocinio.setTirocinante(tirocinante);
@@ -296,10 +306,12 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
     request.getSession().setAttribute("Tirocinante", tirocinante);
     System.out.println("Tirocinante matricola " + tirocinante.getMatricola());
     request.getSession().setAttribute("Tirocinio", tirocinio); 
-    
-    //RequestDispatcher d = request.getRequestDispatcher("/_areaStudent/HomeStudente.jsp");
-    //d.forward(request, response);
-    response.sendRedirect(request.getContextPath()+"/_areaStudent/HomeStudente.jsp");
+	response.setStatus(HttpServletResponse.SC_OK);
+	PrintWriter out = response.getWriter();
+    out.print("Richiesta effettuata");
+    out.close();
+    return;
+    //response.sendRedirect(request.getContextPath()+"/_areaStudent/HomeStudente.jsp");
   }
 
   /**

@@ -289,6 +289,8 @@
 				modal.style.display = "none";
 				showAlert();
 				toastr.error("Eliminazione non effettuata");
+			    modal.style.display = "none";
+				return false;
 			}
 		</script>
 		<script>
