@@ -77,7 +77,7 @@
 												String datainiziotirocinio = day+mese+anno;
 											%>
 												<tr role='row' >
-													<td class='text-center'>0<%=listaTirocini.get(i).getMatricola()%></td>
+													<td class='text-center'><%=listaTirocini.get(i).getMatricola()%></td>
 													<td class='text-center'><%=listaTirocini.get(i).getTirocinante().getName()%></td>
 													<td class='text-center'><%=listaTirocini.get(i).getTirocinante().getSurname()%></td>
 													<td class='text-center'><%=datainiziotirocinio%></td>

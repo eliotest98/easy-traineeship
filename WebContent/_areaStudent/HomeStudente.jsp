@@ -46,16 +46,10 @@
 										<br> <a href="../ServletStatoTirocinanteET?pagina=StoricoStudenteET" 
 											class="linkET"><button class="buttonET">Richieste effettuate per
 												il Tirocinio Esterno</button></a><br>
-										<%if (request.getSession().getAttribute("Tirocinio")!=null) 
-										{
-										%>		
 										<br> <a href="../ServletStatoTirocinanteET?pagina=StatoProprioTirocinioET"
 											class="linkET"><button class="buttonET">Controlla
 												lo stato del TUO Tirocinio!</button></a><br>
 										<br>
-										<%
-										}
-										%>	
 									</div>
 								</div>
 							</div>

@@ -50,20 +50,14 @@ public class ServletStatoTirocinanteET extends HttpServlet {
     {
       if (tirocinante != null) 
       {
-    	  try {
-    		//Se non è null, setto informatica nella facoltà
-    	        tirocinante.setFacolta("Informatica");
-    	        //Cerco il tiocinio attivo del tirocinante
-    	        Tirocinio tirocinio = tirocinioDao.tirocinioAttivo(tirocinante.getMatricola());
-    	        //per sicurezza,risetto  il tirocinante
-    	        tirocinio.setTirocinante(tirocinante);
-    	        //Metto il tirocinio in sessione
-    	        request.getSession().setAttribute("Tirocinio", tirocinio);
-    	  }
-    	  catch (Exception e) {
-    		  e.printStackTrace();
-    	  }
-        
+        //Se non è null, setto informatica nella facoltà
+        tirocinante.setFacolta("Informatica");
+        //Cerco il tiocinio attivo del tirocinante
+        Tirocinio tirocinio = (Tirocinio) tirocinioDao.tirocinioAttivo(tirocinante.getMatricola());
+        //per sicurezza,risetto  il tirocinante
+        tirocinio.setTirocinante(tirocinante);
+        //Metto il tirocinio in sessione
+        request.getSession().setAttribute("Tirocinio", tirocinio);
       }
       //Metto il tirocinante in sessione
       request.getSession().setAttribute("Tirocinante", tirocinante);

@@ -14,7 +14,8 @@ import interfacce.UserInterface;
 import model.Tirocinante;
 import model.Tirocinio;
 import model.DAO.TirocinioDAO;
-
+import model.DAO.EnteConvenzionatoDAO;
+import model.DAO.TirocinanteDAO;
 
 /**
  * Servlet implementation class ServletGestioneRichiesteSegreteriaET

@@ -39,7 +39,7 @@ class ServletAnnullaEnteDaStudenteETTest {
 	@BeforeEach
 	public void setUp() {
 		when(requestMock.getSession()).thenReturn(sessionMock);
-		when(sessionMock.getAttribute("userET")).thenReturn("0");
+		when(sessionMock.getAttribute("userET")).thenReturn("1");
 		try 
 		{
 			Statement stmtSelect = conn.createStatement();
@@ -85,9 +85,15 @@ class ServletAnnullaEnteDaStudenteETTest {
 	@Test
 	void annullamentoTirocinioSuccess() throws ServletException, IOException {
 		when(requestMock.getParameter("enteEmail")).thenReturn("999");
-		when(requestMock.getRequestDispatcher("_areaStudent/StoricoStudenteET.jsp")).thenReturn(dispatcherMock);
 		ServletAnnullaEnteDaStudenteET test = new ServletAnnullaEnteDaStudenteET();
-		test.doGet(requestMock,responseMock);
+		test.doPost(requestMock,responseMock);
+		verify(dispatcherMock).forward(requestMock,responseMock);
+	}
+	@Test
+	void annullamentoTirocinioFail() throws ServletException, IOException {
+		when(requestMock.getParameter("enteEmail")).thenReturn("9929");
+		ServletAnnullaEnteDaStudenteET test = new ServletAnnullaEnteDaStudenteET();
+		test.doPost(requestMock,responseMock);
 		verify(dispatcherMock).forward(requestMock,responseMock);
 	}
 }

@@ -8,12 +8,12 @@
 	CheckSession ck = new CheckSession(pageFolder, pageName, request.getSession());
 	//Prelevo dalla sessione l' EnteConvenzionato
 	String EnteConvenzionato=" ";
-	EnteConvenzionato = (String)request.getAttribute("EnteConvenzionato");
+	EnteConvenzionato = (String) session.getAttribute("EnteConvenzionato");
 	
 	Tirocinante tirocinante=new Tirocinante();
-	tirocinante=(Tirocinante)request.getAttribute("tirocinante");
+	tirocinante=(Tirocinante)request.getSession().getAttribute("tirocinante");
 	Tirocinio tirocinio=new Tirocinio();
-	tirocinio = (Tirocinio)request.getAttribute("tirocinio");
+	tirocinio = (Tirocinio)request.getSession().getAttribute("tirocinio");
 	
 	//Prelevo la matricola e istanzio un tirocinante
 	long matricola = 0;
@@ -199,8 +199,8 @@
 								  		<table>
 								  		<tr><td>
 								  		  <%request.setAttribute("matricola", matricola);%>
-								  		  <button onclick="return accetta()" id="accetta"  value="<%=matricola %>" class="btn btn-primary btn-action eliminaEnte refuse" data-type="2" data-idrequest="35" title="Accetta Richiesta">Si</button> </td>
-										 <td><button onclick="notaccetta()"id="close" name="nonAccetta" class="btn btn-primary btn-action eliminaEnte refuse" data-type="2" data-idrequest="35" title="Annulla">No</button></td></tr>
+								  		  <button onclick="return accetta()" id="accetta"  value="<%=matricola %>" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Accetta Richiesta">Si</button> </td>
+										 <td><button onclick="notaccetta()"id="close" name="nonAccetta" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button></td></tr>
 										</table>
 										
 									</div>
@@ -214,9 +214,9 @@
 								    <span class="close"></span>
 								    <p>Sei sicuro di voler rifiutare la richiesta di Tirocinio?</p>
 											<label for="nome">Inserisci Motivazione</label> 
-											<input type="text" class="form-control" id="motivazione" name="motivazione" placeholder="Motivazione del Rifiuto" minlength="1" maxlength="256"  required pattern="[ 0-9a-zA-Z/./,/?]{1,256}">
-											<button onclick="return rifiuta()"id="rifiuta"  value="<%=matricola %>" class="btn btn-primary btn-action eliminaEnte refuse"  data-type="2" data-idrequest="35" title="Rifiuta Richiesta">Si</button>
-											<button onclick="notrifiuta()"id="close" name="nonRifiuta"  class="btn btn-primary btn-action eliminaEnte refuse"  data-type="2" data-idrequest="35" title="Annulla">No</button>
+											<input type="text" class="form-control" id="motivazione" name="motivazione" placeholder="Motivazione del Rifiuto" minlength="1" maxlength="256" required>
+											<button onclick="return rifiuta()"id="rifiuta"  value="<%=matricola %>" class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Rifiuta Richiesta">Si</button>
+											<button onclick="notrifiuta()"id="close" name="nonRifiuta"  class="btn btn-primary btn-action eliminaEnte refuse" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Annulla">No</button>
 									</div>
 								</div>
 								</div>
@@ -354,49 +354,36 @@
 		}
 		</script>
 		<script>
-		function notaccetta()
-		{
-			modalAccettazione.style.display = "none";
-			toastr.error("Rifiuto non effettuato");
-			
-		}
-		</script>
-		<script>
 		function rifiuta()
 		{
 			var matricola = document.getElementById("rifiuta").value;
-			var motivazione = document.getElementById("motivazione").value;
 			console.log(rifiuta)
-			if(motivazione!=null && motivazione!="") {
-				$.ajax({
-					  type: "POST",
-					  url: absolutePath+ "/ServletGestioneRichiesteSegreteriaET",
-					  async:true,
-					  data: {"matricola": matricola, "motivazione": motivazione, "flag": 3},
-					  success: function(resp){
-						  console.log(resp)
-						  if(resp){
-						showAlert();
-						toastr.success("Rifiuto effettuato con successo");
-					    modalRifiuto.style.display = "none";
-					     setTimeout(function(){// wait for 5 secs(2)
-					    	 window.location.replace(absolutePath+"/_areaSecretary/VisualizzaRichiestaET.jsp"); // then reload the page.(3)
-					      }, 3000); 
-					     }
-						  else{
-								showAlert();
-								toastr.success("Rifiuto non effettuato");
-							    modalRifiuto.style.display = "none";
-							     setTimeout(function(){// wait for 5 secs(2)
-							           location.reload(); // then reload the page.(3)
-							      }, 3000); 
-							     }
-					  }
-					});
-			} else {
-				toastr.error("Inserisci la motivazione del rifiuto");
-			}
-		}		
+			$.ajax({
+				  type: "POST",
+				  url: absolutePath+ "/ServletGestioneRichiesteSegreteriaET",
+				  async:true,
+				  data: {"matricola": matricola, "flag": 3},
+				  success: function(resp){
+					  console.log(resp)
+					  if(resp){
+					showAlert();
+					toastr.success("Rifiuto effettuato con successo");
+				    modalRifiuto.style.display = "none";
+				     setTimeout(function(){// wait for 5 secs(2)
+				           location.reload(); // then reload the page.(3)
+				      }, 3000); 
+				     }
+					  else{
+							showAlert();
+							toastr.success("Rifiuto non effettuato");
+						    modalRifiuto.style.display = "none";
+						     setTimeout(function(){// wait for 5 secs(2)
+						           location.reload(); // then reload the page.(3)
+						      }, 3000); 
+						     }
+				  }
+				});
+		}
 		</script>
 		<script>
 		function notrifiuta()

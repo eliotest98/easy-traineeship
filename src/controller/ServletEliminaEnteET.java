@@ -34,7 +34,8 @@ public class ServletEliminaEnteET extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request,response);
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -43,9 +44,10 @@ public class ServletEliminaEnteET extends HttpServlet {
 	public  void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		/*Controllo che il parametro non sia vuoto*/
-		if(request.getParameter("enteEmail")!=null) {
+		if(!request.getParameter("enteEmail").isEmpty()) {
 			String emailEnte = request.getParameter("enteEmail");
 		/*Se non ci sono stati problemi*/
+		if(emailEnte!=null) {
 			try {
 				EnteConvenzionatoDAO enteDao = new EnteConvenzionatoDAO();
 				boolean res = enteDao.eliminaEnte(emailEnte);
@@ -57,7 +59,7 @@ public class ServletEliminaEnteET extends HttpServlet {
 				    return;
 				}
 				else {
-					response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
+					response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
 					PrintWriter out = response.getWriter();
 				    out.println(false);
 				    out.close();
@@ -66,16 +68,14 @@ public class ServletEliminaEnteET extends HttpServlet {
 				} catch (SQLException e) {
 				e.printStackTrace();
 			}
+		}
 
 	}
-		else {
-			/*Altrimenti segnalo l'errore*/
-			PrintWriter out = response.getWriter();
-			response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
-			out.println(false);
-			out.close();
-			return;
-		}
-		
+		/*Altrimenti segnalo l'errore*/
+		PrintWriter out = response.getWriter();
+		response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
+		out.println(false);
+		out.close();
+		return;
 	}
 }

@@ -126,7 +126,7 @@
                                         <input type="text" class="form-control" name="codiceFiscale" id="codiceFiscale"
                                                title="Il Codice Fiscale deve essere esattamente di 16 caratteri, fra maiuscole e numeri."
                                                placeholder="GRLSMN98R64F924S" size="16" maxlength="16" 
-                                               required pattern="[a-zA-Z0-9]{16}">
+                                               required pattern="[A-Z0-9]{16}">
                                     </div>
                                      <!-- Campo Telefono, lunghezza == 10, formato caratteri numerici-->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">

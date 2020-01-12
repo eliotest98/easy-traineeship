@@ -5,8 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URL;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -35,7 +33,7 @@ public class ServletUploadET extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 	  doPost(request,response);
 	}
@@ -43,10 +41,9 @@ public class ServletUploadET extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	{
 	    //Prendo il file dalla form
-		
         javax.servlet.http.Part filePart = request.getPart("file");
         InputStream fileContent = filePart.getInputStream();
         String fileName = filePart.getSubmittedFileName();
@@ -63,13 +60,9 @@ public class ServletUploadET extends HttpServlet {
            count = count - 1;
         }
         //Path del file
-        String pdfPath = "test"; 
-        if (fileName!=null) {
-        	pdfPath =  "pdf" + builder.toString() + fileName;
-        }
- 
-        String filePath = "C:\\Users\\" + System.getProperty("user.name") + "\\Documents\\GitHub\\easy-traineeship\\ProgettoFormativo\\"+pdfPath;
-        System.out.println("C:\\Users\\" + System.getProperty("user.name") + "\\Documents\\GitHub\\easy-traineeship\\ProgettoFormativo\\"+pdfPath);
+        String pdfPath =  "pdf" + builder.toString() + fileName;
+        String filePath = "C:\\Users\\simon\\Documents\\GitHub\\easy-traineeship\\ProgettoFormativo\\"+pdfPath;
+        
         OutputStream os = null;
         
         try {

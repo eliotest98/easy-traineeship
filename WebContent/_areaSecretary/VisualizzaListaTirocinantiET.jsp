@@ -14,14 +14,8 @@
       return;
     }
     
-    
     ArrayList<Tirocinante> listaTirocinanti = new ArrayList<Tirocinante>();
     listaTirocinanti = (ArrayList<Tirocinante>) request.getSession().getAttribute("listaTirocinanti");
-    
-    if(listaTirocinanti==null){
-        RequestDispatcher dispatcher = request.getRequestDispatcher("../ServletVisualizzaListaTirocinantiET");
-        dispatcher.forward(request, response);
-    }
 	
 %>
 
@@ -61,11 +55,11 @@
 												for( int i = 0; i < listaTirocinanti.size(); i++)
 												{ %>
 												<tr role='row' >
-													<td class='text-center'>0<%=listaTirocinanti.get(i).getMatricola()%></td>
+													<td class='text-center'><%=listaTirocinanti.get(i).getMatricola()%></td>
 													<td class='text-center'><%=listaTirocinanti.get(i).getName()%></td>
 													<td class='text-center'><%=listaTirocinanti.get(i).getSurname()%></td>
 													<td class="text-center" align="center">
-														<a href='VisualizzaStatoTirocinioET.jsp?matricola=<%=listaTirocinanti.get(i).getMatricola()%>' class="btn btn-primary btn-action modificaEnte" title="Visualizza Stato" data-idrequest="35"><i class="fa fa-eye"></i></a>
+														<a href='VisualizzaStatoTirocinioET.jsp?matricola=<%=listaTirocinanti.get(i).getMatricola()%>' class="btn btn-primary btn-action modificaEnte" title="Accetta/Rifiuta" data-idrequest="35"><i class="fa fa-eye"></i></a>
 													</td>
 												</tr>
 											<%
@@ -93,7 +87,7 @@
 			        "autoWidth": false,
 			        "bAutoWidth": false,
 			        "language": {
-						    "sEmptyTable":     "Nessun Tirocinante Presente",
+						    "sEmptyTable":     "Nessuna Tirocinante Presente",
 						    "sInfo":           "Vista da _START_ a _END_ di _TOTAL_ elementi",
 						    "sInfoEmpty":      "Vista da 0 a 0 di 0 elementi",
 						    "sInfoFiltered":   "(filtrati da _MAX_ elementi totali)",

@@ -84,7 +84,6 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
     long matricola = Long.parseLong(request.getParameter("matricola"));
     // boolean che controlla se la modifica � stata fatta
     boolean set = false;
-    boolean set2 = false;
     // <----------- Accetta Richiesta ----------->
     if (flag == 2) {
       TirocinioDAO tirocinio = new TirocinioDAO();
@@ -139,8 +138,8 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
           if (listaTirocini3.get(i).getStatoTirocinio()
               .equalsIgnoreCase("In attesa della Segreteria")) {
             // Modifico lo stato in caso lo trovo
-            set = tirocinio3.modificaStatoTirocinio(listaTirocini3.get(i).getCodTirocinio(), "Annullato");
-            set2 = tirocinio3.modificaDescrizioneEnteTirocinio(listaTirocini3.get(i).getCodTirocinio(), motivazione);
+            set = tirocinio3.modificaStatoTirocinio(listaTirocini3.get(i).getCodTirocinio(),
+                "Annullato");
             System.out.println(motivazione);
           }
         }

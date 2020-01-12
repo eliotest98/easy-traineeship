@@ -34,7 +34,6 @@ import javax.servlet.http.Part;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.mock.web.MockHttpServletResponse;
 
 import controller.DbConnection;
 import controller.ServletEliminaEnteET;
@@ -46,18 +45,17 @@ class ServletEliminaEnteETTest {
 	Connection conn = new DbConnection().getInstance().getConn();
 	//Creazione mock	
 	HttpServletRequest requestMock = mock(HttpServletRequest.class);
-	MockHttpServletResponse responseMock = new MockHttpServletResponse();
+	HttpServletResponse responseMock = mock(HttpServletResponse.class);
 	HttpSession sessionMock = mock(HttpSession.class);
 	ServletEliminaEnteET servletSecretaryMock = mock(ServletEliminaEnteET.class);
 	RequestDispatcher dispatcherMock = mock(RequestDispatcher.class);
- 	ServletEliminaEnteET test = new ServletEliminaEnteET();
 	
 	@AfterEach
 	public void tearDown() {
 		try 
 		{
 		    Statement stmtSelect = conn.createStatement();
-		    String sql3 = ("DELETE FROM enteconvenzionato WHERE partitaIva='99999999999';");
+		    String sql3 = ("DELETE FROM enteconvenzionato WHERE partitaIva='11111111111';");
 		    stmtSelect.executeUpdate(sql3);
 		    String sql5 = ("DELETE FROM User WHERE email='green@gmail.com';");
 	    	stmtSelect.executeUpdate(sql5);
@@ -67,52 +65,69 @@ class ServletEliminaEnteETTest {
 		    e.printStackTrace();
 		}
 	}
-	
 	@Test
 	void testTrue() throws ServletException, IOException  {
 		try {
 		Statement stmtSelect = conn.createStatement();
 		String sql5 = ("INSERT INTO User VALUES('green@gmail.com','Salvatore','Totti','M','pass98','3');");
     	stmtSelect.executeUpdate(sql5);
-    	String sql3 = ("INSERT INTO enteconvenzionato VALUES('99999999999','Avellino','Salvatore Totti','0825519149','100','Michele Persico','Michele Porto','08/01/1977','esperti in siti web','green@gmail.com');");
+    	String sql3 = ("INSERT INTO enteconvenzionato VALUES('11111111111','Avellino','Salvatore Totti','0825519149','100','Michele Persico','Michele Porto','08/01/1977','esperti in siti web','green@gmail.com');");
     	stmtSelect.executeUpdate(sql3);
     	conn.commit();
     	when(requestMock.getParameter("enteEmail")).thenReturn("green@gmail.com");
+     	when(requestMock.getRequestDispatcher("VisualizzaEnteET.jsp")).thenReturn(dispatcherMock);
+     	ServletEliminaEnteET test = new ServletEliminaEnteET();
 	
 		test.doPost(requestMock,responseMock);
-		assertEquals(responseMock.getStatus(),HttpServletResponse.SC_OK);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (ServletException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
+    	
+		
+		/*
+		String ris= (String) requestMock.getAttribute("result");           
+		System.out.println(ris);
+		b = Boolean.parseBoolean(ris);
+		
+		}*/
+		catch (SQLException e) {
+			e.printStackTrace();
+	}
 	
 }
 	
 	@Test
-	void testFalse1() throws ServletException, IOException  {
+	void testFalse() throws ServletException, IOException  {
 		try {
 		Statement stmtSelect = conn.createStatement();
 		String sql5 = ("INSERT INTO User VALUES('green@gmail.com','Salvatore','Totti','M','pass98','3');");
     	stmtSelect.executeUpdate(sql5);
-    	String sql3 = ("INSERT INTO enteconvenzionato VALUES('99999999999','Avellino','Salvatore Totti','0825519149','100','Michele Persico','Michele Porto','08/01/1977','esperti in siti web','green@gmail.com');");
+    	String sql3 = ("INSERT INTO enteconvenzionato VALUES('11111111111','Avellino','Salvatore Totti','0825519149','100','Michele Persico','Michele Porto','08/01/1977','esperti in siti web','');");
     	stmtSelect.executeUpdate(sql3);
     	conn.commit();
-    	when(requestMock.getParameter("enteEmail")).thenReturn("provafallita@gmail.com");
+    	when(requestMock.getParameter("enteEmail")).thenReturn("green@gmail.com");
+     	when(requestMock.getRequestDispatcher("VisualizzaEnteET.jsp")).thenReturn(dispatcherMock);
+     	ServletEliminaEnteET test = new ServletEliminaEnteET();
 	
 		test.doPost(requestMock,responseMock);
-		assertEquals(responseMock.getStatus(),HttpServletResponse.SC_NOT_ACCEPTABLE);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (ServletException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
-	}	
-	
-	@Test
-	void testFalse2() throws ServletException, IOException  {
-		try {
-	
-		test.doPost(requestMock,responseMock);
-		assertEquals(responseMock.getStatus(),HttpServletResponse.SC_NOT_ACCEPTABLE);
-		} catch (Exception e) {
+    	
+		
+		/*
+		String ris= (String) requestMock.getAttribute("result");           
+		System.out.println(ris);
+		b = Boolean.parseBoolean(ris);
+		
+		}*/
+		catch (SQLException e) {
 			e.printStackTrace();
-		}
+	}
+	
 }
 }
