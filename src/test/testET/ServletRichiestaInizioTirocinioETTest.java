@@ -640,6 +640,6 @@ class ServletRichiestaInizioTirocinioETTest {
 
 	test.doPost(requestMock, responseMock);
 	
-	verify(responseMock).sendRedirect(requestMock.getContextPath()+"/_areaStudent/HomeStudente.jsp");
+	verify(responseMock).sendRedirect(requestMock.getContextPath()+"/_areaStudent/HomeStudente.jsp?cod=1");
 	}
 }
