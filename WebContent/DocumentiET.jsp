@@ -20,7 +20,7 @@
 <head>
 <jsp:include page="/partials/head.jsp" />
 </head>
-<body onLoad="showData()">
+<body>
 	<div class="page-wrapper">
 	
 		<jsp:include page="/partials/header.jsp">
@@ -76,8 +76,8 @@
 													<td class="text-center" align="center">
 														<form action="./ServletProgettoFormativoET" method="post">
 															<input type ="hidden" name ="codiceTirocinio" value ="<%=listaTirocinio.get(i).getCodTirocinio()%>">
-															<button id="download" name="download" type="submit" class="btn btn-primary btn-action Download" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Download"><i class="fa fa-times"></i></button>
-															<button id="upload" name="upload"  type="submit" class="btn btn-primary btn-action Upload" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Upload"><i class="fa fa-times"></i></button>
+															<button id="download" name="download" type="submit" style=" width:30px;background-color:#FF9900;outline:none;border:4px solid #FF9900;border-radius:5px; color:white; margin:2%;" style="background:#e73f43; border:#e73f43" data-type="2" data-idrequest="35" title="Download"><img src="./images/icons/download.png"></button>
+															<button id="upload" name="upload"  type="submit" style=" width:30px;background-color:#FF9900;outline:none;border:4px solid #FF9900;border-radius:5px; color:white; margin:2%;" data-type="2" data-idrequest="35" title="Upload"><img src="./images/icons/upload.png"></button>
 														</form>
 													</td>
 												</tr>
