@@ -233,7 +233,7 @@ function sendRequest(){
 $.ajax({
 	  type: "POST",
 	  url: absolutePath+ "/ServletRichiestaInizioTirocinioET",
-	  async:true,
+	  async:false,
 	  data: {
 	"matricolaTirocinante":matricola
 		  },
