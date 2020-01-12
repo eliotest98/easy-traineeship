@@ -42,15 +42,13 @@ public class ServletDocumentiTirocinioET extends HttpServlet {
 
     ArrayList<Tirocinio> listaTirocinio = new ArrayList<Tirocinio>();
     String statoTirocinio = "";
-
-    if (userET.equals("1")) {
-      statoTirocinio = "Accettato e in attesa di firma della Segreteria, Ente e Admin";
-      listaTirocinio.addAll(tirocinioDAO.allTirocinioByStato(statoTirocinio));
-    }
+    
+    //Se sono l'admin
     if (userET.equals("2")) {
-      statoTirocinio = "Accettato e in attesa di firma dall Admin";
+      statoTirocinio = "Accettato e in attesa di firma Admin";
       listaTirocinio.addAll(tirocinioDAO.allTirocinioByStato(statoTirocinio));
     } 
+    //Se sono ente
     if (userET.equals("3")) {
       UserInterface user = (UserInterface) request.getSession().getAttribute("user");
       String email = user.getEmail();
@@ -61,7 +59,7 @@ public class ServletDocumentiTirocinioET extends HttpServlet {
         e.printStackTrace();
       }
       listaTirocinio = tirocinioDAO.allDocumentiDaFirmareByEnte(partitaIva, statoTirocinio);
-      statoTirocinio = "Accettato e in attesa di firma della Segreteria, Ente e Admin";
+      statoTirocinio = "Accettato e in attesa di firma Ente e Admin";
       listaTirocinio.addAll(tirocinioDAO.allDocumentiDaFirmareByEnte(partitaIva, statoTirocinio));
     }
     request.setAttribute("listaTirocinio", listaTirocinio);

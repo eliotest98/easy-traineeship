@@ -5,8 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URL;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -140,12 +138,12 @@ public class ServletUploadET extends HttpServlet {
 	      //Sei l'ente
           else if(userET==3)
           {
-            stato = "Accettato e in attesa di firma dell Admin";
+            stato = "Accettato e in attesa di firma Admin";
           }
 	      //Sei l'admin
 	      else if(userET==2)
 	      {
-	        stato = "Completata";
+	        stato = "Completo";
 	      }
 	     
 	      //Non sei nessuno
