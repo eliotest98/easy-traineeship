@@ -8,12 +8,12 @@
 	CheckSession ck = new CheckSession(pageFolder, pageName, request.getSession());
 	//Prelevo dalla sessione l' EnteConvenzionato
 	String EnteConvenzionato=" ";
-	EnteConvenzionato = (String) session.getAttribute("EnteConvenzionato");
+	EnteConvenzionato = (String)request.getAttribute("EnteConvenzionato");
 	
 	Tirocinante tirocinante=new Tirocinante();
-	tirocinante=(Tirocinante)request.getSession().getAttribute("tirocinante");
+	tirocinante=(Tirocinante)request.getAttribute("tirocinante");
 	Tirocinio tirocinio=new Tirocinio();
-	tirocinio = (Tirocinio)request.getSession().getAttribute("tirocinio");
+	tirocinio = (Tirocinio)request.getAttribute("tirocinio");
 	
 	//Prelevo la matricola e istanzio un tirocinante
 	long matricola = 0;

@@ -1,6 +1,7 @@
 package model.DAO;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.sql.Date;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -562,7 +563,7 @@ public class TirocinioDAO {
 		{
 			//Connessione con il DB
 			con= new DbConnection().getInstance().getConn();
-			
+			java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime()); 
 			//Insert per l'inserimento in 'Tirocinio' dei dati parziali del 'Tirocinio'
 			psTirocinio= con.prepareStatement("INSERT INTO TIROCINIO(CODTIROCINIO,DATAINIZIOTIROCINO, CFUPREVISTI, "
 																+ "COMPETENZE, COMPETENZEACQUISIRE, "
@@ -570,7 +571,7 @@ public class TirocinioDAO {
 																+ "STATOTIROCINIO, PROGETTOFORMATIVO, DESCRIZIONEENTE, MATRICOLA, PARTITAIVA) "
 										+ "VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 			psTirocinio.setInt(1, tirocinio.getCodTirocinio());
-            psTirocinio.setDate(2, new Date(0));
+            psTirocinio.setDate(2, date);
 			psTirocinio.setShort(3, tirocinio.getCfuPrevisti());
 			psTirocinio.setString(4, tirocinio.getCompetenze());
 			psTirocinio.setString(5, tirocinio.getCompetenzeAcquisire());
