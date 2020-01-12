@@ -74,13 +74,21 @@
 		if (request.getParameter("cod")!=null) {
 			if (request.getParameter("cod").equals("1")) {
 		%>
-		<script>
-		showAlert();
-		toastr.success("Richiesta effettuata con successo");
-		</script>
+			<script>
+			showAlert();
+			toastr.success("Richiesta effettuata con successo.");
+			</script>
+		<%
+			}
+			else if (request.getParameter("cod").equals("2")) {
+		%>
+			<script>
+			showAlert();
+			toastr.error("Errore durante l'invio della richiesta.");
+			</script>
 		<%
 			}
 		}	
-		%>
+	%>
 </body>
 </html>

@@ -284,7 +284,7 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
     TirocinioDAO ti = new TirocinioDAO();
     if(ti.inserisciTirocinio(tirocinio)==false)
     {
-      throw new IllegalArgumentException("La query di inserimento del Tirocinio non � andata a buon fine");
+    	response.sendRedirect(request.getContextPath()+"/_areaStudent/HomeStudente.jsp?cod=2");
     }
     
     //Mi setto il tirocininante nel TIROCINIO
