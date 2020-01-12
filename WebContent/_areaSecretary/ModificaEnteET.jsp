@@ -101,7 +101,7 @@
 										</div>
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="dataDiNascita">Data di Nascita del
-												Rappresentante</label> <input type="text" class="form-control"
+												Rappresentante</label> <input type="date" class="form-control"
 												placeholder="Data di Nascita" value="<%=listaEnti.get(i).getDataDiNascita() %>" name="dataDiNascita"
 												id="dataDiNascita" required pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])/(0[1-9]|1[012])/[0-9]{4}">
 										</div>
