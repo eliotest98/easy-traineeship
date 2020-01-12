@@ -70,7 +70,8 @@
 	<!--End pagewrapper-->
 	<jsp:include page="/partials/includes.jsp" />
 	<%
-		if (request.getParameter("prova").equals("1")) {
+		//CODICE PER IL TOASTR DI SUCCESSO
+		if (request.getParameter("cod").equals("1")) {
 		%>
 		<script>
 		showAlert();
