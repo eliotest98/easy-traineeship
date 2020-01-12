@@ -79,7 +79,6 @@ public class ServletStatoTirocinanteET extends HttpServlet {
         tirocinante.setFacolta("Informatica");
         //Cerco il tiocinio attivo del tirocinante
         ArrayList<Tirocinio> listaTirocini = (ArrayList<Tirocinio>) tirocinioDao.allTirocinioTirocinante(tirocinante.getMatricola());
-        System.out.println(listaTirocini);
         //Metto la lisat dei tirocini in sessione
         request.getSession().setAttribute("listaTirocini", listaTirocini);
       }

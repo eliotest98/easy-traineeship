@@ -154,7 +154,7 @@ public class ServletUploadET extends HttpServlet {
 	        throw new IllegalArgumentException("Errore.");
 	      }
 
-	      if(tirocinioDAO.modificaStatoTirocinio(codTirocinio, "Accettato e in attesa di firma della Segreteria, Ente e Admin")==false)
+	      if(tirocinioDAO.modificaStatoTirocinio(codTirocinio, stato)==false)
 	      {
 	        throw new IllegalArgumentException("Query modifica stato non andata a buon fine");
 	      }

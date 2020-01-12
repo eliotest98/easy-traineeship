@@ -32,8 +32,7 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
    */
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    System.out.print("Sono nel doGet");
-    /**s
+    /**
      * Controllo autenticazione tramite parametro in sessione (1 = Segreteria).
      */
     String userET = (String) request.getSession().getAttribute("userET");
@@ -70,7 +69,6 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
    */
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-     System.out.print("Sono nel doPost");
     /**
      * Controllo autenticazione tramite parametro in sessione (1 = Segreteria).
      */
@@ -93,7 +91,6 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
       // Ricerco tutti gli 'EntiConvenzionati' e li inserisco nella listaTirocini
       try {
         // Prelevo la matricola
-        System.out.print(matricola);
         listaTirocini = tirocinio.allTirocinioTirocinante(matricola);
         // Ricerco fra i Tirocini quelli In attesa della Segreteria con uno specifico codice
         // tirocinio
@@ -141,7 +138,6 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
             // Modifico lo stato in caso lo trovo
             set = tirocinio3.modificaStatoTirocinio(listaTirocini3.get(i).getCodTirocinio(), "Annullato");
             set2 = tirocinio3.modificaDescrizioneEnteTirocinio(listaTirocini3.get(i).getCodTirocinio(), motivazione);
-            System.out.println(motivazione);
           }
         }
       } catch (Exception e) {

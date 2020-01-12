@@ -294,7 +294,6 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
     tirocinio = ti.tirocinioAttivo(Long.valueOf(request.getParameter("matricolaTirocinante")));
     tirocinante = t.ricercaTirocinanteByMatricola(Long.valueOf(request.getParameter("matricolaTirocinante")));
     request.getSession().setAttribute("Tirocinante", tirocinante);
-    System.out.println("Tirocinante matricola " + tirocinante.getMatricola());
     request.getSession().setAttribute("Tirocinio", tirocinio); 
     
     //RequestDispatcher d = request.getRequestDispatcher("/_areaStudent/HomeStudente.jsp");

@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -89,10 +88,10 @@ public class ServletAnnullaEnteDaStudenteET extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher(pag);
         dispatcher.forward(request, response);
       } else {
-        System.out.println("inserimento non eseguito con successo");
+        throw new IllegalArgumentException("inserimento non eseguito con successo");
       }
     } else {
-      System.out.println("cambio dello stato non eseguito con successo");
+      throw new IllegalArgumentException("cambio dello stato non eseguito con successo");
     }
   }
 }
