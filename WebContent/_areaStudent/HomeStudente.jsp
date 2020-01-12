@@ -69,6 +69,18 @@
 	</div>
 	<!--End pagewrapper-->
 	<jsp:include page="/partials/includes.jsp" />
-	
+	<%
+		//CODICE PER IL TOASTR DI SUCCESSO
+		if (request.getParameter("cod")!=null) {
+			if (request.getParameter("cod").equals("1")) {
+		%>
+		<script>
+		showAlert();
+		toastr.success("Richiesta effettuata con successo");
+		</script>
+		<%
+			}
+		}	
+		%>
 </body>
 </html>
