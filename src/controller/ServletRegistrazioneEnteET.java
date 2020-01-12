@@ -146,7 +146,7 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
     /**
      * Genera password criptata
      */
-    String password = new Utils().generatePwd("12345678");
+    String password = new Utils().generatePwd("password");
     
     /**
      * Istanziazione dell'oggetto EnteConvezionato.
