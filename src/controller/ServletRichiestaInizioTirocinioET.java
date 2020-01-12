@@ -273,13 +273,13 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
 
     tirocinio.setMatricola(tirocinante.getMatricola());
 
-    //Setto il tirocinante nel database
+    //Cerco il tirocinante nel database: se non esiste, lo inserisco
     TirocinanteDAO t = new TirocinanteDAO();
-    if(t.inserisciTirocinante(tirocinante)==false)
-    {
-      throw new IllegalArgumentException("La query di inserimentodel Tirocinante non � andata a buon fine");
+    Tirocinante tirtemp = t.ricercaTirocinanteByMatricola(tirocinante.getMatricola());
+    if (tirtemp==null) {
+    	t.inserisciTirocinante(tirocinante);
     }
-
+    
     //Setto il tirocinio nel database
     TirocinioDAO ti = new TirocinioDAO();
     if(ti.inserisciTirocinio(tirocinio)==false)

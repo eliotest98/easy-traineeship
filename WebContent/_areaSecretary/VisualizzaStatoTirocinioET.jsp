@@ -50,11 +50,12 @@
 
 /* Modal Content */
 .modal-content {
-	background-color: #fefefe;
-	margin: auto;
-	padding: 20px;
-	border: 1px solid #888;
-	width: 25%;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 25%;
+  text-align:center;
 }
 
 /* The Close Button */
