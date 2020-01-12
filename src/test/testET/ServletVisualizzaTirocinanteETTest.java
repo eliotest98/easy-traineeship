@@ -22,24 +22,30 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import controller.DbConnection;
-import controller.ServletAnnullaEnteDaStudenteET;
-import controller.ServletGestioneRichiesteSegreteriaET;
+import controller.ServletGestioneRichiesteEnteET;
+import controller.ServletVisualizzaTirocinanteET;
+import model.EnteConvenzionato;
+import model.Secretary;
 
-class ServletAnnullaEnteDaStudenteETTest {
+class ServletVisualizzaTirocinanteETTest {
 	Connection conn = new DbConnection().getInstance().getConn();
 	//Creazione mock	
 	HttpServletRequest requestMock = mock(HttpServletRequest.class);
 	HttpServletResponse responseMock = mock(HttpServletResponse.class);
 	HttpSession sessionMock = mock(HttpSession.class);
-	ServletAnnullaEnteDaStudenteET servletSecretaryMock = mock(ServletAnnullaEnteDaStudenteET.class);
+	ServletGestioneRichiesteEnteET servletSecretaryMock = mock(ServletGestioneRichiesteEnteET.class);
 	RequestDispatcher dispatcherMock = mock(RequestDispatcher.class);
 	Date data=new Date();
 	String modifiedDate= new SimpleDateFormat("yyyy-MM-dd").format(data);
 	
+	
 	@BeforeEach
 	public void setUp() {
+		Secretary user = new Secretary();
+		user.setEmail("segreteria@unisa.it");
 		when(requestMock.getSession()).thenReturn(sessionMock);
-		when(sessionMock.getAttribute("userET")).thenReturn("0");
+		when(sessionMock.getAttribute("userET")).thenReturn("1");
+		when(sessionMock.getAttribute("user")).thenReturn(user);
 		try 
 		{
 			Statement stmtSelect = conn.createStatement();
@@ -82,12 +88,14 @@ class ServletAnnullaEnteDaStudenteETTest {
 		}
 	}	
 	
+	
 	@Test
-	void annullamentoTirocinioSuccess() throws ServletException, IOException {
-		when(requestMock.getParameter("enteEmail")).thenReturn("999");
-		when(requestMock.getRequestDispatcher("_areaStudent/StoricoStudenteET.jsp")).thenReturn(dispatcherMock);
-		ServletAnnullaEnteDaStudenteET test = new ServletAnnullaEnteDaStudenteET();
-		test.doGet(requestMock,responseMock);
-		verify(dispatcherMock).forward(requestMock,responseMock);
+	void testVisualizzaTirocinante() throws ServletException, IOException {
+		when(requestMock.getParameter("matricola")).thenReturn("4859");
+		when(requestMock.getRequestDispatcher("_areaSecretary/VisualizzaTirocinanteET.jsp")).thenReturn(dispatcherMock);
+		ServletVisualizzaTirocinanteET test = new ServletVisualizzaTirocinanteET();
+		test.doPost(requestMock, responseMock);
+		verify(dispatcherMock).forward(requestMock, responseMock);
 	}
+
 }

@@ -66,15 +66,7 @@ class ServletGestioneRichiesteEnteETTest {
 	    }
 		Tirocinio tirocinio = new Tirocinio();
 		tirocinio.setCodTirocinio(999);
-		/*tirocinio.setDataInizioTirocinio("1950-12-12");
-		tirocinio.setCfuPrevisti((short) 120);
-		tirocinio.setStatoTirocinio("In attesa Ente");
-		tirocinio.setSvolgimentoTirocinio("test");
-		tirocinio.setAttivitaPreviste("test");
-		tirocinio.setCompetenze("Test");
-		tirocinio.setCompetenzeAcquisire("Test");
-		TirocinioDAO tirocinioDAO = new TirocinioDAO();
-		tirocinioDAO.inserisciTirocinio(tirocinio);*/
+
 		
 	}
 	

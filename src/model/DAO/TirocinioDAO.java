@@ -1,6 +1,7 @@
 package model.DAO;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.sql.Date;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -133,7 +134,7 @@ public class TirocinioDAO {
 									+ "TIROCINANTE.EMAIL=USER.EMAIL && "
 									+ "TIROCINIO.STATOTIROCINIO!='Annullato' && "
 									+ "TIROCINIO.STATOTIROCINIO!='Rifiutato' && "
-									+ "TIROCINANTE.MATRICOLA="+matricola+"; ");
+									+ "TIROCINANTE.MATRICOLA='"+matricola+"'; ");
 			ResultSet res = ps.executeQuery();
 			//Ciclo che inserisce all' interno della lista i 'Tirocini'
 			//restituiti dalla query
@@ -562,7 +563,7 @@ public class TirocinioDAO {
 		{
 			//Connessione con il DB
 			con= new DbConnection().getInstance().getConn();
-			
+			java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime()); 
 			//Insert per l'inserimento in 'Tirocinio' dei dati parziali del 'Tirocinio'
 			psTirocinio= con.prepareStatement("INSERT INTO TIROCINIO(CODTIROCINIO,DATAINIZIOTIROCINO, CFUPREVISTI, "
 																+ "COMPETENZE, COMPETENZEACQUISIRE, "
@@ -570,7 +571,7 @@ public class TirocinioDAO {
 																+ "STATOTIROCINIO, PROGETTOFORMATIVO, DESCRIZIONEENTE, MATRICOLA, PARTITAIVA) "
 										+ "VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 			psTirocinio.setInt(1, tirocinio.getCodTirocinio());
-            psTirocinio.setDate(2, new Date(0));
+            psTirocinio.setDate(2, date);
 			psTirocinio.setShort(3, tirocinio.getCfuPrevisti());
 			psTirocinio.setString(4, tirocinio.getCompetenze());
 			psTirocinio.setString(5, tirocinio.getCompetenzeAcquisire());
@@ -781,7 +782,7 @@ public class TirocinioDAO {
 			//Inserimento in 'Tirocinio' del path del 'progetto formativo'
 			psTirocinio= con.prepareStatement("UPDATE TIROCINIO " 
 											+ "SET PROGETTOFORMATIVO ='"+progettoFormativo+"' " 
-											+ "WHERE CODTIROCINIO ="+codTirocinio+"; ");
+											+ "WHERE CODTIROCINIO ='"+codTirocinio+"'; ");
 			//Se la modifica va a buon fine restituisce true
 			if(psTirocinio.executeUpdate()==1)
 			{
@@ -1109,5 +1110,45 @@ public class TirocinioDAO {
 			  }
 			  return tirocinio; 
 			 }
+			 
+				public synchronized boolean modificaDescrizioneEnteTirocinio(int codTirocinio, String descrizioneEnte)
+				{
+					
+					Connection con = null; //variabile per la connessione al DB
+					PreparedStatement psTirocinio = null;// Creazione oggetto Statement per il 'Tirocinio
+					try 
+					{
+						//Connessione con il DB
+						con= new DbConnection().getInstance().getConn();
+						
+						//Insert per l'inserimento in 'Tirocinio' dei dati parziali del 'Tirocinio'
+						psTirocinio=con.prepareStatement("UPDATE TIROCINIO SET DESCRIZIONEENTE='"+descrizioneEnte+"' WHERE CODTIROCINIO='"+codTirocinio+"';");
+						
+						//Se la modifica va a buon fine restituisce true
+						if(psTirocinio.executeUpdate()==1)
+						{
+							con.commit();
+							return true;
+						}
+						
+					} 
+					catch (SQLException e) 
+					{
+						e.printStackTrace();
+					}
+					finally
+					{
+						try 
+						{
+							psTirocinio.close();// Chiusura oggetto Statement dell' 'Tirocinio'
+						} 
+						catch (SQLException e)
+						{
+							e.printStackTrace();
+						}
+					}
+					//Ritorna false se la modifica non � andata a buon fine 
+					return false;	
+				}
 }	
 	

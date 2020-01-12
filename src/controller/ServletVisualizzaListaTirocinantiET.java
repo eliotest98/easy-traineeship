@@ -28,10 +28,10 @@ public class ServletVisualizzaListaTirocinantiET extends HttpServlet {
   /**
    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
    */
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+  public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    // Controllo la sessione, se è la segreteria
+    // Controllo la sessione, se ï¿½ la segreteria
     String u = (String) request.getSession().getAttribute("userET");
 
     if (!u.equalsIgnoreCase("1")) {

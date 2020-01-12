@@ -90,8 +90,8 @@
 											class='dropzoneUploader'></div>
 
 										<div class="form-group">
-											<button type="submit" class="btn btn-primary btn-submit" id="concludi"
-												 onclick="return concludi()">Concludi</button>
+											<a href="./HomeStudente.jsp"><button type="submit" class="btn btn-primary btn-submit" id="concludi"
+												 ">Concludi</button></a>
 										</div>
 
 													

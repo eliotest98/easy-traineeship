@@ -78,7 +78,7 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
 	    	else if (flag.equals("2")) {
 	    		try {
 	    			String codice = request.getParameter("codice");
-	    			tirocinioDAO.modificaStatoTirocinio(Integer.valueOf(codice), "Accettato e in attesa di firma (tutti)");
+	    			tirocinioDAO.modificaStatoTirocinio(Integer.valueOf(codice), "Accettato e in attesa di firma");
 	    		}
 	    		catch (Exception e) {
 	    			e.printStackTrace();
@@ -94,6 +94,9 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
 	    			tirocinioDAO.modificaStatoTirocinio(Integer.valueOf(codice), "Rifiutato");
 	    			Tirocinio tirocinio = new Tirocinio();
 	    			tirocinio = tirocinioDAO.TirocinioByCodTirocinio(Integer.valueOf(codice));
+	    			tirocinio.setDescrizioneEnte(motivazione);
+	    			tirocinioDAO.modificaTirocinio(tirocinio);
+	       			//Salvo lo storico nel vecchio tirocinio e istanzio un nuovo tirocinio per impostarlo allo stato precedente
 	    			Tirocinio tirocinio2 = new Tirocinio();
 	    			tirocinio2.setDataInizioTirocinio(tirocinio.getDataInizioTirocinio());
 	    			tirocinio2.setCfuPrevisti(tirocinio.getCfuPrevisti());

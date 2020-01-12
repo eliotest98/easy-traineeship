@@ -19,13 +19,12 @@
 	Tirocinio tirocinio=new Tirocinio();
 	tirocinio = (Tirocinio)request.getAttribute("tirocinio");
 	EnteConvenzionato enteConvenzionato = new EnteConvenzionato();
-	enteConvenzionato = tirocinio.getEnteConvenzionato();
-	
+	enteConvenzionato = (EnteConvenzionato)request.getAttribute("ente");
 	if(tirocinante==null)
 	{	
 		request.setAttribute("matricola", matricola);
         RequestDispatcher dispatcher;
-        dispatcher = request.getRequestDispatcher("../ServletVisualizzaTirocinanteET");
+        dispatcher = request.getRequestDispatcher("../ServletStatoTirocinioET");
         dispatcher.forward(request, response);
     }
 
@@ -94,7 +93,7 @@
 									class="col-lg-6 col-md-6 col-sm-12 col-xs-12 signUp-container">
 								<%
 								//Se la listaEnti non è null mostro la tabella
-								if(tirocinante!=null)
+								if(tirocinante!=null && tirocinio!=null)
 								{
 									//String format data di nascita
 									Date giorno = tirocinante.getDataNascita();
@@ -165,12 +164,13 @@
 									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 									    	<strong>CFU Conseguiti </strong>  <% out.println( "<br>"+ tirocinio.getCfuPrevisti()); %>
 									    </div>
-									    <%if (tirocinio.getPartitaIva()!= null) { %>
+									    <%if (tirocinio.getPartitaIva() != null) { %> 
 									      <!-- Campo Nome Ente -->
 									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 									    	<strong>Ente Ospitante </strong>  <% out.println( "<br>"+ enteConvenzionato.getName()); %>
 									    </div>
-									    <%} %>
+									    <%} %> 
+									   
 									    <!-- Campo Competenze Possedute -->
 									    <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 									    	<strong>Competenze Possedute </strong>  <% out.println( "<br>"+ tirocinio.getCompetenze()); %>
@@ -208,8 +208,16 @@
 										</div>
 										<div class="clearfix"></div>
 								
-								<%}%>
-								
+								<%} else if(tirocinio==null) {%>
+								<% tirocinante = (Tirocinante)request.getAttribute("tirocinante");%>
+									<div>
+									 <h3 style="text-align: center;"> 
+										Il Tirocinante <% out.println(tirocinante.getName() + " " + tirocinante.getSurname()+ " con Matricola n. : 0"+tirocinante.getMatricola()); %> <br>
+										non possiede alcuna richiesta di tirocinio attiva. <br>
+										Clicca <a href="../_areaSecretary/VisualizzaListaTirocinantiET.jsp"> qui </a> per tornare alla pagina precedente. <br>
+									 </h3> 
+									</div>
+								<%} %>
 								<!-- Modal Annullamento -->
 								<div id="myModalAnnullamento" class="modal">
 								
@@ -220,7 +228,7 @@
 								  		<table>
 								  		<tr><td><form id="modalAnnullaForm" action="../ServletGestioneRichiesteSegreteriaET" method="post">
 								  		  <%request.setAttribute("matricola", matricola);%>
-								  		  <button onclick="annulla()"id="modalAnnullaButton" name="flag" value="2<%=matricola %>" type="submit" class="btn btn-primary btn-action eliminaEnte refuse"  data-type="2" data-idrequest="35" title="Annulla Richiesta">Si</button> </form></td>
+								  		  <button onclick="annulla()"id="modalAnnullaButton" name="flag" value="<%=matricola %>" type="submit" class="btn btn-primary btn-action eliminaEnte refuse"  data-type="2" data-idrequest="35" title="Annulla Richiesta">Si</button> </form></td>
 										 <td><button onclick="notaccetta()"id="close" name="nonAccetta" class="btn btn-primary btn-action eliminaEnte refuse"  data-type="2" data-idrequest="35" title="Annulla">No</button></td></tr>
 										</table>
 										
@@ -233,7 +241,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
 		<jsp:include page="/partials/footer.jsp" />
 	</div>
 	<!--End pagewrapper-->
@@ -294,20 +301,7 @@
 					return false;
 				}*/
 			}
-			//Quando l'utente clicca sul tasto2 apri il modal
-			btnRifiuto.onclick = function() {
-			  modalRifiuto.style.display = "block";
-			 /* if(btn == email)
-				{	
-					showAlert();
-					return true;
-				}
-				else
-				{
-					showAlert();
-					return false;
-				}*/
-			}
+			
 			// When the user clicks on <span> (x), close the modal
 			span.onclick = function() {
 			  modalAnnullamento.style.display = "none";
@@ -317,11 +311,10 @@
 			// When the user clicks anywhere outside of the modal, close it
 			window.onclick = function(event) {
 			  if (event.target == modalAnnullamento) {
-			    modalAnnullamento.style.display = "none";
+				modalAnnullamento.style.display = "none";
 			    toastr.error("Annullamento non effettuato");
 			  }
-
-		}
+			}
 		</script>
 		<script>
 		function annulla()
@@ -348,7 +341,7 @@
 							toastr.success("Annullamento non effettuato");
 						    modalAnnullamento.style.display = "none";
 						     setTimeout(function(){// wait for 5 secs(2)
-						           location.replace="VisualizzaStatoTirocinio.jsp"; // then reload the page.(3)
+						           location.replace="VisualizzaStatoTirocinioET.jsp"; // then reload the page.(3)
 						      }, 3000); 
 						     }
 				  }

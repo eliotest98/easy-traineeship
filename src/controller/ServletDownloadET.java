@@ -54,7 +54,7 @@ public class ServletDownloadET extends HttpServlet {
     {
       throw new IllegalArgumentException("Tirocinio inesistente.");
     }
-    String filePath = "C:\\Users\\alex8\\Documents\\GitHub\\easy-traineeship\\ProgettoFormativo\\";
+    String filePath = "C:\\Users\\" + System.getProperty("user.name") + "\\Documents\\GitHub\\easy-traineeship\\ProgettoFormativo\\";
 
     try {
       in = new FileInputStream(filePath + tirocinio.getProgettoFormativo());

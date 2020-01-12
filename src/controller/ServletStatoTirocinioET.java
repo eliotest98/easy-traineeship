@@ -53,21 +53,24 @@ public class ServletStatoTirocinioET extends HttpServlet {
 			if (tirocinioattivo.getPartitaIva()!=null) {
 				try {
 					ente = enteConDao.ricercaEnteByPartitaIva(tirocinioattivo.getPartitaIva());
-					request.getSession().setAttribute("ente", ente);
+					request.setAttribute("ente", ente);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 			
 
-			request.getSession().setAttribute("tirocinio", tirocinioattivo);
-			request.getSession().setAttribute("tirocinante", tirocinante);
+			request.setAttribute("tirocinio", tirocinioattivo);
+			request.setAttribute("tirocinante", tirocinante);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/_areaSecretary/VisualizzaStatoTirocinioET.jsp");
 			dispatcher.forward(request, response);
 		}
 		else {
-			response.sendRedirect("/_areaSecretary/viewRequest.jsp");
+			request.setAttribute("tirocinante", tirocinante);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/_areaSecretary/VisualizzaStatoTirocinioET.jsp");
+			dispatcher.forward(request, response);
+			//response.sendRedirect("../_areaSecretary/viewRequest.jsp");
 		}
 	}
 

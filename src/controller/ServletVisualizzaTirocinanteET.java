@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Tirocinante;
 import model.Tirocinio;
-import model.DAO.EnteConvenzionatoDAO;
 import model.DAO.TirocinanteDAO;
 import model.DAO.TirocinioDAO;
 
@@ -33,7 +32,7 @@ public class ServletVisualizzaTirocinanteET extends HttpServlet {
   /**
    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
    */
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+  public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
 		 //Istanzio il Dao e il Tirocinio
@@ -66,8 +65,8 @@ public class ServletVisualizzaTirocinanteET extends HttpServlet {
 	    if(tirocinante != null)
 	    {
 	      //setto l'attributo tirocinante
-	      request.getSession().setAttribute("tirocinante", tirocinante);
-	      request.getSession().setAttribute("tirocinio", tirocinio);
+	      request.setAttribute("tirocinante", tirocinante);
+	      request.setAttribute("tirocinio", tirocinio);
 	    }
 	    
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("_areaSecretary/VisualizzaTirocinanteET.jsp");
@@ -77,7 +76,7 @@ public class ServletVisualizzaTirocinanteET extends HttpServlet {
   /**
    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
    */
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+  public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     // TODO Auto-generated method stub
     doGet(request, response);

@@ -22,24 +22,30 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import controller.DbConnection;
-import controller.ServletAnnullaEnteDaStudenteET;
-import controller.ServletGestioneRichiesteSegreteriaET;
+import controller.ServletGestioneRichiesteEnteET;
+import controller.ServletVisualizzaTirocinanteET;
+import controller.ServletVisualizzaTirocinanteEnteET;
+import model.Secretary;
 
-class ServletAnnullaEnteDaStudenteETTest {
+class ServletVisualizzaTirocinanteEnteETTest {
 	Connection conn = new DbConnection().getInstance().getConn();
 	//Creazione mock	
 	HttpServletRequest requestMock = mock(HttpServletRequest.class);
 	HttpServletResponse responseMock = mock(HttpServletResponse.class);
 	HttpSession sessionMock = mock(HttpSession.class);
-	ServletAnnullaEnteDaStudenteET servletSecretaryMock = mock(ServletAnnullaEnteDaStudenteET.class);
+	ServletGestioneRichiesteEnteET servletSecretaryMock = mock(ServletGestioneRichiesteEnteET.class);
 	RequestDispatcher dispatcherMock = mock(RequestDispatcher.class);
 	Date data=new Date();
 	String modifiedDate= new SimpleDateFormat("yyyy-MM-dd").format(data);
 	
+	
 	@BeforeEach
 	public void setUp() {
+		Secretary user = new Secretary();
+		user.setEmail("segreteria@unisa.it");
 		when(requestMock.getSession()).thenReturn(sessionMock);
-		when(sessionMock.getAttribute("userET")).thenReturn("0");
+		when(sessionMock.getAttribute("userET")).thenReturn("1");
+		when(sessionMock.getAttribute("user")).thenReturn(user);
 		try 
 		{
 			Statement stmtSelect = conn.createStatement();
@@ -51,7 +57,7 @@ class ServletAnnullaEnteDaStudenteETTest {
 	    	stmtSelect.executeUpdate(sql5);
 	    	String sql3 = ("INSERT INTO enteconvenzionato VALUES('11111111111','Avellino','Salvatore Totti','0825519149','100','Michele Persico','Michele Porto','08/01/1977','esperti in siti web','test@test.test');");
 	    	stmtSelect.executeUpdate(sql3);
-	    	String sql1 = ("INSERT INTO tirocinio VALUES('999','"+modifiedDate+"','11','informatica','javascript','Java','Bene','In attesa della Segreteria','progettoformativa.pdf','ragazzo valido','4859','11111111111');");
+	    	String sql1 = ("INSERT INTO tirocinio VALUES('999','"+modifiedDate+"','11','informatica','javascript','Java','Bene','In attesa Ente','progettoformativa.pdf','ragazzo valido','4859','11111111111');");
 	    	stmtSelect.executeUpdate(sql1);
 	    	conn.commit();
 	    }
@@ -81,13 +87,14 @@ class ServletAnnullaEnteDaStudenteETTest {
 		    e.printStackTrace();
 		}
 	}	
-	
+
 	@Test
-	void annullamentoTirocinioSuccess() throws ServletException, IOException {
-		when(requestMock.getParameter("enteEmail")).thenReturn("999");
-		when(requestMock.getRequestDispatcher("_areaStudent/StoricoStudenteET.jsp")).thenReturn(dispatcherMock);
-		ServletAnnullaEnteDaStudenteET test = new ServletAnnullaEnteDaStudenteET();
-		test.doGet(requestMock,responseMock);
-		verify(dispatcherMock).forward(requestMock,responseMock);
+	void testVisualizzaTirocinanteEnte() throws ServletException, IOException {
+		when(requestMock.getParameter("matricola")).thenReturn("4859");
+		when(requestMock.getRequestDispatcher("_areaEnteET/VisualizzaTirocinanteEnteET.jsp")).thenReturn(dispatcherMock);
+		ServletVisualizzaTirocinanteEnteET test = new ServletVisualizzaTirocinanteEnteET();
+		test.doPost(requestMock, responseMock);
+		verify(dispatcherMock).forward(requestMock, responseMock);
 	}
+
 }

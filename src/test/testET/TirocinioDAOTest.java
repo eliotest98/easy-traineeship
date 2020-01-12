@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 
 import java.util.*;
-import java.util.Date;
+import java.sql.Date;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 
@@ -19,14 +19,12 @@ class TirocinioDAOTest {
 
 	Connection conn = new DbConnection().getInstance().getConn();
 	TirocinioDAO tirocinioDao = new TirocinioDAO();
-	Date data=new Date();
-	String modifiedDate= new SimpleDateFormat("yyyy-MM-dd").format(data);
 	
 	String sql1 = ("INSERT INTO User VALUES('p.aurilia@studenti.unisa.it','Pellegrino','Aurilia','M','pelle','0');");
-	String sql2 = ("INSERT INTO tirocinante VALUES('4859','"+modifiedDate+"','Salerno','italiana','Salerno','rlaplg98a08i805e','3294475051','p.aurilia@studenti.unisa.it');");
+	String sql2 = ("INSERT INTO tirocinante VALUES('4859','"+new Date(0)+"','Salerno','italiana','Salerno','rlaplg98a08i805e','3294475051','p.aurilia@studenti.unisa.it');");
 	String sql3 = ("INSERT INTO User VALUES('green@gmail.com','Salvatore','Totti','M','pass98','3');");
 	String sql4 = ("INSERT INTO enteconvenzionato VALUES('11111111111','Avellino','Salvatore Totti','0825519149','100','Michele Persico','Michele Porto','08/01/1977','esperti in siti web','green@gmail.com');");
-	String sql5 = ("INSERT INTO tirocinio VALUES('1','"+modifiedDate+"','11','informatica','javascript','Java','Bene','In attesa dell Ente','progettoformativa.pdf','ragazzo valido','4859','11111111111');");
+	String sql5 = ("INSERT INTO tirocinio VALUES('1','"+new Date(0)+"','11','informatica','javascript','Java','Bene','In attesa dell Ente','progettoformativa.pdf','ragazzo valido','4859','11111111111');");
 	
 	//metodo tearDown per rimuovere i campi inseriti durante i test
 	@AfterEach
@@ -250,7 +248,7 @@ class TirocinioDAOTest {
     	conn.commit();
 		Tirocinio test1=new Tirocinio();
 		test1.setCodTirocinio(1);
-		test1.setDataInizioTirocinio(modifiedDate);                  
+		test1.setDataInizioTirocinio(""+new Date(0));                  
 		test1.setCfuPrevisti((short) 11);
 		test1.setCompetenze("reti");
 		test1.setCompetenzeAcquisire("javaScript");
@@ -324,7 +322,7 @@ class TirocinioDAOTest {
 		
 		Tirocinio nuovo=new Tirocinio();
 		nuovo.setCodTirocinio(1);
-		nuovo.setDataInizioTirocinio(modifiedDate);
+		nuovo.setDataInizioTirocinio(""+new Date(0));
 		nuovo.setCfuPrevisti((short)8);
 		nuovo.setCompetenze("java");
 		nuovo.setCompetenzeAcquisire("javascript");
@@ -491,5 +489,28 @@ class TirocinioDAOTest {
 		}
 		assertEquals(trovato,true);
 	}
+		//Test del metodo modificaDescrizioneEnteTirocinio di TirocinioDAO 
+		@Test
+		void modificaDescrizioneEnteTirocinio() 
+		{
+			
+			try 
+			{
+				
+				Statement stmtSelect = conn.createStatement();
+		    	stmtSelect.executeUpdate(sql1);
+		    	stmtSelect.executeUpdate(sql2);
+		    	stmtSelect.executeUpdate(sql3);
+		    	stmtSelect.executeUpdate(sql4);
+		    	stmtSelect.executeUpdate(sql5);
+		    	conn.commit();
+		    	
+		    }
+		    catch (Exception e) {
+		    	e.printStackTrace();
+		    }
+			
+			assertEquals(tirocinioDao.modificaDescrizioneEnteTirocinio(1,"Bloccato"),true);
+		}
 	
 }

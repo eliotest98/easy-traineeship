@@ -47,7 +47,7 @@
 									<div class="pf">
 										<span><b>Nome: </b><%=tirocinante.getName()%></span><br>
 										<span><b>Cognome: </b> <%=tirocinante.getSurname()%></span><br>
-										<span><b>Matricola: </b> <%=tirocinante.getMatricola()%></span><br>
+										<span><b>Matricola: </b> 0<%=tirocinante.getMatricola()%></span><br>
 										<span><b>Facolt&agrave;: </b> <%=tirocinante.getFacolta()%></span><br>
 										<span><b>E-mail: </b><%=tirocinante.getEmail()%></span><br>
 										<span><b>Crediti previsti: </b><%=tirocinio.getCfuPrevisti()%></span><br>
