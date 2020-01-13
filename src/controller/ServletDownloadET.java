@@ -5,25 +5,19 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.sql.Timestamp;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.SystemAttribute;
 import model.Tirocinio;
 import model.DAO.TirocinioDAO;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.json.simple.JSONObject;
 
 
 /**
- * Servlet implementation class Downloader.
+ * Servlet implementation class ServletDownloadET.
  */
-@WebServlet("/ServletDownload")
+@WebServlet("/ServletDownloadET")
 public class ServletDownloadET extends HttpServlet {
   private static final long serialVersionUID = 1L;
   @SuppressWarnings("unused")
@@ -48,19 +42,31 @@ public class ServletDownloadET extends HttpServlet {
     OutputStream outputStream = null;
     InputStream in = null;
 
-    //Prelevo il tirocinio dalla sessione
+    // Prelevo il tirocinio dalla sessione
     Tirocinio tirocinio = (Tirocinio) request.getSession().getAttribute("Tirocinio");
-    if(tirocinio==null)
-    {
-      throw new IllegalArgumentException("Tirocinio inesistente.");
+
+    // Se è null, in sessione non c'è lo studente
+    if (tirocinio == null) {
+      // Prelevo il codice dalla risposta
+      int cod = Integer.parseInt((String) request.getParameter("cod"));
+      // Cerco il tirocinio
+      TirocinioDAO t = new TirocinioDAO();
+      tirocinio = t.TirocinioByCodTirocinio(cod);
+      // Se non esiste, c'è un errore
+      if (tirocinio == null) {
+        throw new IllegalArgumentException("Errore nel codice del tirocinio");
+      }
     }
-    String filePath = "C:\\Users\\" + System.getProperty("user.name") + "\\Documents\\GitHub\\easy-traineeship\\ProgettoFormativo\\";
+
+    String filePath = "C:\\Users\\" + System.getProperty("user.name")
+        + "\\Documents\\GitHub\\easy-traineeship\\ProgettoFormativo\\";
 
     try {
       in = new FileInputStream(filePath + tirocinio.getProgettoFormativo());
       byte[] buffer = new byte[1024];
       int bytesRead = 0;
-      response.setHeader("Content-Disposition", "attachment;filename=\"" + tirocinio.getProgettoFormativo() + "\"");
+      response.setHeader("Content-Disposition",
+          "attachment;filename=\"" + tirocinio.getProgettoFormativo() + "\"");
       outputStream = response.getOutputStream();
       while (0 < (bytesRead = in.read(buffer))) {
         outputStream.write(buffer, 0, bytesRead);
@@ -77,7 +83,6 @@ public class ServletDownloadET extends HttpServlet {
    * 
    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
    */
-  @SuppressWarnings({"unchecked", "unused", "rawtypes"})
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     doGet(request, response);

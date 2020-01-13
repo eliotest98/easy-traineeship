@@ -170,6 +170,28 @@
 	<!--End pagewrapper-->
 
 	<jsp:include page="/partials/includes.jsp" />
+	<%
+		//CODICE PER IL TOASTR DI SUCCESSO
+		if (request.getParameter("cod")!=null) {
+			if (request.getParameter("cod").equals("1")) {
+		%>
+			<script>
+			showAlert();
+			toastr.success("Ente registrato con successo.");
+			</script>
+		<%
+			}
+			else if (request.getParameter("cod").equals("2")) {
+		%>
+			<script>
+			showAlert();
+			toastr.error("Errore nella registrazione dell'Ente.");
+			</script>
+		<%
+			}
+		}	
+	%>
+	
 		<script>
 			//script 'DataTable' di Bootstrap' per la gestione della 'Tabella'
 			jQuery(document).ready(function($){

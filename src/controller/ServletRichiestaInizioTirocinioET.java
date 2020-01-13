@@ -273,18 +273,18 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
 
     tirocinio.setMatricola(tirocinante.getMatricola());
 
-    //Setto il tirocinante nel database
+    //Cerco il tirocinante nel database: se non esiste, lo inserisco
     TirocinanteDAO t = new TirocinanteDAO();
-    if(t.inserisciTirocinante(tirocinante)==false)
-    {
-      throw new IllegalArgumentException("La query di inserimentodel Tirocinante non � andata a buon fine");
+    Tirocinante tirtemp = t.ricercaTirocinanteByMatricola(tirocinante.getMatricola());
+    if (tirtemp==null) {
+    	t.inserisciTirocinante(tirocinante);
     }
-
+    
     //Setto il tirocinio nel database
     TirocinioDAO ti = new TirocinioDAO();
     if(ti.inserisciTirocinio(tirocinio)==false)
     {
-      throw new IllegalArgumentException("La query di inserimento del Tirocinio non � andata a buon fine");
+    	response.sendRedirect(request.getContextPath()+"/_areaStudent/HomeStudente.jsp?cod=2");
     }
     
     //Mi setto il tirocininante nel TIROCINIO
@@ -294,12 +294,11 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
     tirocinio = ti.tirocinioAttivo(Long.valueOf(request.getParameter("matricolaTirocinante")));
     tirocinante = t.ricercaTirocinanteByMatricola(Long.valueOf(request.getParameter("matricolaTirocinante")));
     request.getSession().setAttribute("Tirocinante", tirocinante);
-    System.out.println("Tirocinante matricola " + tirocinante.getMatricola());
     request.getSession().setAttribute("Tirocinio", tirocinio); 
     
     //RequestDispatcher d = request.getRequestDispatcher("/_areaStudent/HomeStudente.jsp");
     //d.forward(request, response);
-    response.sendRedirect(request.getContextPath()+"/_areaStudent/HomeStudente.jsp");
+    response.sendRedirect(request.getContextPath()+"/_areaStudent/HomeStudente.jsp?cod=1");
   }
 
   /**

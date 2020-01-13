@@ -5,8 +5,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -61,8 +59,8 @@ public class ServletModificaEnteET extends HttpServlet {
     GregorianCalendar g = new GregorianCalendar();
     SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
     String dat = request.getParameter("dataDiNascita");
-    if (dat == null) {
-        throw new IllegalArgumentException("Il campo 'Data di Nascita' &egrave vuoto");
+    if (!dat.matches("^([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))+$")) {
+        throw new IllegalArgumentException("Il campo 'Data di Nascita' non rispetta il formato");
       }
     try {
         g.setTime((Date) formatter1.parseObject(dat));
@@ -98,6 +96,12 @@ public class ServletModificaEnteET extends HttpServlet {
     if (email.length() > 64) {
     	throw new IllegalArgumentException("Il campo 'E-mail' supera la lunghezza consentita");
     }
+    if (email.length() == 0
+            || !postfix.matches("@[A-z0-9\\.\\_\\-]+\\.[A-z]{2,6}")
+            || prefix.length() < 1) 
+     {
+        throw new IllegalArgumentException("Il campo 'E-mail' non rispetta il formato");
+     }
     // Controllo Sede
     String sede = request.getParameter("sede");
     if (sede.length() == 0) {
@@ -155,8 +159,9 @@ public class ServletModificaEnteET extends HttpServlet {
       } else {
         request.setAttribute("La modifica &egrave; avvenuta con successo", mess);
         //Controlla jsp
-        RequestDispatcher dispatcher = request.getRequestDispatcher("VisualizzaEnteET.jsp");
-        dispatcher.forward(request, response);
+        //RequestDispatcher dispatcher = request.getRequestDispatcher("VisualizzaEnteET.jsp");
+        //dispatcher.forward(request, response);
+        response.sendRedirect(request.getContextPath()+"/VisualizzaEnteET.jsp");
       }
     } catch (Exception e) {
       e.printStackTrace();

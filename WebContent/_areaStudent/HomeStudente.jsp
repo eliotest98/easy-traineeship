@@ -24,6 +24,7 @@
 			<jsp:param name="pageName" value="<%=pageName%>" />
 			<jsp:param name="pageFolder" value="<%=pageFolder%>" />
 		</jsp:include>
+		
 		<div class="sidebar-page-container basePage viewRequestStudent">
 			<div class="auto-container">
 				<div class="row clearfix">
@@ -68,5 +69,42 @@
 	</div>
 	<!--End pagewrapper-->
 	<jsp:include page="/partials/includes.jsp" />
+	<%
+		//CODICE PER IL TOASTR DI SUCCESSO
+		if (request.getParameter("cod")!=null) {
+			if (request.getParameter("cod").equals("1")) {
+		%>
+			<script>
+			showAlert();
+			toastr.success("Richiesta di tirocinio effettuata con successo.");
+			</script>
+		<%
+			}
+			else if (request.getParameter("cod").equals("2")) {
+		%>
+			<script>
+			showAlert();
+			toastr.error("Errore durante l'invio della richiesta.");
+			</script>
+		<%
+			}
+			else if (request.getParameter("cod").equals("3")) {
+		%>
+			<script>
+			showAlert();
+			toastr.success("Richiesta all'Ente effettuata con successo.");
+			</script>
+		<%
+			}
+			else if (request.getParameter("cod").equals("4")) {
+		%>
+			<script>
+			showAlert();
+			toastr.error("Errore durante l'invio della richiesta all'Ente.");
+			</script>
+		<%
+			}
+		}	
+	%>
 </body>
 </html>

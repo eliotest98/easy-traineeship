@@ -2,6 +2,7 @@ package test.testET;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
@@ -36,6 +37,19 @@ Connection conn = new DbConnection().getInstance().getConn();
 	public void setUp() {
 		when(requestMock.getSession()).thenReturn(sessionMock);
 		when(sessionMock.getAttribute("userET")).thenReturn("1");
+		try 
+		{
+			Statement stmtSelect = conn.createStatement();
+			String sql4 = ("INSERT INTO User VALUES('greentech@gmail.com','Tester','Amendola','M','salvo','0');");
+	    	stmtSelect.executeUpdate(sql4);
+	    	String sql3 = ("INSERT INTO enteconvenzionato VALUES('12312312312','Avellino','Salvatore Totti','0825519149','100','Michele Persico','Michele Porto','08/01/1977','esperti in siti web','greentech@gmail.com');");
+	    	stmtSelect.executeUpdate(sql3);
+	    	
+	    	conn.commit();
+	    }
+	    catch (Exception e) {
+	    	e.printStackTrace();
+	    }
 	}
 	
 	//Test case TC_GA_8.01: Campo Nome vuoto
@@ -100,7 +114,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 		void testCampoDataDiNascitaFormatoErrato() {
 			when(requestMock.getParameter("name")).thenReturn("GreenTech");
 			when(requestMock.getParameter("rappresentante")).thenReturn("Fabio Napolitano");
-			when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/19798");
+			when(requestMock.getParameter("dataDiNascita")).thenReturn("19798-12-04");
 			ServletModificaEnteET test = new ServletModificaEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
 			assertEquals("Il campo 'Data di Nascita' non rispetta il formato",e.getMessage());
@@ -111,7 +125,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 		void testCampoNumeroDiDipendentiFormatoErrato() {
 			when(requestMock.getParameter("name")).thenReturn("GreenTech");
 			when(requestMock.getParameter("rappresentante")).thenReturn("Fabio Napolitano");
-			when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/1979");
+			when(requestMock.getParameter("dataDiNascita")).thenReturn("1979-12-04");
 			when(requestMock.getParameter("dipendenti")).thenReturn("100°");
 			ServletModificaEnteET test = new ServletModificaEnteET();
 			IllegalArgumentException e = assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
@@ -123,7 +137,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 		void testCampoProfessorediRiferimentoVuoto() {
 			when(requestMock.getParameter("name")).thenReturn("GreenTech");
 			when(requestMock.getParameter("rappresentante")).thenReturn("Fabio Napolitano");
-			when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/1979");
+			when(requestMock.getParameter("dataDiNascita")).thenReturn("1979-12-04");
 			when(requestMock.getParameter("dipendenti")).thenReturn("100");
 			when(requestMock.getParameter("dotRiferimento")).thenReturn("");
 			ServletModificaEnteET test = new ServletModificaEnteET();
@@ -136,7 +150,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 		void testCampoProfessorediRiferimentoTroppoLungo() {
 			when(requestMock.getParameter("name")).thenReturn("GreenTech");
 			when(requestMock.getParameter("rappresentante")).thenReturn("Fabio Napolitano");
-			when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/1979");
+			when(requestMock.getParameter("dataDiNascita")).thenReturn("1979-12-04");
 			when(requestMock.getParameter("dipendenti")).thenReturn("100");
 			when(requestMock.getParameter("dotRiferimento")).thenReturn("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 			ServletModificaEnteET test = new ServletModificaEnteET();
@@ -148,7 +162,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 		void testCampoProfessorediRiferimentoFormatoErrato() {
 			when(requestMock.getParameter("name")).thenReturn("GreenTech");
 			when(requestMock.getParameter("rappresentante")).thenReturn("Fabio Napolitano");
-			when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/1979");
+			when(requestMock.getParameter("dataDiNascita")).thenReturn("1979-12-04");
 			when(requestMock.getParameter("dipendenti")).thenReturn("100");
 			when(requestMock.getParameter("dotRiferimento")).thenReturn("Gravino Carm43ne");
 			ServletModificaEnteET test = new ServletModificaEnteET();
@@ -161,7 +175,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 		void testCampoEmailVuoto() {
 				when(requestMock.getParameter("name")).thenReturn("GreenTech");
 				when(requestMock.getParameter("rappresentante")).thenReturn("Fabio Napolitano");
-				when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/1979");
+				when(requestMock.getParameter("dataDiNascita")).thenReturn("1979-12-04");
 				when(requestMock.getParameter("dipendenti")).thenReturn("100");
 				when(requestMock.getParameter("dotRiferimento")).thenReturn("Gravino Carmine");
 				when(requestMock.getParameter("email")).thenReturn("");
@@ -175,7 +189,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 		void testCampoEmailTroppoLungo() {
 			when(requestMock.getParameter("name")).thenReturn("GreenTech");
 			when(requestMock.getParameter("rappresentante")).thenReturn("Fabio Napolitano");
-			when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/1979");
+			when(requestMock.getParameter("dataDiNascita")).thenReturn("1979-12-04");
 			when(requestMock.getParameter("dipendenti")).thenReturn("100");
 			when(requestMock.getParameter("dotRiferimento")).thenReturn("Gravino Carmine");
 			when(requestMock.getParameter("email")).thenReturn("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
@@ -189,7 +203,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 		void testCampoEmailFormatoErrato() {
 			when(requestMock.getParameter("name")).thenReturn("GreenTech");
 			when(requestMock.getParameter("rappresentante")).thenReturn("Fabio Napolitano");
-			when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/1979");
+			when(requestMock.getParameter("dataDiNascita")).thenReturn("1979-12-04");
 			when(requestMock.getParameter("dipendenti")).thenReturn("100");
 			when(requestMock.getParameter("dotRiferimento")).thenReturn("Gravino Carmine");
 			when(requestMock.getParameter("email")).thenReturn("greentech@@gmail.com");
@@ -203,7 +217,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 		void testCampoSedeVuoto() {
 				when(requestMock.getParameter("name")).thenReturn("GreenTech");
 				when(requestMock.getParameter("rappresentante")).thenReturn("Fabio Napolitano");
-				when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/1979");
+				when(requestMock.getParameter("dataDiNascita")).thenReturn("1979-12-04");
 				when(requestMock.getParameter("dipendenti")).thenReturn("100");
 				when(requestMock.getParameter("dotRiferimento")).thenReturn("Gravino Carmine");
 				when(requestMock.getParameter("email")).thenReturn("greentech@gmail.com");
@@ -218,7 +232,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 		void testCampoSedeTroppoLungo() {
 			when(requestMock.getParameter("name")).thenReturn("GreenTech");
 			when(requestMock.getParameter("rappresentante")).thenReturn("Fabio Napolitano");
-			when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/1979");
+			when(requestMock.getParameter("dataDiNascita")).thenReturn("1979-12-04");
 			when(requestMock.getParameter("dipendenti")).thenReturn("100");
 			when(requestMock.getParameter("dotRiferimento")).thenReturn("Gravino Carmine");
 			when(requestMock.getParameter("email")).thenReturn("greentech@gmail.com");
@@ -233,7 +247,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 		void testCampoSedeFormatoErrato() {
 			when(requestMock.getParameter("name")).thenReturn("GreenTech");
 			when(requestMock.getParameter("rappresentante")).thenReturn("Fabio Napolitano");
-			when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/1979");
+			when(requestMock.getParameter("dataDiNascita")).thenReturn("1979-12-04");
 			when(requestMock.getParameter("dipendenti")).thenReturn("100");
 			when(requestMock.getParameter("dotRiferimento")).thenReturn("Gravino Carmine");
 			when(requestMock.getParameter("email")).thenReturn("greentech@gmail.com");
@@ -249,7 +263,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 		void testCampoReferenteTirociniVuoto() {
 				when(requestMock.getParameter("name")).thenReturn("GreenTech");
 				when(requestMock.getParameter("rappresentante")).thenReturn("Fabio Napolitano");
-				when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/1979");
+				when(requestMock.getParameter("dataDiNascita")).thenReturn("1979-12-04");
 				when(requestMock.getParameter("dipendenti")).thenReturn("100");
 				when(requestMock.getParameter("dotRiferimento")).thenReturn("Gravino Carmine");
 				when(requestMock.getParameter("email")).thenReturn("greentech@gmail.com");
@@ -265,7 +279,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 		void testCampoReferenteTirociniTroppoLungo() {
 			when(requestMock.getParameter("name")).thenReturn("GreenTech");
 			when(requestMock.getParameter("rappresentante")).thenReturn("Fabio Napolitano");
-			when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/1979");
+			when(requestMock.getParameter("dataDiNascita")).thenReturn("1979-12-04");
 			when(requestMock.getParameter("dipendenti")).thenReturn("100");
 			when(requestMock.getParameter("dotRiferimento")).thenReturn("Gravino Carmine");
 			when(requestMock.getParameter("email")).thenReturn("greentech@gmail.com");
@@ -281,7 +295,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 		void testCampoReferenteTirociniFormatoErrato() {
 			when(requestMock.getParameter("name")).thenReturn("GreenTech");
 			when(requestMock.getParameter("rappresentante")).thenReturn("Fabio Napolitano");
-			when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/1979");
+			when(requestMock.getParameter("dataDiNascita")).thenReturn("1979-12-04");
 			when(requestMock.getParameter("dipendenti")).thenReturn("100");
 			when(requestMock.getParameter("dotRiferimento")).thenReturn("Gravino Carmine");
 			when(requestMock.getParameter("email")).thenReturn("greentech@gmail.com");
@@ -297,7 +311,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 		void testCampoTelefonoFormatoErrato() {
 			when(requestMock.getParameter("name")).thenReturn("GreenTech");
 			when(requestMock.getParameter("rappresentante")).thenReturn("Fabio Napolitano");
-			when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/1979");
+			when(requestMock.getParameter("dataDiNascita")).thenReturn("1979-12-04");
 			when(requestMock.getParameter("dipendenti")).thenReturn("100");
 			when(requestMock.getParameter("dotRiferimento")).thenReturn("Gravino Carmine");
 			when(requestMock.getParameter("email")).thenReturn("greentech@gmail.com");
@@ -314,7 +328,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 		void testCampoDescrizioneAttivitaVuoto() {
 			when(requestMock.getParameter("name")).thenReturn("GreenTech");
 			when(requestMock.getParameter("rappresentante")).thenReturn("Fabio Napolitano");
-			when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/1979");
+			when(requestMock.getParameter("dataDiNascita")).thenReturn("1979-12-04");
 			when(requestMock.getParameter("dipendenti")).thenReturn("100");
 			when(requestMock.getParameter("dotRiferimento")).thenReturn("Gravino Carmine");
 			when(requestMock.getParameter("email")).thenReturn("greentech@gmail.com");
@@ -332,7 +346,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 		void testCampoDescrizioneAttivitaTroppoLungo() {
 			when(requestMock.getParameter("name")).thenReturn("GreenTech");
 			when(requestMock.getParameter("rappresentante")).thenReturn("Fabio Napolitano");
-			when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/1979");
+			when(requestMock.getParameter("dataDiNascita")).thenReturn("1979-12-04");
 			when(requestMock.getParameter("dipendenti")).thenReturn("100");
 			when(requestMock.getParameter("dotRiferimento")).thenReturn("Gravino Carmine");
 			when(requestMock.getParameter("email")).thenReturn("greentech@gmail.com");
@@ -350,7 +364,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 		void testCampoPartitaIvaFormatoErrato() {
 			when(requestMock.getParameter("name")).thenReturn("GreenTech");
 			when(requestMock.getParameter("rappresentante")).thenReturn("Fabio Napolitano");
-			when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/1979");
+			when(requestMock.getParameter("dataDiNascita")).thenReturn("1979-12-04");
 			when(requestMock.getParameter("dipendenti")).thenReturn("100");
 			when(requestMock.getParameter("dotRiferimento")).thenReturn("Gravino Carmine");
 			when(requestMock.getParameter("email")).thenReturn("greentech@gmail.com");
@@ -371,7 +385,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 		void testModificaCorretta() throws ServletException, IOException {
 			when(requestMock.getParameter("name")).thenReturn("GreenTech");
 			when(requestMock.getParameter("rappresentante")).thenReturn("Fabio Napolitano");
-			when(requestMock.getParameter("dataDiNascita")).thenReturn("03/04/1979");
+			when(requestMock.getParameter("dataDiNascita")).thenReturn("1979-12-04");
 			when(requestMock.getParameter("dipendenti")).thenReturn("100");
 			when(requestMock.getParameter("dotRiferimento")).thenReturn("Gravino Carmine");
 			when(requestMock.getParameter("email")).thenReturn("greentech@gmail.com");
@@ -382,13 +396,14 @@ Connection conn = new DbConnection().getInstance().getConn();
 					"sono gli strumenti che mettiamo a disposizione delle  aziende nostre clienti per aumentarne la " +  
 					"produttività e l’efficienza interna, e per migliorarne sensibilmente il rapporto con la propria clientela");
 			when(requestMock.getParameter("partitaIva")).thenReturn("12312312312");
-			when(requestMock.getRequestDispatcher("ModificaEnteET.jsp")).thenReturn(dispatcherMock);
+			when(requestMock.getRequestDispatcher("VisualizzaEnteET.jsp")).thenReturn(dispatcherMock);
 			ServletModificaEnteET test = new ServletModificaEnteET();
 			test.doPost(requestMock, responseMock);
-			
+			verify(responseMock).sendRedirect(requestMock.getContextPath()+"/VisualizzaEnteET.jsp");
 			try {
 				Statement stmtSelect = conn.createStatement();
 		    	stmtSelect.executeUpdate("DELETE FROM User WHERE EMAIL='greentech@gmail.com';");
+		    	conn.commit();
 			}
 			catch (Exception e){
 				e.printStackTrace();

@@ -5,8 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URL;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -69,7 +67,7 @@ public class ServletUploadET extends HttpServlet {
         }
  
         String filePath = "C:\\Users\\" + System.getProperty("user.name") + "\\Documents\\GitHub\\easy-traineeship\\ProgettoFormativo\\"+pdfPath;
-        System.out.println("C:\\Users\\" + System.getProperty("user.name") + "\\Documents\\GitHub\\easy-traineeship\\ProgettoFormativo\\"+pdfPath);
+        
         OutputStream os = null;
         
         try {
@@ -117,7 +115,7 @@ public class ServletUploadET extends HttpServlet {
 	            throw new IllegalArgumentException("Query upload non andata a buon fine");
 	          }
 	          
-	          if(tirocinioDAO.modificaStatoTirocinio(tirocinio.getCodTirocinio(), "Accettato e in attesa di firma della Segreteria, Ente e Admin")==false)
+	          if(tirocinioDAO.modificaStatoTirocinio(tirocinio.getCodTirocinio(), "Accettato e in attesa di firma Ente e Admin")==false)
 	          {    
 	            throw new IllegalArgumentException("Query modifica stato non andata a buon fine");
 	          }
@@ -137,28 +135,24 @@ public class ServletUploadET extends HttpServlet {
 	      {
 	        throw new IllegalArgumentException("Query upload 2 non andata a buon fine.");
 	      }
-	      //Sei la segreteria
-	      if(userET==1)
-	      {
-	        stato = "Accettato e in attesa di firma dell' Ente e Admin";
-	      }
+	      //Sei l'ente
+          else if(userET==3)
+          {
+            stato = "Accettato e in attesa di firma Admin";
+          }
 	      //Sei l'admin
 	      else if(userET==2)
 	      {
-	        stato = "Accettato e in attesa di firma dell' Admin";
+	        stato = "Completo";
 	      }
-	      //Sei l'ente
-	      else if(userET==3)
-	      {
-	        stato = "Completata";
-	      }
+	     
 	      //Non sei nessuno
 	      else
 	      {
 	        throw new IllegalArgumentException("Errore.");
 	      }
 
-	      if(tirocinioDAO.modificaStatoTirocinio(codTirocinio, "Accettato e in attesa di firma della Segreteria, Ente e Admin")==false)
+	      if(tirocinioDAO.modificaStatoTirocinio(codTirocinio, stato)==false)
 	      {
 	        throw new IllegalArgumentException("Query modifica stato non andata a buon fine");
 	      }
