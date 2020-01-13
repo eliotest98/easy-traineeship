@@ -191,7 +191,14 @@
 			toastr.error("Errore nella registrazione dell'Ente.");
 			</script>
 		<%
-			}
+			} else if (request.getParameter("cod").equals("3")) {
+				%>
+				<script>
+				showAlert();
+				toastr.success("Modifica effettuata con successo.");
+				</script>
+			<%
+				}
 		}	
 	%>
 	

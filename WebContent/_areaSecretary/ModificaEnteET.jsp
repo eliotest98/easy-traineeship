@@ -62,14 +62,17 @@
 											<label for="name">Nome Ente</label> <input type="text"
 												class="form-control" id="name" name="name"
 												placeholder="Nome Ente" value="<%=listaEnti.get(i).getName() %>" min="1" max="64"
-												required pattern="[0-9a-zA-Z]{1,64}" title="Formato del nome non corretto.">
+												required pattern="[ 0-9a-zA-Z]{1,64}" title="Formato del nome non corretto.">
 										</div>
+										
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="partitaIva">Partita IVA</label> <input type="tel"
 												oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
 												class="form-control" placeholder="Partita IVA" value="<%=listaEnti.get(i).getPartitaIva() %>"
-												name="partitaIva" id="partitaIva" size="11"  min="1" max="64" required pattern="[0-9]{11}" title="Formato della partita iva non corretto.">
+												name="partitaIvaShown" id="partitaIva" size="11"  min="1" max="64" required pattern="[0-9]{11}" disabled>
 										</div>
+										<input type="hidden" name="partitaIva" value="<%=listaEnti.get(i).getPartitaIva() %>">
+										
 										<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
 											<label for="email">Email</label> <input type="email"
 												class="form-control" id="email" name="email"

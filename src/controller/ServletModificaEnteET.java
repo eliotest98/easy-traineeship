@@ -161,7 +161,7 @@ public class ServletModificaEnteET extends HttpServlet {
         //Controlla jsp
         //RequestDispatcher dispatcher = request.getRequestDispatcher("VisualizzaEnteET.jsp");
         //dispatcher.forward(request, response);
-        response.sendRedirect(request.getContextPath()+"/VisualizzaEnteET.jsp");
+        response.sendRedirect(request.getContextPath()+"/VisualizzaEnteET.jsp?cod=3");
       }
     } catch (Exception e) {
       e.printStackTrace();

@@ -298,14 +298,14 @@ public class EnteConvenzionatoDAO {
 			{
 				//Update per la modifica in 'User' dei dati parziali di 'EnteConvenzionato'
 				psUser= con.prepareStatement("UPDATE USER "
-						+ ("SET EMAIL=?, NAME=?, SURNAME=?, SEX=?, PASSWORD=? ")
+						+ ("SET EMAIL=?, NAME=?, SURNAME=?, SEX=?")
 						+ ("WHERE email = ?;"));
 				psUser.setString(1, enteConvenzionato.getEmail());
 				psUser.setString(2, enteConvenzionato.getName());
 				psUser.setString(3, enteConvenzionato.getSurname());
 				psUser.setString(4, "N");
-				psUser.setString(5, enteConvenzionato.getPassword());
-				psUser.setString(6, enteConvenzionato.getEmail());
+				//psUser.setString(5, enteConvenzionato.getPassword());
+				psUser.setString(5, enteConvenzionato.getEmail());
 				//Update per la Modifica in 'EnteConvenzionato' dei dati parziali di 'EnteConvenzionato'
 				psEnteConvenzionato= con.prepareStatement("UPDATE ENTECONVENZIONATO "
 														+ "SET SEDE = ?, RAPPRESENTANTE = ?, TELEFONO = ?,"
