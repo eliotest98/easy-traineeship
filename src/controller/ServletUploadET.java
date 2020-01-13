@@ -125,8 +125,8 @@ public class ServletUploadET extends HttpServlet {
 	      }
 	      //Prelevo  il codice dall'id della tabella
 	      else {
-	      int codTirocinio = Integer.parseInt((String) request.getParameter("codTirocinio"));
-	      if((String) request.getParameter("codTirocinio")==null)
+	      int codTirocinio = Integer.parseInt((String) request.getParameter("cod"));
+	      if((String) request.getParameter("cod")==null)
 	      {
 	        throw new IllegalArgumentException("Codice tirocinio non valido.");
 	      }

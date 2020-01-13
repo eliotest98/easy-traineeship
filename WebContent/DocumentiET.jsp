@@ -90,7 +90,7 @@
 														<img src="./images/icons/download.png" title="Download">
 													</button>
 												</a>
-												<a href="../ServletUploadET">
+												<a href="UploadET.jsp?cod=<%=listaTirocinio.get(i).getCodTirocinio()%>">
 													<button id="upload" name="upload" type="submit"
 													style="width: 30px; background-color: #FF9900; outline: none; border: 4px solid #FF9900; border-radius: 5px; color: white; margin: 2%;"
 													data-type="2" data-idrequest="35" title="Upload">
