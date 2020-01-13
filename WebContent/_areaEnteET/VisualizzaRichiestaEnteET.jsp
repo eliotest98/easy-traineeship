@@ -106,7 +106,43 @@
 	<!--End pagewrapper-->
 
 	<jsp:include page="/partials/includes.jsp" />
-	
+	<%
+		//CODICE PER IL TOASTR DI SUCCESSO
+		if (request.getParameter("cod")!=null) {
+			if (request.getParameter("cod").equals("1")) {
+		%>
+			<script>
+			showAlert();
+			toastr.success("Richiesta di tirocinio accettata.");
+			</script>
+		<%
+			}
+			else if (request.getParameter("cod").equals("2")) {
+		%>
+			<script>
+			showAlert();
+			toastr.error("Errore durante l'accettazione della richiesta.");
+			</script>
+		<%
+			}
+			else if (request.getParameter("cod").equals("3")) {
+		%>
+			<script>
+			showAlert();
+			toastr.success("Richiesta di tirocinio rifiutata.");
+			</script>
+		<%
+			}
+			else if (request.getParameter("cod").equals("4")) {
+		%>
+			<script>
+			showAlert();
+			toastr.error("Errore durante il rifiuto della richiesta.");
+			</script>
+		<%
+			}
+		}	
+	%>
 		<script>
 			//script 'DataTable' di Bootstrap' per la gestione della 'Tabella'
 			jQuery(document).ready(function($){
