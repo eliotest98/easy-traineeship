@@ -307,6 +307,7 @@
 			// When the user clicks on <span> (x), close the modal
 			span.onclick = function() {
 			  modalAccettazione.style.display = "none";
+			  showAlert();
 			  toastr.error("Operazione non effettuata");
 			}
 			
@@ -314,10 +315,12 @@
 			window.onclick = function(event) {
 			  if (event.target == modalAccettazione) {
 			    modalAccettazione.style.display = "none";
+			    showAlert();
 			    toastr.error("Accettazione non effettuata");
 			  }
 			  if (event.target == modalRifiuto) {
 			    modalRifiuto.style.display = "none";
+			    showAlert();
 			    toastr.error("Rifiuto non effettuato");
 			}
 
@@ -326,6 +329,7 @@
 		<script>
 		function accetta()
 		{
+			showAlert();
 			toastr.success("Accettazione effettuata con successo");
 			document.getElementById("i").value=" ";
 		}
@@ -334,12 +338,14 @@
 		function notaccetta()
 		{
 			modalAccettazione.style.display = "none";
+			showAlert();
 			toastr.error("Accettazione non effettuata");
 		}
 		</script>
 		<script>
 		function rifiuta()
 		{
+			showAlert();
 			toastr.success("Rifiuto effettuato con successo");
 		}
 		</script>
@@ -347,6 +353,7 @@
 		function notrifiuta()
 		{
 			modalRifiuto.style.display = "none";
+			showAlert();
 			toastr.error("Rifiuto non effettuato");
 			
 		}
