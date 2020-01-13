@@ -305,6 +305,7 @@
 			// When the user clicks on <span> (x), close the modal
 			span.onclick = function() {
 			  modalAccettazione.style.display = "none";
+			showAlert();
 			  toastr.error("Operazione non effettuata");
 			}
 			
@@ -312,10 +313,12 @@
 			window.onclick = function(event) {
 			  if (event.target == modalAccettazione) {
 			    modalAccettazione.style.display = "none";
+				showAlert();
 			    toastr.error("Accettazione non effettuata");
 			  }
 			  if (event.target == modalRifiuto) {
 			    modalRifiuto.style.display = "none";
+				showAlert();
 			    toastr.error("Rifiuto non effettuato");
 			}
 
@@ -357,6 +360,7 @@
 		function notaccetta()
 		{
 			modalAccettazione.style.display = "none";
+			showAlert();
 			toastr.error("Rifiuto non effettuato");
 			
 		}
@@ -394,6 +398,7 @@
 					  }
 					});
 			} else {
+				showAlert();
 				toastr.error("Inserisci la motivazione del rifiuto");
 			}
 		}		
@@ -402,6 +407,7 @@
 		function notrifiuta()
 		{
 			modalRifiuto.style.display = "none";
+			showAlert();
 			toastr.error("Rifiuto non effettuato");
 			
 		}
