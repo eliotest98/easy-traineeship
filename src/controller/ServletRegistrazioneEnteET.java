@@ -1,10 +1,15 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Random;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -143,10 +148,38 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
       throw new IllegalArgumentException("Il campo 'Partita IVA' non rispetta il formato");
     }
     
+    /*
+     * Generazione Password
+     * */
+    ArrayList<Integer> numeri = new ArrayList<Integer>();
+    ArrayList<String> letter = new ArrayList<String>();
+    String lettere = "abcdefghilmnopqrstuvz";
+    Random a = new Random();
+    for(int i=0;i<lettere.length();i++)
+    {
+      if(a.nextBoolean())
+      {
+        letter.add(""+lettere.charAt(i));
+      }
+    }
+    Collections.shuffle(letter);
+    Random num = new Random();
+    numeri.add(num.nextInt(10));
+    numeri.add(num.nextInt(10));
+    letter.add(numeri.get(0)+"");
+    letter.add(numeri.get(1)+"");
+    String passwordET="";
+    for(int i=0;i<letter.size();i++)
+    {
+      passwordET= passwordET+letter.get(i);
+    }
+    System.out.println(passwordET);
+    
+    
     /**
      * Genera password criptata
      */
-    String password = new Utils().generatePwd("password");
+    String password = new Utils().generatePwd(passwordET);
     
     /**
      * Istanziazione dell'oggetto EnteConvezionato.
@@ -159,6 +192,28 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
      */
     try {
     	if (enteConDao.inserisciEnte(enteCon)==true) {
+
+    	    /**
+    	     * invio Mail
+    	     * 
+    	     */
+    	    response.setContentType("text/html;charset=UTF-8");
+    	    PrintWriter out = response.getWriter();
+    	    String messaggio="<center><h2>UNIVERSITA' DEGLI STUDI DI SALERNO</h2> <br> "
+    	    				+ "<h3> DIPARTIMENTO DI INFORMATICA </h3> <br></certer>"
+    	    				+ "Di seguito all' avvenuta richesta di registrazione dell' "
+    	    				+ "azienda <b>"+name+"</b> al sistema Easy Traineeship"
+    	    				+ "le forniamo le credenziali per accervi <br> <br>"
+    	    				+ "<h4>Username:<h4> <b><h3>"+email+"</h3></b> <br>"
+    	    				+ "<h4>Password:<h4> <b><h3>"+passwordET+"</h3></b> <br>";
+    	    
+    	    String to = email;
+    	    String subject ="Credenziali Easy Traineeship";
+    	    String message = messaggio;
+    	    String user = "segreteriaprogettoet@gmail.com";
+    	    String pass ="password1234_";
+    	    SendMail.send(to,subject, message, user, pass);
+    	    
     		response.sendRedirect(request.getContextPath()+"/VisualizzaEnteET.jsp?cod=1");
     	}
     	else {
