@@ -177,6 +177,8 @@
 		%>
 			<script>
 			showAlert();
+			toastr.success("Email inviata all' Ente");
+			showAlert();
 			toastr.success("Ente registrato con successo.");
 			</script>
 		<%
@@ -184,6 +186,7 @@
 			else if (request.getParameter("cod").equals("2")) {
 		%>
 			<script>
+			
 			showAlert();
 			toastr.error("Errore nella registrazione dell'Ente.");
 			</script>
