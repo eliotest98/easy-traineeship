@@ -82,8 +82,13 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
 	    		}
 	    		catch (Exception e) {
 	    			e.printStackTrace();
+	    			request.setAttribute("cod", "2");
+		    		RequestDispatcher dispatcher = request.getRequestDispatcher("_areaEnteET/VisualizzaRichiestaEnteET.jsp?");
+		            dispatcher.forward(request, response);
+	    			
 	    		}
-	    		RequestDispatcher dispatcher = request.getRequestDispatcher("_areaEnteET/VisualizzaRichiestaEnteET.jsp");
+	    		request.setAttribute("cod", "1");
+	    		RequestDispatcher dispatcher = request.getRequestDispatcher("_areaEnteET/VisualizzaRichiestaEnteET.jsp?");
 	            dispatcher.forward(request, response);
 	    	}
 	    	//Rifuta Richiesta - Prendo il codice del tirocinio dalla request e chiamo il metodo del DAO per modificare lo stato del tirocinio
@@ -111,8 +116,11 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
 	    		}
 	    		catch (Exception e) {
 	    			e.printStackTrace();
+	    			request.setAttribute("cod", "4");
+		    		RequestDispatcher dispatcher = request.getRequestDispatcher("_areaEnteET/VisualizzaRichiestaEnteET.jsp?");
+		            dispatcher.forward(request, response);
 	    		}
-	    		
+	    		request.setAttribute("cod", "3");
 	    		RequestDispatcher dispatcher = request.getRequestDispatcher("_areaEnteET/VisualizzaRichiestaEnteET.jsp");
 	            dispatcher.forward(request, response);
 	    	}
