@@ -46,7 +46,7 @@ VALUES('request-min-cfu', '1','fferrucci@unisa.it');
 INSERT INTO SYSTEM_ATTRIBUTE
 VALUES('request-max-cfu', '12','fferrucci@unisa.it');
 INSERT INTO SYSTEM_ATTRIBUTE
-VALUES('request-upload-path', '//home//vale//newWorkspace//EV_EnglishValidation//uploads//','fferrucci@unisa.it');
+VALUES('request-upload-path', 'C://apache-tomcat-9.0.16//webapps//easy-traineeship//uploads//','fferrucci@unisa.it');
 
 INSERT INTO ENTE
 VALUES ('1', '','Cambridge Assessment English','', 1);
