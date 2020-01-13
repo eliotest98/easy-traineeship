@@ -116,7 +116,7 @@
 													style="background-color: #FF9900; outline: none; border: 4px solid #FF9900; border-radius: 5px; color: white; margin: 2%;"
 													data-type="2" data-idrequest="35" title="Annulla Richiesta">Annulla
 													Richiesta</button> <%}%></td>
-											<%if(listaTirocini.get(i).getStatoTirocinio().equalsIgnoreCase("Rifiutato"))
+											<%if(listaTirocini.get(i).getStatoTirocinio().equalsIgnoreCase("Rifiutato")||listaTirocini.get(i).getStatoTirocinio().equalsIgnoreCase("Annullato"))
 														{%>
 											<td class='text-center'><%=listaTirocini.get(i).getDescrizioneEnte()%></td>
 											<%} else {%>
