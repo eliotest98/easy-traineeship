@@ -618,7 +618,8 @@ public class TirocinioDAO {
 	 * @return boolean
 	 */
 	public synchronized boolean richiestaEnte(int codTirocinio, String partitaIva, String descrizioneEnte) {
-
+		
+		boolean successo = false;
 		Connection con = null; // variabile per la connessione al DB
 		PreparedStatement psTirocinio = null;// Creazione oggetto Statement per il 'Tirocinio
 		try {
@@ -634,7 +635,7 @@ public class TirocinioDAO {
 			// Se la modifica va a buon fine restituisce true
 			if (psTirocinio.executeUpdate() == 1) {
 				con.commit();
-				return true;
+				successo = true;
 			}
 			
 		} catch (SQLException e) {
@@ -647,7 +648,7 @@ public class TirocinioDAO {
 			}
 		}
 		// Ritorna false se la richiesta all' ente non e' andata a buon fine
-		return false;
+		return successo;
 	}
 	
 	/*

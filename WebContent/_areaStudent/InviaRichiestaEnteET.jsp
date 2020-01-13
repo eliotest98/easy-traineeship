@@ -49,6 +49,7 @@
                                 	Tirocinio tirocinio = (Tirocinio)request.getSession().getAttribute("Tirocinio");
                                 	if (tirocinio!=null) {
                                 		if (tirocinio.getStatoTirocinio().equalsIgnoreCase("In attesa Ente")) {
+                                			if(tirocinio.getPartitaIva()==null || tirocinio.getPartitaIva()==("")) {
                                 %>
 									<h2 class="text-center">Invio Richiesta di Tirocinio
 											all'Ente Convenzionato</h2>
@@ -118,7 +119,9 @@
 								</form>
 								<%
                                 		}
-                                	else if ((!tirocinio.getStatoTirocinio().equalsIgnoreCase("In attesa Ente"))) {
+		
+                                	else {
+                                		System.out.println("2  " + tirocinio.getStatoTirocinio());
 									%>
 										<h3 style="text-align: center;">
 										Impossibile accedere alla pagina di richiesta ente: <br>
@@ -127,6 +130,7 @@
 										Clicca <a href="../_areaStudent/HomeStudente.jsp"> qui </a> per tornare alla Home. <br>
 										</h3>
 									<%
+                                			}
                                 		}
                                 	}	
                                 	else if (tirocinio==null) {

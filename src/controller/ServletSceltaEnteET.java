@@ -100,9 +100,9 @@ public class ServletSceltaEnteET extends HttpServlet {
     Tirocinio tirocinio = tirocinioDAO.tirocinioAttivo(tirocinante.getMatricola());
     // Effettuo l'invio della richiesta
     Boolean risp = tirocinioDAO.richiestaEnte(tirocinio.getCodTirocinio(), ente, descrizione);
-    // Se � andata a buon fine, setto lo stato, se no eccezione
+    // Se � andata a buon fine, setto lo stato, se no redirect con codice 2 per il toastr di insuccesso.
     if (risp == false) {
-      throw new IllegalArgumentException("La query di invio richiesta non � andata a buon fine.");
+    	response.sendRedirect(request.getContextPath()+"/_areaStudent/HomeStudente.jsp?cod=4");
     }
 
     // Riprendo il tirocinio appena cambiato
@@ -117,10 +117,7 @@ public class ServletSceltaEnteET extends HttpServlet {
     request.getSession().setAttribute("Tirocinante", tirocinante);
     request.getSession().setAttribute("Tirocinio", tirocinio);
 
-    // Request dispatcher alla pagina
-    //RequestDispatcher dispatcher = request.getRequestDispatcher("/_areaStudent/HomeStudente.jsp");
-    //dispatcher.forward(request, response);
-    response.sendRedirect(request.getContextPath()+"/_areaStudent/HomeStudente.jsp");
+    response.sendRedirect(request.getContextPath()+"/_areaStudent/HomeStudente.jsp?cod=3");
   }
 }
 

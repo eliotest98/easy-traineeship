@@ -110,6 +110,7 @@ class EnteConvenzionatoDAOTest {
 	    }
 		
 		EnteConvenzionato ente = enteConDao.ricercaEnteByEmail("azienda@email.it");
+		System.out.println(""+ente.getEmail()+" "+ente.getPartitaIva());
 		if (("azienda@email.it").equals(ente.getEmail()) && ("99999999999").equals(ente.getPartitaIva())) {
 			trovato = true;
 		}

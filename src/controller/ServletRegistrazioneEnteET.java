@@ -146,7 +146,7 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
     /**
      * Genera password criptata
      */
-    String password = new Utils().generatePwd("12345678");
+    String password = new Utils().generatePwd("password");
     
     /**
      * Istanziazione dell'oggetto EnteConvezionato.
@@ -158,12 +158,12 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
      * Inserimento nel DB.
      */
     try {
-    	enteConDao.inserisciEnte(enteCon);
-    	request.setAttribute("La registrazione &egrave avvenuta con successo", mess);
-        // Controlla jsp
-        //RequestDispatcher dispatcher = request.getRequestDispatcher("VisualizzaEnteET.jsp"); 
-        //dispatcher.forward(request, response);
-        response.sendRedirect(request.getContextPath()+"/VisualizzaEnteET.jsp");
+    	if (enteConDao.inserisciEnte(enteCon)==true) {
+    		response.sendRedirect(request.getContextPath()+"/VisualizzaEnteET.jsp?cod=1");
+    	}
+    	else {
+    		response.sendRedirect(request.getContextPath()+"/VisualizzaEnteET.jsp?cod=2");
+    	}
     } catch (Exception e) {
     	e.printStackTrace();
     }
