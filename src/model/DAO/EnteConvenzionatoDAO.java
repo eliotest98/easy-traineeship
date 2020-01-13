@@ -160,7 +160,7 @@ public class EnteConvenzionatoDAO {
 			//Query Sql per prelevare gli 'EntiConvenzionati'
 			ps= con.prepareStatement("SELECT * "
 									+ "FROM ENTECONVENZIONATO, USER "
-									+ "WHERE ENTECONVENZIONATO.EMAIL=USER.EMAIL");
+									+ "WHERE ENTECONVENZIONATO.EMAIL='"+email+"'");
 			ResultSet res = ps.executeQuery();
 			
 			if(res.next())
@@ -210,7 +210,7 @@ public class EnteConvenzionatoDAO {
 	 * */
 	public synchronized boolean inserisciEnte(EnteConvenzionato enteConvenzionato) throws SQLException
 	{
-		
+		boolean successo = false;
 		Connection con = null; //variabile per la connessione al DB
 		PreparedStatement psEnteConvenzionato = null;// Creazione oggetto Statement per l'EnteConvenzioanto
 		PreparedStatement psUser = null;// Creazione oggetto Statement per l' User
@@ -249,7 +249,7 @@ public class EnteConvenzionatoDAO {
 			if((psUser.executeUpdate()==1)&&(psEnteConvenzionato.executeUpdate()==1))
 			{
 				con.commit();
-				return true;
+				successo=true;
 			}
 			
 		} 
@@ -270,7 +270,7 @@ public class EnteConvenzionatoDAO {
 			}
 		}
 		//Ritorna false se l'insert non � andato a buon fine 
-		return false;	
+		return successo;	
 	}
 	
 	/*
