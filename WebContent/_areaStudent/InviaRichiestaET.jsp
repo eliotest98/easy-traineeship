@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="ISO-8859-1" import="controller.CheckSession,model.Student, model.Tirocinio"%>
+         pageEncoding="ISO-8859-1" import="controller.CheckSession,model.Student, model.Tirocinio, model.Tirocinante"%>
 
 <%
     String pageName = "InviaRichiestaET.jsp";
@@ -46,6 +46,7 @@
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 signUp-container">
                                 <div class="panel">
                                 	<%
+                                		Tirocinante tirocinante = (Tirocinante)request.getSession().getAttribute("Tirocinante");
                                 		Tirocinio tirocinio = (Tirocinio)request.getSession().getAttribute("Tirocinio");
                                 		if(resp==0 && tirocinio==null){
                                 	%>
@@ -76,10 +77,26 @@
                                     <!-- Campo matricola tirocinante, lunghezza 10 cifre, formato solo numeri. -->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="matricolaTirocinante">Matricola</label>
+                                        <%
+                                        if (tirocinante==null) {
+                                        %>
                                         <input type="text" class="form-control" id="matricolaTirocinante" name="matricolaTirocinante" 
                                         	   value="051210" placeholder="0512105239" size="10" maxlength="10"
                                         	   title="La lunghezza della matricola deve essere necessariamente 10 cifre. Essendo il Sistema esteso al Dipartimento di Informatica, si accettano Matricole con inizio: 051210." 
-                                        	   required pattern="[0-9]{10}">
+                                        	   required pattern="[0-9]{10}"></input>
+                                        <% 
+                                        }
+                                        else {
+                                        	System.out.println(tirocinante.getMatricola());
+                                        %>
+                                        <input type="text" class="form-control" id="matricolaTirocinante"
+                                        	   value="0<%=tirocinante.getMatricola() %>" size="10" maxlength="10"
+                                        	   title="Il Sistema ha rilevato la matricola del Tirocinante." 
+                                        	   required disabled></input>
+                                        <input type="hidden" name="matricolaTirocinante"  value="0<%=tirocinante.getMatricola() %>">	   
+                                        <%
+                                        }
+                                        %>	   	   
                                     </div>
                                     <!-- Campo facolta tirocinante, lunghezza fra 1 e 50, formato solo lettere. -->
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -201,7 +218,6 @@
 									<h3 style="text-align: center;">
 										L'Utente in Sessione non &egrave; abilitato a svolgere questa funzionalit&agrave;.<br>
 										Si prega di uscire dalla pagina. <br>
-										Clicca <a href="../index.jsp"> qui </a> per tornare alla Home. <br>
 									</h3>
 								 <%
 								 }
@@ -212,7 +228,6 @@
 										Impossibile accedere alla pagina di richiesta tirocinio: <br>
 										&egrave; possibile richiedere un solo tirocinio per volta.<br>
 										Si prega di uscire dalla pagina. <br>
-										Clicca <a href="../_areaStudent/HomeStudente.jsp"> qui </a> per tornare alla Home. <br>
 									</h3>
 								 <%		
                                 	}
