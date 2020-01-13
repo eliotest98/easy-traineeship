@@ -19,6 +19,7 @@
 	
 	if(listaRichiesteEnte==null)
 	{
+		//request.setAttribute("flag", "1");
         RequestDispatcher dispatcher = request.getRequestDispatcher("../ServletGestioneRichiesteEnteET?flag=1");
         dispatcher.forward(request, response);
     }
@@ -108,8 +109,8 @@
 	<jsp:include page="/partials/includes.jsp" />
 	<%
 		//CODICE PER IL TOASTR DI SUCCESSO
-		if (request.getParameter("cod")!=null) {
-			if (request.getParameter("cod").equals("1")) {
+		if (request.getAttribute("cod")!=null) {
+			if (request.getAttribute("cod").equals("1")) {
 		%>
 			<script>
 			showAlert();
@@ -117,7 +118,7 @@
 			</script>
 		<%
 			}
-			else if (request.getParameter("cod").equals("2")) {
+			else if (request.getAttribute("cod").equals("2")) {
 		%>
 			<script>
 			showAlert();
@@ -125,7 +126,7 @@
 			</script>
 		<%
 			}
-			else if (request.getParameter("cod").equals("3")) {
+			else if (request.getAttribute("cod").equals("3")) {
 		%>
 			<script>
 			showAlert();
@@ -133,7 +134,7 @@
 			</script>
 		<%
 			}
-			else if (request.getParameter("cod").equals("4")) {
+			else if (request.getAttribute("cod").equals("4")) {
 		%>
 			<script>
 			showAlert();

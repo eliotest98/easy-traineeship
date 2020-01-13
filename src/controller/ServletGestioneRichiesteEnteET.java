@@ -112,12 +112,16 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
 					tirocinio2.setStatoTirocinio("In attesa della Segreteria");
 					tirocinio2.setMatricola(tirocinio.getMatricola());
 	    			tirocinio2.setTirocinante(tirocinio.getTirocinante());
-	    			tirocinioDAO.inserisciTirocinio(tirocinio2);
+	    			
+	    			if (tirocinioDAO.tirocinioAttivo(tirocinio.getMatricola())==null) {
+		    			tirocinioDAO.inserisciTirocinio(tirocinio2);
+	    			}
+
 	    		}
 	    		catch (Exception e) {
 	    			e.printStackTrace();
 	    			request.setAttribute("cod", "4");
-		    		RequestDispatcher dispatcher = request.getRequestDispatcher("_areaEnteET/VisualizzaRichiestaEnteET.jsp?");
+		    		RequestDispatcher dispatcher = request.getRequestDispatcher("_areaEnteET/VisualizzaRichiestaEnteET.jsp");
 		            dispatcher.forward(request, response);
 	    		}
 	    		request.setAttribute("cod", "3");
