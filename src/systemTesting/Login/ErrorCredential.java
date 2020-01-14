@@ -3,14 +3,12 @@ package systemTesting.Login;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Pattern;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
 
 public class ErrorCredential {
   private WebDriver driver;
@@ -21,7 +19,7 @@ public class ErrorCredential {
   /**
    * Before.
    */
-  
+
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
@@ -40,10 +38,11 @@ public class ErrorCredential {
         "(.//*[normalize-space(text()) and normalize-space(.)='Login'])[3]/following::button[1]"))
         .click();
   }
+
   /**
    * After.
    */
-  
+
   @After
   public void tearDown() throws Exception {
     driver.quit();

@@ -1,24 +1,18 @@
 package test;
 
-import static org.hamcrest.CoreMatchers.is; 
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import controller.DbConnection;
-
 import java.util.HashMap;
-import java.util.Map;
-
 import model.SystemAttribute;
-
 import org.hamcrest.collection.IsMapContaining;
-
 import org.junit.jupiter.api.Test;
 
 public class SystemAttributeTest {
-  
+
   @Test
   void testSystemAttributeCostructorEmpty() {
     SystemAttribute sy = new SystemAttribute();
@@ -36,7 +30,8 @@ public class SystemAttributeTest {
     expected.put("request-number-max-upload", "2");
     expected.put("request-partially-completed", "1");
     expected.put("request-refused", "7");
-    expected.put("request-upload-path", "C:\\Users\\Kugga\\Documents\\EV_EnglishValidation\\uploads");
+    expected.put("request-upload-path",
+        "C:\\Users\\Kugga\\Documents\\EV_EnglishValidation\\uploads");
     expected.put("request-working-admin", "3");
     expected.put("request-working-educational-advice-1", "4");
     expected.put("request-working-educational-advice-2", "5");
@@ -50,7 +45,7 @@ public class SystemAttributeTest {
     assertThat(sa.getHashMap(), IsMapContaining.hasKey("request-partially-completed"));
     assertThat(sa.getHashMap(), IsMapContaining.hasValue("1"));
   }
-  
+
   @Test
   void testSetHshMap() {
     HashMap<String, String> expected = new HashMap<>();
@@ -62,7 +57,8 @@ public class SystemAttributeTest {
     expected.put("request-number-max-upload", "2");
     expected.put("request-partially-completed", "1");
     expected.put("request-refused", "7");
-    expected.put("request-upload-path", "C:\\Users\\Kugga\\Documents\\EV_EnglishValidation\\uploads");
+    expected.put("request-upload-path",
+        "C:\\Users\\Kugga\\Documents\\EV_EnglishValidation\\uploads");
     expected.put("request-working-admin", "3");
     expected.put("request-working-educational-advice-1", "4");
     expected.put("request-working-educational-advice-2", "5");
@@ -71,7 +67,7 @@ public class SystemAttributeTest {
     sa.setHashMap(expected);
     assertThat(expected, is(sa.getHashMap()));
   }
-  
+
   @Test
   void testGetValueByKey() {
     SystemAttribute sa = new SystemAttribute();
@@ -83,14 +79,15 @@ public class SystemAttributeTest {
     assertEquals("2", sa.getValueByKey("request-number-max-upload"));
     assertEquals("1", sa.getValueByKey("request-partially-completed"));
     assertEquals("7", sa.getValueByKey("request-refused"));
-    assertEquals("C:\\Users\\Kugga\\Documents\\EV_EnglishValidation\\uploads", sa.getValueByKey("request-upload-path"));
+    assertEquals("C:\\Users\\Kugga\\Documents\\EV_EnglishValidation\\uploads",
+        sa.getValueByKey("request-upload-path"));
     assertEquals("3", sa.getValueByKey("request-working-admin"));
     assertEquals("4", sa.getValueByKey("request-working-educational-advice-1"));
     assertEquals("5", sa.getValueByKey("request-working-educational-advice-2"));
     assertEquals("2", sa.getValueByKey("request-working-secretary"));
   }
 
-  
+
   @Test
   void testGetInstance() {
     SystemAttribute sa = SystemAttribute.getInstance();

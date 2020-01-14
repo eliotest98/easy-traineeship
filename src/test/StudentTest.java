@@ -1,15 +1,14 @@
 package test;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue; 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import model.Student;
-
 import org.junit.jupiter.api.Test;
 
 class StudentTest {
-  
+
   @Test
   void testStudentCostructorEmpty() {
     Student stu = new Student();

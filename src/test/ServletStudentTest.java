@@ -3,18 +3,12 @@ package test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import controller.ServletCommon;
 import controller.ServletStudent;
 import interfacce.UserInterface;
-
 import java.io.IOException;
 import java.security.SecureRandom;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpSession;
-
-import model.Request;
 import model.Student;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -331,6 +325,7 @@ public class ServletStudentTest extends Mockito {
       servlet.doPost(request, response);
     });
   }
+  
   @Test
   public void testFirstFormIdEnteFail() throws ServletException, IOException {  
     request.addParameter("year", "2018");
@@ -615,7 +610,8 @@ public class ServletStudentTest extends Mockito {
   
   @Test
   public void testViewRequest() throws ServletException, IOException  {
-    UserInterface user = new Student("g.prova@studenti.unisa.it", "Giacomo", "Lorenzin", 'M', "password", 0);
+    UserInterface user = new Student("g.prova@studenti.unisa.it", 
+        "Giacomo", "Lorenzin", 'M', "password", 0);
     request.getSession().setAttribute("user", user);
     request.addParameter("flag", "4");
     servlet.doGet(request, response);
@@ -624,7 +620,8 @@ public class ServletStudentTest extends Mockito {
   
   @Test
   public void testViewRequestFail() throws ServletException, IOException  {
-    UserInterface user = new Student("g.prova@studenti.unisa.it", "Giacomo", "Lorenzin", 'M', "password", 0);
+    UserInterface user = new Student("g.prova@studenti.unisa.it", 
+        "Giacomo", "Lorenzin", 'M', "password", 0);
     request.addParameter("flag", "4");
     servlet.doGet(request, response);
     assertEquals("json", response.getContentType());

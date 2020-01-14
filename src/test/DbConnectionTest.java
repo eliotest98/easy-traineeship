@@ -4,13 +4,12 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import controller.DbConnection;
-
 import org.junit.jupiter.api.Test;
 
 public class DbConnectionTest {
 
-  //Test Metodi GET
-  
+  // Test Metodi GET
+
   @Test
   void testgetDatabaseName() {
     DbConnection db = new DbConnection();
@@ -54,8 +53,8 @@ public class DbConnectionTest {
     assertEquals(db, db1);
   }
 
-  //Test Metodi SET
-  
+  // Test Metodi SET
+
   @Test
   void testsetDatabaseName() {
     DbConnection db = new DbConnection();

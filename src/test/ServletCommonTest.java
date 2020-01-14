@@ -3,7 +3,6 @@ package test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import controller.ServletCommon;
-
 import java.io.IOException;
 import javax.servlet.ServletException;
 import org.junit.Before;
@@ -35,7 +34,7 @@ public class ServletCommonTest extends Mockito {
     servlet.doPost(request, response);
     assertEquals("json", response.getContentType());
   }
-  
+
   @Test
   public void testUpdateName() throws ServletException, IOException {
     request.addParameter("idUser", "fferrucci@unisa.it");
@@ -44,7 +43,7 @@ public class ServletCommonTest extends Mockito {
     servlet.doPost(request, response);
     assertEquals("json", response.getContentType());
   }
-  
+
   @Test
   public void testUpdateNameFail() throws ServletException, IOException {
     request.addParameter("idUser", "aferrucci@unisa.it");
@@ -53,7 +52,7 @@ public class ServletCommonTest extends Mockito {
     servlet.doPost(request, response);
     assertEquals("json", response.getContentType());
   }
-  
+
   @Test
   public void testUpdateSurname() throws ServletException, IOException {
     request.addParameter("idUser", "fferrucci@unisa.it");
@@ -62,7 +61,7 @@ public class ServletCommonTest extends Mockito {
     servlet.doPost(request, response);
     assertEquals("json", response.getContentType());
   }
-  
+
   @Test
   public void testUpdateSurnameFail() throws ServletException, IOException {
     request.addParameter("idUser", "aferrucci@unisa.it");
@@ -71,7 +70,7 @@ public class ServletCommonTest extends Mockito {
     servlet.doPost(request, response);
     assertEquals("json", response.getContentType());
   }
-  
+
   @Test
   public void testDoGet() throws ServletException, IOException {
     request.addParameter("idUser", "fferrucci@unisa.it");
@@ -80,7 +79,7 @@ public class ServletCommonTest extends Mockito {
     servlet.doGet(request, response);
     assertEquals("json", response.getContentType());
   }
-  
+
   @Test
   public void testLoginStudent() throws ServletException, IOException {
     request.addParameter("email", "a.prova@studenti.unisa.it");
@@ -89,7 +88,7 @@ public class ServletCommonTest extends Mockito {
     servlet.doPost(request, response);
     assertEquals("json", response.getContentType());
   }
-  
+
   @Test
   public void testLoginFail() throws ServletException, IOException {
     request.addParameter("email", "a.prova@studenti.unisa.it");
@@ -98,7 +97,7 @@ public class ServletCommonTest extends Mockito {
     servlet.doPost(request, response);
     assertEquals("json", response.getContentType());
   }
-  
+
   @Test
   public void testLoginSecretary() throws ServletException, IOException {
     request.addParameter("email", "segreteria@unisa.it");
@@ -107,7 +106,7 @@ public class ServletCommonTest extends Mockito {
     servlet.doPost(request, response);
     assertEquals("json", response.getContentType());
   }
-  
+
   @Test
   public void testLoginErrorType() throws ServletException, IOException {
     request.addParameter("email", "loginerror@studenti.unisa.it");
