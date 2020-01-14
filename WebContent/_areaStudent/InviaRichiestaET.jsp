@@ -46,7 +46,6 @@
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 signUp-container">
                                 <div class="panel">
                                 	<%
-                                		Tirocinante tirocinante = (Tirocinante)request.getSession().getAttribute("Tirocinante");
                                 		Tirocinio tirocinio = (Tirocinio)request.getSession().getAttribute("Tirocinio");
                                 		if(resp==0 && tirocinio==null){
                                 	%>
@@ -78,7 +77,7 @@
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                         <label for="matricolaTirocinante">Matricola</label>
                                         <%
-                                        if (tirocinante==null) {
+                                        if (request.getSession().getAttribute("Tirocinante")==null) {
                                         %>
                                         <input type="text" class="form-control" id="matricolaTirocinante" name="matricolaTirocinante" 
                                         	   value="051210" placeholder="0512105239" size="10" maxlength="10"
@@ -87,7 +86,7 @@
                                         <% 
                                         }
                                         else {
-                                        	System.out.println(tirocinante.getMatricola());
+                                        	Tirocinante tirocinante = (Tirocinante)request.getSession().getAttribute("Tirocinante");
                                         %>
                                         <input type="text" class="form-control" id="matricolaTirocinante"
                                         	   value="0<%=tirocinante.getMatricola() %>" size="10" maxlength="10"
