@@ -66,20 +66,12 @@
 									action="ServletUploadET?cod=<%=tirocinio.getCodTirocinio()%>"
 									class='dropzoneUploader'></div>
 								<%
-								} 
-								if (tirocinio==null) 
-								{
-								%>
-								<div class="bordiET">
-									<h2 class="centro">Non ci sono documenti da caricare</h2>
-									<h3 class="centro">
-										Clicca qui per tornare <a href=javascript:history.go(-1);>indietro</a>
-									</h3>
-								</div>
-								<%
 								}
 								%>
-
+								<div class="form-group">
+											<a href="./DocumentiET.jsp"><button type="submit" class="btn btn-primary btn-submit" id="concludi"
+												 ">Concludi</button></a>
+										</div>
 							</div>
 						</div>
 					</div>
@@ -104,6 +96,8 @@
 					  acceptedFiles: ".pdf",
 					  accept: function(file, done){
 					    done();
+					    showAlert();
+						  toastr.success("Upload effettuato con successo");
 					  },
 					  init: function() {		
 					      this.on("maxfilesexceeded", function(file, errorMessage){

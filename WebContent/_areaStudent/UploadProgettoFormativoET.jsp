@@ -174,6 +174,8 @@
 					  acceptedFiles: ".pdf",
 					  accept: function(file, done){
 					    done();
+						  showAlert();
+						  toastr.success("Upload effettuato con successo");
 					  },
 					  init: function() {		
 					      this.on("maxfilesexceeded", function(file, errorMessage){
@@ -188,6 +190,7 @@
 	                    
 						  this.on("success", function(file, response) {
 							  var msg = jQuery.parseJSON(response);
+
 						  	  if(!msg.result){
 						  		showAlert(1, msg.error);
 						  	  }	            		    
