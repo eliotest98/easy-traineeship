@@ -113,32 +113,40 @@
 			if (request.getAttribute("cod").equals("1")) {
 		%>
 			<script>
-			showAlert();
-			toastr.success("Richiesta di tirocinio accettata.");
+			if (!(performance.navigation.type == 1)) {
+				showAlert();
+				toastr.success("Richiesta di tirocinio accettata.");
+			}
 			</script>
 		<%
 			}
 			else if (request.getAttribute("cod").equals("2")) {
 		%>
 			<script>
-			showAlert();
-			toastr.error("Errore durante l'accettazione della richiesta.");
+			if (!(performance.navigation.type == 1)) {
+				showAlert();
+				toastr.error("Errore durante l'accettazione della richiesta.");
+			}
 			</script>
 		<%
 			}
 			else if (request.getAttribute("cod").equals("3")) {
 		%>
 			<script>
-			showAlert();
-			toastr.success("Richiesta di tirocinio rifiutata.");
+			if (!(performance.navigation.type == 1)) {
+				showAlert();
+				toastr.success("Richiesta di tirocinio rifiutata.");
+			}
 			</script>
 		<%
 			}
 			else if (request.getAttribute("cod").equals("4")) {
 		%>
 			<script>
-			showAlert();
-			toastr.error("Errore durante il rifiuto della richiesta.");
+			if (!(performance.navigation.type == 1)) {
+				showAlert();
+				toastr.error("Errore durante il rifiuto della richiesta.");
+			}
 			</script>
 		<%
 			}

@@ -75,33 +75,41 @@
 			if (request.getParameter("cod").equals("1")) {
 		%>
 			<script>
-			showAlert();
-			toastr.success("Richiesta di tirocinio effettuata con successo.");
+				if (!(performance.navigation.type == 1)) {
+					showAlert();
+					toastr.success("Richiesta di tirocinio effettuata con successo.");
+				}
 			</script>
 		<%
 			}
 			else if (request.getParameter("cod").equals("2")) {
 		%>
 			<script>
-			showAlert();
-			toastr.error("Errore durante l'invio della richiesta.");
+			if (!(performance.navigation.type == 1)) {
+				showAlert();
+				toastr.error("Errore durante l'invio della richiesta.");
+			}
 			</script>
 		<%
 			}
 			else if (request.getParameter("cod").equals("3")) {
 		%>
 			<script>
-			showAlert();
-			toastr.success("Richiesta all'Ente effettuata con successo.");
+			if (!(performance.navigation.type == 1)) {
+				showAlert();
+				toastr.success("Richiesta all'Ente effettuata con successo.");
+			}
 			</script>
 		<%
 			}
 			else if (request.getParameter("cod").equals("4")) {
 		%>
 			<script>
-			showAlert();
-			toastr.error("Errore durante l'invio della richiesta all'Ente.");
+			if (!(performance.navigation.type == 1)) {
+				showAlert();
+				toastr.error("Errore durante l'invio della richiesta all'Ente.");
 			</script>
+			}
 		<%
 			}
 		}	

@@ -241,7 +241,22 @@
     <jsp:include page="/partials/footer.jsp" />
 </div>
 
-<!--End pagewrapper
-<jsp:include page="/partials/includes.jsp" />-->
+<!--End pagewrapper -->
+<jsp:include page="/partials/includes.jsp" />
+<%
+		//CODICE PER IL TOASTR DI SUCCESSO/ERRORE
+		if (request.getParameter("cod")!=null || request.getAttribute("cod")!=null) {
+			if (request.getParameter("cod").equals("1") || request.getAttribute("cod").equals("1")) {
+		%>
+			<script>
+			if (!(performance.navigation.type == 1)) {
+				showAlert();
+				toastr.error("Richiesta non effettuata. Matricola già esistente");
+			}
+			</script>
+		<%
+			}
+		}	
+		%>	
 </body>
 </html>

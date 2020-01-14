@@ -42,14 +42,23 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
      * Controllo autenticazione tramite parametro in sessione (0 = Studente ET alias Tirocinante).
      */
     Tirocinante tirocinante = new Tirocinante();
+    TirocinanteDAO tirocinanteDao = new TirocinanteDAO();
     Tirocinio tirocinio = new Tirocinio();
     String userET = (String) request.getSession().getAttribute("userET");
     Student s = (Student) request.getSession().getAttribute("user");
-
+    String pag = "";
+    
     if ((userET == null) || (!userET.equals("0"))) {
       response.sendRedirect("login.jsp");
       return;
     }
+    
+    if (request.getParameter("matricolaTirocinante")!=null) {
+    	if (tirocinanteDao.ricercaTirocinanteByMatricola(Long.valueOf(request.getParameter("matricolaTirocinante")))!=null) {
+    		pag = "/_areaStudent/InviaRichiestaET.jsp?cod=1";
+    	}
+
+    else {
 
     /* Controllo TEST CASE, messaggi */
     // Controllo nome
@@ -284,7 +293,7 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
     TirocinioDAO ti = new TirocinioDAO();
     if(ti.inserisciTirocinio(tirocinio)==false)
     {
-    	response.sendRedirect(request.getContextPath()+"/_areaStudent/HomeStudente.jsp?cod=2");
+    	pag="/_areaStudent/HomeStudente.jsp?cod=2";
     }
     
     //Mi setto il tirocininante nel TIROCINIO
@@ -295,10 +304,10 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
     tirocinante = t.ricercaTirocinanteByMatricola(Long.valueOf(request.getParameter("matricolaTirocinante")));
     request.getSession().setAttribute("Tirocinante", tirocinante);
     request.getSession().setAttribute("Tirocinio", tirocinio); 
-    
-    //RequestDispatcher d = request.getRequestDispatcher("/_areaStudent/HomeStudente.jsp");
-    //d.forward(request, response);
-    response.sendRedirect(request.getContextPath()+"/_areaStudent/HomeStudente.jsp?cod=1");
+    pag="/_areaStudent/HomeStudente.jsp?cod=1";
+    }
+    }   
+    response.sendRedirect(request.getContextPath()+pag);
   }
 
   /**
