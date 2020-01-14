@@ -22,16 +22,26 @@ public class ServletModificaEnteET extends HttpServlet {
 
   EnteConvenzionatoDAO enteConDao = new EnteConvenzionatoDAO();
   String mess = null;
-
+  
+  /**
+   * Method doGet().
+   * 
+   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+   */
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+    response.getWriter().append("Served at: ").append(request.getContextPath());
   }
-
+  
+  /**
+   * Method doPost().
+   * 
+   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+   */
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    /**
-     * Controllo autenticazione tramite parametro in sessione (1 = Segreteria).
-     */
+    
+    //Controllo autenticazione tramite parametro in sessione (1 = Segreteria).
     String userET = (String) request.getSession().getAttribute("userET");
     if ((userET == null) || (!userET.equals("1"))) {
       response.sendRedirect("login.jsp");
@@ -51,7 +61,8 @@ public class ServletModificaEnteET extends HttpServlet {
     if (rappresentante.length() == 0) {
       throw new IllegalArgumentException("Il campo 'Nome Rappresentante' &egrave vuoto");
     } else if (rappresentante.length() > 64) {
-      throw new IllegalArgumentException("Il campo 'Nome Rappresentante' supera la lunghezza consentita");
+      throw new IllegalArgumentException(
+          "Il campo 'Nome Rappresentante' supera la lunghezza consentita");
     } else if (!rappresentante.matches("^[ a-zA-Z]+$")) {
       throw new IllegalArgumentException("Il campo 'Nome Rappresentante' non rispetta il formato");
     }
@@ -60,14 +71,14 @@ public class ServletModificaEnteET extends HttpServlet {
     SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
     String dat = request.getParameter("dataDiNascita");
     if (!dat.matches("^([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))+$")) {
-        throw new IllegalArgumentException("Il campo 'Data di Nascita' non rispetta il formato");
-      }
+      throw new IllegalArgumentException("Il campo 'Data di Nascita' non rispetta il formato");
+    }
     try {
-        g.setTime((Date) formatter1.parseObject(dat));
-        java.sql.Date data = new java.sql.Date(g.getTimeInMillis());
-      } catch (ParseException e) {
-        e.printStackTrace();
-      }
+      g.setTime((Date) formatter1.parseObject(dat));
+      java.sql.Date data = new java.sql.Date(g.getTimeInMillis());
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
     // Controllo Numero di Dipendenti
     String dipendenti = request.getParameter("dipendenti");
     if (!dipendenti.matches("^[0-9]+$")) {
@@ -78,9 +89,11 @@ public class ServletModificaEnteET extends HttpServlet {
     if (dotRiferimento.length() == 0) {
       throw new IllegalArgumentException("Il campo 'Professore di Riferimento' &egrave vuoto");
     } else if (dotRiferimento.length() > 64) {
-      throw new IllegalArgumentException("Il campo 'Professore di Riferimento' supera la lunghezza consentita");
+      throw new IllegalArgumentException(
+          "Il campo 'Professore di Riferimento' supera la lunghezza consentita");
     } else if (!dotRiferimento.matches("^[ a-zA-Z]+$")) {
-      throw new IllegalArgumentException("Il campo 'Professore di Riferimento' non rispetta il formato");
+      throw new IllegalArgumentException(
+          "Il campo 'Professore di Riferimento' non rispetta il formato");
     }
     // Controllo email
     String email = request.getParameter("email");
@@ -91,17 +104,15 @@ public class ServletModificaEnteET extends HttpServlet {
       postfix = email.substring(email.indexOf("@"), email.length());
     }
     if (email.length() == 0) {
-    	throw new IllegalArgumentException("Il campo 'E-mail' &egrave vuoto");
+      throw new IllegalArgumentException("Il campo 'E-mail' &egrave vuoto");
     }
     if (email.length() > 64) {
-    	throw new IllegalArgumentException("Il campo 'E-mail' supera la lunghezza consentita");
+      throw new IllegalArgumentException("Il campo 'E-mail' supera la lunghezza consentita");
     }
-    if (email.length() == 0
-            || !postfix.matches("@[A-z0-9\\.\\_\\-]+\\.[A-z]{2,6}")
-            || prefix.length() < 1) 
-     {
-        throw new IllegalArgumentException("Il campo 'E-mail' non rispetta il formato");
-     }
+    if (email.length() == 0 || !postfix.matches("@[A-z0-9\\.\\_\\-]+\\.[A-z]{2,6}")
+        || prefix.length() < 1) {
+      throw new IllegalArgumentException("Il campo 'E-mail' non rispetta il formato");
+    }
     // Controllo Sede
     String sede = request.getParameter("sede");
     if (sede.length() == 0) {
@@ -116,7 +127,8 @@ public class ServletModificaEnteET extends HttpServlet {
     if (referente.length() == 0) {
       throw new IllegalArgumentException("Il campo 'Referente Tirocini' &egrave vuoto");
     } else if (referente.length() > 64) {
-      throw new IllegalArgumentException("Il campo 'Referente Tirocini' supera la lunghezza consentita");
+      throw new IllegalArgumentException(
+          "Il campo 'Referente Tirocini' supera la lunghezza consentita");
     } else if (!referente.matches("^[ a-zA-Z]+$")) {
       throw new IllegalArgumentException("Il campo 'Referente Tirocini' non rispetta il formato");
     }
@@ -129,39 +141,37 @@ public class ServletModificaEnteET extends HttpServlet {
     // Controllo Descrizione delle attivita'
     String descrizioneAttivita = request.getParameter("descrizioneAttivita");
     if (descrizioneAttivita.length() == 0) {
-      throw new IllegalArgumentException("Il campo 'Descrizione delle Attivit&agrave' &egrave vuoto");
+      throw new IllegalArgumentException(
+          "Il campo 'Descrizione delle Attivit&agrave' &egrave vuoto");
     } else if (descrizioneAttivita.length() > 256) {
-      throw new IllegalArgumentException( "Il campo 'Descrizione delle Attivit&agrave' supera la lunghezza consentita");
+      throw new IllegalArgumentException(
+          "Il campo 'Descrizione delle Attivit&agrave' supera la lunghezza consentita");
     }
     // Controllo Partita IVA
     String partitaIva = request.getParameter("partitaIva");
     if (!partitaIva.matches("^\\d{11}")) {
       throw new IllegalArgumentException("Il campo 'Partita IVA' non rispetta il formato");
     }
-   
-    /**
-     * Genera password criptata
-     */
-    String password = new Utils().generatePwd("12345678");
+
     
-    /**
-     * Istanziazione dell'oggetto EnteConvezionato.
-     */
-    EnteConvenzionato enteCon = new EnteConvenzionato(email, name, "NA", 'N', password, 3,
-        dat, partitaIva, sede, rappresentante, referente, telefono,
-        Integer.parseInt(dipendenti), dotRiferimento, "TE", descrizioneAttivita);
-    /**
-     * Modifica nel DB.
-     */
+    //Genera password criptata
+    String password = new Utils().generatePwd("12345678");
+
+    //Istanziazione dell'oggetto EnteConvezionato.
+    EnteConvenzionato enteCon = new EnteConvenzionato(email, name, "NA", 'N', password, 3, dat,
+        partitaIva, sede, rappresentante, referente, telefono, Integer.parseInt(dipendenti),
+        dotRiferimento, "TE", descrizioneAttivita);
+    
+    //Modifica nel DB.
     try {
       if (!enteConDao.modificaEnte(enteCon)) {
         throw new IllegalArgumentException("La registrazione non &egrave; stata effettuata");
       } else {
         request.setAttribute("La modifica &egrave; avvenuta con successo", mess);
-        //Controlla jsp
-        //RequestDispatcher dispatcher = request.getRequestDispatcher("VisualizzaEnteET.jsp");
-        //dispatcher.forward(request, response);
-        response.sendRedirect(request.getContextPath()+"/VisualizzaEnteET.jsp?cod=3");
+        // Controlla jsp
+        // RequestDispatcher dispatcher = request.getRequestDispatcher("VisualizzaEnteET.jsp");
+        // dispatcher.forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/VisualizzaEnteET.jsp?cod=3");
       }
     } catch (Exception e) {
       e.printStackTrace();

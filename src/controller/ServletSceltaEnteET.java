@@ -6,10 +6,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Tirocinante;
-import model.Tirocinio;
 import model.DAO.TirocinanteDAO;
 import model.DAO.TirocinioDAO;
+import model.Tirocinante;
+import model.Tirocinio;
 
 /**
  * Servlet implementation class ServletInvioRichiestaEnteET.
@@ -17,24 +17,32 @@ import model.DAO.TirocinioDAO;
 @WebServlet("/ServletSceltaEnteET")
 public class ServletSceltaEnteET extends HttpServlet {
   private static final long serialVersionUID = 1L;
-  TirocinioDAO tirocinioDAO = new TirocinioDAO();
-  TirocinanteDAO tirocinanteDao = new TirocinanteDAO();
+  TirocinioDAO tirocinioDaO = new TirocinioDAO();
+  TirocinanteDAO tirocinanteDaO = new TirocinanteDAO();
   String mess = null;
 
   public ServletSceltaEnteET() {
     super();
   }
 
+  /**
+   * Method doGet().
+   * 
+   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+   */
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     doPost(request, response);
   }
 
+  /**
+   * Method doPost().
+   * 
+   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+   */
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    /**
-     * Controllo autenticazione tramite parametro in sessione (0 = Studente).
-     */
+    //Controllo autenticazione tramite parametro in sessione (0 = Studente).
     String userET = (String) request.getSession().getAttribute("userET");
     if ((userET == null) || (!userET.equals("0"))) {
       response.sendRedirect("login.jsp");
@@ -44,7 +52,7 @@ public class ServletSceltaEnteET extends HttpServlet {
     // iva)
     String ente = request.getParameter("ente");
 
-    if (ente.length()==0) {
+    if (ente.length() == 0) {
       throw new IllegalArgumentException("Il campo Ente e' vuoto");
     } else if (ente.length() != 11) {
       throw new IllegalArgumentException("Il campo Ente non e' di 11 cifre");
@@ -97,16 +105,17 @@ public class ServletSceltaEnteET extends HttpServlet {
     }
 
     // Prelevo il tirocinio di questo tirocinante
-    Tirocinio tirocinio = tirocinioDAO.tirocinioAttivo(tirocinante.getMatricola());
+    Tirocinio tirocinio = tirocinioDaO.tirocinioAttivo(tirocinante.getMatricola());
     // Effettuo l'invio della richiesta
-    Boolean risp = tirocinioDAO.richiestaEnte(tirocinio.getCodTirocinio(), ente, descrizione);
-    // Se � andata a buon fine, setto lo stato, se no redirect con codice 2 per il toastr di insuccesso.
+    Boolean risp = tirocinioDaO.richiestaEnte(tirocinio.getCodTirocinio(), ente, descrizione);
+    // Se � andata a buon fine, setto lo stato, se no redirect con codice 2 per il toastr di
+    // insuccesso.
     if (risp == false) {
-    	response.sendRedirect(request.getContextPath()+"/_areaStudent/HomeStudente.jsp?cod=4");
+      response.sendRedirect(request.getContextPath() + "/_areaStudent/HomeStudente.jsp?cod=4");
     }
 
     // Riprendo il tirocinio appena cambiato
-    tirocinio = tirocinioDAO.tirocinioAttivo(tirocinante.getMatricola());
+    tirocinio = tirocinioDaO.tirocinioAttivo(tirocinante.getMatricola());
 
     // Risettiamo il tirocinante, per sicurezza
     tirocinante = tirocinio.getTirocinante();
@@ -117,7 +126,7 @@ public class ServletSceltaEnteET extends HttpServlet {
     request.getSession().setAttribute("Tirocinante", tirocinante);
     request.getSession().setAttribute("Tirocinio", tirocinio);
 
-    response.sendRedirect(request.getContextPath()+"/_areaStudent/HomeStudente.jsp?cod=3");
+    response.sendRedirect(request.getContextPath() + "/_areaStudent/HomeStudente.jsp?cod=3");
   }
 }
 

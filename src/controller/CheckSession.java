@@ -2,14 +2,7 @@ package controller;
 
 import interfacce.UserInterface;
 import java.io.Serializable;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import javax.servlet.http.HttpSession;
-import model.Admin;
-import model.Secretary;
-import model.Student;
-
-
 
 public class CheckSession implements Serializable {
 
@@ -114,11 +107,11 @@ public class CheckSession implements Serializable {
 
       } else if (userType == 2 && this.pageFolder.equals("_areaAdmin")) {
         this.setAllowed(true); // Profilo Admin
-     
+
       } else if (userType == 3 && this.pageFolder.equals("")) {
-    	  this.setAllowed(true);// Profilo EnteConvenzionato
+        this.setAllowed(true);// Profilo EnteConvenzionato
       }
-      
+
     }
     return allowed;
   }

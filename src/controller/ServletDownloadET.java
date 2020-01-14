@@ -10,9 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Tirocinio;
 import model.DAO.TirocinioDAO;
-
+import model.Tirocinio;
 
 /**
  * Servlet implementation class ServletDownloadET.
@@ -24,7 +23,7 @@ public class ServletDownloadET extends HttpServlet {
   private File file;
 
   /**
-   * constructor.
+   * Constructor.
    * 
    * @see HttpServlet#HttpServlet()
    */

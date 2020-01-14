@@ -1,26 +1,20 @@
 package controller;
 
-import java.awt.Label;
+import interfacce.UserInterface;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Request;
 import model.SystemAttribute;
 import org.json.simple.JSONObject;
-import interfacce.UserInterface;
-import sun.util.calendar.LocalGregorianCalendar.Date;
 
 /**
  * Servlet implementation class ServletAdmin.
@@ -32,7 +26,9 @@ public class ServletAdmin<WritableWorkbook> extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   /**
-   * Servlet implementation class ServletCommon.
+   * Constructor.
+   * 
+   * @see HttpServlet#HttpServlet()
    */
   public ServletAdmin() {
     super();
@@ -263,7 +259,8 @@ public class ServletAdmin<WritableWorkbook> extends HttpServlet {
                 content += "    </td>";
 
                 content += "    <td class='text-center'>" + r.getString("serial") + "</td>";
-                if (r.getInt("id_state") == requestWorkingAdmin) { // Se è in lavorazione dall'admin
+                // Se è in lavorazione dall'admin
+                if (r.getInt("id_state") == requestWorkingAdmin) {
                   content += "<td class='text-center'>" + r.getString("name");
                   content +=
                       "  <button class=\"btn btn-primary btn-action changeName\" data-iduser=\""
@@ -301,8 +298,8 @@ public class ServletAdmin<WritableWorkbook> extends HttpServlet {
                 content += "    <td class='text-center'>" + r.getString("state") + "</td>";
                 content += "    <td class='text-center'>" + r.getString("ente") + "</td>";
                 content += "    <td class='text-center'>";
-
-                if (r.getInt("id_state") == requestWorkingAdmin) { // Se è in lavorazione dall'admin
+                // Se è in lavorazione dall'admin
+                if (r.getInt("id_state") == requestWorkingAdmin) { 
                   if (!r.getString("ente_mail").equals("")) { // Se è settata la mail dell'ente
                     content += "<button class=\"btn btn-primary btn-action verifyCertificate"
                         + "\" title=\"Verifica Validit&agrave; "
