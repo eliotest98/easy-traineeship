@@ -201,13 +201,23 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
         //invio Mail
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String messaggio = "<center><h2>UNIVERSITA' DEGLI STUDI DI SALERNO</h2> <br> "
-            + "<h3> DIPARTIMENTO DI INFORMATICA </h3> <br></certer>"
+        String messaggio = "<div style='border: 1px solid #FF9900; "  
+					        		+"    padding: 10px; " 
+					        		+"    border-radius: 15px; " 
+					        		+"    float: none; " 
+					        		+"    margin: 0 auto; "  
+					        		+"    margin-top: 70px;'>"
+					        		+ "<center><div style='background-color:#FF9900'>"
+					        		+ "<img style='background-color:#FF9900' src='https://esse3web.unisa.it/img/layout/logo.png?v=19.10.01'>"
+					        + "</div><br> "
+					        + "</certer>"
             + "Di seguito all' avvenuta richesta di registrazione dell' " + "azienda <b>" + name
             + "</b> al sistema Easy Traineeship"
-            + "le forniamo le credenziali per accervi <br> <br>" + "<h4>Username:<h4> <b><h3>"
+            + "le forniamo le credenziali per accervi al seguente <a href='http://localhost:8080/easy-traineeship/login.jsp'>link</a> <br> <br>" + "<h4>Username:<h4> <b><h3>"
             + email + "</h3></b> <br>" + "<h4>Password:<h4> <b><h3>" + passwordET
-            + "</h3></b> <br>";
+            + "</h3></b> <br>"
+            + "<h6>*Il sistema Easy-traineeship consiglia di cambiare la password per motivi di sicurezza</div></h6>";
+        
 
         String to = email;
         String subject = "Credenziali Easy Traineeship";
