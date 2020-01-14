@@ -58,7 +58,7 @@ public class ServletDownloadET extends HttpServlet {
       }
     }
 
-    String filePath = "C:\\apache-tomcat-9.0.16\\webapps\\easy-traineeship\\ProgettoFormativo\\";
+    String filePath = "\\easy-traineeship\\WebContent\\ProgettoFormativo\\";
 
     try {
       in = new FileInputStream(filePath + tirocinio.getProgettoFormativo());
