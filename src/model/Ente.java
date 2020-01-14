@@ -9,9 +9,10 @@ public class Ente {
   private String email;
   private String name;
   private String site;
-  
+
   /**
    * Constructor.
+   * 
    * @param idEnte is the identifier of the "Ente".
    * @param email is the address of the "Ente".
    * @param name is the name of the "Ente".
@@ -23,12 +24,14 @@ public class Ente {
     this.name = name;
     this.site = site;
   }
-  
+
   /**
    * Empty Constructor.
    */
-  public Ente() {}
-  
+  public Ente() {
+    
+  }
+
   /**
    * Get the identifier number of the "Ente".
    */
@@ -59,14 +62,16 @@ public class Ente {
 
   /**
    * Set the identifier of the "Ente".
+   * 
    * @param idEnte is the iteger that identifies the "Ente".
    */
   public void setIdEnte(int idEnte) {
     this.id = idEnte;
   }
-  
+
   /**
    * Set the email of the "Ente".
+   * 
    * @param email is the address of the "Ente".
    */
   public void setEmail(String email) {
@@ -75,6 +80,7 @@ public class Ente {
 
   /**
    * Set the name of the "Ente".
+   * 
    * @param name is the name of the "Ente".
    */
   public void setName(String name) {
@@ -83,6 +89,7 @@ public class Ente {
 
   /**
    * Set the URL of the site of the "Ente".
+   * 
    * @param site is the URL link of the "Ente".
    */
   public void setSite(String site) {

@@ -22,7 +22,6 @@ public class Tirocinante extends Student {
    * Contructor.
    *
    * @param matricola ï¿½ la chiave primaria del Tirocinante.
-   * @param facolta ï¿½ sempre informatica, ma è stato messo in caso di ampliamento del sistema.
    * @param dataNascita è la data di nascita del Tirocinante.
    * @param luogoNascita is the place of birth of the Tirocinante.
    * @param cittadinanza è la cittadinanza del Tirocinante.
@@ -49,7 +48,9 @@ public class Tirocinante extends Student {
     this.telefono = telefono;
   }
 
-  public Tirocinante() {}
+  public Tirocinante() {
+    
+  }
 
   public String getName() {
     return super.getName();

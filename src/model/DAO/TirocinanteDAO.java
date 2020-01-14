@@ -1,23 +1,18 @@
 package model.DAO;
 
 import controller.DbConnection;
-import model.Tirocinante;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import model.Tirocinante;
 
 /**
  * Tirocinante DAO
- *
  * La seguente classe si occupa di gestire i metodi CRUD dell'entità Tirocinante.
  */
 public class TirocinanteDAO {
@@ -26,6 +21,7 @@ public class TirocinanteDAO {
    * il numero della matricola.
    * 
    * @param matricola
+   * 
    * @return Tirocinante tirocinante
    */
   public Tirocinante ricercaTirocinanteByMatricola(long matricola) {
@@ -71,7 +67,12 @@ public class TirocinanteDAO {
     }
     return tirocinante;
   }
-
+  
+  /**
+   * Metodo che interroga il DB e restituisce il 'Tirocinante' corrispondente a quella e-mail.
+   * 
+   * @return Tirocinante
+   */
   public synchronized Tirocinante ricercaTirocinanteByEmail(String email) {
     Tirocinante tirocinante = new Tirocinante();
     Connection conn = null;
@@ -116,7 +117,7 @@ public class TirocinanteDAO {
   /**
    * Questa funzione permette di ricercare tutti i tirocinanti all'interno della base di dati.
    * 
-   * @return List<Tirocinante> tirocinanti
+   * @return listaTirocinanti
    */
   public ArrayList<Tirocinante> allTirocinante() {
 
@@ -164,6 +165,7 @@ public class TirocinanteDAO {
    * Questa funzione permette di inserire un nuovo tirocinante all'interno della base di dati.
    * 
    * @param tirocinante
+   * 
    * @return boolean result
    */
   public boolean inserisciTirocinante(Tirocinante tirocinante) {
@@ -213,7 +215,9 @@ public class TirocinanteDAO {
    * Questa funzione permette di aggiornare la password del tirocinante.
    * 
    * @param email
+   * 
    * @param password
+   * 
    * @return boolean result
    */
   public boolean updatePassword(String email, String password) {
