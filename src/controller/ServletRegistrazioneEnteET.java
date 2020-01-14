@@ -36,7 +36,7 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
       throws ServletException, IOException {
     doPost(request, response);
   }
-  
+
   /**
    * Method doPost().
    * 
@@ -44,8 +44,8 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
    */
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    
-    //Controllo autenticazione tramite parametro in sessione (1 = Segreteria).
+
+    // Controllo autenticazione tramite parametro in sessione (1 = Segreteria).
     String userET = (String) request.getSession().getAttribute("userET");
     if ((userET == null) || (!userET.equals("1"))) {
       response.sendRedirect("login.jsp");
@@ -185,39 +185,35 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
     System.out.println(passwordET);
 
 
-    
-    //Genera password criptata
+
+    // Genera password criptata
     String password = new Utils().generatePwd(passwordET);
 
-    //Istanziazione dell'oggetto EnteConvezionato.
+    // Istanziazione dell'oggetto EnteConvezionato.
     EnteConvenzionato enteCon = new EnteConvenzionato(email, name, "NA", 'N', password, 3, dat,
         partitaIva, sede, rappresentante, referente, telefono, Integer.parseInt(dipendenti),
         dotRiferimento, "TE", descrizioneAttivita);
-    
-    //Inserimento nel DB.
+
+    // Inserimento nel DB.
     try {
       if (enteConDao.inserisciEnte(enteCon) == true) {
 
-        //invio Mail
+        // invio Mail
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String messaggio = "<div style='border: 1px solid #FF9900; "  
-					        		+"    padding: 10px; " 
-					        		+"    border-radius: 15px; " 
-					        		+"    float: none; " 
-					        		+"    margin: 0 auto; "  
-					        		+"    margin-top: 70px;'>"
-					        		+ "<center><div style='background-color:#FF9900'>"
-					        		+ "<img style='background-color:#FF9900' src='https://esse3web.unisa.it/img/layout/logo.png?v=19.10.01'>"
-					        + "</div><br> "
-					        + "</certer>"
+        String messaggio = "<div style='border: 1px solid #FF9900; " + "    padding: 10px; "
+            + "    border-radius: 15px; " + "    float: none; " + "    margin: 0 auto; "
+            + "    margin-top: 70px;'>" + "<center><div style='background-color:#FF9900'>"
+            + "<img style='background-color:#FF9900' src='https://esse3web.unisa.it/img/layout/logo.png?v=19.10.01'>"
+            + "</div><br> " + "</certer>"
             + "Di seguito all' avvenuta richesta di registrazione dell' " + "azienda <b>" + name
             + "</b> al sistema Easy Traineeship"
-            + "le forniamo le credenziali per accervi al seguente <a href='http://localhost:8080/easy-traineeship/login.jsp'>link</a> <br> <br>" + "<h4>Username:<h4> <b><h3>"
-            + email + "</h3></b> <br>" + "<h4>Password:<h4> <b><h3>" + passwordET
-            + "</h3></b> <br>"
-            + "<h6>*Il sistema Easy-traineeship consiglia di cambiare la password per motivi di sicurezza</div></h6>";
-        
+            + "le forniamo le credenziali per accervi al seguente <a href='http://localhost:8080/easy-traineeship/login.jsp'>link</a> <br> <br>"
+            + "<h4>Username:<h4> <b><h3>" + email + "</h3></b> <br>" + "<h4>Password:<h4> <b><h3>"
+            + passwordET + "</h3></b> <br>"
+            + "<h6>*Il sistema Easy-traineeship consiglia di cambiare "
+            + "la password per motivi di sicurezza</div></h6>";
+
 
         String to = email;
         String subject = "Credenziali Easy Traineeship";
