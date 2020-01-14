@@ -399,7 +399,7 @@ Connection conn = new DbConnection().getInstance().getConn();
 			when(requestMock.getRequestDispatcher("VisualizzaEnteET.jsp")).thenReturn(dispatcherMock);
 			ServletModificaEnteET test = new ServletModificaEnteET();
 			test.doPost(requestMock, responseMock);
-			verify(responseMock).sendRedirect(requestMock.getContextPath()+"/VisualizzaEnteET.jsp");
+			verify(responseMock).sendRedirect(requestMock.getContextPath()+"/VisualizzaEnteET.jsp?cod=3");
 			try {
 				Statement stmtSelect = conn.createStatement();
 		    	stmtSelect.executeUpdate("DELETE FROM User WHERE EMAIL='greentech@gmail.com';");

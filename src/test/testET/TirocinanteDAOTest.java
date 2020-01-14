@@ -46,7 +46,7 @@ class TirocinanteDAOTest {
 	    	Statement stmtSelect = conn.createStatement();
 	    	String sql1 = ("INSERT INTO User VALUES('azienda@email.it','Cap Gemini','NA','N','password','0');");
 	    	stmtSelect.executeUpdate(sql1);
-	    	String sql2 = ("INSERT INTO Tirocinante VALUES('0512103313','" + modifiedDate + "','Salerno','Italiana','Salerno','QVGXRV78A52H443B','3491494900','azienda@email.it');");
+	    	String sql2 = ("INSERT INTO Tirocinante VALUES('0512109999','" + modifiedDate + "','Salerno','Italiana','Salerno','QVGXRV78A52H443B','3491494900','azienda@email.it');");
 	    	stmtSelect.executeUpdate(sql2);
 	    	conn.commit();
 	    }
@@ -54,8 +54,8 @@ class TirocinanteDAOTest {
 	    	e.printStackTrace();
 	    }
 		
-		Tirocinante tirocinante = tirocinanteDao.ricercaTirocinanteByMatricola(512103313);
-		assertEquals(tirocinante.getMatricola(),512103313);
+		Tirocinante tirocinante = tirocinanteDao.ricercaTirocinanteByMatricola(512109999);
+		assertEquals(tirocinante.getMatricola(),512109999);
 	}
 	
 	//Test del metodo ricercaTirocinanteByEmail di TirocinanteDAO 
@@ -68,7 +68,7 @@ class TirocinanteDAOTest {
 		    	Statement stmtSelect = conn.createStatement();
 		    	String sql1 = ("INSERT INTO User VALUES('azienda@email.it','Cap Gemini','NA','N','password','0');");
 		    	stmtSelect.executeUpdate(sql1);
-		    	String sql2 = ("INSERT INTO Tirocinante VALUES('0512103313','" + modifiedDate + "','Salerno','Italiana','Salerno','QVGXRV78A52H443B','3491494900','azienda@email.it');");
+		    	String sql2 = ("INSERT INTO Tirocinante VALUES('0512109999','" + modifiedDate + "','Salerno','Italiana','Salerno','QVGXRV78A52H443B','3491494900','azienda@email.it');");
 		    	stmtSelect.executeUpdate(sql2);
 		    	conn.commit();
 		    }
@@ -77,7 +77,7 @@ class TirocinanteDAOTest {
 		    }
 			
 			Tirocinante tirocinante = tirocinanteDao.ricercaTirocinanteByEmail("azienda@email.it");
-			assertEquals(tirocinante.getMatricola(),512103313);
+			assertEquals(tirocinante.getMatricola(),512109999);
 		}
 	
 	//Test del metodo allTirocinante di TirocinanteDAO 
@@ -92,7 +92,7 @@ class TirocinanteDAOTest {
 	    	Statement stmtSelect = conn.createStatement();
 	    	String sql1 = ("INSERT INTO User VALUES('azienda@email.it','Cap Gemini','NA','N','password','0');");
 	    	stmtSelect.executeUpdate(sql1);
-	    	String sql2 = ("INSERT INTO Tirocinante VALUES('0512103313','" + modifiedDate + "','Salerno','Italiana','Salerno','QVGXRV78A52H443B','3491494900','azienda@email.it');");
+	    	String sql2 = ("INSERT INTO Tirocinante VALUES('0512109999','" + modifiedDate + "','Salerno','Italiana','Salerno','QVGXRV78A52H443B','3491494900','azienda@email.it');");
 	    	stmtSelect.executeUpdate(sql2);
 	    	conn.commit();
 	    }

@@ -92,7 +92,7 @@ public class TirocinanteDAO {
         tirocinante.setSurname(rs.getString("SURNAME"));
         tirocinante.setSex(rs.getString("SEX").charAt(0));
         tirocinante.setUserType(rs.getInt("USER_TYPE"));
-        tirocinante.setMatricola(rs.getInt("MATRICOLA"));
+        tirocinante.setMatricola(rs.getLong("MATRICOLA"));
         tirocinante.setDataNascita(rs.getDate("DATANASCITA"));
         tirocinante.setLuogoNascita(rs.getString("LUOGONASCITA"));
         tirocinante.setCittadinanza(rs.getString("CITTADINANZA"));
@@ -102,13 +102,11 @@ public class TirocinanteDAO {
 
       }
     } catch (SQLException e) {
-      // Auto-generated catch block
       e.printStackTrace();
     } finally {
       try {
         ps.close();
       } catch (SQLException e) {
-        // Auto-generated catch block
         e.printStackTrace();
       }
     }
