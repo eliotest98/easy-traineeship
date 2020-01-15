@@ -26,6 +26,7 @@ public class ServletListaEnteET extends HttpServlet {
    */
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+	//Istanzio EnteConvenzionatoDAO
     EnteConvenzionatoDAO ente = new EnteConvenzionatoDAO();
     // Array list di Enti convenzionati
     ArrayList<EnteConvenzionato> listaEnti = new ArrayList<EnteConvenzionato>();
@@ -35,7 +36,7 @@ public class ServletListaEnteET extends HttpServlet {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    // Controllo se la Lista non ï¿½ vuota
+    // Controllo se la Lista non e' vuota
 
     if (listaEnti != null) {
       // Assegno alla richiesta la 'listaEnti'
@@ -43,7 +44,11 @@ public class ServletListaEnteET extends HttpServlet {
     }
 
     String pag = null;
-
+    
+    /*
+     * Se la richiesta è null indirizza a: VisualizzaEnteET.jsp
+     * altrimenti: InviaRichiestaEnteET.jsp
+     */
     if (request.getParameter("richiestaEnte") != null) {
       pag = "_areaStudent/InviaRichiestaEnteET.jsp";
     } else {

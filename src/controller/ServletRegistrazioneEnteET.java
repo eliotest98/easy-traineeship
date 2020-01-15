@@ -198,9 +198,13 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
     try {
       if (enteConDao.inserisciEnte(enteCon) == true) {
 
-        // invio Mail
+        /*
+         * Funzione per l ' Invio mail
+         */
+    	  
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        //Messaggio dell' E-mail
         String messaggio = "<div style='border: 1px solid #FF9900; " + "    padding: 10px; "
             + "    border-radius: 15px; " + "    float: none; " + "    margin: 0 auto; "
             + "    margin-top: 70px;'>" + "<center><div style='background-color:#FF9900'>"
@@ -214,7 +218,13 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
             + "<h6>*Il sistema Easy-traineeship consiglia di cambiare "
             + "la password per motivi di sicurezza</div></h6>";
 
-
+        /*
+         * Parametri per l' invio mail
+         * to: email di destinazione
+         * subject: oggetto del messaggio
+         * user: email di invio
+         * pass: password dell' email
+         * */
         String to = email;
         String subject = "Credenziali Easy Traineeship";
         String message = messaggio;

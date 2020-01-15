@@ -37,7 +37,10 @@ public class ServletVisualizzaTirocinanteEnteET extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    // Istanzio il Dao e il Tirocinio
+   	/*
+   	 * Istanzio TirocinanteDAO
+   	 * Istanzio TirocinioDAO
+   	 * */
     TirocinanteDAO dao = new TirocinanteDAO();
     TirocinioDAO daoTirocinio = new TirocinioDAO();
     Tirocinante tirocinante = new Tirocinante();
