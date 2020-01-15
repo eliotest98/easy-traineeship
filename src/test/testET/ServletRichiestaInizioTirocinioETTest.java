@@ -14,7 +14,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Student;
 import org.junit.jupiter.api.*;
-
+/*
+ * 
+ * 
+ * Classe per il testing della ServletRichiestaInizioTirocinio .
+ * Questa classe di test è stata scritta secondo la
+ * metodologia BLACK BOX.
+ * 
+ * 
+*/
 
 class ServletRichiestaInizioTirocinioETTest {
 
@@ -27,7 +35,10 @@ class ServletRichiestaInizioTirocinioETTest {
   RequestDispatcher dispatcherMock = mock(RequestDispatcher.class);
   Student s = 
       new Student("a.delpiero10@studenti.unisa.it", "Alessandro", "Del Piero", 'M', "password", 0);
-
+  /*
+   * Prima di ogni @test simuliamo la sessione di uno studente (0)
+   * ed inseriamo una matricola di un tirocinante
+   */
   @BeforeEach
   public void setUp() {
     when(requestMock.getSession()).thenReturn(sessionMock);
@@ -35,7 +46,9 @@ class ServletRichiestaInizioTirocinioETTest {
     when(sessionMock.getAttribute("user")).thenReturn(s);
     when(requestMock.getParameter("matricolaTirocinante")).thenReturn("512109999");
   }
-
+  /*
+   * Dopo ogni @test eliminiamo il tirocinante inserito
+   */
   @AfterEach
   void tearDown() {
     try {
@@ -624,6 +637,9 @@ class ServletRichiestaInizioTirocinioETTest {
   // Test case TC_GR_6.45: Richiesta inviata con successo
   @Test
   void testInvioRichiestaInizioTirocinioCorretto() throws ServletException, IOException {
+	  /*
+	   * Inserisco nel database un user di tipo studente (0) 
+	   */
     try {
       Statement stmtSelect = conn.createStatement();
       String sql1 = ("INSERT INTO User VALUES('" + s.getEmail() + "','" + s.getName() + "','"
