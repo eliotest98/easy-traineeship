@@ -340,9 +340,8 @@ public class ServletStudent extends HttpServlet {
                   content += "<tr class='" + classe + "' role='row'>";
                   content += "    <td class='text-center'>" + idRequest + "</td>";
                   content += "    <td class='text-center'>" + r.getString("serial") + "</td>";
-                  content += "    <td class='text-center'>";
-
-
+                  content += "    <td class='text-center' id='allegati'> ";
+   
                   stmtSelectTwo = conn.createStatement();
                   sql = "SELECT a.filename AS filename " + "FROM attached a "
                       + "WHERE a.fk_request = " + idRequest + ";";
