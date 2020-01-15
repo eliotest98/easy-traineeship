@@ -43,11 +43,15 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
       response.sendRedirect("login.jsp");
       return;
     }
-
+    //Istanzio il tirocinioDaO, e prendo il flag dalla jsp.
     TirocinioDAO tirocinioDaO = new TirocinioDAO();
     String flag = request.getParameter("flag");
+    //recupero l'utente dalla sessione
     UserInterface user = (UserInterface) request.getSession().getAttribute("user");
+    //Istanzio due arraylist, uno dove inserisco tutti i tirocinanti in base all'ente
     ArrayList<Tirocinio> listaRichiesteEnte = new ArrayList<Tirocinio>();
+    //L'altro dove successivamente inserirò i Tirocini collegati 
+    //solo in un determinato stato. "In attesa Ente"
     ArrayList<Tirocinio> listaRichiesteEnteInAttesa = new ArrayList<Tirocinio>();
     // Ricerco tutte le richieste all'ente e li inserisco nella listaRichiesteEnte
     try {
@@ -64,7 +68,7 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
     }
 
     if (flag != null) {
-      // Visualizza Lista Richieste
+      // Visualizza Lista Richieste con flag = 1
       if (flag.equals("1")) {
         if (listaRichiesteEnte != null) {
           request.setAttribute("listaRichiesteEnte", listaRichiesteEnteInAttesa);
@@ -75,13 +79,14 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
       } else if (flag.equals("2")) {
         // Accetta Richiesta - Prendo il codice del tirocinio dalla 
         //request e chiamo il metodo del DAO
-        // per modificare lo stato del tirocinio
+        // per modificare lo stato del tirocinio in "Accettato e in attesa di firma"
         try {
           String codice = request.getParameter("codice");
           tirocinioDaO.modificaStatoTirocinio(Integer.valueOf(codice),
               "Accettato e in attesa di firma");
         } catch (Exception e) {
           e.printStackTrace();
+          //Setto il codice per il toastr alla pagina successiva 2 di errore 1 di successo
           request.setAttribute("cod", "2");
           RequestDispatcher dispatcher =
               request.getRequestDispatcher("_areaEnteET/VisualizzaRichiestaEnteET.jsp");
@@ -101,10 +106,12 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
           tirocinioDaO.modificaStatoTirocinio(Integer.valueOf(codice), "Rifiutato");
           Tirocinio tirocinio = new Tirocinio();
           tirocinio = tirocinioDaO.TirocinioByCodTirocinio(Integer.valueOf(codice));
+          //salvo la motivazione del rifiuto nel campo "Descrizione ENTE" del DataBase
           tirocinio.setDescrizioneEnte(motivazione);
           tirocinioDaO.modificaTirocinio(tirocinio);
-          // Salvo lo storico nel vecchio tirocinio e istanzio un nuovo tirocinio per impostarlo
-          // allo stato precedente
+          // Salvo lo storico nel vecchio tirocinio e istanzio un nuovo tirocinio
+          // con i valori della vecchia richiesta 
+          // per impostarlo allo stato precedente
           Tirocinio tirocinio2 = new Tirocinio();
           tirocinio2.setDataInizioTirocinio(tirocinio.getDataInizioTirocinio());
           tirocinio2.setCfuPrevisti(tirocinio.getCfuPrevisti());
@@ -122,11 +129,13 @@ public class ServletGestioneRichiesteEnteET extends HttpServlet {
 
         } catch (Exception e) {
           e.printStackTrace();
+          //Inserisco il cod per il toastr di errore
           request.setAttribute("cod", "4");
           RequestDispatcher dispatcher =
               request.getRequestDispatcher("_areaEnteET/VisualizzaRichiestaEnteET.jsp");
           dispatcher.forward(request, response);
         }
+        //Inserisco il cod per il toastr di successo
         request.setAttribute("cod", "3");
         RequestDispatcher dispatcher =
             request.getRequestDispatcher("_areaEnteET/VisualizzaRichiestaEnteET.jsp");
