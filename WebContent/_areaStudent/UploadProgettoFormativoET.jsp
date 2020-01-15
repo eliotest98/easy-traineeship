@@ -37,7 +37,7 @@
 	<script src="<%= request.getContextPath() %>/js/pages/scripts_uploadET.js"></script>	
 	<link href="<%=request.getContextPath()%>/css/styleET.css" rel="stylesheet">
 	<style type="text/css">
-	 /*Non togliete, esterno non funziona*/
+	 /*toast*/
 	    .toast 
 	    {
 	    	opacity: 0,8 !important;
@@ -132,6 +132,7 @@
 								<input type="hidden" id="svolgimentoTirocinio" value="<%= tirocinio.getSvolgimentoTirocinio() %>" />
 								<%
 								} 
+								//se il tirocinio è null non ci sono documenti da visualizzare
 								if ((tirocinio==null) ) 
 								{
 								%>
@@ -168,6 +169,7 @@
 
 	
 		<script>
+		//script upload del progetto formativo
 			$( document ).ready(function() {	
 				$(".dropzoneUploader").dropzone({
 					  maxFiles: 1,
