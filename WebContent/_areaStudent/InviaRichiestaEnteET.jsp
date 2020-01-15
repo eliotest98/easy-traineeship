@@ -85,8 +85,9 @@
 										<input type="hidden"  id="facolta" name="facolta" value="Informatica">
 									</div>
 									<div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
-										<br>
-										<select name="ente" required>
+									
+										<label for="Ente">Ente</label>
+										<select class="form-control" name="ente" required>
 										<option value="">Seleziona Ente</option>
 										<%
 												//se la lista degli enti non è null
