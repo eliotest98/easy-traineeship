@@ -18,7 +18,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+/*
+ * 
+ * 
+ * Classe per il testing della ServletModificaEnteET .
+ * Questa classe di test è stata scritta secondo la
+ * metodologia BLACK BOX.
+ * 
+ * 
+*/
 class ServletModificaEnteETTest {
 
   Connection conn = new DbConnection().getInstance().getConn();
