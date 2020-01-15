@@ -48,6 +48,14 @@
 	outline: none;
 }
 
+/* Media query per il resposive del bottone */
+@media (max-width:550px) {
+  .buttonET{
+    width: 280px;
+	height: 70px;
+  }
+}
+
 .imgET {
 	margin-top: 10%;
 	height: 400 px;
