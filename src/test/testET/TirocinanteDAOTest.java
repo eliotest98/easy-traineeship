@@ -10,7 +10,11 @@ import model.DAO.TirocinanteDAO;
 import model.Tirocinante;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-
+/*
+ * Classe per il testing del DAO TirocinanteDAO.
+ * Questa classe di test è stata scritta secondo la
+ * metodologia WHITE BOX.
+*/
 class TirocinanteDAOTest {
 
   Connection conn = new DbConnection().getInstance().getConn();
