@@ -29,7 +29,24 @@ public class EnteConvenzionato implements UserInterface {
   }
 
   /**
-   * Costruttore con tutti i parametri.
+   * Constructor.
+   * 
+   * @param email is the address of the "EnteConvenzionato".
+   * @param name is the name of the "EnteConvenzionato".
+   * @param surname is the surname of the "EnteConvenzionato".
+   * @param sex is the sex of the "EnteConvenzionato".
+   * @param password is the password of the "EnteConvenzionato".
+   * @param userType is the type of user.
+   * @param dataDiNascita è la data di nascita dell' "EnteConvenzionato".
+   * @param partitaIva è la partita iva dell' "EnteConvenzionato".
+   * @param sede è la sede dell' "EnteConvenzionato".
+   * @param rappresentante è il rappresente dell' "EnteConvenzionato" registrato.
+   * @param referente è il referente dell' "EnteConvenzionato" che gestisce i Tirocinanti.
+   * @param telefono è il numero di telefono del responsabile.
+   * @param dipendenti è il numero di dipendenti nell'azienda.
+   * @param dotRiferimento è il professore di riferimento per il Tirocinio.
+   * @param tipoTirocinio è la tipologia di tirocinio scelta
+   * @param descrizioneAttivita è la descrizione di ciò che fa l' "EnteConvenzionato".
    */
   public EnteConvenzionato(String email, String name, String surname, char sex, String password,
       int userType, String dataDiNascita, String partitaIva, String sede, String rappresentante,
