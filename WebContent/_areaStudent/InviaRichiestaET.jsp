@@ -80,7 +80,7 @@
                                         if (request.getSession().getAttribute("Tirocinante")==null) {
                                         %>
                                         <input type="text" class="form-control" id="matricolaTirocinante" name="matricolaTirocinante" 
-                                        	   value="051210" placeholder="0512105239" size="10" maxlength="10"
+                                        	   placeholder="0512105239" size="10" maxlength="10"
                                         	   title="La lunghezza della matricola deve essere necessariamente 10 cifre. Essendo il Sistema esteso al Dipartimento di Informatica, si accettano Matricole con inizio: 051210." 
                                         	   required pattern="[0-9]{10}"></input>
                                         <% 
