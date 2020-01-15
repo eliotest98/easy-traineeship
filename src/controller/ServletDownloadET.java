@@ -59,7 +59,7 @@ public class ServletDownloadET extends HttpServlet {
     //Path obbligatorio per il download del progetto formativo e 
     //il suo salvataggio nella cartella ProgettoFormativo presente
     //nella cartella WebContent\ProgettoFormativo.
-    String filePath = "\\easy-traineeship\\WebContent\\ProgettoFormativo\\";
+    String filePath = "..\\webapps\\easy-traineeship\\ProgettoFormativo\\";
 
     try {
       in = new FileInputStream(filePath + tirocinio.getProgettoFormativo());
