@@ -19,7 +19,15 @@ import model.EnteConvenzionato;
 import model.Student;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+/*
+ * 
+ * 
+ * Classe per il testing della ServletDocumentiTirocinioET .
+ * Questa classe di test è stata scritta secondo la
+ * metodologia WHITE BOX.
+ * 
+ * 
+*/
 class ServletDocumentiTirocinioETTest {
 
   Connection conn = new DbConnection().getInstance().getConn();
@@ -30,13 +38,22 @@ class ServletDocumentiTirocinioETTest {
   ServletDocumentiTirocinioET servletSecretaryMock = mock(ServletDocumentiTirocinioET.class);
   RequestDispatcher dispatcherMock = mock(RequestDispatcher.class);
   ServletDocumentiTirocinioET test = new ServletDocumentiTirocinioET();
-
+  /*
+   * Prima di ogni @test
+   * Restituiamo in sessione il mock
+   * e la pagina dispacherMock quando il dispatcher
+   * cerca la pagina DocumentiET.jsp
+   * 
+   * */
   @BeforeEach
   void setUp() {
     when(requestMock.getSession()).thenReturn(sessionMock);
     when(requestMock.getRequestDispatcher("DocumentiET.jsp")).thenReturn(dispatcherMock);
   }
-
+  
+  /*
+   * Test Reindirizzamento segreteria
+   */
   @Test
   void testReindirizzamentoDocumentiSegreteria() throws ServletException, IOException {
     when(sessionMock.getAttribute("userET")).thenReturn("1");
@@ -44,7 +61,9 @@ class ServletDocumentiTirocinioETTest {
     test.doGet(requestMock, responseMock);
     verify(dispatcherMock).forward(requestMock, responseMock);
   }
-
+  /*
+   * Test Reindirizzamento Admin
+   */
   @Test
   void testReindirizzamentoDocumentiAdmin() throws ServletException, IOException {
     when(sessionMock.getAttribute("userET")).thenReturn("2");
@@ -87,6 +106,10 @@ class ServletDocumentiTirocinioETTest {
     }
 
   }
+  
+  /*
+   * Test Reindirizzamento studente.
+   */
 
   @Test
   void testReindirizzamentoDocumentiStudente() throws ServletException, IOException {
