@@ -126,8 +126,6 @@
 		if (pageName.equals("StatoProprioTirocinioET.jsp")) { //se stiamo in controlla stato
 			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
 					+ "/firstForm.jsp\">Richieste Convalida Inglese</a></li>";
-			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-					+ "/uploadAttached.jsp\">Carica Allegato</a></li>";
 			menu += "<li><a href=\"" + request.getContextPath()
 					+ "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
 			menu += "<li><a href=\"" + request.getContextPath()
