@@ -229,7 +229,7 @@
 			}else if(UserET.equals("3")){//Ente
 				logoRedirect = request.getContextPath() + "/_areaEnteET/VisualizzaRichiestaEnteET.jsp";
 				menu += "<li><a href=\"" + request.getContextPath() + "/_areaEnteET"
-						+ "/VisualizzaRichiestaEnteET.jsp\">Richieste Convalida Inglese</a></li>";
+						+ "/VisualizzaRichiestaEnteET.jsp\">Richieste Tirocinio</a></li>";
 				menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/DocumentiET.jsp\">Documenti da Firmare Tirocinio</a></li> ";
 				menu += "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
 			}else if(UserET.equals("2")){//Admin
