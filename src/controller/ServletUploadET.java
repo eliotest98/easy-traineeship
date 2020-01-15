@@ -73,7 +73,12 @@ public class ServletUploadET extends HttpServlet {
         pdfPath = "pdf" + builder.toString() + fileName;
       }
 
-      String filePath = "..\\webapps\\easy-traineeship\\ProgettoFormativo\\" + pdfPath;
+      File prova =new File("C:\\ProgettoFormativo");
+      if (!prova.exists()) {
+    	  prova.mkdir();
+      }
+      
+      String filePath = "C:\\ProgettoFormativo\\" + pdfPath;
       //String currentDirectory = System.getProperty("user.dir");
       //System.out.println(currentDirectory);
       //System.out.println(filePath);
