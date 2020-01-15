@@ -9,7 +9,11 @@ import java.util.*;
 import model.DAO.TirocinioDAO;
 import model.Tirocinio;
 import org.junit.jupiter.api.*;
-
+/*
+ * Classe per il testing del DAO EnteConvenzionatoDAO.
+ * Questa classe di test è stata scritta secondo la
+ * metodologia WHITE BOX.
+*/
 class TirocinioDAOTest {
 
   Connection conn = new DbConnection().getInstance().getConn();
