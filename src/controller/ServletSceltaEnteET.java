@@ -66,7 +66,7 @@ public class ServletSceltaEnteET extends HttpServlet {
       throw new IllegalArgumentException("Il campo Nome e' vuoto");
     } else if (nome.length() > 50) {
       throw new IllegalArgumentException("Il campo Nome supera la lunghezza consentita");
-    } else if (!nome.matches("^[a-zA-Z\\.]+$")) {
+    } else if (!nome.matches("^[ a-zA-Z\\.]+$")) {
       throw new IllegalArgumentException("Il campo Nome non rispetta il formato");
     }
     // Controllo cognome tirocinante
@@ -76,7 +76,7 @@ public class ServletSceltaEnteET extends HttpServlet {
       throw new IllegalArgumentException("Il campo Cognome e' vuoto");
     } else if (cognome.length() > 50) {
       throw new IllegalArgumentException("Il campo Cognome supera la lunghezza consentita");
-    } else if (!cognome.matches("^[a-zA-Z\\.]+$")) {
+    } else if (!cognome.matches("^[ a-zA-Z\\.]+$")) {
       throw new IllegalArgumentException("Il campo Cognome non rispetta il formato");
     }
     // Controllo facoltà
