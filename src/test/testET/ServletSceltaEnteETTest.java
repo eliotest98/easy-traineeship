@@ -18,7 +18,15 @@ import model.Student;
 import model.Tirocinante;
 import model.Tirocinio;
 import org.junit.jupiter.api.*;
-
+/*
+ * 
+ * 
+ * Classe per il testing della ServletSceltaEnteET .
+ * Questa classe di test è stata scritta secondo la
+ * metodologia BLACK BOX.
+ * 
+ * 
+*/
 class ServletSceltaEnteETTest {
 
 
@@ -36,7 +44,9 @@ class ServletSceltaEnteETTest {
       new Student("p.aurilia@studenti.unisa.it", "Pellegrino", "Aurilia", 'M', "pel98", 0);
   Tirocinante tirocinante = new Tirocinante();
   Tirocinio tirocinio = new Tirocinio();
-
+  /*
+   * Prima di ogni @test simulo un utente in sessione di tipo studente (0)
+   */
   @BeforeEach
   public void setUp() {
     when(requestMock.getSession()).thenReturn(sessionMock);
@@ -223,7 +233,15 @@ class ServletSceltaEnteETTest {
   // Test case TC_GA_7.15: Scelta Ente effettuata correttamente
   @Test
   void testSceltaEnte() throws ServletException, IOException, SQLException {
-
+	    /*
+	     * Elimino un utente dal DataBase nel caso sia presente
+	     * dalle seguenti tabelle:
+	     * Utente (Studente)
+	     * Tirocinante
+	     * Utente (Ente)
+	     * EnteConvenzionato
+	     * Tirocinio
+	     */
     try {
       Statement stmtSelect = conn.createStatement();
       String sql1 = ("DELETE FROM tirocinio WHERE CODTIROCINIO='1';");
@@ -240,7 +258,14 @@ class ServletSceltaEnteETTest {
     } catch (Exception e1) {
       e1.printStackTrace();
     }
-
+    /*
+     * Inserisco nel DataBase:
+     * Utente (Studente)
+     * Tirocinante
+     * Utente (Ente)
+     * EnteConvenzionato
+     * Tirocinio
+     */
     try {
       Statement stmtSelect = conn.createStatement();
       String sql4 =
@@ -279,7 +304,15 @@ class ServletSceltaEnteETTest {
     }
 
     responseMock.sendRedirect(requestMock.getContextPath() + "/_areaStudent/HomeStudente.jsp");
-
+    /*
+     * Elimino un utente dal DataBase nel caso sia presente
+     * dalle seguenti tabelle:
+     * Utente (Studente)
+     * Tirocinante
+     * Utente (Ente)
+     * EnteConvenzionato
+     * Tirocinio
+     */
     try {
       Statement stmtSelect = conn.createStatement();
       String sql1 = ("DELETE FROM tirocinio WHERE CODTIROCINIO='1';");
