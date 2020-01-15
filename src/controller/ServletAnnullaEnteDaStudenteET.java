@@ -91,9 +91,19 @@ public class ServletAnnullaEnteDaStudenteET extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher(pag);
         dispatcher.forward(request, response);
       } else {
+    	  /*
+    	   * se l'inserimento non e' andato
+    	   * a buon fine lancia 
+    	   * l'eccezione
+    	   */
         throw new IllegalArgumentException("inserimento non eseguito con successo");
       }
     } else {
+  	  /*
+  	   * se il cambio stato non e' andato
+  	   * a buon fine lancia 
+  	   * l'eccezione
+  	   */
       throw new IllegalArgumentException("cambio dello stato non eseguito con successo");
     }
   }

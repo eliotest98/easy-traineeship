@@ -30,10 +30,13 @@ public class TirocinanteDAO {
     PreparedStatement ps = null;
 
     try {
+    	//creo la connessione
       conn = new DbConnection().getInstance().getConn();
+    //query
       ps = conn.prepareStatement("SELECT * " + "FROM TIROCINANTE, USER "
           + "WHERE TIROCINANTE.EMAIL=USER.EMAIL AND TIROCINANTE.matricola = ?");
       ps.setLong(1, matricola);
+      //eseguo la query
       ps.executeQuery();
       ResultSet rs = ps.getResultSet();
 
@@ -79,9 +82,12 @@ public class TirocinanteDAO {
     PreparedStatement ps = null;
 
     try {
+    	//creo la connessione
       conn = new DbConnection().getInstance().getConn();
+    //query
       ps = conn.prepareStatement("SELECT * " + "FROM TIROCINANTE, USER "
           + "WHERE TIROCINANTE.EMAIL=USER.EMAIL AND USER.EMAIL='" + email + "';");
+      //eseguo la query
       ps.executeQuery();
       ResultSet rs = ps.getResultSet();
 
@@ -126,9 +132,12 @@ public class TirocinanteDAO {
     ArrayList<Tirocinante> tirocinanti = new ArrayList<Tirocinante>();;
 
     try {
+    	//creo la connessione
       con = new DbConnection().getInstance().getConn();
+    //query
       ps = con.prepareStatement(
           "SELECT * " + "FROM TIROCINANTE, USER " + "WHERE TIROCINANTE.EMAIL=USER.EMAIL");
+      //eseguo la query
       ResultSet rs = ps.executeQuery();
       while (rs.next()) {
 
@@ -174,8 +183,9 @@ public class TirocinanteDAO {
     PreparedStatement psTirocinante = null;
 
     try {
+    	//creo la connessione
       con = new DbConnection().getInstance().getConn();
-
+    //query
       psTirocinante =
           con.prepareStatement("INSERT INTO TIROCINANTE(MATRICOLA, DATANASCITA, LUOGONASCITA, "
               + "CITTADINANZA, RESIDENZA, CODICEFISCALE, TELEFONO, EMAIL) "
@@ -191,7 +201,7 @@ public class TirocinanteDAO {
       psTirocinante.setLong(7, tirocinante.getTelefono());
       psTirocinante.setString(8, tirocinante.getEmail());
 
-
+      //eseguo la query
       if ((psTirocinante.executeUpdate() == 1)) {
         con.commit();
         return true;
@@ -227,10 +237,12 @@ public class TirocinanteDAO {
       PreparedStatement psUser = null;
 
       try {
+    	//creo la connessione
         con = new DbConnection().getInstance().getConn();
-
+        //query
         psUser = con.prepareStatement(
             "UPDATE USER " + "SET PASSWORD =" + password + " WHERE EMAIL = '" + email + "';");
+        //eseguo la query
         if (psUser.executeUpdate() == 1) {
           con.commit();
           return true;
