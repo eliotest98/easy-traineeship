@@ -20,18 +20,40 @@ import javax.servlet.http.HttpSession;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+/*
+ * 
+ * 
+ * Classe per il testing della Servlet .
+ * Questa classe di test è stata scritta secondo la
+ * metodologia WHITE BOX.
+ * 
+ * 
+*/
 class ServletAnnullaEnteDaStudenteETTest {
+  //Inizializzo la connessione
   Connection conn = new DbConnection().getInstance().getConn();
-  // Creazione mock
+  // Creazione mock di response, request e sessione
   HttpServletRequest requestMock = mock(HttpServletRequest.class);
   HttpServletResponse responseMock = mock(HttpServletResponse.class);
   HttpSession sessionMock = mock(HttpSession.class);
-  ServletAnnullaEnteDaStudenteET servletSecretaryMock = mock(ServletAnnullaEnteDaStudenteET.class);
-  RequestDispatcher dispatcherMock = mock(RequestDispatcher.class);
+  //ServletAnnullaEnteDaStudenteET servletSecretaryMock = mock(ServletAnnullaEnteDaStudenteET.class);
+   RequestDispatcher dispatcherMock = mock(RequestDispatcher.class);
+  //Istanzio la data per l'inserimento nel DataBase
   Date data = new Date();
   String modifiedDate = new SimpleDateFormat("yyyy-MM-dd").format(data);
-
+  /*
+   * 
+   * 
+   * Prima di ogni @test inseriamo l'utente in sessione, 
+   * 0 per lo Studente
+   * ed inseriamo nel DB i valori per le tabelle:
+   * Enteconvenziato
+   * Tirocinio
+   * Tirocinante
+   * e utente (sia per l'ente che per lo studente)
+   * 
+   * 
+   * */
   @BeforeEach
   public void setUp() {
     when(requestMock.getSession()).thenReturn(sessionMock);
@@ -65,7 +87,19 @@ class ServletAnnullaEnteDaStudenteETTest {
       e.printStackTrace();
     }
   }
-
+ 
+  /*
+   * 
+   * 
+   * Dopo ogni @test  
+   * eliminiamo dal DB i valori per le tabelle:
+   * Enteconvenziato
+   * Tirocinio
+   * Tirocinante
+   * e utente (sia per l'ente che per lo studente)
+   * 
+   * 
+   * */
   @AfterEach
   public void tearDown() {
     try {
@@ -85,7 +119,9 @@ class ServletAnnullaEnteDaStudenteETTest {
       e.printStackTrace();
     }
   }
-
+  /*
+   * In questo metodo testiamo l'annullamento avvenuto con successo
+   */
   @Test
   void annullamentoTirocinioSuccess() throws ServletException, IOException {
     when(requestMock.getParameter("enteEmail")).thenReturn("999");
