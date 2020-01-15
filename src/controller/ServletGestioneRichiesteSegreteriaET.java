@@ -48,7 +48,8 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
     TirocinioDAO tirocinio2 = new TirocinioDAO();
     // Array list di Tirocini
     ArrayList<Tirocinio> listaTirocini2 = new ArrayList<Tirocinio>();
-    // Ricerco tutti gli 'EntiConvenzionati' e li inserisco nella listaTirocini
+    // Ricerco tutti gli 'EntiConvenzionati' nello stato In attesa della Segreteria
+    //e li inserisco nella listaTirocini
     try {
       listaTirocini2 = tirocinio2.allTirocinioByStato("In attesa della Segreteria");
     } catch (Exception e) {
@@ -109,6 +110,7 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
       } catch (Exception e) {
         e.printStackTrace();
       }
+      //controllo se effettivamente sia stata effettuata l'operazione sul DB
       if (set) {
         response.setStatus(HttpServletResponse.SC_OK);
         PrintWriter out = response.getWriter();
@@ -148,6 +150,7 @@ public class ServletGestioneRichiesteSegreteriaET extends HttpServlet {
       } catch (Exception e) {
         e.printStackTrace();
       }
+      //controllo se sia stata fatta l'operazione sul DataBase
       if (set) {
         response.setStatus(HttpServletResponse.SC_OK);
         PrintWriter out = response.getWriter();
