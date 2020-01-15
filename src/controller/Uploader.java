@@ -60,7 +60,10 @@ public class Uploader extends HttpServlet {
     String error = "";
     String content = "";
 
-
+    File prova =new File("C:\\uploads");
+    if (!prova.exists()) {
+  	  prova.mkdir();
+    }
 
     filePath = new SystemAttribute().getValueByKey("request-upload-path") + "\\"
         + request.getSession().getAttribute("idRequest") + "\\";
