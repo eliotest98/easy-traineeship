@@ -202,7 +202,7 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
             + "<img style='background-color:#FF9900' src='https://esse3web.unisa.it/img/layout/logo.png?v=19.10.01'>"
             + "</div><br> " + "</certer>"
             + "Di seguito all' avvenuta richesta di registrazione dell' " + "azienda <b>" + name
-            + "</b> al sistema Easy Traineeship"
+            + "</b> al sistema Easy Traineeship "
             + "le forniamo le credenziali per accervi al seguente <a href='http://localhost:8080/easy-traineeship/login.jsp'>link</a> <br> <br>"
             + "<h4>Username:<h4> <b><h3>" + email + "</h3></b> <br>" + "<h4>Password:<h4> <b><h3>"
             + passwordET + "</h3></b> <br>"
