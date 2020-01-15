@@ -47,6 +47,7 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
     String userET = (String) request.getSession().getAttribute("userET");
     Student s = (Student) request.getSession().getAttribute("user");
     String pag = "";
+    TirocinioDAO tirocinioDao = new TirocinioDAO();
 
     if ((userET == null) || (!userET.equals("0"))) {
       response.sendRedirect("login.jsp");
@@ -55,7 +56,8 @@ public class ServletRichiestaInizioTirocinioET extends HttpServlet {
 
     if (request.getParameter("matricolaTirocinante") != null) {
       if (tirocinanteDao.ricercaTirocinanteByMatricola(
-          Long.valueOf(request.getParameter("matricolaTirocinante"))) != null) {
+          Long.valueOf(request.getParameter("matricolaTirocinante"))) != null 
+          && tirocinioDao.tirocinioAttivo( Long.valueOf(request.getParameter("matricolaTirocinante"))) != null) {
         pag = "/_areaStudent/InviaRichiestaET.jsp?cod=1";
       } else {
 

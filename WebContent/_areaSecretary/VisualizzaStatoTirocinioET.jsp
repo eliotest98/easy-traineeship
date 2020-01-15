@@ -270,12 +270,14 @@
 									<div>
 									<input type="hidden" class="form-control" id="codice" name="codice" value="<%=tirocinio.getCodTirocinio()%>" required>
 									</div>
+									<%if (!tirocinio.getStatoTirocinio().equals("Completo")){ %>
 									<!-- Tasto Annulla -->
 									<div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
 										<button id="Annulla" type="submit"
 											class="btn btn-primary btn-submit" title="Annulla"
 											data-idrequest="35">Annulla Tirocinio</button>
 									</div>
+									<%} %>
 									<div class="clearfix"></div>
 
 									<%
