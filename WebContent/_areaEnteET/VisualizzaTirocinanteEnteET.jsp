@@ -194,14 +194,14 @@
 								  <div class="modal-content">
 								    <span class="close"></span>
 								    <p>Sei sicuro di voler accettare la richiesta di Tirocinio?</p>
-								  		<table>
+								  		<center><table>
 								  		<tr><td><form id="modalAccettaForm" action="../ServletGestioneRichiesteEnteET" method="post">
 								  		<input type="hidden" name="codice" value="<%=(String)request.getParameter("codice") %>">
 								  		<input type="hidden" name="flag" value="2">
 								  		 <button onclick="accetta()"id="modalAccettaButton" name="accettaRichiesta" value="niente per il momento" type="submit" class="btn btn-primary btn-action eliminaEnte refuse"  data-type="2" data-idrequest="35" title="Accetta Richiesta">Si</button>
 								  		 </form></td>
 										 <td><button onclick="notaccetta()"id="close" name="nonAccetta" class="btn btn-primary btn-action eliminaEnte refuse" data-type="2" data-idrequest="35" title="Annulla">No</button></td></tr>
-										</table>
+										</table></center>
 										
 									</div>
 								</div>

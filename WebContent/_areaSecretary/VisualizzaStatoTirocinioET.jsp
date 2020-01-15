@@ -307,7 +307,7 @@
 										<div class="modal-content">
 											<span class="close"></span>
 											<p>Sei sicuro di voler annullare il Tirocinio?</p>
-											<table>
+											<center><table>
 												<tr>
 													<td><% request.setAttribute("matricola", matricola);%>
 													<button onclick="return annulla()" id="modalAnnullaButton"
@@ -321,7 +321,7 @@
 															class="btn btn-primary btn-action eliminaEnte refuse"
 															data-type="2" data-idrequest="35" title="Annulla">No</button></td>
 												</tr>
-											</table>
+											</table></center>
 
 										</div>
 									</div>
@@ -401,6 +401,7 @@
 		// When the user clicks on <span> (x), close the modal
 		span.onclick = function() {
 			modalAnnullamento.style.display = "none";
+			showAlert();
 			toastr.error("Operazione non effettuata");
 		}
 
@@ -408,6 +409,7 @@
 		window.onclick = function(event) {
 			if (event.target == modalAnnullamento) {
 				modalAnnullamento.style.display = "none";
+				showAlert();
 				toastr.error("Annullamento non effettuato");
 			}
 		}
@@ -451,6 +453,7 @@
 	<script>
 		function notaccetta() {
 			modalAnnullamento.style.display = "none";
+			showAlert();
 			toastr.error("Annullamento non effettuato");
 		}
 	</script>

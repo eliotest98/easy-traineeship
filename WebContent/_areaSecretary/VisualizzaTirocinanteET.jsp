@@ -65,6 +65,8 @@
   border: 1px solid #888;
   width: 25%;
   align: center;
+  text-align: center;
+  gravity: center;
 }
 
 /* The Close Button */
@@ -197,12 +199,13 @@
 								  <div class="modal-content">
 								    <span class="close"></span>
 								    <p>Sei sicuro di voler accettare la richiesta di Tirocinio?</p>
+								  		<center>
 								  		<table>
 								  		<tr><td>
 								  		  <%request.setAttribute("matricola", matricola);%>
 								  		  <button onclick="return accetta()" id="accetta"  value="<%=matricola %>" class="btn btn-primary btn-action eliminaEnte refuse" data-type="2" data-idrequest="35" title="Accetta Richiesta">Si</button> </td>
 										 <td><button onclick="notaccetta()"id="close" name="nonAccetta" class="btn btn-primary btn-action eliminaEnte refuse" data-type="2" data-idrequest="35" title="Annulla">No</button></td></tr>
-										</table>
+										</table> </center>
 										
 									</div>
 								</div>
