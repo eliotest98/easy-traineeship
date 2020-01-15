@@ -8,8 +8,11 @@ import java.util.*;
 import java.sql.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-
-
+/*
+ * Classe per il testing del DAO EnteConvenzionatoDAO.
+ * Questa classe di test è stata scritta secondo la
+ * metodologia WHITE BOX.
+*/
 class EnteConvenzionatoDAOTest {
 
   Connection conn = new DbConnection().getInstance().getConn();
@@ -19,7 +22,10 @@ class EnteConvenzionatoDAOTest {
       "Pino", "TE", "Molto interessante");
 
 
-  // metodo tearDown per rimuovere i campi inseriti durante i test
+  /*
+   *  metodo tearDown 
+   *  usato per rimuovere i campi inseriti durante i test.
+  */
   @AfterEach
   public void tearDown() {
     try {
