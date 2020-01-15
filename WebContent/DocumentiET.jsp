@@ -54,7 +54,7 @@
 												Previste</th>
 											<th class="text-center" align="center">Svolgimento
 												Tirocinio</th>
-											<th class="text-center" align="center">Nome Ente</th>
+											<th class="text-center" align="center">Partita IVA Ente</th>
 											<th class="text-center" align="center">Azioni</th>
 										</tr>
 									</thead>
@@ -73,14 +73,14 @@
 											<td class='text-center'><%=listaTirocinio.get(i).getSvolgimentoTirocinio()%></td>
 											<%
 												//se l'ente convenzionato è null vuol dire che l'ente non è stato ancora scelto
-												if (listaTirocinio.get(i).getEnteConvenzionato() == null) {
+												if (listaTirocinio.get(i).getPartitaIva() == null) {
 											%>
 											<td class='text-center'>Non &egrave; stato scelto ancora
 												nessun Ente.</td>
 											<%
 												} else {
 											%>
-											<td class='text-center'><%=listaTirocinio.get(i).getEnteConvenzionato()%></td>
+											<td class='text-center'><%=listaTirocinio.get(i).getPartitaIva()%></td>
 											<%
 												}
 											%>

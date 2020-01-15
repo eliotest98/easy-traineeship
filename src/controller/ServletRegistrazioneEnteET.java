@@ -165,26 +165,17 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
      */
     ArrayList<Integer> numeri = new ArrayList<Integer>();
     ArrayList<String> letter = new ArrayList<String>();
-    String lettere = "abcdefghilmnopqrstuvz";
-    Random a = new Random();
-    for (int i = 0; i < lettere.length(); i++) {
-      if (a.nextBoolean()) {
-        letter.add("" + lettere.charAt(i));
-      }
-    }
-    Collections.shuffle(letter);
-    Random num = new Random();
-    numeri.add(num.nextInt(10));
-    numeri.add(num.nextInt(10));
-    letter.add(numeri.get(0) + "");
-    letter.add(numeri.get(1) + "");
     String passwordET = "";
-    for (int i = 0; i < letter.size(); i++) {
-      passwordET = passwordET + letter.get(i);
-    }
-    System.out.println(passwordET);
-
-
+    int leftLimit = 48; // numeral '0'
+    int rightLimit = 122; // letter 'z'
+    int targetStringLength = 10;
+    Random random = new Random();
+ 
+    passwordET = random.ints(leftLimit, rightLimit + 1)
+      .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+      .limit(targetStringLength)
+      .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+      .toString();
 
     // Genera password criptata
     String password = new Utils().generatePwd(passwordET);
@@ -201,10 +192,10 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
         /*
          * Funzione per l ' Invio mail
          */
-    	  
+
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        //Messaggio dell' E-mail
+        // Messaggio dell' E-mail
         String messaggio = "<div style='border: 1px solid #FF9900; " + "    padding: 10px; "
             + "    border-radius: 15px; " + "    float: none; " + "    margin: 0 auto; "
             + "    margin-top: 70px;'>" + "<center><div style='background-color:#FF9900'>"
@@ -219,12 +210,9 @@ public class ServletRegistrazioneEnteET extends HttpServlet {
             + "la password per motivi di sicurezza</div></h6>";
 
         /*
-         * Parametri per l' invio mail
-         * to: email di destinazione
-         * subject: oggetto del messaggio
-         * user: email di invio
-         * pass: password dell' email
-         * */
+         * Parametri per l' invio mail to: email di destinazione subject: oggetto del messaggio
+         * user: email di invio pass: password dell' email
+         */
         String to = email;
         String subject = "Credenziali Easy Traineeship";
         String message = messaggio;

@@ -60,7 +60,7 @@ public class ServletDownloadET extends HttpServlet {
     //il suo salvataggio nella cartella ProgettoFormativo presente
     //nella cartella WebContent\ProgettoFormativo.
     
-    String filePath = "C:\\ProgettoFormativo";
+    String filePath = "C:\\ProgettoFormativo\\";
     
 
     try {
