@@ -9,7 +9,6 @@
     Student user = (Student)request.getSession().getAttribute("user");
     //Per vedere chi Ã¨ in sessione.
     int resp = Integer.parseInt((String)request.getSession().getAttribute("userET"));
-    
 %>
 <!-- Pagina per l'invio della richiesta di inizio Tirocinio, dallo studente alla segreteria. -->
 
@@ -47,6 +46,7 @@
                                 <div class="panel">
                                 	<%
                                 		Tirocinio tirocinio = (Tirocinio)request.getSession().getAttribute("Tirocinio");
+                                		//controllo se il tirocinio e la resp è null
                                 		if(resp==0 && tirocinio==null){
                                 	%>
                                     <h2 class="text-center">Invio Richiesta Tirocinio:</h2>
@@ -220,6 +220,7 @@
 									</h3>
 								 <%
 								 }
+                                	//se il tirocinio non è null
                                 	else if (tirocinio!=null)
                                 	{
                                  %>		

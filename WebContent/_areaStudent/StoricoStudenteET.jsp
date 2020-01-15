@@ -109,14 +109,18 @@
 										<tr role='row'>
 											<td class='text-center'><%=listaTirocini.get(i).getCodTirocinio()%></td>
 											<td class='text-center'><%=listaTirocini.get(i).getStatoTirocinio()%>
-												<%if(listaTirocini.get(i).getStatoTirocinio().equalsIgnoreCase("In attesa Ente"))
+												<%
+												//Controllo se lo stato del tirocinio è in attesa dell'Ente
+												if(listaTirocini.get(i).getStatoTirocinio().equalsIgnoreCase("In attesa Ente"))
 														{%>
 												<button id="<%=listaTirocini.get(i).getCodTirocinio()%>"
 													name="enteEmail"
 													style="background-color: #FF9900; outline: none; border: 4px solid #FF9900; border-radius: 5px; color: white; margin: 2%;"
 													data-type="2" data-idrequest="35" title="Annulla Richiesta">Annulla
 													Richiesta</button> <%}%></td>
-											<%if(listaTirocini.get(i).getStatoTirocinio().equalsIgnoreCase("Rifiutato")||listaTirocini.get(i).getStatoTirocinio().equalsIgnoreCase("Annullato"))
+											<%
+											//controllo se lo stato del tirocinio è Rifiutato
+											if(listaTirocini.get(i).getStatoTirocinio().equalsIgnoreCase("Rifiutato")||listaTirocini.get(i).getStatoTirocinio().equalsIgnoreCase("Annullato"))
 														{%>
 											<td class='text-center'><%=listaTirocini.get(i).getDescrizioneEnte()%></td>
 											<%} else {%>
@@ -240,7 +244,7 @@
 				toastr.error("Annullamento non effettuato");
 			}
 		}
-
+		//funzione ajax per passare parametri alla ServletAnnullaEnteDaStudenteET
 		function elimina() {
 			console.log("Sto eliminando " + email);
 			$.ajax({
@@ -272,6 +276,7 @@
 		}
 	</script>
 	<script>
+	//Funzione che visualizza il toast Annullamento non effettuato
 		function notelimina() {
 			modal.style.display = "none";
 			showAlert();

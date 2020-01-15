@@ -40,6 +40,12 @@ public class ServletProgettoFormativoET extends HttpServlet {
     TirocinioDAO tirocinioDao = new TirocinioDAO();
 
     Tirocinio tirocinio = new Tirocinio();
+    /*
+     * Richiamo la funzione di tirocinioDAO:
+     * allTirocinioByDocumento
+     * e cerco i tirocini con lo stato
+     * "Accettato e in attesa di firma"
+     * */
     tirocinio =
         tirocinioDao.allTirocinioByDocumento(user.getEmail(), "Accettato e in attesa di firma");
     String pag = "";

@@ -41,6 +41,7 @@
 								%>
 								<div class="bordiET">
 									<%
+										//se il tirocinio e il tirocinante non sono null
 										if (tirocinio != null && tirocinante != null) {
 									%>
 									<h2 class="centro">PROGETTO FORMATIVO:</h2>
@@ -62,7 +63,9 @@
 										</button><br>
 										<p id="qui" style="display: none;">
 											<b><%=tirocinio.getStatoTirocinio().toUpperCase()%></b><br>
-											<%if(tirocinio.getStatoTirocinio().equalsIgnoreCase("Accettato e in attesa di firma della Segreteria, Ente e Admin") ||
+											<%
+											//controllo lo stato del tirocinio
+											if(tirocinio.getStatoTirocinio().equalsIgnoreCase("Accettato e in attesa di firma della Segreteria, Ente e Admin") ||
 													tirocinio.getStatoTirocinio().equalsIgnoreCase("Accettato e in attesa di firma dell' Ente e Admin") ||
 													tirocinio.getStatoTirocinio().equalsIgnoreCase("Accettato e in attesa di firma dell' Admin") ||
 													tirocinio.getStatoTirocinio().equalsIgnoreCase("Completo") ) {%>
@@ -71,7 +74,9 @@
 													<p> DOWNLOAD </p>
 												</button>
 												</a>
-											<%}if(tirocinio.getStatoTirocinio().equalsIgnoreCase("Accettato e in attesa di firma")) {%>
+											<%}
+											//se lo stato del tirocinio è Accettato e in attesa di firma
+											if(tirocinio.getStatoTirocinio().equalsIgnoreCase("Accettato e in attesa di firma")) {%>
 												<a href="_areaStudent/UploadProgettoFormativoET.jsp" class="aET">
 													<button class="buttonET dow" >
 													 <p> UPLOAD </p>
@@ -82,7 +87,7 @@
 									</div>
 									<br>
 									<%
-										}
+										}//se il tirocinio e il tirocinante è null
 											if (tirocinio == null || tirocinante == null) {
 									%>
 									<h2 class="centro">
@@ -115,7 +120,7 @@
 	<script src="<%= request.getContextPath() %>/js/progettoFormativo.js"></script>
 	<script type="text/javascript">
 		var mostrato = false;
-
+		//cambia il nome del bottone in base al click
 		function mostraStato() {
 			if (mostrato == false) {
 				document.getElementById("qui").style.display = "block";
