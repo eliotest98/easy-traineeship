@@ -47,7 +47,9 @@
 										<br> <a href="../ServletStatoTirocinanteET?pagina=StoricoStudenteET" 
 											class="linkET"><button class="buttonET">Richieste effettuate per
 												il Tirocinio Esterno</button></a><br>
-										<%if (request.getSession().getAttribute("Tirocinio")!=null) 
+										<%
+										//se in sessione c'è il tiroinio
+										if (request.getSession().getAttribute("Tirocinio")!=null) 
 										{
 										%>		
 										<br> <a href="../ServletStatoTirocinanteET?pagina=StatoProprioTirocinioET"

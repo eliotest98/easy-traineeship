@@ -47,8 +47,11 @@
                                 <div class="panel">
                                 <%
                                 	Tirocinio tirocinio = (Tirocinio)request.getSession().getAttribute("Tirocinio");
+                                	//Controllo se il tirocinio non è null
                                 	if (tirocinio!=null) {
+                                	  //Controllo se lo stato del tirocinio è in attesa dell'Ente
                                 		if (tirocinio.getStatoTirocinio().equalsIgnoreCase("In attesa Ente")) {
+                                		  	//Controllo se la partita iva è null o vuota
                                 			if(tirocinio.getPartitaIva()==null || tirocinio.getPartitaIva()==("")) {
                                 %>
 									<h2 class="text-center">Invio Richiesta di Tirocinio
@@ -86,6 +89,7 @@
 										<select name="ente" required>
 										<option value="">Seleziona Ente</option>
 										<%
+												//se la lista degli enti non è null
 												if (listaEnti != null) {
 													//Scorro tutta la listaEnti
 													for (int i = 0; i < listaEnti.size(); i++) {
@@ -142,6 +146,7 @@
                                 			}
                                 		
                                 	}	
+                                	//se il tirocinio è null
                                 	else if (tirocinio==null) {
                                 	%>	
 										<h3 style="text-align: center;">
