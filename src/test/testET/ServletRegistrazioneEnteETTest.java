@@ -13,7 +13,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.junit.jupiter.api.*;
-
+/*
+ * 
+ * 
+ * Classe per il testing della ServletRegistrazioneEnteET.
+ * Questa classe di test è stata scritta secondo la
+ * metodologia BLACK BOX.
+ * 
+ * 
+*/
 class ServletRegistrazioneEnteETTest {
 
   Connection conn = new DbConnection().getInstance().getConn();
@@ -25,13 +33,17 @@ class ServletRegistrazioneEnteETTest {
   ServletRegistrazioneEnteET servletSecretaryMock = mock(ServletRegistrazioneEnteET.class);
   RequestDispatcher dispatcherMock = mock(RequestDispatcher.class);
 
-
+  /*
+   * Prima di ogni test simuliamo la sessione della Segreteria (1).
+   */
   @BeforeEach
   public void setUp() {
     when(requestMock.getSession()).thenReturn(sessionMock);
     when(sessionMock.getAttribute("userET")).thenReturn("1");
   }
-
+  /*
+   * Dopo ogni test elimino l'ente appena creato.
+   */
   @AfterEach
   void tearDown() {
     try {
