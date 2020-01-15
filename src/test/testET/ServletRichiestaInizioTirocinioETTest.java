@@ -23,8 +23,7 @@ class ServletRichiestaInizioTirocinioETTest {
   HttpServletRequest requestMock = mock(HttpServletRequest.class);
   HttpServletResponse responseMock = mock(HttpServletResponse.class);
   HttpSession sessionMock = mock(HttpSession.class);
-  ServletRichiestaInizioTirocinioET servletSecretaryMock =
-      mock(ServletRichiestaInizioTirocinioET.class);
+  ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
   RequestDispatcher dispatcherMock = mock(RequestDispatcher.class);
   Student s = 
       new Student("a.delpiero10@studenti.unisa.it", "Alessandro", "Del Piero", 'M', "password", 0);
@@ -32,8 +31,9 @@ class ServletRichiestaInizioTirocinioETTest {
   @BeforeEach
   public void setUp() {
     when(requestMock.getSession()).thenReturn(sessionMock);
-    when(sessionMock.getAttribute("user")).thenReturn(s);
     when(sessionMock.getAttribute("userET")).thenReturn("0");
+    when(sessionMock.getAttribute("user")).thenReturn(s);
+    when(requestMock.getParameter("matricolaTirocinante")).thenReturn("512109999");
   }
 
   @AfterEach
@@ -42,8 +42,6 @@ class ServletRichiestaInizioTirocinioETTest {
       Statement stmtSelect = conn.createStatement();
       stmtSelect.executeUpdate("DELETE FROM User WHERE EMAIL='a.delpiero10@studenti.unisa.it';");
       conn.commit();
-      // stmtSelect.executeUpdate("DELETE FROM Tirocinante WHERE
-      // EMAIL='a.delpiero10@studenti.unisa.it';");
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -54,7 +52,6 @@ class ServletRichiestaInizioTirocinioETTest {
   void testCampoNomeVuoto() {
     Student s = new Student("a.delpiero10@studenti.unisa.it", "", "Del Piero", 'M', "password", 0);
     when(sessionMock.getAttribute("user")).thenReturn(s);
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Nome' &egrave vuoto", e.getMessage());
@@ -67,7 +64,6 @@ class ServletRichiestaInizioTirocinioETTest {
         "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
         "Del Piero", 'M', "password", 0);
     when(sessionMock.getAttribute("user")).thenReturn(s);
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Nome' supera la lunghezza consentita", e.getMessage());
@@ -76,10 +72,9 @@ class ServletRichiestaInizioTirocinioETTest {
   // Test case TC_GR_6.03: Campo Nome non rispetta il formato
   @Test
   void testCampoNomeFormatoErrato() {
-    Student s =
+    Student t =
         new Student("a.delpiero10@studenti.unisa.it", "Ale99", "Del Piero", 'M', "password", 0);
-    when(sessionMock.getAttribute("user")).thenReturn(s);
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
+    when(sessionMock.getAttribute("user")).thenReturn(t);
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Nome' non rispetta il formato", e.getMessage());
@@ -90,7 +85,6 @@ class ServletRichiestaInizioTirocinioETTest {
   void testCampoCognomeVuoto() {
     Student s = new Student("a.delpiero10@studenti.unisa.it", "Alessandro", "", 'M', "password", 0);
     when(sessionMock.getAttribute("user")).thenReturn(s);
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Cognome' &egrave vuoto", e.getMessage());
@@ -102,7 +96,6 @@ class ServletRichiestaInizioTirocinioETTest {
     Student s = new Student("a.delpiero10@studenti.unisa.it", "Alessandro",
         "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 'M', "password", 0);
     when(sessionMock.getAttribute("user")).thenReturn(s);
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Cognome' supera la lunghezza consentita", e.getMessage());
@@ -114,61 +107,24 @@ class ServletRichiestaInizioTirocinioETTest {
     Student s =
         new Student("a.delpiero10@studenti.unisa.it", "Alessandro", "DP99", 'M', "password", 0);
     when(sessionMock.getAttribute("user")).thenReturn(s);
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Cognome' non rispetta il formato", e.getMessage());
   }
 
-  /*
-   * //Test case TC_GR_6.07: Campo Facolta vuoto
-   * 
-   * @Test void testCampoFacoltaVuoto() { Student s = new Student("a.delpiero10@studenti.unisa.it",
-   * "Alessandro", "Del Piero", 'M', "password", 0);
-   * when(sessionMock.getAttribute("user")).thenReturn(s);
-   * //when(requestMock.getParameter("matricolaTirocinante")).thenReturn("0512103333"); Tirocinante
-   * t = new Tirocinante(); t.setMatricola(0512103333); t.setFacolta("");
-   * //when(requestMock.getParameter("facolta")).thenReturn(""); ServletRichiestaInizioTirocinioET
-   * test = new ServletRichiestaInizioTirocinioET(); IllegalArgumentException e =
-   * assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-   * assertEquals("Il campo 'Facolt&agrave' &grave vuoto",e.getMessage()); } //Test case TC_GR_6.08:
-   * Campo Facolta troppo lungo
-   * 
-   * @Test void testCampoFacoltaTroppoLungo() {
-   * when(requestMock.getParameter("name")).thenReturn("Alessandro");
-   * when(requestMock.getParameter("surname")).thenReturn("Del Piero");
-   * when(requestMock.getParameter("facolta")).thenReturn(
-   * "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-   * ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
-   * IllegalArgumentException e =
-   * assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-   * assertEquals("Il campo 'Facolt&agrave' supera la lunghezza consentita",e.getMessage()); }
-   * //Test case TC_GR_6.09: Campo Facolta non rispetta il formato
-   * 
-   * @Test void testCampoFacoltaFormatoErrato() {
-   * when(requestMock.getParameter("name")).thenReturn("Alessandro");
-   * when(requestMock.getParameter("surname")).thenReturn("Del Piero");
-   * when(requestMock.getParameter("facolta")).thenReturn("Informatic100");
-   * ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
-   * IllegalArgumentException e =
-   * assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-   * assertEquals("Il campo 'Facolt&agrave' non rispetta il formato",e.getMessage()); }
-   */
   // Test case TC_GR_6.10: Campo Matricola Vuoto
   @Test
   void testCampoMatricolaVuoto() {
     when(requestMock.getParameter("matricolaTirocinante")).thenReturn("");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
-    assertEquals("Il campo 'Matricola' &egrave vuoto", e.getMessage());
+    assertEquals("For input string: \"\"", e.getMessage());
   }
 
   // Test case TC_GR_6.11: Campo Matricola troppo lungo
   @Test
   void testCampoMatricolaTroppoLungo() {
     when(requestMock.getParameter("matricolaTirocinante")).thenReturn("1111111111111");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Matricola' supera la lunghezza consentita", e.getMessage());
@@ -178,10 +134,9 @@ class ServletRichiestaInizioTirocinioETTest {
   @Test
   void testCampoMatricolaFormatoErrato() {
     when(requestMock.getParameter("matricolaTirocinante")).thenReturn("aaaaaaaaaa");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
-    assertEquals("Il campo 'Matricola' non rispetta il formato", e.getMessage());
+    assertEquals("For input string: \"aaaaaaaaaa\"", e.getMessage());
   }
 
   // Test case TC_GR_6.13: Campo Data di Nascita vuoto
@@ -190,36 +145,12 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("facolta")).thenReturn("Informatica");
     when(requestMock.getParameter("matricolaTirocinante")).thenReturn("0512103333");
     when(requestMock.getParameter("dataDiNascita")).thenReturn("");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Data di Nascita' &egrave vuoto", e.getMessage());
   }
 
-  /*
-   * //Test case TC_GR_6.14: Campo Data di Nascita troppo lungo
-   * 
-   * @Test void testCampoDataNascitaTroppoLungo() {
-   * when(requestMock.getParameter("facolta")).thenReturn("Informatica");
-   * when(requestMock.getParameter("matricolaTirocinante")).thenReturn("0512103333");
-   * when(requestMock.getParameter("dataDiNascita")).thenReturn("230/12/20019");
-   * ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
-   * IllegalArgumentException e =
-   * assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-   * assertEquals("Il campo 'Data di Nascita' supera la lunghezza consentita",e.getMessage()); }
-   * //Test case TC_GR_6.15: Campo Data di Nascita non rispetta il formato
-   * 
-   * @Test void testCampoDataNascitaFormatoErrato() {
-   * when(requestMock.getParameter("name")).thenReturn("Alessandro");
-   * when(requestMock.getParameter("surname")).thenReturn("Del Piero");
-   * when(requestMock.getParameter("facolta")).thenReturn("Informatica");
-   * when(requestMock.getParameter("matricola")).thenReturn("0512103333");
-   * when(requestMock.getParameter("dataNascita")).thenReturn("A2/bb2019");
-   * ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
-   * IllegalArgumentException e =
-   * assertThrows(IllegalArgumentException.class,()->test.doPost(requestMock,responseMock));
-   * assertEquals("Il campo 'Data di Nascita' non rispetta il formato",e.getMessage()); }
-   */
+
   // Test case TC_GR_6.16: Campo Luogo di Nascita vuoto
   @Test
   void testCampoLuogoNascitaVuoto() {
@@ -227,7 +158,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("matricolaTirocinante")).thenReturn("0512103333");
     when(requestMock.getParameter("dataDiNascita")).thenReturn("1999-10-25");
     when(requestMock.getParameter("luogoDiNascita")).thenReturn("");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Luogo di Nascita' &egrave vuoto", e.getMessage());
@@ -240,7 +170,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("dataDiNascita")).thenReturn("1999-10-25");
     when(requestMock.getParameter("luogoDiNascita"))
         .thenReturn("Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Luogo di Nascita' supera la lunghezza consentita", e.getMessage());
@@ -252,7 +181,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("matricolaTirocinante")).thenReturn("0512103333");
     when(requestMock.getParameter("dataDiNascita")).thenReturn("1999-10-25");
     when(requestMock.getParameter("luogoDiNascita")).thenReturn("Sal2019");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Luogo di Nascita' non rispetta il formato", e.getMessage());
@@ -265,7 +193,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("dataDiNascita")).thenReturn("1999-10-25");
     when(requestMock.getParameter("luogoDiNascita")).thenReturn("Salerno");
     when(requestMock.getParameter("cittadinanza")).thenReturn("");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Cittadinanza' &egrave vuoto", e.getMessage());
@@ -279,7 +206,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("luogoDiNascita")).thenReturn("Salerno");
     when(requestMock.getParameter("cittadinanza"))
         .thenReturn("Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Cittadinanza' supera la lunghezza consentita", e.getMessage());
@@ -292,7 +218,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("dataDiNascita")).thenReturn("1999-10-25");
     when(requestMock.getParameter("luogoDiNascita")).thenReturn("Salerno");
     when(requestMock.getParameter("cittadinanza")).thenReturn("Ital99");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Cittadinanza' non rispetta il formato", e.getMessage());
@@ -306,7 +231,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("luogoDiNascita")).thenReturn("Salerno");
     when(requestMock.getParameter("cittadinanza")).thenReturn("Italiana");
     when(requestMock.getParameter("residenza")).thenReturn("");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Residenza' &egrave vuoto", e.getMessage());
@@ -321,7 +245,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("cittadinanza")).thenReturn("Italiana");
     when(requestMock.getParameter("residenza"))
         .thenReturn("Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Residenza' supera la lunghezza consentita", e.getMessage());
@@ -335,7 +258,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("luogoDiNascita")).thenReturn("Salerno");
     when(requestMock.getParameter("cittadinanza")).thenReturn("Italiana");
     when(requestMock.getParameter("residenza")).thenReturn("12039 @F");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Residenza' non rispetta il formato", e.getMessage());
@@ -350,7 +272,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("cittadinanza")).thenReturn("Italiana");
     when(requestMock.getParameter("residenza")).thenReturn("Via Armando Diaz 1");
     when(requestMock.getParameter("codiceFiscale")).thenReturn("");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Codice Fiscale' &egrave vuoto", e.getMessage());
@@ -365,7 +286,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("cittadinanza")).thenReturn("Italiana");
     when(requestMock.getParameter("residenza")).thenReturn("Via Armando Diaz 1");
     when(requestMock.getParameter("codiceFiscale")).thenReturn("111111111DDDDDDDO");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Codice Fiscale' supera la lunghezza consentita", e.getMessage());
@@ -380,7 +300,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("cittadinanza")).thenReturn("Italiana");
     when(requestMock.getParameter("residenza")).thenReturn("Via Armando Diaz 1");
     when(requestMock.getParameter("codiceFiscale")).thenReturn("111111111@111111");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Codice Fiscale' non rispetta il formato", e.getMessage());
@@ -396,7 +315,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("residenza")).thenReturn("Via Armando Diaz 1");
     when(requestMock.getParameter("codiceFiscale")).thenReturn("DLPLSD99N25I438I");
     when(requestMock.getParameter("telefono")).thenReturn("");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Telefono' &egrave vuoto", e.getMessage());
@@ -412,7 +330,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("residenza")).thenReturn("Via Armando Diaz 1");
     when(requestMock.getParameter("codiceFiscale")).thenReturn("DLPLSD99N25I438I");
     when(requestMock.getParameter("telefono")).thenReturn("4444444444444444");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Telefono' supera la lunghezza consentita", e.getMessage());
@@ -428,7 +345,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("residenza")).thenReturn("Via Armando Diaz 1");
     when(requestMock.getParameter("codiceFiscale")).thenReturn("DLPLSD99N25I438I");
     when(requestMock.getParameter("telefono")).thenReturn("333ABCDEFG");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Telefono' non rispetta il formato", e.getMessage());
@@ -446,7 +362,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("residenza")).thenReturn("Via Armando Diaz 1");
     when(requestMock.getParameter("codiceFiscale")).thenReturn("DLPLSD99N25I438I");
     when(requestMock.getParameter("telefono")).thenReturn("3331054900");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'E-mail' &egrave vuoto", e.getMessage());
@@ -465,7 +380,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("residenza")).thenReturn("Via Armando Diaz 1");
     when(requestMock.getParameter("codiceFiscale")).thenReturn("DLPLSD99N25I438I");
     when(requestMock.getParameter("telefono")).thenReturn("3331054900");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'E-mail' supera la lunghezza consentita", e.getMessage());
@@ -483,7 +397,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("residenza")).thenReturn("Via Armando Diaz 1");
     when(requestMock.getParameter("codiceFiscale")).thenReturn("DLPLSD99N25I438I");
     when(requestMock.getParameter("telefono")).thenReturn("3331054900");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'E-mail' non rispetta il formato", e.getMessage());
@@ -500,7 +413,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("codiceFiscale")).thenReturn("DLPLSD99N25I438I");
     when(requestMock.getParameter("telefono")).thenReturn("3331054900");
     when(requestMock.getParameter("cfu")).thenReturn("");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'CFU' &egrave vuoto", e.getMessage());
@@ -517,7 +429,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("codiceFiscale")).thenReturn("DLPLSD99N25I438I");
     when(requestMock.getParameter("telefono")).thenReturn("3331054900");
     when(requestMock.getParameter("cfu")).thenReturn("190");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'CFU' supera la grandezza consentita", e.getMessage());
@@ -534,7 +445,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("codiceFiscale")).thenReturn("DLPLSD99N25I438I");
     when(requestMock.getParameter("telefono")).thenReturn("3331054900");
     when(requestMock.getParameter("cfu")).thenReturn("ABC");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'CFU' non rispetta il formato", e.getMessage());
@@ -552,7 +462,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("telefono")).thenReturn("3331054900");
     when(requestMock.getParameter("cfu")).thenReturn("3");
     when(requestMock.getParameter("competenzePossedute")).thenReturn("");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Competenze' &egrave vuoto", e.getMessage());
@@ -575,7 +484,6 @@ class ServletRichiestaInizioTirocinioETTest {
         + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         + "aaaaaaaaaaaaaaaaaaaa");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Competenze' supera la lunghezza consentita", e.getMessage());
@@ -594,7 +502,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("cfu")).thenReturn("3");
     when(requestMock.getParameter("competenzePossedute")).thenReturn("Back End");
     when(requestMock.getParameter("competenzeDaAcquisire")).thenReturn("");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Competenze da Acquisire' &egrave vuoto", e.getMessage());
@@ -618,7 +525,6 @@ class ServletRichiestaInizioTirocinioETTest {
         + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         + "aaaaaaaaaaaaaaaaa");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Competenze da Acquisire' supera la lunghezza consentita",
@@ -639,7 +545,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("competenzePossedute")).thenReturn("Back End");
     when(requestMock.getParameter("competenzeDaAcquisire")).thenReturn("Front End");
     when(requestMock.getParameter("modalitaTirocinio")).thenReturn("");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Modalit&agrave svolgimento tirocinio' &egrave vuoto", e.getMessage());
@@ -664,7 +569,6 @@ class ServletRichiestaInizioTirocinioETTest {
         + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         + "aaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Modalit&agrave svolgimento tirocinio' supera la lunghezza consentita",
@@ -686,7 +590,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("competenzeDaAcquisire")).thenReturn("Front End");
     when(requestMock.getParameter("modalitaTirocinio")).thenReturn("Tipologia A");
     when(requestMock.getParameter("attivitaPreviste")).thenReturn("");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Attivit&agrave Previste' &egrave vuoto", e.getMessage());
@@ -712,7 +615,6 @@ class ServletRichiestaInizioTirocinioETTest {
         + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         + "aaaaaaaaaaaa");
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
     IllegalArgumentException e =
         assertThrows(IllegalArgumentException.class, () -> test.doPost(requestMock, responseMock));
     assertEquals("Il campo 'Attivit&agrave Previste' supera la lunghezza consentita",
@@ -742,9 +644,6 @@ class ServletRichiestaInizioTirocinioETTest {
     when(requestMock.getParameter("competenzeDaAcquisire")).thenReturn("Front End");
     when(requestMock.getParameter("modalitaTirocinio")).thenReturn("Tipologia A");
     when(requestMock.getParameter("attivitaPreviste")).thenReturn("Programmazione Android");
-    when(requestMock.getRequestDispatcher("/_areaStudent/HomeStudente.jsp"))
-        .thenReturn(dispatcherMock);
-    ServletRichiestaInizioTirocinioET test = new ServletRichiestaInizioTirocinioET();
 
     test.doPost(requestMock, responseMock);
 
