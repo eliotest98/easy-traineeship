@@ -16,7 +16,15 @@ import model.Student;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+/*
+ * 
+ * 
+ * Classe per il testing della ServletProgettoFormativoET .
+ * Questa classe di test è stata scritta secondo la
+ * metodologia WHITE BOX.
+ * 
+ * 
+*/
 class ServletProgettoFormativoETTest {
 
   Connection conn = new DbConnection().getInstance().getConn();
@@ -29,7 +37,11 @@ class ServletProgettoFormativoETTest {
   ServletProgettoFormativoET test = new ServletProgettoFormativoET();
   TirocinioDAO tirocinioDaoMock = mock(TirocinioDAO.class);
 
-  // Metodo setUp()
+  /*
+   *  Metodo setUp()
+   *  Prima di ogni test, simuliamo una sessione di tipo ENTE CONVENZIONATO (3).
+   *  
+   */
   @BeforeEach
   void setUp() {
     when(requestMock.getSession()).thenReturn(sessionMock);
@@ -37,7 +49,15 @@ class ServletProgettoFormativoETTest {
     when(sessionMock.getAttribute("user")).thenReturn(user);
   }
 
-  // Metodo tearDown()
+  /*
+   *  Metodo tearDown()
+   *  Dopo ogni test, eliminiamo le righe aggiunte nelle tabelle:
+   *  Tirocinio
+   *  Tirocinante
+   *  EnteConvenzionato
+   *  Utente (studente)
+   *  Utente (ente)
+   */
   @AfterEach
   public void tearDown() {
     try {
@@ -57,7 +77,14 @@ class ServletProgettoFormativoETTest {
       e.printStackTrace();
     }
   }
-
+  /*
+   * Inserisco nel db un:
+   * Utente (studente)
+   * tirocinante
+   * Utente (enteConvenzionato)
+   * enteConvenzionato
+   * tirocinio
+   */
   @Test
   void testProgettoFormativoCorretto() {
     try {
@@ -90,7 +117,9 @@ class ServletProgettoFormativoETTest {
       e.printStackTrace();
     }
   }
-
+  /*
+   * Test quando non esiste alcun progetto formativo
+   */
   @Test
   void testProgettoFormativoTirocinioNull() {
     try {
