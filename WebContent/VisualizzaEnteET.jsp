@@ -15,6 +15,7 @@
 	ArrayList<EnteConvenzionato> listaEnti=new ArrayList<EnteConvenzionato>();
 	listaEnti=(ArrayList<EnteConvenzionato>)request.getAttribute("listaEnti");
 	
+	//controllo se la lista è vuota
 	if(listaEnti==null)
 	{
         RequestDispatcher dispatcher = request.getRequestDispatcher("ServletListaEnteET");
@@ -130,7 +131,6 @@
 													//Se è in sessione la segreteria mostro le azioni
 													if(Segreteria!=null)
 													{
-														//email = listaEnti.get(i).getEmail();
 														%>
 														<td class="text-center" align="center">
 														<a href='_areaSecretary/ModificaEnteET.jsp?ente=<%=i%>' class="btn btn-primary btn-action modificaEnte" title="Modifica Ente" data-idrequest="35"><i class="fa fa-edit"></i></a>
@@ -316,6 +316,7 @@
 			}
 			</script>
 			<script>
+			//funzione che visualizza l'eliminazione non effettuata
 			function notelimina()
 			{
 				modal.style.display = "none";

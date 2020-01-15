@@ -9,6 +9,8 @@
 
 	ArrayList<Tirocinio> listaTirocinio = new ArrayList<Tirocinio>();
 	listaTirocinio = (ArrayList<Tirocinio>) request.getAttribute("listaTirocinio");
+	
+	//controllo che la lista non sia null
 	if (listaTirocinio == null) {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("ServletDocumentiTirocinioET");
 		dispatcher.forward(request, response);
@@ -70,6 +72,7 @@
 											<td class='text-center'><%=listaTirocinio.get(i).getAttivitaPreviste()%></td>
 											<td class='text-center'><%=listaTirocinio.get(i).getSvolgimentoTirocinio()%></td>
 											<%
+												//se l'ente convenzionato è null vuol dire che l'ente non è stato ancora scelto
 												if (listaTirocinio.get(i).getEnteConvenzionato() == null) {
 											%>
 											<td class='text-center'>Non &egrave; stato scelto ancora
