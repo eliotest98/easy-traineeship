@@ -31,7 +31,7 @@
   
     if (pageName.equals("viewRequest.jsp")) {
       menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
-          + "/viewRequest.jsp\">Richiesta Convalida Inglese</a></li>";
+          + "/viewRequest.jsp\">Richieste Convalida Inglese</a></li>";
       menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
           + "/VisualizzaRichiestaET.jsp\">Richieste Tirocinio</a></li>";
       menu += "<li><a href=\"" + request.getContextPath() + "/VisualizzaEnteET.jsp\">Lista Enti</a></li>";
@@ -41,7 +41,7 @@
     }
     if (pageName.equals("VisualizzaListaTirocinantiET.jsp")) {
         menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-            + "/viewRequest.jsp\">Richiesta Convalida Inglese</a></li>";
+            + "/viewRequest.jsp\">Richieste Convalida Inglese</a></li>";
         menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
             + "/VisualizzaRichiestaET.jsp\">Richieste Tirocinio</a></li>";
         menu += "<li><a href=\"" + request.getContextPath() + "/VisualizzaEnteET.jsp\">Lista Enti</a></li>";
@@ -51,7 +51,7 @@
       }
     if (pageName.equals("VisualizzaRichiestaET.jsp")) {
         menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-                + "/viewRequest.jsp\">Richiesta Convalida Inglese</a></li>";
+                + "/viewRequest.jsp\">Richieste Convalida Inglese</a></li>";
             menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
                 + "/VisualizzaRichiestaET.jsp\">Richieste Tirocinio</a></li>";
             menu += "<li><a href=\"" + request.getContextPath() + "/VisualizzaEnteET.jsp\">Lista Enti</a></li>";
@@ -60,7 +60,7 @@
             menu +="<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
     }else if (pageName.equals("ModificaEnteET.jsp")) { //se ci troviamo in ModificaEnteET.jsp
   		menu += "<li ><a href=\"" + request.getContextPath() + "/" + pageFolder
-        	+ "/viewRequest.jsp\">Richiesta Convalida Inglese</a></li>";
+        	+ "/viewRequest.jsp\">Richieste Convalida Inglese</a></li>";
     	menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
         	+ "/VisualizzaRichiestaET.jsp\">Richieste Tirocinio</a></li>";
     	menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/VisualizzaEnteET.jsp\">Modifica Ente</a></li>";
@@ -69,7 +69,7 @@
     	menu +="<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
     }else if (pageName.equals("RegistrazioneEnteET.jsp")) { //se ci troviamo in RegistrazioneEnteET.jsp
     	menu += "<li ><a href=\"" + request.getContextPath() + "/" + pageFolder
-    	          + "/viewRequest.jsp\">Richiesta Convalida Inglese</a></li>";
+    	          + "/viewRequest.jsp\">Richieste Convalida Inglese</a></li>";
     	      menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
     	          + "/VisualizzaRichiestaET.jsp\">Richieste Tirocinio</a></li>";
     	      menu += "<li><a href=\"" + request.getContextPath() + "/VisualizzaEnteET.jsp\">Lista Enti</a></li>";
@@ -79,7 +79,7 @@
     	      
       }else if (pageName.equals("VisualizzaStatoTirocinioET.jsp")) {
           menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-                  + "/viewRequest.jsp\">Richiesta Convalida Inglese</a></li>";
+                  + "/viewRequest.jsp\">Richieste Convalida Inglese</a></li>";
           menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
                   + "/VisualizzaRichiestaET.jsp\">Richieste Tirocinio</a></li>";
           menu += "<li><a href=\"" + request.getContextPath() + "/VisualizzaEnteET.jsp\">Lista Enti</a></li>";
@@ -90,7 +90,7 @@
     if (pageName.equals("VisualizzaTirocinanteET.jsp"))//se ci troviamo in VisualizzaTirocinanteET.jsp
       {
       menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-          + "/viewRequest.jsp\">Richiesta Convalida Inglese</a></li>";
+          + "/viewRequest.jsp\">Richieste Convalida Inglese</a></li>";
       menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
           + "/VisualizzaTirocinanteET.jsp\">Informazioni Tirocinante</a></li>";
       menu += "<li><a href=\"" + request.getContextPath() + "/VisualizzaEnteET.jsp\">Lista Enti</a></li>";
@@ -103,7 +103,7 @@
 
 		if (pageName.equals("viewRequest.jsp")) { //se stiamo in viewRequest
 			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-					+ "/firstForm.jsp\">Richiesta Convalida Inglese</a></li>";
+					+ "/firstForm.jsp\">Richieste Convalida Inglese</a></li>";
 			menu += "<li><a href=\"" + request.getContextPath()
 					+ "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
 			menu += "<li><a href=\"" + request.getContextPath()
@@ -114,7 +114,7 @@
 		}
 		if (pageName.equals("HomeStudente.jsp")) { //se stiamo in home dello studente, fra et ed ev
 			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-					+ "/firstForm.jsp\">Richiesta Convalida Inglese</a></li>";
+					+ "/firstForm.jsp\">Richieste Convalida Inglese</a></li>";
 			menu += "<li><a href=\"" + request.getContextPath()
 					+ "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
 			menu += "<li><a href=\"" + request.getContextPath()
@@ -125,7 +125,7 @@
 		}
 		if (pageName.equals("StatoProprioTirocinioET.jsp")) { //se stiamo in controlla stato
 			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-					+ "/firstForm.jsp\">Richiesta Convalida Inglese</a></li>";
+					+ "/firstForm.jsp\">Richieste Convalida Inglese</a></li>";
 			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
 					+ "/uploadAttached.jsp\">Carica Allegato</a></li>";
 			menu += "<li><a href=\"" + request.getContextPath()
@@ -138,7 +138,7 @@
 		}
 		if (pageName.equals("StoricoStudenteET.jsp")) { //se stiamo nello storico delle richieste
 			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-					+ "/firstForm.jsp\">Richiesta Convalida Inglese</a></li>";
+					+ "/firstForm.jsp\">Richieste Convalida Inglese</a></li>";
 			menu += "<li><a href=\"" + request.getContextPath()
 					+ "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
 			menu += "<li><a href=\"" + request.getContextPath()
@@ -149,7 +149,7 @@
 		}
 		if (pageName.equals("InviaRichiestaET.jsp")) { //se stiamo in invio richiesta
 			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-					+ "/firstForm.jsp\">Richiesta Convalida Inglese</a></li>";
+					+ "/firstForm.jsp\">Richieste Convalida Inglese</a></li>";
 			menu += "<li><a href=\"" + request.getContextPath()
 					+ "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
 			menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
@@ -160,7 +160,7 @@
 		}
 		if (pageName.equals("InviaRichiestaEnteET.jsp")) { //se stiamo in home dello studente, fra et ed ev
 			menu += "<li><a href=\"" + request.getContextPath() + "/" + pageFolder
-					+ "/firstForm.jsp\">Richiesta Convalida Inglese</a></li>";
+					+ "/firstForm.jsp\">Richieste Convalida Inglese</a></li>";
 			menu += "<li><a href=\"" + request.getContextPath()
 					+ "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
 			menu += "<li><a href=\"" + request.getContextPath()
@@ -171,7 +171,7 @@
 		}
 		if (pageName.equals("firstForm.jsp")) { //pagina cfu inglese
 			menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
-					+ "/firstForm.jsp\">Richiesta Convalida Inglese</a></li>";
+					+ "/firstForm.jsp\">Richieste Convalida Inglese</a></li>";
 			menu += "<li><a href=\"" + request.getContextPath()
 					+ "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
 			menu += "<li ><a href=\"" + request.getContextPath()
@@ -182,9 +182,9 @@
 		}
 		if (pageName.equals("uploadAttached.jsp")) { //bho
 			menu += "<li ><a href=\"" + request.getContextPath() + "/" + pageFolder
-					+ "/viewRequest.jsp\">Richiesta Convalida Inglese</a></li>";
+					+ "/viewRequest.jsp\">Richieste Convalida Inglese</a></li>";
 			menu += "<li ><a href=\"" + request.getContextPath() + "/" + pageFolder
-					+ "/firstForm.jsp\">Richiesta Convalida Inglese</a></li>";
+					+ "/firstForm.jsp\">Richieste Convalida Inglese Allegato</a></li>";
 			menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
 					+ "/uploadAttached.jsp\">Carica Allegato</a></li>";
 			menu += "<li><a href=\"" + request.getContextPath()
@@ -205,7 +205,7 @@
 		logoRedirect = request.getContextPath() + "/_areaEnteET/VisualizzaRichiestaEnteET.jsp";
 		if (pageName.equals("VisualizzaRichiestaEnteET.jsp")) { //se stiamo in viewRequest
 			menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/" + pageFolder
-					+ "/VisualizzaRichiestaEnteET.jsp\">Richiesta Convalida Inglese</a></li>";
+					+ "/VisualizzaRichiestaEnteET.jsp\">Richieste Convalida Inglese</a></li>";
 			menu += "<li><a href=\"" + request.getContextPath() + "/DocumentiET.jsp\">Documenti da Firmare Tirocinio</a></li> ";
 			menu += "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
 		}else if(pageName.equals("VisualizzaTirocinanteEnteET.jsp")){
@@ -222,7 +222,7 @@
 			if (Segreteria != null) {//Segreteria
 				logoRedirect = request.getContextPath() + "/_areaSecretary/viewRequest.jsp";
 				 menu += "<li><a href=\"" + request.getContextPath() + "/_areaSecretary"
-				          + "/viewRequest.jsp\">Richiesta Convalida Inglese</a></li>";
+				          + "/viewRequest.jsp\">Richieste Convalida Inglese</a></li>";
 				 menu += "<li><a href=\"" + request.getContextPath() + "/_areaSecretary"
 				          + "/VisualizzaRichiestaET.jsp\">Richieste Tirocinio</a></li>";
 				 menu += "<li><a href=\"" + request.getContextPath() + "/VisualizzaEnteET.jsp\">Lista Ente</a></li>";
@@ -233,7 +233,7 @@
 			}else if(UserET.equals("3")){//Ente
 				logoRedirect = request.getContextPath() + "/_areaEnteET/VisualizzaRichiestaEnteET.jsp";
 				menu += "<li><a href=\"" + request.getContextPath() + "/_areaEnteET"
-						+ "/VisualizzaRichiestaEnteET.jsp\">Richiesta Convalida Inglese</a></li>";
+						+ "/VisualizzaRichiestaEnteET.jsp\">Richieste Convalida Inglese</a></li>";
 				menu += "<li class=\"current\"><a href=\"" + request.getContextPath() + "/DocumentiET.jsp\">Documenti da Firmare Tirocinio</a></li> ";
 				menu += "<li><a href=\"" + request.getContextPath() + "/logout.jsp\">Disconnetti</a></li>";
 			}else if(UserET.equals("2")){//Admin
@@ -263,7 +263,7 @@
 			  else if (Segreteria != null) {//Segreteria
 					logoRedirect = request.getContextPath() + "/_areaSecretary/viewRequest.jsp";
 					menu += "<li><a href=\"" + request.getContextPath() + "" + pageFolder
-							+ "/_areaSecretary/viewRequest.jsp\">Richiesta Convalida Inglese</a></li>";
+							+ "/_areaSecretary/viewRequest.jsp\">Richieste Convalida Inglese</a></li>";
 					menu += "<li><a href=\"" + request.getContextPath() + ""
 							+ "/_areaSecretary/VisualizzaRichiestaET.jsp\">Richieste Tirocinio</a></li>";
 					menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
@@ -283,7 +283,7 @@
 				}else if(UserET.equals("0")){//Studente
 				logoRedirect = request.getContextPath() + "/_areaStudent/HomeStudente.jsp";
 				menu += "<li><a href=\"" + request.getContextPath() + "/_areaStudent"
-						+ "/firstForm.jsp\">Richiesta Convalida Inglese</a></li>";
+						+ "/firstForm.jsp\">Richieste Convalida Inglese</a></li>";
 				menu += "<li class=\"current\"><a href=\"" + request.getContextPath()
 						+ "/VisualizzaEnteET.jsp\">Lista Enti</a></li> ";
 				menu += "<li><a href=\"" + request.getContextPath()
