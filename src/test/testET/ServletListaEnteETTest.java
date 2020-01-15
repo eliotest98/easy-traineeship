@@ -12,7 +12,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.junit.jupiter.api.*;
-
+/*
+ * 
+ * 
+ * Classe per il testing della ServletListaEnteET .
+ * Questa classe di test è stata scritta secondo la
+ * metodologia WHITE BOX.
+ * 
+ * 
+*/
 class ServletListaEnteETTest {
 
   Connection conn = new DbConnection().getInstance().getConn();
@@ -22,7 +30,9 @@ class ServletListaEnteETTest {
   HttpSession sessionMock = mock(HttpSession.class);
   ServletListaEnteET servletSecretaryMock = mock(ServletListaEnteET.class);
   RequestDispatcher dispatcherMock = mock(RequestDispatcher.class);
-
+ /*
+  * Test Reindirizzamento alla pagina VisualizzaEnteET.
+  */
   @Test
   void testReindirizzamentoVisualizzaListaEnte() throws ServletException, IOException {
     when(requestMock.getRequestDispatcher("VisualizzaEnteET.jsp")).thenReturn(dispatcherMock);
@@ -30,7 +40,9 @@ class ServletListaEnteETTest {
     test.doGet(requestMock, responseMock);
     verify(dispatcherMock).forward(requestMock, responseMock);
   }
-
+  /*
+   * Test reindirizzamento alla pagina InviaRichiestaEnteET.jsp.
+   */
   @Test
   void testReindirizzamentoInviaRichiestaEnte() throws ServletException, IOException {
     when(requestMock.getParameter("richiestaEnte")).thenReturn("1");
