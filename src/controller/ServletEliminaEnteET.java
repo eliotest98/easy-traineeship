@@ -52,6 +52,7 @@ public class ServletEliminaEnteET extends HttpServlet {
       try {
         EnteConvenzionatoDAO enteDao = new EnteConvenzionatoDAO();
         boolean res = enteDao.eliminaEnte(emailEnte);
+        //se l'Ente è stato eliminato
         if (res) {
           response.setStatus(HttpServletResponse.SC_OK);
           PrintWriter out = response.getWriter();

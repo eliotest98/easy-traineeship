@@ -44,6 +44,7 @@ public class ServletAdmin<WritableWorkbook> extends HttpServlet {
       throws ServletException, IOException {
     int flag = Integer.parseInt(request.getParameter("flag"));
 
+    //Prelevo lo user dalla sessione
     UserInterface user = (UserInterface) request.getSession().getAttribute("user");
 
     if (flag == 5 || flag == 6) { // Genera Excel

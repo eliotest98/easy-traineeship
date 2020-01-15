@@ -69,6 +69,7 @@ public class ServletCommon extends HttpServlet {
     TirocinanteDAO tirocinanteDao = new TirocinanteDAO();
     TirocinioDAO tirocinioDao = new TirocinioDAO();
 
+    //controllo la connessione al DB
     if (conn != null) {
 
       if (flag == 1) { // login
