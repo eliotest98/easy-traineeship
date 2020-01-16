@@ -3,20 +3,14 @@ package test;
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import controller.DbConnection;
 import controller.ServletAdmin;
 import interfacce.UserInterface;
-import model.Admin;
-import model.Student;
-
 import java.io.IOException;
-import java.sql.Connection;
 import javax.servlet.ServletException;
-
+import model.Admin;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
@@ -35,7 +29,7 @@ public class ServletAdminTest extends Mockito {
     request = new MockHttpServletRequest();
     response = new MockHttpServletResponse();
   }
-  
+
   @Test
   public void testGenerateExcel() throws ServletException, IOException {
     UserInterface user = new Admin("fferrucci@unisa.it", "Luigi", "Melchionno", 'M', "password", 2);
@@ -44,7 +38,7 @@ public class ServletAdminTest extends Mockito {
     servlet.doGet(request, response);
     assertEquals("application/vnd.ms-excel", response.getContentType());
   }
-  
+
   @Test
   public void testGenerateExcel2() throws ServletException, IOException {
     UserInterface user = new Admin("fferrucci@unisa.it", "Luigi", "Melchionno", 'M', "password", 2);
@@ -53,7 +47,7 @@ public class ServletAdminTest extends Mockito {
     servlet.doGet(request, response);
     assertEquals("application/vnd.ms-excel", response.getContentType());
   }
-  
+
   @Test
   public void testGenerateExcelFail() throws ServletException, IOException {
     UserInterface user = new Admin("fferrucci@unisa.it", "Luigi", "Melchionno", 'M', "password", 2);
@@ -62,7 +56,7 @@ public class ServletAdminTest extends Mockito {
     servlet.doGet(request, response);
     assertEquals("json", response.getContentType());
   }
-  
+
   @Test
   public void testGenerateExcelFail2() throws ServletException, IOException {
     UserInterface user = new Admin("fferrucci@unisa.it", "Luigi", "Melchionno", 'M', "password", 0);
@@ -78,7 +72,7 @@ public class ServletAdminTest extends Mockito {
     servlet.doPost(request, response);
     assertEquals("json", response.getContentType());
   }
-  
+
   @Test
   public void testUpdateRequest() throws ServletException, IOException {
     request.addParameter("type", "1");
@@ -87,7 +81,7 @@ public class ServletAdminTest extends Mockito {
     servlet.doPost(request, response);
     assertEquals("json", response.getContentType());
   }
-  
+
   @Test
   public void testUpdateRequest1() throws ServletException, IOException {
     request.addParameter("type", "2");
@@ -96,7 +90,7 @@ public class ServletAdminTest extends Mockito {
     servlet.doPost(request, response);
     assertEquals("json", response.getContentType());
   }
-  
+
   @Test
   public void testUpdateRequest2() throws ServletException, IOException {
     request.addParameter("type", "3");
@@ -105,7 +99,7 @@ public class ServletAdminTest extends Mockito {
     servlet.doPost(request, response);
     assertEquals("json", response.getContentType());
   }
-  
+
   @Test
   public void testUpdateRequestEmpty() throws ServletException, IOException {
     request.addParameter("type", "2");
@@ -114,7 +108,7 @@ public class ServletAdminTest extends Mockito {
     servlet.doPost(request, response);
     assertEquals("json", response.getContentType());
   }
-  
+
   @Test
   public void testUpdateRequestAccepted() throws ServletException, IOException {
     request.addParameter("idRequest", "1");
@@ -122,7 +116,7 @@ public class ServletAdminTest extends Mockito {
     servlet.doPost(request, response);
     assertEquals("json", response.getContentType());
   }
-  
+
   @Test
   public void testUpdateRequestAcceptedEmpty() throws ServletException, IOException {
     request.addParameter("idRequest", "123456");
@@ -130,7 +124,7 @@ public class ServletAdminTest extends Mockito {
     servlet.doPost(request, response);
     assertEquals("json", response.getContentType());
   }
-  
+
   @Test
   public void testUpdateRequestRefused() throws ServletException, IOException {
     request.addParameter("idRequest", "4");
@@ -138,7 +132,7 @@ public class ServletAdminTest extends Mockito {
     servlet.doPost(request, response);
     assertEquals("json", response.getContentType());
   }
-  
+
   @Test
   public void testUpdateRequestRefusedEmpty() throws ServletException, IOException {
     request.addParameter("idRequest", "456789");

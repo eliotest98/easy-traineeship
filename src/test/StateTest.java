@@ -1,25 +1,24 @@
 package test;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals; 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import model.State;
-
 import org.junit.jupiter.api.Test;
 
 public class StateTest {
-  
+
   @Test
   void testStateCostructorEmpty() {
     State st = new State();
     assertNotNull(st);
   }
 
-  //Test Metodi GET
+  // Test Metodi GET
 
   @Test
   void testGetIdState() {
-    State st = new State(00001, "Approved"); 
+    State st = new State(00001, "Approved");
     assertEquals(00001, st.getIdState());
   }
 
@@ -29,7 +28,7 @@ public class StateTest {
     assertEquals("Approved", st.getDescription());
   }
 
-  //Test Metodi SET
+  // Test Metodi SET
 
   @Test
   void testsSetIdState() {
@@ -42,6 +41,6 @@ public class StateTest {
   void testSetDescription() {
     State st = new State(00002, "Denied");
     st.setDescription("Approved");
-    assertEquals("Approved", st.getDescription()); 
+    assertEquals("Approved", st.getDescription());
   }
 }

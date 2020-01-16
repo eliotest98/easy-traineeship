@@ -25,10 +25,28 @@ public class EnteConvenzionato implements UserInterface {
 
   /** Costruttore vuoto. **/
   public EnteConvenzionato() {
+    
   }
 
   /**
-   * Costruttore con tutti i parametri.
+   * Constructor.
+   * 
+   * @param email is the address of the "EnteConvenzionato".
+   * @param name is the name of the "EnteConvenzionato".
+   * @param surname is the surname of the "EnteConvenzionato".
+   * @param sex is the sex of the "EnteConvenzionato".
+   * @param password is the password of the "EnteConvenzionato".
+   * @param userType is the type of user.
+   * @param dataDiNascita è la data di nascita dell' "EnteConvenzionato".
+   * @param partitaIva è la partita iva dell' "EnteConvenzionato".
+   * @param sede è la sede dell' "EnteConvenzionato".
+   * @param rappresentante è il rappresente dell' "EnteConvenzionato" registrato.
+   * @param referente è il referente dell' "EnteConvenzionato" che gestisce i Tirocinanti.
+   * @param telefono è il numero di telefono del responsabile.
+   * @param dipendenti è il numero di dipendenti nell'azienda.
+   * @param dotRiferimento è il professore di riferimento per il Tirocinio.
+   * @param tipoTirocinio è la tipologia di tirocinio scelta
+   * @param descrizioneAttivita è la descrizione di ciò che fa l' "EnteConvenzionato".
    */
   public EnteConvenzionato(String email, String name, String surname, char sex, String password,
       int userType, String dataDiNascita, String partitaIva, String sede, String rappresentante,
@@ -67,6 +85,7 @@ public class EnteConvenzionato implements UserInterface {
    * Imposta l'e-mail dell'Ente Convenzionato.
    * 
    * @param email
+   * 
    */
   public void setEmail(String email) {
     this.email = email;
@@ -85,13 +104,14 @@ public class EnteConvenzionato implements UserInterface {
    * Imposta il Nome dell'Ente Convenzionato.
    * 
    * @param name
+   * 
    */
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * Metodo di interfaccia
+   * Metodo di interfaccia.
    * 
    * @return surname
    */
@@ -103,6 +123,7 @@ public class EnteConvenzionato implements UserInterface {
    * Metodo di interfaccia.
    * 
    * @param surname
+   * 
    */
   public void setSurname(String surname) {
     this.surname = surname;
@@ -118,16 +139,17 @@ public class EnteConvenzionato implements UserInterface {
   }
 
   /**
-   * Imposta il Sesso del Rappresentante per l'Ente Convenzionato ('M' o 'F')
+   * Imposta il Sesso del Rappresentante per l'Ente Convenzionato ('M' o 'F').
    * 
    * @param sex
+   * 
    */
   public void setSex(char sex) {
     this.sex = sex;
   }
 
   /**
-   * Restituisce la Password dell'Ente Convenzionato
+   * Restituisce la Password dell'Ente Convenzionato.
    * 
    * @return password
    */
@@ -136,16 +158,17 @@ public class EnteConvenzionato implements UserInterface {
   }
 
   /**
-   * Imposta la Password dell'Ente Convenzionato
+   * Imposta la Password dell'Ente Convenzionato.
    * 
    * @param password
+   * 
    */
   public void setPassword(String password) {
     this.password = password;
   }
 
   /**
-   * Restiuisce l'Identificatore del Tipo di Utente (0, 1, 2, 3)
+   * Restiuisce l'Identificatore del Tipo di Utente (0, 1, 2, 3).
    * 
    * @return userType
    */
@@ -154,16 +177,17 @@ public class EnteConvenzionato implements UserInterface {
   }
 
   /**
-   * Imposta l'Identificatore del Tipo di Utente (0, 1, 2, 3)
+   * Imposta l'Identificatore del Tipo di Utente (0, 1, 2, 3).
    * 
    * @param userType
+   * 
    */
   public void setUserType(int userType) {
     this.userType = userType;
   }
 
   /**
-   * Restituisce la Data di Nascita del rappresentante dell'Ente Convenzionato
+   * Restituisce la Data di Nascita del rappresentante dell'Ente Convenzionato.
    * 
    * @return the dataDiNascita
    */
@@ -172,16 +196,17 @@ public class EnteConvenzionato implements UserInterface {
   }
 
   /**
-   * Inserisce la Data di Nascita del rappresentante per l'Ente Convenzionato
+   * Inserisce la Data di Nascita del rappresentante per l'Ente Convenzionato.
    * 
    * @param dataDiNascita
+   * 
    */
   public void setDataDiNascita(String dataDiNascita) {
     this.dataDiNascita = dataDiNascita;
   }
 
   /**
-   * Restituisce la Partita IVA dell'Ente Convenzionato
+   * Restituisce la Partita IVA dell'Ente Convenzionato.
    * 
    * @return partitaIva
    */
@@ -190,16 +215,17 @@ public class EnteConvenzionato implements UserInterface {
   }
 
   /**
-   * Imposta la Partita IVA per l'Ente Convenzionato
+   * Imposta la Partita IVA per l'Ente Convenzionato.
    * 
    * @param partitaIva
+   * 
    */
   public void setPartitaIva(String partitaIva) {
     this.partitaIva = partitaIva;
   }
 
   /**
-   * Restituisce la sede dell'Ente Convenzionato
+   * Restituisce la sede dell'Ente Convenzionato.
    * 
    * @return sede
    */
@@ -208,16 +234,17 @@ public class EnteConvenzionato implements UserInterface {
   }
 
   /**
-   * Imposta la Sede per l'Ente Convenzionato
+   * Imposta la Sede per l'Ente Convenzionato.
    * 
    * @param sede
+   * 
    */
   public void setSede(String sede) {
     this.sede = sede;
   }
 
   /**
-   * Restituisce il Rappresentante dell'Ente Convenzionato
+   * Restituisce il Rappresentante dell'Ente Convenzionato.
    * 
    * @return rappresentante
    */
@@ -226,16 +253,17 @@ public class EnteConvenzionato implements UserInterface {
   }
 
   /**
-   * Imposta il Rappresentante per l'Ente Convenzionato
+   * Imposta il Rappresentante per l'Ente Convenzionato.
    * 
    * @param rappresentante
+   * 
    */
   public void setRappresentante(String rappresentante) {
     this.rappresentante = rappresentante;
   }
 
   /**
-   * Restituisce il Referente dell'Ente Convenzionato
+   * Restituisce il Referente dell'Ente Convenzionato.
    * 
    * @return referente
    */
@@ -244,16 +272,17 @@ public class EnteConvenzionato implements UserInterface {
   }
 
   /**
-   * Imposta il Referente per l'Ente Convenzionato
+   * Imposta il Referente per l'Ente Convenzionato.
    * 
    * @param referente
+   * 
    */
   public void setReferente(String referente) {
     this.referente = referente;
   }
 
   /**
-   * Restituisce il Numero di Telefono dell' Ente Convenzionato
+   * Restituisce il Numero di Telefono dell' Ente Convenzionato.
    * 
    * @return telefono
    */
@@ -262,16 +291,17 @@ public class EnteConvenzionato implements UserInterface {
   }
 
   /**
-   * Imposta il Numero di Telefono per l'Ente Convenzionato
+   * Imposta il Numero di Telefono per l'Ente Convenzionato.
    * 
    * @param telefono
+   * 
    */
   public void setTelefono(String telefono) {
     this.telefono = telefono;
   }
 
   /**
-   * Restituisce il Numero di Dipendenti dell'Ente Convenzionato
+   * Restituisce il Numero di Dipendenti dell'Ente Convenzionato.
    * 
    * @return dipendenti
    */
@@ -280,16 +310,17 @@ public class EnteConvenzionato implements UserInterface {
   }
 
   /**
-   * Imposta il Numero di Dipendenti per l'Ente Convenzionato
+   * Imposta il Numero di Dipendenti per l'Ente Convenzionato.
    * 
    * @param dipendenti
+   * 
    */
   public void setDipendenti(int dipendenti) {
     this.dipendenti = dipendenti;
   }
 
   /**
-   * Restituisce il Dottore di Riferimento dell'Ente Convenzionato
+   * Restituisce il Dottore di Riferimento dell'Ente Convenzionato.
    * 
    * @return dotRiferimento
    */
@@ -298,9 +329,10 @@ public class EnteConvenzionato implements UserInterface {
   }
 
   /**
-   * Imposta il Dottore di Riferimento per l'Ente Convenzionato
+   * Imposta il Dottore di Riferimento per l'Ente Convenzionato.
    * 
    * @param dotRiferimento
+   * 
    */
   public void setDotRiferimento(String dotRiferimento) {
     this.dotRiferimento = dotRiferimento;
@@ -308,7 +340,7 @@ public class EnteConvenzionato implements UserInterface {
 
 
   /**
-   * Restituisce il Tipo Tirocinio dell'Ente Convenzionato
+   * Restituisce il Tipo Tirocinio dell'Ente Convenzionato.
    * 
    * @return tipoTirocinio
    */
@@ -317,16 +349,17 @@ public class EnteConvenzionato implements UserInterface {
   }
 
   /**
-   * Imposta il Tipo Tirocinio per l'Ente Convenzionato (TE)
+   * Imposta il Tipo Tirocinio per l'Ente Convenzionato (TE).
    * 
    * @param tipoTirocinio
+   * 
    */
   public void setTipoTirocinio(String tipoTirocinio) {
     this.tipoTirocinio = tipoTirocinio;
   }
 
   /**
-   * Restituisce la Descrizione delle Attività dell'Ente Convenzionato
+   * Restituisce la Descrizione delle Attività dell'Ente Convenzionato.
    * 
    * @return descrizioneAttivita
    */
@@ -335,16 +368,17 @@ public class EnteConvenzionato implements UserInterface {
   }
 
   /**
-   * Imposta la Descrizione delle Attività per l'Ente Convenzionato
+   * Imposta la Descrizione delle Attività per l'Ente Convenzionato.
    * 
    * @param descrizioneAttivita
+   * 
    */
   public void setDescrizioneAttivita(String descrizioneAttivita) {
     this.descrizioneAttivita = descrizioneAttivita;
   }
 
   /**
-   * Specifica se l'Utente è abilitato a visualizzare la pagina
+   * Specifica se l'Utente è abilitato a visualizzare la pagina.
    */
   public boolean validate() {
     return new Stub().database.containsKey(getEmail())

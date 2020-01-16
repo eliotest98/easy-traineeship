@@ -1,6 +1,6 @@
 package model;
 
-import interfacce.UserInterface;  
+import interfacce.UserInterface;
 
 public class Admin implements UserInterface {
 
@@ -37,6 +37,7 @@ public class Admin implements UserInterface {
    * Empty Constructor.
    */
   public Admin() {
+    
   }
 
   /**

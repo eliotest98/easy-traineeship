@@ -10,9 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Tirocinio;
 import model.DAO.TirocinioDAO;
-
+import model.Tirocinio;
 
 /**
  * Servlet implementation class ServletDownloadET.
@@ -24,7 +23,7 @@ public class ServletDownloadET extends HttpServlet {
   private File file;
 
   /**
-   * constructor.
+   * Constructor.
    * 
    * @see HttpServlet#HttpServlet()
    */
@@ -57,9 +56,12 @@ public class ServletDownloadET extends HttpServlet {
         throw new IllegalArgumentException("Errore nel codice del tirocinio");
       }
     }
-
-    String filePath = "C:\\Users\\" + System.getProperty("user.name")
-        + "\\Documents\\GitHub\\easy-traineeship\\ProgettoFormativo\\";
+    //Path obbligatorio per il download del progetto formativo e 
+    //il suo salvataggio nella cartella ProgettoFormativo presente
+    //nella cartella WebContent\ProgettoFormativo.
+    
+    String filePath = "C:\\ProgettoFormativo\\";
+    
 
     try {
       in = new FileInputStream(filePath + tirocinio.getProgettoFormativo());

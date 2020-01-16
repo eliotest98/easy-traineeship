@@ -1,111 +1,154 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-import controller.ServletSecretary;
-import interfacce.UserInterface;
-
-import java.io.IOException;
-import java.security.SecureRandom;
+import java.io.*;
+import java.sql.*;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.Request;
-import model.Student;
-
+import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mockito;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
+import org.junit.jupiter.api.*;
+import org.mockito.InjectMocks;
 
-public class ServletSecretaryTest extends Mockito {
-  private ServletSecretary servlet;
-  private MockHttpServletRequest request;
-  private MockHttpServletResponse response;
+import controller.DbConnection;
+import controller.ServletSecretary;
 
-  /**
-   * Before.
-   */
-  @Before
-  public void setUp() {
-    servlet = new ServletSecretary();
-    request = new MockHttpServletRequest();
-    response = new MockHttpServletResponse();
-  }
-  
-  @Test
-  public void testViewRequest() throws ServletException, IOException {
-    request.addParameter("flag", "1");
-    servlet.doPost(request, response);
-    assertEquals("json", response.getContentType());
-  }
-  
-  @Test
-  public void testViewRequestFailFlag() throws ServletException, IOException {
-    request.addParameter("flag", "10");
-    servlet.doPost(request, response);
-    assertEquals("json", response.getContentType());
-  }
-  
-  @Test
-  public void testSetCfu() throws ServletException, IOException {
-    request.addParameter("idRequest", "1");
-    request.addParameter("cfu", "6");
-    request.addParameter("flag", "2");
-    servlet.doPost(request, response);
-    assertEquals("json", response.getContentType());
-  }
-  
-  @Test
-  public void testSetCfuFailFlag() throws ServletException, IOException {
-    request.addParameter("idRequest", "1");
-    request.addParameter("cfu", "6");
-    request.addParameter("flag", "20");
-    servlet.doPost(request, response);
-    assertEquals("json", response.getContentType());
-  }
-  
-  @Test
-  public void testSetCfuEmpty() throws ServletException, IOException {
-    request.addParameter("idRequest", "123456");
-    request.addParameter("cfu", "6");
-    request.addParameter("flag", "2");
-    servlet.doPost(request, response);
-    assertEquals("json", response.getContentType());
-  }
-  
-  @Test
-  public void testSendAdmin() throws ServletException, IOException {
-    request.addParameter("idRequest", "1");
-    request.addParameter("flag", "3");
-    servlet.doPost(request, response);
-    assertEquals("json", response.getContentType());
-  }
-  
-  @Test
-  public void testSendAdminFailFlag() throws ServletException, IOException {
-    request.addParameter("idRequest", "1");
-    request.addParameter("flag", "30");
-    servlet.doPost(request, response);
-    assertEquals("json", response.getContentType());
-  }
-  
-  @Test
-  public void testSendAdminEmpty() throws ServletException, IOException {
-    request.addParameter("idRequest", "123456");
-    request.addParameter("flag", "3");
-    servlet.doPost(request, response);
-    assertEquals("json", response.getContentType());
-  }
-  
-  @Test
-  public void testDoGet() throws ServletException, IOException {
-    request.addParameter("idRequest", "1");
-    request.addParameter("flag", "3");
-    servlet.doGet(request, response);
-    assertEquals("json", response.getContentType());
-  }
+class ServletSecretaryTest {
+	
+	Connection conn = new DbConnection().getInstance().getConn();
+    String sql = "";
+	
+	//Creazione mock	
+	HttpServletRequest requestMock = mock(HttpServletRequest.class);
+	HttpServletResponse responseMock = mock(HttpServletResponse.class);
+	HttpSession sessionMock = mock(HttpSession.class);
+	ServletSecretary servletSecretaryMock = mock(ServletSecretary.class);
+	
+	
+	@BeforeEach
+	public void setUp() {
+		when(requestMock.getParameter("idRequest")).thenReturn("1");
+		try {
+	    	Statement stmtSelect = conn.createStatement();
+	    	sql = ("INSERT INTO request VALUES('1','1','B2','2018-05-25','2019-05-25','2019','6','457465719','3','a.serritiello7@studenti.unisa.it','7','2');");
+	    	stmtSelect.executeUpdate(sql);
+	    	conn.commit();
+	    }
+	    catch (Exception e) {
+	    	e.printStackTrace();
+	    }
+	}
+	
+	@AfterEach
+	void tearDown() {
+		try {
+	    	Statement stmtSelect = conn.createStatement();
+	    	sql = ("DELETE FROM REQUEST;");
+	    	stmtSelect.executeUpdate(sql);
+	    	conn.commit();
+	    }
+	    catch (Exception e) {
+	    	e.printStackTrace();
+	    }
+	}
+	
+	@Test
+	void testNoRichieste() throws ServletException, IOException {
+		try {
+	    	Statement stmtSelect = conn.createStatement();
+	    	sql = ("DELETE FROM REQUEST;");
+	    	stmtSelect.executeUpdate(sql);
+	    	conn.commit();
+	    }
+	    catch (Exception e) {
+	    	e.printStackTrace();
+	    }
+		when(requestMock.getParameter("flag")).thenReturn("1");
+		StringWriter stringWriter = new StringWriter();
+		PrintWriter writer = new PrintWriter(stringWriter);
+		when(responseMock.getWriter()).thenReturn(writer);
+		
+		ServletSecretary test = new ServletSecretary();
+		test.doPost(requestMock, responseMock);
+		System.out.println(stringWriter.toString());
+		assertTrue(stringWriter.toString().contains("Nessuna Richiesta Presente"));
+	}
+	
+	@Test
+	void testRichiestePresenti() throws ServletException, IOException {
+		when(requestMock.getParameter("flag")).thenReturn("1");
+		
+		StringWriter stringWriter = new StringWriter();
+		PrintWriter writer = new PrintWriter(stringWriter);
+		when(responseMock.getWriter()).thenReturn(writer);
+		
+		ServletSecretary test = new ServletSecretary();
+		test.doPost(requestMock, responseMock);
+		System.out.println(stringWriter.toString());
+		assertTrue(stringWriter.toString().contains("\"result\":1,\"error\":\""));
+	}
+	
+	@Test
+	void testSetCfuPass() throws ServletException, IOException {
+		when(requestMock.getParameter("flag")).thenReturn("2");
+		when(requestMock.getParameter("cfu")).thenReturn("3");
+		
+		StringWriter stringWriter = new StringWriter();
+		PrintWriter writer = new PrintWriter(stringWriter);
+		when(responseMock.getWriter()).thenReturn(writer);
+		
+		ServletSecretary test = new ServletSecretary();
+		test.doPost(requestMock, responseMock);
+		System.out.println(stringWriter.toString());
+		assertTrue((stringWriter.toString().contains("CFU aggiornati con successo.")));
+	}
+	
+	@Test
+	void testSetCfuFail() throws ServletException, IOException {
+		when(requestMock.getParameter("flag")).thenReturn("2");
+		when(requestMock.getParameter("cfu")).thenReturn("3");
+		when(requestMock.getParameter("idRequest")).thenReturn("2");
+		
+		StringWriter stringWriter = new StringWriter();
+		PrintWriter writer = new PrintWriter(stringWriter);
+		when(responseMock.getWriter()).thenReturn(writer);
+		
+		ServletSecretary test = new ServletSecretary();
+		test.doPost(requestMock, responseMock);
+		System.out.println(stringWriter.toString());
+		assertTrue(stringWriter.toString().contains(" Impossibile cambiare i CFU nella richiesta."));
+	}
+
+	@Test
+	void testInoltraAdminPass() throws ServletException, IOException {
+		when(requestMock.getParameter("flag")).thenReturn("3");
+		StringWriter stringWriter = new StringWriter();
+		PrintWriter writer = new PrintWriter(stringWriter);
+		when(responseMock.getWriter()).thenReturn(writer);
+		
+		ServletSecretary test = new ServletSecretary();
+		test.doPost(requestMock, responseMock);
+		System.out.println(stringWriter.toString());
+		assertTrue((stringWriter.toString().contains("Richiesta inoltrata all'amministratore con successo.")));
+	}
+	
+	@Test
+	void testInoltraAdminFail() throws ServletException, IOException {
+		when(requestMock.getParameter("flag")).thenReturn("3");
+		when(requestMock.getParameter("idRequest")).thenReturn("2");
+		StringWriter stringWriter = new StringWriter();
+		PrintWriter writer = new PrintWriter(stringWriter);
+		when(responseMock.getWriter()).thenReturn(writer);
+		
+		ServletSecretary test = new ServletSecretary();
+		test.doPost(requestMock, responseMock);
+		System.out.println(stringWriter.toString());
+		assertTrue((stringWriter.toString().contains(" Impossibile inoltrare la richiesta.")));
+	}
 }

@@ -1,23 +1,18 @@
 package model.DAO;
 
 import controller.DbConnection;
-import model.Tirocinante;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import model.Tirocinante;
 
 /**
  * Tirocinante DAO
- *
  * La seguente classe si occupa di gestire i metodi CRUD dell'entità Tirocinante.
  */
 public class TirocinanteDAO {
@@ -26,6 +21,7 @@ public class TirocinanteDAO {
    * il numero della matricola.
    * 
    * @param matricola
+   * 
    * @return Tirocinante tirocinante
    */
   public Tirocinante ricercaTirocinanteByMatricola(long matricola) {
@@ -34,10 +30,13 @@ public class TirocinanteDAO {
     PreparedStatement ps = null;
 
     try {
+    	//creo la connessione
       conn = new DbConnection().getInstance().getConn();
+    //query
       ps = conn.prepareStatement("SELECT * " + "FROM TIROCINANTE, USER "
           + "WHERE TIROCINANTE.EMAIL=USER.EMAIL AND TIROCINANTE.matricola = ?");
       ps.setLong(1, matricola);
+      //eseguo la query
       ps.executeQuery();
       ResultSet rs = ps.getResultSet();
 
@@ -71,16 +70,24 @@ public class TirocinanteDAO {
     }
     return tirocinante;
   }
-
+  
+  /**
+   * Metodo che interroga il DB e restituisce il 'Tirocinante' corrispondente a quella e-mail.
+   * 
+   * @return Tirocinante
+   */
   public synchronized Tirocinante ricercaTirocinanteByEmail(String email) {
     Tirocinante tirocinante = new Tirocinante();
     Connection conn = null;
     PreparedStatement ps = null;
 
     try {
+    	//creo la connessione
       conn = new DbConnection().getInstance().getConn();
+    //query
       ps = conn.prepareStatement("SELECT * " + "FROM TIROCINANTE, USER "
           + "WHERE TIROCINANTE.EMAIL=USER.EMAIL AND USER.EMAIL='" + email + "';");
+      //eseguo la query
       ps.executeQuery();
       ResultSet rs = ps.getResultSet();
 
@@ -92,7 +99,7 @@ public class TirocinanteDAO {
         tirocinante.setSurname(rs.getString("SURNAME"));
         tirocinante.setSex(rs.getString("SEX").charAt(0));
         tirocinante.setUserType(rs.getInt("USER_TYPE"));
-        tirocinante.setMatricola(rs.getInt("MATRICOLA"));
+        tirocinante.setMatricola(rs.getLong("MATRICOLA"));
         tirocinante.setDataNascita(rs.getDate("DATANASCITA"));
         tirocinante.setLuogoNascita(rs.getString("LUOGONASCITA"));
         tirocinante.setCittadinanza(rs.getString("CITTADINANZA"));
@@ -102,13 +109,11 @@ public class TirocinanteDAO {
 
       }
     } catch (SQLException e) {
-      // Auto-generated catch block
       e.printStackTrace();
     } finally {
       try {
         ps.close();
       } catch (SQLException e) {
-        // Auto-generated catch block
         e.printStackTrace();
       }
     }
@@ -118,7 +123,7 @@ public class TirocinanteDAO {
   /**
    * Questa funzione permette di ricercare tutti i tirocinanti all'interno della base di dati.
    * 
-   * @return List<Tirocinante> tirocinanti
+   * @return listaTirocinanti
    */
   public ArrayList<Tirocinante> allTirocinante() {
 
@@ -127,9 +132,12 @@ public class TirocinanteDAO {
     ArrayList<Tirocinante> tirocinanti = new ArrayList<Tirocinante>();;
 
     try {
+    	//creo la connessione
       con = new DbConnection().getInstance().getConn();
+    //query
       ps = con.prepareStatement(
           "SELECT * " + "FROM TIROCINANTE, USER " + "WHERE TIROCINANTE.EMAIL=USER.EMAIL");
+      //eseguo la query
       ResultSet rs = ps.executeQuery();
       while (rs.next()) {
 
@@ -166,6 +174,7 @@ public class TirocinanteDAO {
    * Questa funzione permette di inserire un nuovo tirocinante all'interno della base di dati.
    * 
    * @param tirocinante
+   * 
    * @return boolean result
    */
   public boolean inserisciTirocinante(Tirocinante tirocinante) {
@@ -174,8 +183,9 @@ public class TirocinanteDAO {
     PreparedStatement psTirocinante = null;
 
     try {
+    	//creo la connessione
       con = new DbConnection().getInstance().getConn();
-
+    //query
       psTirocinante =
           con.prepareStatement("INSERT INTO TIROCINANTE(MATRICOLA, DATANASCITA, LUOGONASCITA, "
               + "CITTADINANZA, RESIDENZA, CODICEFISCALE, TELEFONO, EMAIL) "
@@ -191,7 +201,7 @@ public class TirocinanteDAO {
       psTirocinante.setLong(7, tirocinante.getTelefono());
       psTirocinante.setString(8, tirocinante.getEmail());
 
-
+      //eseguo la query
       if ((psTirocinante.executeUpdate() == 1)) {
         con.commit();
         return true;
@@ -215,7 +225,9 @@ public class TirocinanteDAO {
    * Questa funzione permette di aggiornare la password del tirocinante.
    * 
    * @param email
+   * 
    * @param password
+   * 
    * @return boolean result
    */
   public boolean updatePassword(String email, String password) {
@@ -225,10 +237,12 @@ public class TirocinanteDAO {
       PreparedStatement psUser = null;
 
       try {
+    	//creo la connessione
         con = new DbConnection().getInstance().getConn();
-
+        //query
         psUser = con.prepareStatement(
             "UPDATE USER " + "SET PASSWORD =" + password + " WHERE EMAIL = '" + email + "';");
+        //eseguo la query
         if (psUser.executeUpdate() == 1) {
           con.commit();
           return true;

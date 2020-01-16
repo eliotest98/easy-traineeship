@@ -50,6 +50,12 @@
 	<!--End pagewrapper-->
 
 	<jsp:include page="/partials/includes.jsp" />
-
+	<script>
+	$(document).ready(function() {// wait for 5 secs(2)
+			window.location
+					.replace(absolutePath
+							+ "/index.jsp"); // then reload the page.(3)
+		}, 1500);
+	</script>
 </body>
 </html>

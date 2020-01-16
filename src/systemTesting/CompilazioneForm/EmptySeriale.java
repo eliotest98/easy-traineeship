@@ -3,8 +3,6 @@ package systemTesting.CompilazioneForm;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Pattern;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
@@ -46,25 +44,30 @@ public class EmptySeriale {
     driver.findElement(By.id("immatricolazione")).click();
     new Select(driver.findElement(By.id("immatricolazione"))).selectByVisibleText("2015/2016");
     driver.findElement(By.xpath(
-        "(.//*[normalize-space(text()) and normalize-space(.)='Richiesta'])[1]/following::option[2]"))
+        "(.//*[normalize-space(text()) and "
+        + "normalize-space(.)='Richiesta'])[1]/following::option[2]"))
         .click();
     driver.findElement(By.xpath(
-        "(.//*[normalize-space(text()) and normalize-space(.)='Disconnetti'])[2]/following::div[11]"))
+        "(.//*[normalize-space(text()) and "
+        + "normalize-space(.)='Disconnetti'])[2]/following::div[11]"))
         .click();
     driver.findElement(By.id("ente")).click();
     new Select(driver.findElement(By.id("ente")))
         .selectByVisibleText("Educational Testing Service (ETS)");
     driver.findElement(By.xpath(
-        "(.//*[normalize-space(text()) and normalize-space(.)='Ente di rilascio:'])[1]/following::option[4]"))
+        "(.//*[normalize-space(text()) and "
+        + "normalize-space(.)='Ente di rilascio:'])[1]/following::option[4]"))
         .click();
     driver.findElement(By.xpath(
-        "(.//*[normalize-space(text()) and normalize-space(.)='Disconnetti'])[2]/following::div[11]"))
+        "(.//*[normalize-space(text()) and "
+        + "normalize-space(.)='Disconnetti'])[2]/following::div[11]"))
         .click();
     driver.findElement(By.xpath(
-        "(.//*[normalize-space(text()) and normalize-space(.)='CFU da Conseguire:'])[1]/following::button[1]"))
+        "(.//*[normalize-space(text()) and "
+        + "normalize-space(.)='CFU da Conseguire:'])[1]/following::button[1]"))
         .click();
   }
-  
+
   /**
    * After.
    */

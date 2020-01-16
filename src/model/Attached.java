@@ -7,14 +7,17 @@ public class Attached {
    */
   private int idAttached;
   private String filename;
-  
+
   /**
    * Empty Constructor.
    */
-  public Attached() {}
+  public Attached() {
+    
+  }
 
   /**
    * Constructor.
+   * 
    * @param idAttached represents a numeric identifier of the attached.
    * @param filename is the name of the attached.
    */
@@ -32,6 +35,7 @@ public class Attached {
 
   /**
    * Set the identifier of the Attached.
+   * 
    * @param idAttached is numeric identifier.
    */
   public void setIdAttached(int idAttached) {
@@ -47,6 +51,7 @@ public class Attached {
 
   /**
    * Set the name of the Attached.
+   * 
    * @param filename is the name of the Attached.
    */
   public void setFilename(String filename) {

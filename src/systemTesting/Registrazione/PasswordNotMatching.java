@@ -3,7 +3,6 @@ package systemTesting.Registrazione;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Pattern;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,6 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
 
 public class PasswordNotMatching {
   private WebDriver driver;
@@ -50,7 +48,8 @@ public class PasswordNotMatching {
     driver.findElement(By.id("email")).clear();
     driver.findElement(By.id("email")).sendKeys("z.prov@studenti.unisa.it");
     driver.findElement(By.xpath(
-        "(.//*[normalize-space(text()) and normalize-space(.)='Registrazione'])[1]/following::label[1]"))
+        "(.//*[normalize-space(text()) and "
+        + "normalize-space(.)='Registrazione'])[1]/following::label[1]"))
         .click();
     driver.findElement(By.id("password")).click();
     driver.findElement(By.id("verifyPassword")).clear();

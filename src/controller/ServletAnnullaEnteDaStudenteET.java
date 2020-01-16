@@ -7,41 +7,44 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Tirocinio;
 import model.DAO.TirocinioDAO;
+import model.Tirocinio;
 
 /**
- * Servlet implementation class ServletAnnullaEnteDaStudenteET
+ * Servlet implementation class ServletAnnullaEnteDaStudenteET.
  */
 @WebServlet("/ServletAnnullaEnteDaStudenteET")
 public class ServletAnnullaEnteDaStudenteET extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   /**
+   * Constructor.
+   * 
    * @see HttpServlet#HttpServlet()
    */
   public ServletAnnullaEnteDaStudenteET() {
     super();
-    // TODO Auto-generated constructor stub
   }
 
   /**
+   * Method doGet().
+   * 
    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
    */
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    // TODO Auto-generated method stub
     doPost(request, response);
   }
 
   /**
-   * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+   * Method doPost().
+   * 
+   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
    */
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    /**
-     * Controllo autenticazione tramite parametro in sessione (0 = Studente).
-     */
+    
+    //Controllo autenticazione tramite parametro in sessione (0 = Studente).
     String userET = (String) request.getSession().getAttribute("userET");
     if ((userET == null) || (!userET.equals("0"))) {
       response.sendRedirect("login.jsp");
@@ -88,9 +91,19 @@ public class ServletAnnullaEnteDaStudenteET extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher(pag);
         dispatcher.forward(request, response);
       } else {
+    	  /*
+    	   * se l'inserimento non e' andato
+    	   * a buon fine lancia 
+    	   * l'eccezione
+    	   */
         throw new IllegalArgumentException("inserimento non eseguito con successo");
       }
     } else {
+  	  /*
+  	   * se il cambio stato non e' andato
+  	   * a buon fine lancia 
+  	   * l'eccezione
+  	   */
       throw new IllegalArgumentException("cambio dello stato non eseguito con successo");
     }
   }

@@ -1,0 +1,16 @@
+Manuale di installazione del Sistema: "easy-traineeship" su Eclipse EE.
+Prerequisiti Software: Java versione 1.8, MySql - Server, MySql Workbench, Eclipse EE, Apache Tomcat 9.0, Git.
+
+
+-Clonare il repository da Github al link https://github.com/Vincenzo-DR/easy-traineeship
+-Su MySql workbench, aprire ed eseguire il file: C2_IstanziaDB_ET_v1.0.sql
+-Importa il progetto su Eclipse (Open Project from File System)
+-Modificare le credenziali di accesso al DataBase nella classe DBConnection.java attualmente [user: "root", password: "root", porta: "3306"]
+-Su Eclipse, andare in "Project" -> "Properties" -> "Java Build Path" impostare la versione di JRE del progetto 1.8
+-In "Java Build Path" selezionare "Add Library" e selezionare "jUnit"-> selezionare jUnit v.5
+-In "Java Build Path" selezionare "Add JARs..." easy-traineeship-> WebContent-> WEB-INF -> lib e importare tutte le librerie contenute.
+-Andare in "Project" -> "Properties" -> "Project Facets" e spuntare: "Dynamic Web Module" e selezionare la versione 3.0;  "Java" selezionando la versione 1.8
+-In "Project Facets"->"runtimes" spuntare Apache Tomcat v9.0 se non è già spuntato.
+-In "Project" -> "Properties" -> "Java Compiler" assicurarsi che la versione sia 1.8
+-Aggiungi il progetto al server Tomcat
+

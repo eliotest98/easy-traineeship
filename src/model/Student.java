@@ -10,11 +10,12 @@ public class Student implements UserInterface {
   private String password;
   private int userType;
 
-  public Student() {}
+  public Student() {
+
+  }
 
   /**
-   * email name surname sex password userType 
-   * Return object Student.
+   * email name surname sex password userType Return object Student.
    */
 
   public Student(String email, String name, String surname, char sex, String password,
@@ -89,7 +90,7 @@ public class Student implements UserInterface {
 
   @Override
   public boolean validate() {
-    return new Stub().database.containsKey(getEmail()) 
-        && new Stub().database.containsValue(getPassword());    
+    return new Stub().database.containsKey(getEmail())
+        && new Stub().database.containsValue(getPassword());
   }
 }

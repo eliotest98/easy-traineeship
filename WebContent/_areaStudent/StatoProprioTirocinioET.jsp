@@ -11,7 +11,7 @@
 	Tirocinante tirocinante = (Tirocinante) request.getSession().getAttribute("Tirocinante");
 	//Per completare i campi di tirocinio
 	Tirocinio tirocinio = (Tirocinio) request.getSession().getAttribute("Tirocinio");
-	//Per vedere chi è in sessione.
+	//Per vedere chi ï¿½ in sessione.
 	int resp = Integer.parseInt((String) request.getSession().getAttribute("userET"));
 %>
 <!DOCTYPE html>
@@ -41,6 +41,7 @@
 								%>
 								<div class="bordiET">
 									<%
+										//se il tirocinio e il tirocinante non sono null
 										if (tirocinio != null && tirocinante != null) {
 									%>
 									<h2 class="centro">PROGETTO FORMATIVO:</h2>
@@ -62,15 +63,20 @@
 										</button><br>
 										<p id="qui" style="display: none;">
 											<b><%=tirocinio.getStatoTirocinio().toUpperCase()%></b><br>
-											<%if(tirocinio.getStatoTirocinio().equalsIgnoreCase("Accettato e in attesa di firma Ente e Admin") ||
-													tirocinio.getStatoTirocinio().equalsIgnoreCase("Accettato e in attesa di firma Admin") ||
+											<%
+											//controllo lo stato del tirocinio
+											if(tirocinio.getStatoTirocinio().equalsIgnoreCase("Accettato e in attesa di firma della Segreteria, Ente e Admin") ||
+													tirocinio.getStatoTirocinio().equalsIgnoreCase("Accettato e in attesa di firma dell' Ente e Admin") ||
+													tirocinio.getStatoTirocinio().equalsIgnoreCase("Accettato e in attesa di firma dell' Admin") ||
 													tirocinio.getStatoTirocinio().equalsIgnoreCase("Completo") ) {%>
 												<a href="ServletDownloadET" class="aET">
 													<button class="buttonET dow">
 													<p> DOWNLOAD </p>
 												</button>
 												</a>
-											<%}if(tirocinio.getStatoTirocinio().equalsIgnoreCase("Accettato e in attesa di firma")) {%>
+											<%}
+											//se lo stato del tirocinio ï¿½ Accettato e in attesa di firma
+											if(tirocinio.getStatoTirocinio().equalsIgnoreCase("Accettato e in attesa di firma")) {%>
 												<a href="_areaStudent/UploadProgettoFormativoET.jsp" class="aET">
 													<button class="buttonET dow" >
 													 <p> UPLOAD </p>
@@ -81,7 +87,7 @@
 									</div>
 									<br>
 									<%
-										}
+										}//se il tirocinio e il tirocinante ï¿½ null
 											if (tirocinio == null || tirocinante == null) {
 									%>
 									<h2 class="centro">
@@ -114,7 +120,7 @@
 	<script src="<%= request.getContextPath() %>/js/progettoFormativo.js"></script>
 	<script type="text/javascript">
 		var mostrato = false;
-
+		//cambia il nome del bottone in base al click
 		function mostraStato() {
 			if (mostrato == false) {
 				document.getElementById("qui").style.display = "block";

@@ -47,7 +47,9 @@
 										<br> <a href="../ServletStatoTirocinanteET?pagina=StoricoStudenteET" 
 											class="linkET"><button class="buttonET">Richieste effettuate per
 												il Tirocinio Esterno</button></a><br>
-										<%if (request.getSession().getAttribute("Tirocinio")!=null) 
+										<%
+										//se in sessione c'è il tiroinio
+										if (request.getSession().getAttribute("Tirocinio")!=null) 
 										{
 										%>		
 										<br> <a href="../ServletStatoTirocinanteET?pagina=StatoProprioTirocinioET"
@@ -75,33 +77,41 @@
 			if (request.getParameter("cod").equals("1")) {
 		%>
 			<script>
-			showAlert();
-			toastr.success("Richiesta di tirocinio effettuata con successo.");
+				if (!(performance.navigation.type == 1)) {
+					showAlert();
+					toastr.success("Richiesta di tirocinio effettuata con successo.");
+				}
 			</script>
 		<%
 			}
 			else if (request.getParameter("cod").equals("2")) {
 		%>
 			<script>
-			showAlert();
-			toastr.error("Errore durante l'invio della richiesta.");
+			if (!(performance.navigation.type == 1)) {
+				showAlert();
+				toastr.error("Errore durante l'invio della richiesta.");
+			}
 			</script>
 		<%
 			}
 			else if (request.getParameter("cod").equals("3")) {
 		%>
 			<script>
-			showAlert();
-			toastr.success("Richiesta all'Ente effettuata con successo.");
+			if (!(performance.navigation.type == 1)) {
+				showAlert();
+				toastr.success("Richiesta all'Ente effettuata con successo.");
+			}
 			</script>
 		<%
 			}
 			else if (request.getParameter("cod").equals("4")) {
 		%>
 			<script>
-			showAlert();
-			toastr.error("Errore durante l'invio della richiesta all'Ente.");
+			if (!(performance.navigation.type == 1)) {
+				showAlert();
+				toastr.error("Errore durante l'invio della richiesta all'Ente.");
 			</script>
+			}
 		<%
 			}
 		}	

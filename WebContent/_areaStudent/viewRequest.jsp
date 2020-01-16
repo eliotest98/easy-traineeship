@@ -94,6 +94,13 @@
 		</script>
 	<script
 		src="<%= request.getContextPath() %>/js/pages/scripts_viewRequestStudent.js"></script>
+	<script>
+	$(document).ready(function() {
+		if ($("#allegati").text().trim()=="") {
+			$("#allegati").append("<a href='./uploadAttached.jsp'><button type='submit' style='background-color: #FF9900; outline: none; border: 6px solid #FF9900; border-radius: 5px; color: white; margin: 2%;' id='concludi'>Carica Allegati</button></a>");
+		}
+	});
 		
+	</script>
 </body>
 </html>

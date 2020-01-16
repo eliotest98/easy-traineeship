@@ -270,12 +270,14 @@
 									<div>
 									<input type="hidden" class="form-control" id="codice" name="codice" value="<%=tirocinio.getCodTirocinio()%>" required>
 									</div>
+									<%if (!tirocinio.getStatoTirocinio().equals("Completo")){ %>
 									<!-- Tasto Annulla -->
 									<div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
 										<button id="Annulla" type="submit"
 											class="btn btn-primary btn-submit" title="Annulla"
 											data-idrequest="35">Annulla Tirocinio</button>
 									</div>
+									<%} %>
 									<div class="clearfix"></div>
 
 									<%
@@ -307,7 +309,7 @@
 										<div class="modal-content">
 											<span class="close"></span>
 											<p>Sei sicuro di voler annullare il Tirocinio?</p>
-											<table>
+											<center><table>
 												<tr>
 													<td><% request.setAttribute("matricola", matricola);%>
 													<button onclick="return annulla()" id="modalAnnullaButton"
@@ -321,7 +323,7 @@
 															class="btn btn-primary btn-action eliminaEnte refuse"
 															data-type="2" data-idrequest="35" title="Annulla">No</button></td>
 												</tr>
-											</table>
+											</table></center>
 
 										</div>
 									</div>
@@ -401,6 +403,7 @@
 		// When the user clicks on <span> (x), close the modal
 		span.onclick = function() {
 			modalAnnullamento.style.display = "none";
+			showAlert();
 			toastr.error("Operazione non effettuata");
 		}
 
@@ -408,6 +411,7 @@
 		window.onclick = function(event) {
 			if (event.target == modalAnnullamento) {
 				modalAnnullamento.style.display = "none";
+				showAlert();
 				toastr.error("Annullamento non effettuato");
 			}
 		}
@@ -451,6 +455,7 @@
 	<script>
 		function notaccetta() {
 			modalAnnullamento.style.display = "none";
+			showAlert();
 			toastr.error("Annullamento non effettuato");
 		}
 	</script>

@@ -1,14 +1,13 @@
 package test;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals; 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import model.Attached;
-
 import org.junit.jupiter.api.Test;
 
 class AttachedTest {
-  
+
   @Test
   void testAttachedCostructorEmpty() {
     Attached at = new Attached();

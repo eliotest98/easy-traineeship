@@ -19,6 +19,7 @@
 	
 	if(listaRichiesteEnte==null)
 	{
+		//request.setAttribute("flag", "1");
         RequestDispatcher dispatcher = request.getRequestDispatcher("../ServletGestioneRichiesteEnteET?flag=1");
         dispatcher.forward(request, response);
     }
@@ -106,7 +107,51 @@
 	<!--End pagewrapper-->
 
 	<jsp:include page="/partials/includes.jsp" />
-	
+	<%
+		//CODICE PER IL TOASTR DI SUCCESSO
+		if (request.getAttribute("cod")!=null) {
+			if (request.getAttribute("cod").equals("1")) {
+		%>
+			<script>
+			if (!(performance.navigation.type == 1)) {
+				showAlert();
+				toastr.success("Richiesta di tirocinio accettata.");
+			}
+			</script>
+		<%
+			}
+			else if (request.getAttribute("cod").equals("2")) {
+		%>
+			<script>
+			if (!(performance.navigation.type == 1)) {
+				showAlert();
+				toastr.error("Errore durante l'accettazione della richiesta.");
+			}
+			</script>
+		<%
+			}
+			else if (request.getAttribute("cod").equals("3")) {
+		%>
+			<script>
+			if (!(performance.navigation.type == 1)) {
+				showAlert();
+				toastr.success("Richiesta di tirocinio rifiutata.");
+			}
+			</script>
+		<%
+			}
+			else if (request.getAttribute("cod").equals("4")) {
+		%>
+			<script>
+			if (!(performance.navigation.type == 1)) {
+				showAlert();
+				toastr.error("Errore durante il rifiuto della richiesta.");
+			}
+			</script>
+		<%
+			}
+		}	
+	%>
 		<script>
 			//script 'DataTable' di Bootstrap' per la gestione della 'Tabella'
 			jQuery(document).ready(function($){

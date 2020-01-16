@@ -194,13 +194,14 @@
 								  <div class="modal-content">
 								    <span class="close"></span>
 								    <p>Sei sicuro di voler accettare la richiesta di Tirocinio?</p>
-								  		<table>
-								  		<tr><td><form id="modalAccettaForm" action="../ServletGestioneRichiesteEnteET?flag=2" method="post">
+								  		<center><table>
+								  		<tr><td><form id="modalAccettaForm" action="../ServletGestioneRichiesteEnteET" method="post">
 								  		<input type="hidden" name="codice" value="<%=(String)request.getParameter("codice") %>">
+								  		<input type="hidden" name="flag" value="2">
 								  		 <button onclick="accetta()"id="modalAccettaButton" name="accettaRichiesta" value="niente per il momento" type="submit" class="btn btn-primary btn-action eliminaEnte refuse"  data-type="2" data-idrequest="35" title="Accetta Richiesta">Si</button>
 								  		 </form></td>
 										 <td><button onclick="notaccetta()"id="close" name="nonAccetta" class="btn btn-primary btn-action eliminaEnte refuse" data-type="2" data-idrequest="35" title="Annulla">No</button></td></tr>
-										</table>
+										</table></center>
 										
 									</div>
 								</div>
@@ -212,10 +213,11 @@
 								 <div class="modal-content">
 								    <span class="close"></span>
 								    <p>Sei sicuro di voler rifiutare la richiesta di Tirocinio?</p>
-								    <form id="modalRifiutoForm" action="../ServletGestioneRichiesteEnteET?flag=3" method="post">
+								    <form id="modalRifiutoForm" action="../ServletGestioneRichiesteEnteET" method="post">
 											<label for="nome">Inserisci Motivazione</label> 
 											<input type="text" class="form-control" id="motivazione" name="motivazione" placeholder="Motivazione del Rifiuto" minlength="1" maxlength="256" required pattern="[ 0-9a-zA-Z/./,]{1,256}">
-											<input type="hidden" name="codice" value="<%=(String)request.getParameter("codice") %>">	
+											<input type="hidden" name="codice" value="<%=(String)request.getParameter("codice") %>">
+											<input type="hidden" name="flag" value="3">	
 											<button onclick="rifiuta()"id="rifiuta" name="rifiutaRichiesta"  value="niente per il momento" type="submit" style=" width:30px;background-color:#FF9900;outline:none;border:4px solid #FF9900;border-radius:5px; color:white; margin:2%;" data-type="2" data-idrequest="35" title="Rifiuta Richiesta">Si</button>
 											<button onclick="notrifiuta()"id="close" name="nonRifiuta"  type="submit" style=" width:30px;background-color:#FF9900;outline:none;border:4px solid #FF9900;border-radius:5px; color:white; margin:2%;" data-type="2" data-idrequest="35" title="Annulla">No</button>
 									</form>

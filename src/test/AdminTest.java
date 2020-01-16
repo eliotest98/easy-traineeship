@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import model.Admin;
 import model.Student;
-
 import org.junit.jupiter.api.Test;
 
 class AdminTest {
@@ -16,7 +15,7 @@ class AdminTest {
     Admin ad = new Admin();
     assertNotNull(ad);
   }
-  
+
   // INIZIO TEST GET
 
   @Test

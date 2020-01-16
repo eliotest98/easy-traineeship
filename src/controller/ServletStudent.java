@@ -1,26 +1,19 @@
 package controller;
 
 import interfacce.UserInterface;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Request;
 import model.Student;
 import model.SystemAttribute;
-import org.eclipse.jdt.internal.compiler.env.IModule;
 import org.json.simple.JSONObject;
 
 
@@ -347,9 +340,8 @@ public class ServletStudent extends HttpServlet {
                   content += "<tr class='" + classe + "' role='row'>";
                   content += "    <td class='text-center'>" + idRequest + "</td>";
                   content += "    <td class='text-center'>" + r.getString("serial") + "</td>";
-                  content += "    <td class='text-center'>";
-
-
+                  content += "    <td class='text-center' id='allegati'> ";
+   
                   stmtSelectTwo = conn.createStatement();
                   sql = "SELECT a.filename AS filename " + "FROM attached a "
                       + "WHERE a.fk_request = " + idRequest + ";";

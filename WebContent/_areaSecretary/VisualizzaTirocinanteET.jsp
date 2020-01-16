@@ -64,6 +64,9 @@
   padding: 20px;
   border: 1px solid #888;
   width: 25%;
+  align: center;
+  text-align: center;
+  gravity: center;
 }
 
 /* The Close Button */
@@ -196,12 +199,13 @@
 								  <div class="modal-content">
 								    <span class="close"></span>
 								    <p>Sei sicuro di voler accettare la richiesta di Tirocinio?</p>
+								  		<center>
 								  		<table>
 								  		<tr><td>
 								  		  <%request.setAttribute("matricola", matricola);%>
 								  		  <button onclick="return accetta()" id="accetta"  value="<%=matricola %>" class="btn btn-primary btn-action eliminaEnte refuse" data-type="2" data-idrequest="35" title="Accetta Richiesta">Si</button> </td>
 										 <td><button onclick="notaccetta()"id="close" name="nonAccetta" class="btn btn-primary btn-action eliminaEnte refuse" data-type="2" data-idrequest="35" title="Annulla">No</button></td></tr>
-										</table>
+										</table> </center>
 										
 									</div>
 								</div>
@@ -305,6 +309,7 @@
 			// When the user clicks on <span> (x), close the modal
 			span.onclick = function() {
 			  modalAccettazione.style.display = "none";
+			showAlert();
 			  toastr.error("Operazione non effettuata");
 			}
 			
@@ -312,10 +317,12 @@
 			window.onclick = function(event) {
 			  if (event.target == modalAccettazione) {
 			    modalAccettazione.style.display = "none";
+				showAlert();
 			    toastr.error("Accettazione non effettuata");
 			  }
 			  if (event.target == modalRifiuto) {
 			    modalRifiuto.style.display = "none";
+				showAlert();
 			    toastr.error("Rifiuto non effettuato");
 			}
 
@@ -357,6 +364,7 @@
 		function notaccetta()
 		{
 			modalAccettazione.style.display = "none";
+			showAlert();
 			toastr.error("Rifiuto non effettuato");
 			
 		}
@@ -394,6 +402,7 @@
 					  }
 					});
 			} else {
+				showAlert();
 				toastr.error("Inserisci la motivazione del rifiuto");
 			}
 		}		
@@ -402,6 +411,7 @@
 		function notrifiuta()
 		{
 			modalRifiuto.style.display = "none";
+			showAlert();
 			toastr.error("Rifiuto non effettuato");
 			
 		}
