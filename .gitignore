@@ -1,4 +1,3 @@
-src/controller/DbConnection.java
 /target/
 /.classpath
 /*.project
@@ -8,3 +7,4 @@ src/controller/DbConnection.java
 /build/
 /*.checkstyle
 WebContent/WEB-INF/web.xml
+/*.idea
